@@ -8,7 +8,7 @@ emacs.install:
       - emacs
       - enchant
       - hunspell-fr
-      - {{ emacs.hunspell-en }}
+      - {{ emacs.hunspell_en }}
       - aspell-fr
       - aspell-en
       - {{ emacs.mu }}
