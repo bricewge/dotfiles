@@ -7,7 +7,7 @@ home=$HOME
 fileroot=$(pwd)
 decrypted=False
 
-if [ -f $fileroot/ssh/init.sls ] ; then
+if file "$fileroot/ssh/init.sls" | grep -q text$; then
     decrypted=True
 fi
 
