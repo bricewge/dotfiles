@@ -9,10 +9,8 @@ base:
     - termite
     - texlive
     - zsh
-  'dotfiles:user:bricewge':
-    - match: pillar
+  'I@dotfiles:user:bricewge and G@os:Arch':
     - git
     - gpg
-  'dotfiles:decrypted:True':
-    - match: pillar
+  'I@dotfiles:decrypted:True':
     - ssh
