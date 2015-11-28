@@ -7,7 +7,7 @@ Brice Waegeneire's dotfiles for GNU/Linux managed with [[https://saltstack.com/]
 3. =$ cd ./dotfiles && ./init.sh=
 
 If you are me you'll want to decrypt the =ssh= directory before
-running =./init.sh=. To do so install =[[https://www.agwa.name/projects/git-crypt/][git-crypt]]=, run =git-crypt
+running =./init.sh=. To do so install [[https://www.agwa.name/projects/git-crypt/][git-crypt]], run =git-crypt
 unlock= in the repository and then =./init.sh=.
 
 * Integrate it in your salt master
