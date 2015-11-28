@@ -1,10 +1,14 @@
 #+TITLE: dotfiles
 Brice Waegeneire's dotfiles for GNU/Linux managed with [[https://saltstack.com/][SaltStack]].
 
-* Using thoses dotfiles
+* Using this dotfiles
 1. Install =saltstack= from your package manager.
 2. =$ git clone https://github.com/bricewge/dotfiles=
-3. =$ ./init.sh=
+3. =$ cd ./dotfiles && ./init.sh=
+
+If you are me you'll want to decrypt the =ssh= directory before
+running =./init.sh=. To do so install =[[https://www.agwa.name/projects/git-crypt/][git-crypt]]=, run =git-crypt
+unlock= in the repository and then =./init.sh=.
 
 * Integrate it in your salt master
 If you find this dotfiles usefull you can integrate a part or all of
