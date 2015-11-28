@@ -36,3 +36,10 @@ zsh.zshrc:
     - mode: 644
     - require:
       - git: zsh.antigen
+
+# Install trash-cli as rm is inactivated by zshrc
+{% if grains['os'] == 'Debian' %}
+zsh.trash:
+  pkg.installed:
+    - name: trash-cli
+{% endif %}
