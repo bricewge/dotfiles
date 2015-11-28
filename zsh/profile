@@ -1,0 +1,45 @@
+# Executed by all login shells.
+# Put all environement variables in it.
+# * Path
+PATH="$HOME/.local/bin:$HOME/.config/bspwm/panel:$PATH"
+PATH="$(ruby -e 'puts Gem.user_dir')/bin:$PATH"
+export PATH
+
+# * Language
+# Set default language
+LANG=fr_FR.utf8
+LC_CTYPE="fr_FR.UTF-8"
+LC_NUMERIC="fr_FR.UTF-8"
+LC_TIME="fr_FR.UTF-8"
+LC_COLLATE="fr_FR.UTF-8"
+LC_MONETARY="fr_FR.UTF-8"
+LC_MESSAGES="fr_FR.UTF-8"
+LC_PAPER="fr_FR.UTF-8"
+LC_NAME="fr_FR.UTF-8"
+LC_ADDRESS="fr_FR.UTF-8"
+LC_TELEPHONE="fr_FR.UTF-8"
+LC_MEASUREMENT="fr_FR.UTF-8"
+LC_IDENTIFICATION="fr_FR.UTF-8"
+# Set language preferences
+LANGUAGE="fr_FR:en_US:en"
+
+# Export it all!
+export LANG LANGUAGE LC_CTYPE LC_NUMERIC LC_TIME LC_COLLATE LC_MONETARY \
+LC_MESSAGES LC_PAPER LC_NAME LC_ADDRESS LC_TELEPHONE LC_MEASUREMENT \
+LC_IDENTIFICATION
+
+# * Editor
+# Set Emacs as the default editor.
+EDITOR="emacsclient -t"
+VISUAL="emacs -nw"
+export EDITOR VISUAL
+
+# * systemd
+# Needed to run Xorg as a systemd service
+# https://wiki.archlinux.org/index.php/Systemd/User#Xorg_as_a_systemd_user_service
+systemctl --user set-environment XDG_VTNR=1
+
+# # * ssh-agent and gpg-agent
+# # Use the gpg-agent from envoy
+# envoy ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDT5fzsASMTCqeFuB4IcNzillPec7yQa7Kpq8KJiMQvv0xOHV7/Ha1gYHO6mjEFu5iILMnmKepvIP/dasQbZCw0v8LY49XDC+CL9qCCGmfwwXA9FNlu4sYkzXq5l6k8RLisCopbQTCoQxaKd/N5EDGDj6bXHiOYAIjl6HqbCh8+QaHcXwsuHTSb7MezTkkZBAPSj+YJfTQto4Q46aCY5f2grNXq5UCNrJ8nqR260/iDrnqm9uTr6ipllCp+KhZXxSIF9hl8X/J3TkXx73lnx3nPgcMESqkbeKVXF83LNZE5JrdBr1QT1FghDi6GKIFqfk/4x4kOEOvAjcteVfdQ3V1b cardno:000603362679
+# source <(envoy -p)

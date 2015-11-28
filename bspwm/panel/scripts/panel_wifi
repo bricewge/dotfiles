@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# When run unpriviliged, =iwconfig= doesn't return the link quality. So
+# it need to be run as root. The following lines also disable loging for
+# this specific command.
+# #+BEGIN_SRC /etc/sudoers
+# Cmnd_Alias WLP2S0 = /usr/bin/iwconfig wlp2s0
+# %wheel ALL=(ALL) NOPASSWD: WLP2S0
+# Defaults!WLP2S0 !syslog, !pam_session
+# #+END_SRC
+
+# WIFI ICONS
+# 
+
+interface=wlp2s0
+
+name=`iwgetid -r $interface`
+QUAL=`sudo iwconfig $interface | grep 'Link Quality=' | awk '{gsub(/[=/]/," "); print $3}'`
+MAX=`sudo iwconfig $interface | grep 'Link Quality=' | awk '{gsub(/[=/]/," "); print $4}'`
+PERC=`echo $QUAL*100/$MAX | bc`
+
+icon=""
+case $PERC in
+	[0-4])
+		icon=""
+	;;
+	[4-9])
+		icon=""
+	;;
+	[2-3]*)
+		icon=""
+	;;
+	[4-5]*)
+		icon=""
+	;;
+	[6-7]*)
+		icon=""
+	;;
+	*)
+		icon=""
+	;;
+esac
+
+echo "$icon $name"

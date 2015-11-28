@@ -1,0 +1,12 @@
+* TOREADLATER %:author (%:year) %:title
+  :PROPERTIES:
+  :TITLE:     %:title
+  :CUSTOM_ID: %:key
+  :AUTHOR:    %:author
+  :BOOKTITLE: %:booktitle
+  :PAGES:     %:pages
+  :PUBLISHER: %:publisher
+  :YEAR:      %:year
+  :TROLOLOL:  %:trololol
+  :END:
+  

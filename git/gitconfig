@@ -1,0 +1,9 @@
+[user]
+	email = brice.wge@gmail.com
+	name = Brice Waegeneire
+	signingkey = A50C94EA19596020
+[core]
+	editor = emacsclient -t -a ""
+	quotepath = false
+[push]
+	default = simple

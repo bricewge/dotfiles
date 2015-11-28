@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# BATTERY ICONS:
+#      
+
+BAT=`acpi -b | awk '{gsub(/%,/,""); print $4}' | sed 's/%//g'`
+STATUS=`acpi -b | awk '{gsub(/,/,""); print $3}'`
+
+# Set Icon
+icon=""
+if [[ $STATUS != "Discharging" ]]; then
+	icon=""
+elif [[ $BAT -lt 10 ]]; then
+	icon=""
+elif [[ $BAT -lt 40 ]]; then
+	icon=""
+elif [[ $BAT -lt 70 ]]; then
+	icon=""
+else
+	icon=""
+fi
+
+percent=`acpi -b | egrep -o "[0-9]+%"`
+
+echo "\f9$icon $percent\f7"

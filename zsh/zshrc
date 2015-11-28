@@ -1,0 +1,168 @@
+# -*- mode: sh -*-
+# Loaded by every zsh shell
+# Do not put environement varialbes in it, use
+# .profile for it.
+#if [ "$TMUX" = "" ]; then tmux; fi
+# * Antigen -- plugin manager
+source ~/.antigen/antigen.zsh
+
+# ** oh-my-zsh features
+# Load the oh-my-zsh's library.
+antigen use oh-my-zsh
+
+# Plungin for oh-my-zsh
+# https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins
+antigen bundles <<EOBUNDLES
+  # Git and github autocompletions and aliases
+  git
+  git-extras
+
+  # Other
+  command-not-found
+  archlinux
+EOBUNDLES
+
+# ** Completions
+# Additional completion definitions for Zsh. 
+antigen bundle zsh-users/zsh-completions src
+# Enable completion for new installed command within the session by
+# not trust the zsh's cache of executable command, and forced it be
+# updated
+zstyle ":completion:*:commands" rehash 1
+
+# ** Fish like features
+antigen bundle zsh-users/zsh-syntax-highlighting
+
+# *** Autosuggestion
+# Didn't work for the moment, have to keep on eye on it
+# https://github.com/tarruda/zsh-autosuggestions/issues/29
+# antigen bundle tarruda/zsh-autosuggestions 
+
+# # Stuff added by zsh-autosuggestions itself
+# # Setup zsh-autosuggestions
+# source /home/bricewge/.antigen/repos/https-COLON--SLASH--SLASH-github.com-SLASH-tarruda-SLASH-zsh-autosuggestions.git/autosuggestions.zsh
+# # Enable autosuggestions automatically
+# zle-line-init() {
+#     zle autosuggest-start
+# }
+# zle -N zle-line-init
+# # use ctrl+t to toggle autosuggestions(hopefully this wont be needed as
+# # zsh-autosuggestions is designed to be unobtrusive)
+# bindkey '^T' autosuggest-toggle
+
+# Settings for Autosuggestion
+export AUTOSUGGESTION_HIGHLIGHT_COLOR='fg=10'
+export AUTOSUGGESTION_ACCEPT_RIGHT_ARROW=1
+
+# *** History substring search
+antigen bundle zsh-users/zsh-history-substring-search
+# bindkey '^[[A' history-substring-search-up # Set for key up
+# bindkey '^[[B' history-substring-search-down # Set for key down
+
+# Keybindings
+zmodload zsh/terminfo
+bindkey "$terminfo[kcuu1]" history-substring-search-up # Setup up key
+bindkey "$terminfo[kcud1]" history-substring-search-down # Setup down key 
+bindkey -M emacs '^P' history-substring-search-up
+bindkey -M emacs '^N' history-substring-search-down
+
+# Ignore a result if it has already been displayed during the current search
+setopt HIST_IGNORE_ALL_DUPS
+# Use colors from solarized theme
+export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=5,fg=8,bold'
+export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='bg=1,fg=8,bold'
+
+# ** Theme
+# Always use a theme except when TRAMP (Emacs) is used.
+if [[ $TERM == "dumb" ]]; then
+    PS1='$ '
+else
+    antigen theme https://gist.github.com/agnoster/3712874.git agnoster
+fi
+
+# Remove the prefix prompt when logged as bricewge
+DEFAULT_USER="bricewge"
+export DEFAULT_USER
+
+# ** Packages
+# Packages installed via antigen when there is no other correct way to
+# do it.
+
+# *** git-subrepo
+# Install git-subrepo. I don't use the package manager for this as the
+# "make install" install method doesn't have command completion
+# working; as stated in the README.
+antigen bundle ingydotnet/git-subrepo
+source ~/.antigen/repos/https-COLON--SLASH--SLASH-github.com-SLASH-ingydotnet-SLASH-git-subrepo.git/init
+
+# ** Apply Antigen
+# Tell antigen that you're done.
+antigen apply
+# End of Antigen -- plugin manager
+
+
+# * Use Emacs key bindings
+bindkey -e
+
+# * Alias -- shortcuts
+
+# ** sudo
+# Passing alias to sudo
+alias sudo='sudo '
+
+# ** Emacs
+# Shortcut for emacs editor
+alias ec='emacsclient -t -a ""'
+alias ecg='emacsclient -nc -a ""'
+
+# ** rm
+# Force the use of trash instead of rm
+alias rm='echo -e "You are looking for *th*, not rm.
+If you want to delete a file FOREVER use \\\rm."; false'
+alias th='trash'
+
+# ** ssh
+# Stop multiplexing of an host gracefully
+alias sshs="ssh -O stop"
+# Immediatlly terminate multiplexing of an host
+alias sshx="ssh -O exit"
+
+# ** ip
+# Colorize the output of iproute2
+alias ip='ip -c'
+# Display only IPv4 or IPv6
+alias ip4="ip -4"
+alias ip6="ip -6"
+
+# ** systemd
+# Code from oh-my-zsh plugin with scu addition
+
+user_commands=(
+  list-units is-active status show help list-unit-files
+  is-enabled list-jobs show-environment cat)
+
+sudo_commands=(
+  start stop reload restart try-restart isolate kill
+  reset-failed enable disable reenable preset mask unmask
+  link load cancel set-environment unset-environment
+  edit)
+
+for c in $user_commands; do; alias sc-$c="systemctl $c"; done
+for c in $sudo_commands; do; alias sc-$c="sudo systemctl $c"; done
+for c in $sudo_commands $user_commands ; do; alias scu-$c="systemctl $c"; done
+
+alias sc-enable-now="sc-enable --now"
+alias sc-disable-now="sc-disable --now"
+alias sc-mask-now="sc-mask --now"
+
+alias scu-enable-now="scu-enable --now"
+alias scu-disable-now="scu-disable --now"
+alias scu-mask-now="scu-mask --now"
+
+# *** journald
+alias jc="sudo journalctl --system"
+alias jcu="journalctl --user"
+
+
+# ** misc
+alias smartcard-fix="sc-stop pcscd ; sc-stop envoy@gpg-agent ; sleep 5 ; sc-start pcscd ; sc-start envoy@gpg-agent ; envoy -l"

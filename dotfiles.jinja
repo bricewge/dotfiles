@@ -1,0 +1,5 @@
+{# Shortcut {{ salt['pillar.get']('dotfiles:foo') }} to {{ dotfiles.foo }} #}
+
+{% set user = salt['pillar.get']('dotfiles:user') %}
+{% set home = salt['pillar.get']('dotfiles:home') %}
+{% set fileroot = salt['pillar.get']('dotfiles:fileroot') %}

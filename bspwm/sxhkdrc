@@ -1,0 +1,137 @@
+# -*- mode: sh -*-
+# Hotkeys for bspwm
+# * bspwm hotkeys
+# ** Not orded, yet
+# Quit bspwm and kill the panel
+super + alt + Escape
+        pkill conky; pkill panel; bspc quit
+
+super + w
+	bspc window -c
+
+super + n
+	bspc desktop -l next
+
+super + b
+	bspc desktop -B
+
+super + {s,f}
+	bspc window -t {floating,fullscreen}
+
+super + {grave,Tab}
+	bspc {window,desktop} -f last
+
+# #Now used to switch desktop
+# super + apostrophe
+#	bspc window -s last
+
+super + {o,i}
+	bspc control --record-history off; \
+	bspc window {older,newer} -f; \
+	bspc control --record-history on
+
+super + y
+	bspc window -w last.manual
+
+super + m
+	bspc window -s biggest
+
+# Select windows and move them 
+super + {_,shift + }{h,j,k,l}
+	bspc window -{f,s} {left,down,up,right}
+
+super + {_,shift + }c
+	bspc window -f {next,prev}
+
+super + {comma,period}
+	bspc desktop -C {backward,forward}
+
+super + ctrl + {h,j,k,l}
+	bspc window -p {left,down,up,right}
+
+super + ctrl + {_,shift + }space
+	bspc {window -p cancel,desktop -c}
+
+# Increase the size of the focused window
+super + alt + {h,j,k,l}
+	bspc window -e {left -10,down +10,up -10,right +10}
+# Reduce the size of the focused windows
+super + alt + shift + {h,j,k,l}
+	bspc window -e {right -10,up +10,down -10,left +10}
+
+## Other way to resize windows but negleted the other one
+# super + alt + {h,j,k,l}
+#	bspc window -e {left,down,up,right} push
+# super + alt + shift + {h,j,k,l}
+#	bspc window -e {right,up,down,left} pull
+
+# super + ctrl + {1-9}
+# 	bspc window -r 0.{1-9}
+
+# ** Move between desktops
+# Switch to desktop 1-6 with recpectivly &, é, ", ', (, §
+super + {ampersand,eacute,quotedbl,apostrophe,parenleft,section}
+	bspc desktop -f ^{1-6}
+
+# Send the selected window to the desktop 1-6 and follow it, if no
+# window is selected go to the desktop 1-6 anyway.
+super + {1-6}
+	nth={1-6} ; \
+	bspc window -d ^$nth ; \
+	bspc desktop -f ^$nth
+
+# Go to the next or previous desktop
+super + {Left,Right}
+	bspc desktop -f {prev,next}
+
+# Move the selected window to the next or previous desktop
+super + shift + {Left,Right}
+	{(bspc window -d prev && bspc desktop -f prev),(bspc window -d next && bspc desktop -f next)}
+
+# ** Mouse actions
+~button1
+	bspc pointer -g focus
+
+# Drag around windows with 3 digits on the clickpad
+button2
+	bspc pointer -g focus ; \
+	bspc pointer -g move
+# Nedded for the previous hotkey
+!button2
+	bspc pointer -t %i %i
+@button2
+	bspc pointer -u
+
+super + button{1-3}
+	bspc pointer -g {move,resize_side,resize_corner}
+
+super + !button{1-3}
+	bspc pointer -t %i %i
+
+super + @button{1-3}
+	bspc pointer -u
+
+# * Launcher hotkeys
+super + t
+	termite
+
+super + e
+        emacsclient -nc -a "" -e "(switch-to-buffer \"*Bookmark List*\")"
+
+# super + shift + f 
+# 	nautilus
+
+super + shift + f
+	conkeror
+
+super + space
+        dmenu_run -l 20 -w 200 -y 19 -fn -lucy-tewi-medium-r-normal--11-90-75-75-p-58-iso10646-1 -nb '#232c31' -nf '#6c7a80' -sf '#ac4142' -sb '#232c31'
+
+# * Media keys
+# * Specials hotkeys
+# Reload sxhkb configuration
+super + Escape
+	pkill -USR1 -x sxhkd
+
+~Escape
+	~/.config/bspwm/panel/scripts/toggle_conky *

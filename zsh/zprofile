@@ -1,0 +1,10 @@
+# -*- mode: sh -*-
+# Loaded by a login zsh shell.
+# ie: only when a logging occur and with zsh as the default shell.
+# Only put environement variables specific to ZSH.
+
+# * ~/.profile
+# Load .profile in compatibility mode.
+# By default it's not loaded by zsh due to 
+# incompatibilites with standart shells.
+[[ -e ~/.profile ]] && emulate sh -c 'source ~/.profile'
