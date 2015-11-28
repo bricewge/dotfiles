@@ -1,7 +1,7 @@
 {% import 'dotfiles.jinja' as dotfiles with context %}
 
 # Don't apply this state otherwise it will modify your system
-# rather than  your user configuration!
+# rather than your user configuration!
 
 # ** envoy
 envoy.install:
@@ -20,14 +20,14 @@ envoy.login:
     - require:
       - pkg: envoy.install
 
-envoy.gdm:
+envoy.gdmauto:
   file.append:
     - name: /etc/pam.d/gdm-autologin
     - text: "session    optional     pam_envoy.so          gpg-agent"
     - require:
       - pkg: envoy.install
 
-envoy.gdmauto:
+envoy.gdmpsswd:
   file.append:
     - name: /etc/pam.d/gdm-password
     - text: "session    optional     pam_envoy.so          gpg-agent"
@@ -35,7 +35,7 @@ envoy.gdmauto:
       - pkg: envoy.install
 
 # ** pcscd
-smartcard:
+envoy.smartcard:
   pkg.installed:
     - pkgs:
       - ccid
@@ -45,4 +45,4 @@ smartcard:
     - name: pcscd.socket
     - enable: True
     - require:
-      - pkg: smartcard
+      - pkg: envoy.smartcard
