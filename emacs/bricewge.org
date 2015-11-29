@@ -1003,9 +1003,16 @@ Drag-and-drop images for org-mode.
 Acces distant files as local ones with TRAMP (Transparent Remote
 Access, Multiple Protocols).
 
+I had stumbled upon [[http://git.savannah.gnu.org/cgit/tramp.git/commit/?id=69929c2728460fd8e2d965ad61b76cddc48ff1c5][a]] [[http://git.savannah.gnu.org/cgit/tramp.git/commit/?id=73aa25684228120df164687a68c1d55dc53be89c][couple]] of bugs in TRAMP 2.2.11 – the built-in
+version in Emacs 24.5.1 – which are now fixed in the master branch.
+And as TRAMP isn't available in MELPA and co. I need to compile it from
+the source.
 #+BEGIN_SRC emacs-lisp
   (use-package tramp
-    :ensure t)
+    :quelpa ((tramp :fetcher git
+                    :url "git://git.savannah.gnu.org/tramp.git"
+                    :files ("lisp/*.el"))
+             :upgrade t))
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
@@ -1142,70 +1149,6 @@ Same thing but for autosaved commits.
                :ensure t)
 #+END_SRC
 
-*** VCSH acces via TRAMP
-Hack, to access VCSH repo through TRAMP. Example, open the file
-=/vcsh:zsh:.= and then do =M-x= =magit-status=.
-#+BEGIN_SRC emacs-lisp
-  (add-to-list 'tramp-methods '("vcsh"
-                                (tramp-login-program "vcsh")
-                                (tramp-login-args
-                                 (("enter")
-                                  ("%h")))
-                                (tramp-remote-shell "/bin/sh")
-                                (tramp-remote-shell-args
-                                 ("-c"))))
-#+END_SRC
-*** Test for working with vcsh
-#+BEGIN_SRC emacs-lisp
-(defun yingyang-link (gitdir worktree)
-  (interactive (list (read-directory-name "Gitdir: ")
-                     (read-directory-name "Worktree: ")))
-  (with-temp-file (expand-file-name ".git" worktree)
-    (insert "gitdir: " (file-relative-name gitdir worktree) "\n"))
-  (magit-call-git "config" "-f" (expand-file-name "config" gitdir)
-                  "core.worktree" (file-relative-name worktree gitdir)))
-
-(defun yingyang-unlink (gitdir worktree)
-  (interactive (list (read-directory-name "Gitdir: ")
-                     (read-directory-name "Worktree: ")))
-  ;; This does `git config --unset core.worktree'.  We don't actually
-  ;; have to do this and not doing it would have some advantages, but
-  ;; might be confusing.
-  (magit-set nil "core.worktree")
-  ;; This causes an error if this actually is a directory, which is
-  ;; a good thing, it saves us from having to do this explicitly :-)
-  (delete-file (expand-file-name ".git" worktree)))
-
-(defvar vcsh-repo-d
-;; Wasn't been "VCSH_REPO_D"
-  (or (getenv "VCSH_HOOK_D")
-      (substitute-in-file-name "$HOME/.config/vcsh/repo.d")))
-;;      (substitute-in-file-name "$XDG_CONFIG_HOME/.config/vcsh/repo.d")))
-
-(defvar vcsh-base
-  (or (getenv "VCSH_HOME") (getenv "HOME")))
-;;  (or (getenv "VCSH_HOME") (getenv "HOME")))
-(defun vcsh-link (repo)
-  (interactive
-   (list (completing-read "Vcsh repository: "
-;;                          (directory-files "$VCSH_REPO_D/" nil "^[^.]")
-                          (directory-files "~/.config/vcsh/repo.d/" nil "^[^.]")
-                          nil t)))
-  (setq repo (expand-file-name repo vcsh-repo-d))
-  ;; "Fix" repositories that were created with --bare.
-  (let ((default-directory (file-name-as-directory repo)))
-    (magit-set "false" "core.bare"))
-  ;; Regular link.
-  (yingyang-link repo vcsh-base))
-
-(defun vcsh-unlink ()
-  (interactive)
-  (yingyang-unlink (with-temp-buffer
-                     (insert-file-contents (expand-file-name vcsh-base ".git"))
-                     (re-search-forward "gitdir: \\(.+\\)")
-                     (file-name-absolute-p (match-string 1)))
-                   vcsh-base))
-#+END_SRC
 ** Dired
 #+BEGIN_SRC emacs-lisp
   ;; Hide metadata of the files by default, need to be before dired-x.
