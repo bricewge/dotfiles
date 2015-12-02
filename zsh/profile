@@ -1,3 +1,4 @@
+# -*- mode: sh -*-
 # Executed by all login shells.
 # Put all environement variables in it.
 # * Path
@@ -33,6 +34,10 @@ LC_IDENTIFICATION
 EDITOR="emacsclient -t"
 VISUAL="emacs -nw"
 export EDITOR VISUAL
+
+# * Browser
+BROWSER="firefox"
+export BROWSER
 
 # * systemd
 # Needed to run Xorg as a systemd service
