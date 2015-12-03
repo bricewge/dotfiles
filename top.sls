@@ -11,6 +11,6 @@ base:
     - zsh
   'I@dotfiles:user:bricewge and G@os:Arch':
     - git
-    - gpg
+#    - gpg
   'I@dotfiles:decrypted:True':
     - ssh
