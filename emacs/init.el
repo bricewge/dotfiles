@@ -12,10 +12,10 @@
 (require 'package)
 ;; List of elpa repository
 (setq package-archives '(("ELPA" . "http://tromey.com/elpa/")
-                         ("gnu" . "http://elpa.gnu.org/packages/")
-                         ("marmalade" . "http://marmalade-repo.org/packages/")
-                         ("melpa" . "http://melpa.org/packages/")
-                         ("melpa-stable" . "http://stable.melpa.org/packages/")
+                         ("gnu" . "https://elpa.gnu.org/packages/")
+                         ("marmalade" . "https://marmalade-repo.org/packages/")
+                         ("melpa" . "https://melpa.org/packages/")
+                         ("melpa-stable" . "https://stable.melpa.org/packages/")
                          ("org" . "http://orgmode.org/elpa/")))
 (package-initialize)
 (setq package-enable-at-startup nil)
@@ -28,21 +28,20 @@
   (require 'use-package))
 (require 'diminish)
 (require 'bind-key)
-;; Packaged called with use-package are installed automaticaly
-(setq use-package-always-ensure t)
 
 ;;;; Quelpa
 ; [[https://github.com/quelpa/quelpa][Quelpa]] is usefull when a
 ; package is not yet in MELPA or need a patch. It can be build from source and installed with =package.el= seamlessly.
 (use-package quelpa
-  :ensure t)
+  :ensure t
+  :init
+  (setq quelpa-update-melpa-p nil))
 
 ; Enable the use of Quelpa with use-package.
 (use-package quelpa-use-package
   :ensure t
   :config
   (quelpa-use-package-activate-advice))
-
 
 ;;; org-mode
 (use-package org
