@@ -1,0 +1,16 @@
+#!/bin/sh
+
+set -e
+
+MINPARAMS=1
+
+if [ "${1}" == dark ] ; then
+    ln -sf /home/bricewge/.config/termite/dark /home/bricewge/.config/termite/config
+elif [ "${1}" == light ] ; then
+    ln -sf /home/bricewge/.config/termite/light /home/bricewge/.config/termite/config
+else
+    echo "You only have the choice between 'dark' or 'light'!"
+    exit 1
+fi
+
+killall -s USR1 termite
