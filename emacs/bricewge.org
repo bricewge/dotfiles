@@ -277,37 +277,6 @@ Used by yaourt when diff configuration files.
     (ediff file1 file2)))
 (add-to-list 'command-switch-alist '("diff" . command-line-diff))
 #+END_SRC
-
-** auto-minor-mode-alist
-Enable minor-mode based on filname patterns.
-
-#+BEGIN_SRC emacs-lisp
-(defvar auto-minor-mode-alist ()
-  "Alist of filename patterns vs correpsonding minor mode functions,
- see `auto-mode-alist'.
-All elements of this alist are checked, 
-meaning you can enable multiple minor modes for the same regexp.")
-
-(defun enable-minor-mode-based-on-extension ()
-  "check file name against auto-minor-mode-alist to enable minor
-modes the checking happens for all pairs in auto-minor-mode-alist"
-  (when buffer-file-name
-    (let ((name buffer-file-name)
-          (remote-id (file-remote-p buffer-file-name))
-          (alist auto-minor-mode-alist))
-      ;; Remove backup-suffixes from file name.
-      (setq name (file-name-sans-versions name))
-      ;; Remove remote file name identification.
-      (when (and (stringp remote-id)
-                 (string-match-p (regexp-quote remote-id) name))
-        (setq name (substring name (match-end 0))))
-      (while (and alist (caar alist) (cdar alist))
-        (if (string-match (caar alist) name)
-            (funcall (cdar alist) 1))
-        (setq alist (cdr alist))))))
-
-(add-hook 'find-file-hook 'enable-minor-mode-based-on-extension)
-#+END_SRC
 * Org-Mode
 *** General
 Org-Mode is installed and loaded in =init.el=.
@@ -1720,39 +1689,7 @@ following list.
   (require 'epa-file)
   (setq epa-armor t)
 #+END_SRC
-*** sensitive-mode
-#+BEGIN_SRC emacs-lisp
-  (define-minor-mode sensitive-mode
-    "For sensitive files like password lists.
-  It disables backup creation and auto saving.
 
-  With no argument, this command toggles the mode.
-  Non-null prefix argument turns on the mode.
-  Null prefix argument turns off the mode."
-    ;; The initial value.
-    nil
-    ;; The indicator for the mode line.
-    " Sensitive"
-    ;; The minor mode bindings.
-    nil
-    (if (symbol-value sensitive-mode)
-        (progn
-          ;; disable backups
-          (set (make-local-variable 'backup-inhibited) t) 
-          ;; disable auto-save
-          (if auto-save-default
-              (auto-save-mode -1)))
-      ;resort to default value of backup-inhibited
-      (kill-local-variable 'backup-inhibited)
-      ;resort to default auto save setting
-      (if auto-save-default
-          (auto-save-mode 1))))
-
-  ;; Disable auto-save-mode and backups for sensitive files like *.gpg
-  (setq auto-minor-mode-alist
-        (append '(("\\.gpg$" . sensitive-mode))
-                auto-minor-mode-alist))
-#+END_SRC
 ** wcheck-mode
 #+BEGIN_SRC emacs-lisp
   (use-package wcheck-mode
