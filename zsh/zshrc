@@ -31,6 +31,7 @@ antigen bundle zsh-users/zsh-completions src
 zstyle ":completion:*:commands" rehash 1
 
 # ** Fish like features
+if [[ $TERM != "dumb" ]]; then
 antigen bundle zsh-users/zsh-syntax-highlighting
 
 # *** Autosuggestion
@@ -71,6 +72,7 @@ setopt HIST_IGNORE_ALL_DUPS
 # Use colors from solarized theme
 export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=5,fg=8,bold'
 export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='bg=1,fg=8,bold'
+fi
 
 # ** Theme
 # Always use a theme except when TRAMP (Emacs) is used.
