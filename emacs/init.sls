@@ -19,7 +19,7 @@ emacs.install:
 {% if grains['os'] == 'Arch' %}
       - languagetool
 {% elif grains['os'] == 'Debian' %}
-     - ledger
+      - ledger
 {% endif %}
 
 # * Configuration
