@@ -1973,6 +1973,36 @@ Speed-up insertion of LaTeX environments and math templates. Need
            ("C-h v" . counsel-describe-variable)))
 #+END_SRC
 
+** beacon
+[[https://github.com/Malabarba/beacon][beacon]] helps me to find the cursor when it change positions, by
+highligthing where it moved.
+#+BEGIN_SRC emacs-lisp
+  (use-package beacon
+    :ensure t
+    :if (not (daemonp))
+    :diminish beacon-mode
+    :config
+    (beacon-mode 1)
+    (setq beacon-blink-when-point-moves-vertically 20)
+    (setq beacon-blink-when-focused t)
+    (add-to-list 'beacon-dont-blink-major-modes 'undo-tree-visualizer-mode t))
+#+END_SRC
+
+** transmission
+{% endraw %}
+Give you acces to your transmission daemon in Emacs!
+#+BEGIN_SRC emacs-lisp
+  (use-package transmission
+    :ensure t
+    :config
+    (setq transmission-host "{{ salt['pillar.get']('dotfiles:emacs:transmission:host') }}")
+    (setq transmission-rpc-auth
+          '(:username "{{ salt['pillar.get']('dotfiles:emacs:transmission:username') }}"
+            :password "{{ salt['pillar.get']('dotfiles:emacs:transmission:password') }}"))
+    (setq transmission-timer-p t)
+    (setq transmission-time-format "%F %R"))
+#+END_SRC
+*** TODO Make an hydra for transmission.el
 
 * End
 *Dirty* workaround for [[https://github.com/bbatsov/solarized-emacs/issues/18][incorrect colours in terminal]]. Need to be at the end of
