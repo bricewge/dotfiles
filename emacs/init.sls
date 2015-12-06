@@ -18,19 +18,11 @@ emacs.install:
       - wmctrl
 {% if grains['os'] == 'Arch' %}
       - languagetool
+{% elif grains['os'] == 'Debian' %}
+     - ledger
 {% endif %}
 
 # * Configuration
-emacs.init:
-  file.managed:
-    - name: {{ dotfiles.home }}/.emacs.d/init.el
-    - source: salt://emacs/init.el
-    - user: {{ dotfiles.user }}
-    - group: {{ dotfiles.user }}
-    - mode: 644
-    - dir_mode: 755
-    - makedirs: True
-
 emacs.bricewge:
   file.managed:
     - name: {{ dotfiles.home }}/.emacs.d/bricewge.org
@@ -38,8 +30,23 @@ emacs.bricewge:
     - user: {{ dotfiles.user }}
     - group: {{ dotfiles.user }}
     - mode: 644
-    - require:
-      - file: emacs.init
+    - dir_mode: 755
+    - makedirs: True
+    - template: jinja
+
+emacs.init:
+  cmd.run:
+    - name: |
+        emacs -Q --batch --eval \
+        "(progn
+        (require 'ob-tangle)
+        (org-babel-tangle-file \"~/.emacs.d/bricewge.org\" \"~/.emacs.d/bricewge.el\")
+        )"
+    - user: {{ dotfiles.user }}
+    - group: {{ dotfiles.user }}
+    - cwd: {{ dotfiles.home }}
+    - onchanges:
+      - file: emacs.bricewge
 
 # * Service
 emacs.service:
@@ -77,20 +84,12 @@ emacs.orgdir:
     - dir_mode: 755
     - include_empty: True
     - require:
-      - file: emacs.init
-
-emacs.erc:
-  file.directory:
-    - name: {{ dotfiles.home }}/.emacs.d/erc/log
-    - user: {{ dotfiles.user }}
-    - group: {{ dotfiles.user }}
-    - file_mode: 644
-    - dir_mode: 755
-    - makedirs: True
+      - file: emacs.bricewge
 
 # * TODO Customization
 # Add ~/.emacs.d/custom.el and ~/.emacs.d/bookmarks but
-# obfuscate them git-crypt.
+# obfuscate them with git-crypt.
+
 # * Emacs client
 emacsclient.desktop:
   file.managed:
