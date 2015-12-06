@@ -111,9 +111,17 @@ bindkey -e
 alias sudo='sudo '
 
 # ** Emacs
+emacs-diff() {
+    emacsclient -nc -a "" --eval "                                 \
+        (progn                                                     \
+            (diff \"$1\" \"$2\")                                   \
+            (delete-other-windows (get-buffer-window \"*Diff*\"))) "
+}
+
 # Shortcut for emacs editor
 alias ec='emacsclient -t -a ""'
 alias ecg='emacsclient -nc -a ""'
+alias ediff=emacs-diff
 
 # ** rm
 # Force the use of trash instead of rm
@@ -165,4 +173,5 @@ alias jcu="journalctl --user"
 
 
 # ** misc
-alias smartcard-fix="sc-stop pcscd ; sc-stop envoy@gpg-agent ; sleep 5 ; sc-start pcscd ; sc-start envoy@gpg-agent ; envoy -l"
+alias dotfiles="cd ~/dotfiles && ./init.sh && cd - > /dev/null"
+alias smartcard-fix="sc-stop system-envoy.slice ; killall gpg-agent"
