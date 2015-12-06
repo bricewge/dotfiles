@@ -1,7 +1,6 @@
 [Unit]
 Description=Emacs server daemon
 Documentation=man:emacs(1) info:Emacs
-After=display-manager.service
 
 [Service]
 Type=forking
