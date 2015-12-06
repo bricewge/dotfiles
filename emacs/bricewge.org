@@ -5,9 +5,10 @@
 * About this file
 Inspired by [[http://pages.sachachua.com/.emacs.d/Sacha.html][Sacha's configuration]] organisation.
 ** init.el
+{% raw %}
 The =init.el= file is needed to bootstrap my actual configuration of
 Emacs (ie: =bricewge.org=).
-#+BEGIN_SRC emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp :tangle init.el
   ;;  This file is needed to bootstrap the Emacs' configuration.
 
   ;;; Interface
@@ -69,7 +70,8 @@ Dependencies needed :
 - python¿2?-virtualenv, for jedi
 - Meslo LG S, font
 - git, for quelpa recepies
-- langtool, for langtool
+- languagetool, for langtool
+- ledger, for ledger
 - enchant, for wcheck-mode
 - hunspell-fr et hunspell-en, dictionnaries for wcheck-mode
 - aspell-fr et aspell-en, dictionnaries for wcheck-mode
@@ -87,33 +89,35 @@ Dependencies needed :
 ** Startup
 Use the bookmark buffer as my startup buffer.
 #+BEGIN_SRC emacs-lisp
-  (setq initial-buffer-choice '(lambda ()
-                                 (bookmark-bmenu-list)
-                                 (switch-to-buffer "*Bookmark List*"))
-        inhibit-startup-message t)
+  (add-hook 'after-init-hook 'bookmark-bmenu-list)
+  (setq initial-buffer-choice (lambda () (get-buffer "*Bookmark List*")))
+  (setq inhibit-startup-message t)
 #+END_SRC
 
 Hide the GNU advertisment in the modline and the hints header of scratch buffer .
 #+BEGIN_SRC emacs-lisp
-  (defun display-startup-echo-area-message ()
-    (message ""))
+  (setq inhibit-startup-echo-area-message "bricewge")
   (setq initial-scratch-message nil)
 #+END_SRC
+
 ** Themes
 *** Solarized
+Use a decent theme.
+
+I only want to use fixed fonts no matter what. Without it collum
+allignement is not working anymore because all the characters doesn't
+have the same width. Fix the underline position of Meslo for
+solarized-theme
 #+BEGIN_SRC emacs-lisp
   (use-package solarized-theme
-               :ensure t)
-  ;; Use fixed fonts no matter what
-  ;; Without it collum allignement is not working anymore because all
-  ;; the characters doesn't have the same width.
-  (setq solarized-use-variable-pitch nil) ;; Need to be before load-theme
+    :ensure t
+    :config
+    (setq solarized-use-variable-pitch nil)
+    (setq x-underline-at-descent-line t))
 
-  ;; Use a decent theme
   (load-theme 'solarized-dark t)
-  ;; Fix the underline position of Meslo for solarized-theme
-  (setq x-underline-at-descent-line t)
 #+END_SRC
+
 ** Fonts
 Use ~Meslo~ font as standalone and client.
 
@@ -168,9 +172,10 @@ PowerlineSymbols by hand "Private Use Area" U+E000 - U+F8FF
 #+BEGIN_SRC emacs-lisp
   (use-package smart-mode-line
     :ensure t
-    :config (progn
-              (sml/setup)))
+    :config
+    (sml/setup))
 #+END_SRC
+
 *** battery
 Show the battery in the modline
 #+BEGIN_SRC emacs-lisp
@@ -215,7 +220,8 @@ Disabel the annoying beep sound and the visual-bell once and for all.
 Set up a directory for putting all the files which save some kind of
 history of the actions done in Emacs.
 #+BEGIN_SRC emacs-lisp
-  (setq bricewge/emacs-history-directory (expand-file-name "history/" user-emacs-directory))
+  (setq bricewge/emacs-history-directory
+        (expand-file-name "history/" user-emacs-directory))
   (unless (file-exists-p bricewge/emacs-history-directory)
     (make-directory bricewge/emacs-history-directory t))
 #+END_SRC
@@ -226,12 +232,17 @@ Save the history of the minibuffer.
   (savehist-mode 1)
 #+END_SRC
 ** Backups
+Create a directory to put saves of files edited with Emacs.
 #+BEGIN_SRC emacs-lisp
-  ;; Don't put backups all over the filesystem but within ~/.emacs.d
-  (setq backup-directory-alist
-        `((".*" . ,(expand-file-name "backup/" user-emacs-directory))))
+(unless (file-exists-p (expand-file-name "save/" user-emacs-directory))
+  (make-directory (expand-file-name "save/" user-emacs-directory)))
+#+END_SRC
 
-  ;; Use sane options for backup
+Don't put backups all over the filesystem but within =~/.emacs.d=. Use sane options for backup
+#+BEGIN_SRC emacs-lisp
+  (setq backup-directory-alist
+        `((".*" . ,(expand-file-name "save/" user-emacs-directory))))
+
   (setq make-backup-files t               ; backup of a file the first time it is saved.
         backup-by-copying t               ; don't clobber symlinks
         version-control t                 ; version numbers for backup files
@@ -240,13 +251,17 @@ Save the history of the minibuffer.
         kept-old-versions 6               ; oldest versions to keep when a new numbered backup is made (default: 2)
         kept-new-versions 9)              ; newest versions to keep when a new numbered backup is made (default: 2))
 #+END_SRC
+
 ** Auto-save
+Don't litter the filesystem with =#foo.bar#= files everywhere, put
+them in the saved files directory.
 #+BEGIN_SRC emacs-lisp
-  ;; Settings for the #filename# files
+  (setq backup-directory-alist
+        `((".*" . ,(expand-file-name "save/" user-emacs-directory))))
+
   (setq auto-save-default t               ; auto-save every buffer that visits a file
         auto-save-timeout 20              ; number of seconds idle time before auto-save (default: 30)
         auto-save-interval 200)           ; number of keystrokes between auto-saves (default: 300)
-
 #+END_SRC
 
 ** Custom-file
@@ -312,6 +327,9 @@ org-module instead.
   ; Set tags not to far from the headline because the font size reduce the space
   ; availaible
   (setq org-tags-column -67)
+
+  ; Replace the "..." of folded headings by something more fancy
+  (setq org-ellipsis "⤵")
 #+END_SRC
 **** Misc
 #+BEGIN_SRC emacs-lisp
@@ -529,9 +547,10 @@ Create some [[https://coldnew.github.io/slides/org-ioslide/#1][nice presentation
 #+END_SRC
 **** ox-twbs
 #+BEGIN_SRC emacs-lisp
-    (use-package ox-twbs
-                 :ensure t)
-  (setq org-twbs-mathjax-template org-html-mathjax-template)
+  (use-package ox-twbs
+    :ensure t
+    :config
+    (setq org-twbs-mathjax-template org-html-mathjax-template))
 #+END_SRC
 *** Publishing
 **** General
@@ -936,7 +955,6 @@ has changed.
 
 **** org-page
 #+BEGIN_SRC emacs-lisp
-  ;; *** org-page
   (use-package org-page
                :ensure t)
 
@@ -966,6 +984,7 @@ Drag-and-drop images for org-mode.
     (setq org-download-screenshot-method "gm import %s")
     (setq org-download-method 'attach))
 #+END_SRC
+
 * Major modes
 ** TRAMP
 Acces distant files as local ones with TRAMP (Transparent Remote
@@ -973,38 +992,42 @@ Access, Multiple Protocols).
 
 I had stumbled upon [[http://git.savannah.gnu.org/cgit/tramp.git/commit/?id=69929c2728460fd8e2d965ad61b76cddc48ff1c5][a]] [[http://git.savannah.gnu.org/cgit/tramp.git/commit/?id=73aa25684228120df164687a68c1d55dc53be89c][couple]] of bugs in TRAMP 2.2.11 – the built-in
 version in Emacs 24.5.1 – which are now fixed in the master branch.
-And as TRAMP isn't available in MELPA and co. I need to compile it from
-the source.
+And as TRAMP isn't available in MELPA and co. I need to compile it
+from the source.
+
+The backups of the files opened with TRAMP are stored in the same
+direcotry as local ones. When connecting through ssh use the default
+settings form =~/.ssh/config= and use the default history file. The
+last part is a little bit of sorcery to edit root owned files file,
+via sudo, on a remote machine with =/sudo:remote_machine:/=.
 #+BEGIN_SRC emacs-lisp
   (use-package tramp
-    :quelpa ((tramp :fetcher git
-                    :url "git://git.savannah.gnu.org/tramp.git"
+    :quelpa (tramp :fetcher git
+                   :url "git://git.savannah.gnu.org/tramp.git"
                     :files ("lisp/*.el"))
-             :upgrade t))
-#+END_SRC
-
-#+BEGIN_SRC emacs-lisp
-  ;; Acces remote hosts with sudo
-  (setq tramp-default-proxies-alist
-        '(((regexp-quote (system-name)) nil nil)
-          (nil "\\`root\\'" "/ssh:%h:")))
-
-  ;; Store backup of remote files in the local defaut folder for backups
-  (setq tramp-backup-directory-alist backup-directory-alist)
+    :config
+    (setq tramp-backup-directory-alist backup-directory-alist)
+    (setq tramp-use-ssh-controlmaster-options nil)
+    (setq tramp-histfile-override nil)
+    (setq tramp-default-proxies-alist
+          '(((regexp-quote (system-name)) nil nil)
+            (nil "\\`root\\'" "/ssh:%h:"))))
 #+END_SRC
 
 ** ERC
 #+BEGIN_SRC emacs-lisp
-(require 'erc)
-(setq erc-log-channels-directory (expand-file-name "erc/log/" user-emacs-directory))
+  (require 'erc)
+  (setq erc-log-channels-directory (expand-file-name "erc/log/" user-emacs-directory))
+  (unless (file-exists-p erc-log-channels-directory)
+    (make-directory erc-log-channels-directory t))
 
-(setq erc-server "irc.freenode.net"
-      erc-port 6667
-      erc-nick "lambpha"
-      erc-prompt-for-password nil)
+  (setq erc-server "irc.freenode.net"
+        erc-port 6667
+        erc-nick "lambpha"
+        erc-prompt-for-password nil)
 
-;(setq erc-autojoin-channels-alist
-;("freenode.net" "#emacs" "#org-mode" "#reprap-fr")))
+  ;(setq erc-autojoin-channels-alist
+  ;("freenode.net" "#emacs" "#org-mode" "#reprap-fr")))
 #+END_SRC
 
 ** Calendar
@@ -1096,25 +1119,31 @@ Translate the days, months and their abbreviations in French.
 	("décembre" . 12)))
 #+END_SRC
 ** Magit
-*** Instalation
 Git interface in Emacs.
+
+Use the great ivy for completion in Magit.
+Don't ask to confirm when pushing to the default upstream branch.
 #+BEGIN_SRC emacs-lisp
   (use-package magit
     :ensure t
     :commands magit-status
+    :bind ("C-x g" . magit-status)
     :config
-    (setq magit-wip-after-save-mode t))
+    (setq magit-wip-after-save-mode t)
+    (setq magit-completing-read-function 'ivy-completing-read)
+    (setq magit-push-always-verify nil))
 #+END_SRC
+
 *** git-timemachine
 Step through historic versions of git controlled file.
 #+BEGIN_SRC emacs-lisp
   (use-package git-timemachine
-               :ensure t)
+    :ensure t)
 #+END_SRC
 Same thing but for autosaved commits.
 #+BEGIN_SRC emacs-lisp
   (use-package git-wip-timemachine
-               :ensure t)
+    :ensure t)
 #+END_SRC
 
 ** Dired
@@ -1203,7 +1232,8 @@ A game for improving your typing skills.
   (use-package typing
     :ensure t
     :config
-    (setq toe-highscore-file (expand-file-name "toe-scores" bricewge/emacs-history-directory)))
+    (setq toe-highscore-file
+          (expand-file-name "toe-scores" bricewge/emacs-history-directory)))
 #+END_SRC
 ** ibffer
 #+BEGIN_SRC emacs-lisp
@@ -1219,34 +1249,32 @@ A game for improving your typing skills.
 ** yaml-mode
 #+BEGIN_SRC emacs-lisp
   (use-package yaml-mode
-               :mode (("\\.yml$" . yaml-mode)
-                      ("\\.sls$" . yaml-mode))
-               :ensure t
-               :config
-               (add-hook 'yaml-mode-hook
-                         '(lambda ()
-                            (define-key yaml-mode-map "\C-m" 'newline-and-indent))))
+    :ensure t
+    :demand t
+    :mode (("\\.yml$" . yaml-mode)
+           ("\\.sls$" . yaml-mode))
+    :bind (:map yaml-mode-map
+                ("C-m" . newline-and-indent)))
 #+END_SRC
 ** Mediawiki
 Mode to edit MediaWiki, with the site I'm used to contribute.
 #+BEGIN_SRC emacs-lisp
   (use-package mediawiki
-               :ensure t
-               :config (progn 
-                         (setq mediawiki-site-alist
-                               '(("ArchWiki" "https://wiki.archlinux.org/" "bricewge" "" "Main page")
-                                 ("Wikidepia En" "https://en.wikipedia.org/w/" "bricewge" "" "Main Page")
-                                 ("Wikipedia Fr" "https://fr.wikipedia.org/w/" "bricewge" "" "Wikipédia:Accueil principal")))
-                         (setq mediawiki-site-default "Wikipedia Fr")))
+    :ensure t
+    :config
+    (setq mediawiki-site-alist
+          '(("ArchWiki" "https://wiki.archlinux.org/" "bricewge" "" "Main page")
+            ("Wikidepia En" "https://en.wikipedia.org/w/" "bricewge" "" "Main Page")
+            ("Wikipedia Fr" "https://fr.wikipedia.org/w/" "bricewge" "" "Wikipédia:Accueil principal")))
+    (setq mediawiki-site-default "Wikipedia Fr"))
 #+END_SRC
 ** Ledger
 #+BEGIN_SRC emacs-lisp
   (use-package ledger-mode
-               :ensure t)
-  ;; Use ido completion
-  (setq ledger-post-use-completion-engine :ido)
-
-  ;;(define-key ledger-mode-map (kbd "<tab>") 'outline-cycle)
+    :ensure t
+    :demand t
+    :bind (:map ledger-mode-map
+                ("<tab>" . outline-cycle)))
 
   ;; ; Create ledger reports form gpg encrypted files
   ;; (setq ledger-reports
@@ -1431,9 +1459,6 @@ use 'fancy' non-ascii characters in various places in mu4e
 *** TODO org-mode
 - [ ] rich text
 - [ ] org-mode links
-#+BEGIN_SRC emacs-lisp :tangle no
-(require 'org-mu4e)
-#+END_SRC
 
 *** smtpmail
 Sending mail
@@ -1454,52 +1479,54 @@ Group ibuffer's list by version control (ie: git) project, or show version contr
 #+BEGIN_SRC emacs-lisp
   (use-package ibuffer-vc
                :ensure t
-               :config
-               (add-hook 'ibuffer-hook
-                         (lambda ()
-                           (ibuffer-vc-set-filter-groups-by-vc-root)
-                           (unless (eq ibuffer-sorting-mode 'alphabetic)
-                             (ibuffer-do-sort-by-alphabetic)))))
+    :config
+    (add-hook 'ibuffer-hook
+              (lambda ()
+                (ibuffer-vc-set-filter-groups-by-vc-root)
+                (unless (eq ibuffer-sorting-mode 'alphabetic)
+                  (ibuffer-do-sort-by-alphabetic)))))
 #+END_SRC
 ** scad
 Mode used to edit [[http://www.openscad.org/][OpenSCAD]] 3D objects.
 #+BEGIN_SRC emacs-lisp
   (use-package scad-mode
-               :ensure t
-               :defer t)
+    :ensure t
+    :mode "\\.scad\\'")
 #+END_SRC
 
 Preview SCAD models in Emacs.
 #+BEGIN_SRC emacs-lisp
   (use-package scad-preview
     :ensure t
-    :commands scad-preview-mode
-    )
+    :commands scad-preview-mode)
 #+END_SRC
 
 ** arduino
 A major mode for editing Arduino sketches.
 #+BEGIN_SRC emacs-lisp
   (use-package arduino-mode
-               :ensure t)
+    :ensure t
+    :mode "\\.\\(pde\\|ino\\)$")
 #+END_SRC
+
 ** CEDET
 Enable compilation and uploading sketches to Arduino microcontrollers.
 #+BEGIN_SRC emacs-lisp
   (use-package cedet
-               :ensure t)
+    :ensure t)
 #+END_SRC
+
 ** Markdown
 Mode to edit markdown formated files.
 #+BEGIN_SRC emacs-lisp
   (use-package markdown-mode
-               :ensure t)
+    :ensure t
+    :commands markdown-mode
+    :mode (("\\.md\\'" . markdown-mode)
+           ("\\.markdown\\'" . markdown-mode)
+           ("\\.text\\'" . markdown-mode)))
 #+END_SRC
 
-#+BEGIN_SRC emacs-lisp :tangle no
-  (load "pandoc-mode")
-  (add-hook 'markdown-mode-hook'turn-on-pandoc)
-#+END_SRC
 ** jinja2-mode
 #+BEGIN_SRC emacs-lisp
   (use-package jinja2-mode
@@ -1512,8 +1539,8 @@ Mode to edit markdown formated files.
 ** pkgbuild-mode
 #+BEGIN_SRC emacs-lisp
   (use-package pkgbuild-mode
-               :mode "/PKGBUILD$"
-               :ensure t)
+    :mode "/PKGBUILD$"
+    :ensure t)
 #+END_SRC
 ** Emacs Speak Statistics
 Used for having a R mode.
@@ -1524,9 +1551,9 @@ Used for having a R mode.
 ** AUCTeX
 Needed by [[cdlatex]]
 #+BEGIN_SRC emacs-lisp
-      (use-package auctex
-        :ensure t
-        :defer t)
+  (use-package auctex
+    :ensure t
+    :defer t)
 #+END_SRC
 ** nginx
 #+BEGIN_SRC emacs-lisp
@@ -1535,8 +1562,8 @@ Needed by [[cdlatex]]
 #+END_SRC
 ** docker
 #+BEGIN_SRC emacs-lisp
-      (use-package dockerfile-mode
-        :ensure t)
+  (use-package dockerfile-mode
+    :ensure t)
 #+END_SRC
 ** multi-term
 #+BEGIN_SRC emacs-lisp
@@ -1636,6 +1663,12 @@ Move windows with Hydra
     :config
     (setq aw-keys '(?q ?s ?d ?f ?g ?h ?j ?k ?l)))
 #+END_SRC
+** diff
+Display diffs in a modern compact way.
+#+BEGIN_SRC emacs-lisp
+  (setq diff-switches "-u")
+#+END_SRC
+
 * Minor modes
 ** winner
 For hydra windows.
@@ -1695,8 +1728,8 @@ following list.
   (use-package wcheck-mode
     :ensure t
     :bind
-    (("C-c s" . wcheck-mode)
-     ("C-c l" . wcheck-change-language)
+    (("C-c o" . wcheck-mode)
+     ("C-c i" . wcheck-change-language)
      ("M-$" . wcheck-actions)
      ("C-c n" . wcheck-jump-forward)
      ("C-c p" . wcheck-jump-backward))
@@ -1748,15 +1781,15 @@ It need the =[[https://www.archlinux.org/packages/community/any/languagetool/][l
   (use-package langtool
     :ensure t
     :pin melpa-stable
+    :bind (("C-x 4 w" . langtool-check)
+           ("C-x 4 W" . langtool-check-done)
+           ("C-x 4 l" . langtool-switch-default-language)
+           ("C-x 4 4" . langtool-show-message-at-point)
+           ("C-x 4 c" . langtool-correct-buffer))
     :config
     (setq langtool-java-classpath "/usr/share/languagetool:/usr/share/java/languagetool/*")
     (setq langtool-default-language "fr")
     (setq langtool-mother-tongue "fr")
-    :bind (("\C-x4w" . langtool-check)
-           ("\C-x4W" . langtool-check-done)
-           ("\C-x4l" . langtool-switch-default-language)
-           ("\C-x44" . langtool-show-message-at-point)
-           ("\C-x4c" . langtool-correct-buffer))
     )
 #+END_SRC
 ** jedi
@@ -1770,33 +1803,14 @@ Python auto-completion.
     (setq jedi:complete-on-dot t))
 #+END_SRC
 ** outshine
+outshine allow org-mode's style of navigation in other major modes.
+
+On mba42 S-TAB is actually <S-iso-lefttab>, this give the same
+behavior to the latter. When TAB is pressed on the first
+character call outline-cycle instead of outshine-cycle-buffer.
+Like the default in Org-mode. Open files with headers folded.
 #+BEGIN_SRC emacs-lisp
   (use-package outshine
-               :ensure t)
-  (add-hook 'outline-minor-mode-hook 'outshine-hook-function)
-  ;; Use org-mode style of navigation in different modes.
-  (add-hook 'emacs-lisp-mode-hook 'outline-minor-mode)
-  (add-hook 'conf-mode-hook 'outline-minor-mode)
-  (add-hook 'sh-mode-hook 'outline-minor-mode)
-  (add-hook 'yaml-mode-hook 'outline-minor-mode)
-  (add-hook 'css-mode-hook 'outline-minor-mode)
-  (add-hook 'ledger-mode-hook 'outline-minor-mode)
-  (add-hook 'scad-mode-hook 'outline-minor-mode)
-  (add-hook 'arduino-mode-hook 'outline-minor-mode)
-  (add-hook 'ruby-mode-hook 'outline-minor-mode)
-  (add-hook 'javascript-mode-hook 'outline-minor-mode)
-  ;; On mba42 S-TAB is actually <S-iso-lefttab>, this give the same
-  ;; behavior to the latter.
-  (define-key outline-minor-mode-map (kbd "<S-iso-lefttab>") 'outshine-cycle-buffer)
-
-  ;; When TAB is pressed on the first character call outline-cycle
-  ;; instead of outshine-cycle-buffer. Like the default in Org-mode.
-  (setq outshine-org-style-global-cycling-at-bob-p t)
-
-  ;; Open files with headers folded.
-  (setq outshine-startup-folded-p t)
-#+END_SRC
-
 ** ido
 Intelligent path completion.
 #+BEGIN_SRC emacs-lisp
@@ -1927,12 +1941,14 @@ Disable =show-parent= in the minibuffer when using ido.
         ffap-directory-finder 'nautilus)
 #+END_SRC
 ** rainbow-mode
-displays strings representing colors with the color they represent as background.
+Displays strings representing colors with the color they represent as
+background.
 #+BEGIN_SRC emacs-lisp
   (use-package rainbow-mode
-               :ensure t
-               :init 
-               (add-hook 'css-mode-hook 'rainbow-mode))
+    :ensure t
+    :commands rainbow-mode
+    :init
+    (add-hook 'css-mode-hook 'rainbow-mode))
 #+END_SRC
 ** beeminder						      :old:
 #+BEGIN_SRC emacs-lisp :tangle no
@@ -1965,7 +1981,9 @@ Use undo-tree everywhere. But hide it from the mode-line.
 #+BEGIN_SRC emacs-lisp
   (use-package undo-tree
     :ensure t
-    :bind ("C-x u" . undo-tree-visualize)
+    :bind (("C-x u" . undo-tree-visualize)
+           ("C-_" . undo-tree-undo)
+           ("M-_" . undo-tree-redo))
     :diminish undo-tree-mode
     :config
     (global-undo-tree-mode)
@@ -1974,7 +1992,7 @@ Use undo-tree everywhere. But hide it from the mode-line.
 ** guidekey
 #+BEGIN_SRC emacs-lisp
   (use-package guide-key
-               :ensure t)
+    :ensure t)
 #+END_SRC
 ** visual-regexp
 A regexp/replace command for Emacs with interactive visual feedback.
@@ -2007,21 +2025,12 @@ Speed-up insertion of LaTeX environments and math templates. Need
         :config
         (add-hook 'org-mode-hook 'turn-on-org-cdlatex))
 #+END_SRC
-
-Workaround for [[https://github.com/bbatsov/solarized-emacs/issues/18][incorrect colours in terminal]]. Need to be at the end of
-the config file.
 #+BEGIN_SRC emacs-lisp
-  ;(custom-set-faces (if (not window-system) '(default ((t (:background "nil"))))))
-
-  ;(if (not window-system)
-  ;    (custom-set-faces (default ((t (:background "nil")))))
-  ;  )
 
 
-  (defun on-after-init ()
-    (unless (display-graphic-p (selected-frame))
-      (custom-set-faces '(default ((t (:background "nil")))))))
-
-  (add-hook 'window-setup-hook 'on-after-init)
-
+* End
+*Dirty* workaround for [[https://github.com/bbatsov/solarized-emacs/issues/18][incorrect colours in terminal]]. Need to be at the end of
+the config file.
+#+BEGIN_SRC emacs-lisp :tangle no
+  (custom-set-faces (if (not window-system) '(default ((t (:background "nil"))))))
 #+END_SRC
