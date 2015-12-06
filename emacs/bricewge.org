@@ -1817,126 +1817,35 @@ character call outline-cycle instead of outshine-cycle-buffer.
 Like the default in Org-mode. Open files with headers folded.
 #+BEGIN_SRC emacs-lisp
   (use-package outshine
-** ido
-Intelligent path completion.
-#+BEGIN_SRC emacs-lisp
-  (require 'ido)
-  (setq ido-enable-prefix nil
-        ido-create-new-buffer 'always
-        ido-use-filename-at-point 'guess
-        ido-max-prospects 10
-        ido-default-file-method 'selected-window)
-  (ido-mode t)
-
-  (setq ido-enable-tramp-completion t)
-  (ido-everywhere t)
-
-  ;; Use ido in dired when copying and renaming
-  ;; http://debbugs.gnu.org/cgi/bugreport.cgi?bug1954
-  (with-eval-after-load 'ido
-    ;; Make 'R' and 'C' in dired use ido.
-    (put 'dired-do-rename 'ido nil)
-    (put 'dired-do-copy 'ido nil))
-
-  ;; Use ido completion in org-mode
-  (setq org-completion-use-ido t)
-
-  ;; Use flex (or fuzzy) matching
-  ;; ie: the ability to match any item containing the characters in the given sequence. 
-  ;; For example, “mwc” might match a file named “my_wicked_class.rb.”
-  (setq ido-enable-flex-matching t)
-
-  ;; Set the location for the ido history file.
-  (setq ido-save-directory-list-file (expand-file-name "ido-last" bricewge/emacs-history-directory))
-
-  ;; ido will not look in other directories for completion
-  (setq ido-auto-merge-work-directories-length -1)
+    :ensure t
+    :commands outshine-hook-function
+    :init
+    (add-hook 'outline-minor-mode-hook 'outshine-hook-function)
+    (add-hook 'emacs-lisp-mode-hook 'outline-minor-mode)
+    (add-hook 'conf-mode-hook 'outline-minor-mode)
+    (add-hook 'sh-mode-hook 'outline-minor-mode)
+    (add-hook 'yaml-mode-hook 'outline-minor-mode)
+    (add-hook 'css-mode-hook 'outline-minor-mode)
+    (add-hook 'ledger-mode-hook 'outline-minor-mode)
+    (add-hook 'scad-mode-hook 'outline-minor-mode)
+    (add-hook 'arduino-mode-hook 'outline-minor-mode)
+    (add-hook 'ruby-mode-hook 'outline-minor-mode)
+    (add-hook 'javascript-mode-hook 'outline-minor-mode)
+    :bind (:map outline-minor-mode-map
+                ("<S-iso-lefttab>" . outshine-cycle-buffer))
+    :config
+    (setq outshine-org-style-global-cycling-at-bob-p t)
+    (setq outshine-startup-folded-p t))
 #+END_SRC
 
-Enable ido *EVERYWHERE*; not just for buffers and files. 
-The pre-load stuff [[https://github.com/DarwinAwardWinner/ido-ubiquitous/issues/35][is a fix]] for the warning about reference to free
-variable".
-#+BEGIN_SRC emacs-lisp
-  (use-package ido-ubiquitous
-               :ensure t
-               :init
-               (progn (defvar ido-cur-item nil)
-                      (defvar ido-default-item nil)
-                      (defvar ido-cur-list nil)
-                      (defvar predicate nil)
-                      (defvar inherit-input-method nil)
-                      (defvar ido-context-switch-command nil)))
-
-  (ido-ubiquitous-mode)
-#+END_SRC
-
-When in ibuffer, on an entier =C-x C-f= start ido with the path of the
-directory where the cursor is located.
-#+BEGIN_SRC emacs-lisp
-  (defun ibuffer-ido-find-file (file &optional wildcards)
-    "Like `ido-find-file', but default to the directory of the buffer at point."
-    (interactive
-     (let ((default-directory
-             (let ((buf (ibuffer-current-buffer)))
-               (if (buffer-live-p buf)
-                   (with-current-buffer buf
-                     default-directory)
-                 default-directory))))
-       (list (ido-read-file-name "Find file: " default-directory) t)))
-    (find-file file wildcards))
-  ;; Enable ido in ibuffer
-  (add-hook 'ibuffer-mode-hook
-            (lambda ()
-              (define-key ibuffer-mode-map "\C-x\C-f"
-                'ibuffer-ido-find-file)))
-#+END_SRC
-
-Use a better fuzzy matching method.
-#+BEGIN_SRC emacs-lisp
-  (use-package flx-ido
-               :ensure t)
-  (flx-ido-mode 1)
-  ; If flexible matching don't match, match by the sequence characters.
-  (setq ido-enable-flex-matching t)
-  ;; disable ido faces to see flx highlights.
-  (setq ido-use-faces nil)
-  ;; As encouraging by the README of flx
-  (setq flx-ido-threshhold 10000)
-  (setq gc-cons-threshold 20000000)
-#+END_SRC
-
-Disable =show-parent= in the minibuffer when using ido.
-#+BEGIN_SRC emacs-lisp
-  ;; (defun bwge/no-show-paren-in-minibuffer ()
-  ;;   (set (make-variable-buffer-local 'paren-match-face) nil))
-
-  ;; (add-hook 'ido-minibuffer-setup-hook #'my-remove-mic-paren-face-in-minibuffer)
-
-
-  (setq blink-matching-paren nil)
-
-  ;; (show-paren-mode)                       ;; activate the needed timer
-  ;; (setq show-paren-mode nil)                ;; The timer will do nothing if this is nil
-
-  ;; (defun show-paren-local-mode ()
-  ;;   (interactive)
-  ;;   (make-local-variable 'show-paren-mode) ;; The value of shom-paren-mode will be local to this buffer.
-  ;;   (setq show-paren-mode t))
-
-  ;; (add-hook 'emacs-lisp-mode-hook 'show-paren-local-mode)
-#+END_SRC
 ** smex
 #+BEGIN_SRC emacs-lisp
   (use-package smex
-               :ensure t)
-  ;; Mini-buffer completion
-  (global-set-key (kbd "M-x") 'smex)
-  (global-set-key (kbd "M-X") 'smex-major-mode-commands)
-  ;; This is your old M-x.
-  (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
-
-  (setq smex-save-file (expand-file-name "smex-items" bricewge/emacs-history-directory))
-  (setq smex-history-length 100)
+    :ensure t
+    :config
+    (setq smex-save-file
+          (expand-file-name "smex-items" bricewge/emacs-history-directory))
+    (setq smex-history-length 100))
 #+END_SRC
 ** ffap
 #+BEGIN_SRC emacs-lisp
@@ -2015,13 +1924,35 @@ Isearch with an overview.
 #+BEGIN_SRC emacs-lisp
   (use-package swiper
     :ensure t
-    :bind (("\C-s" . swiper)
-           ("\C-r" . swiper)
+    :demand t
+    :diminish ivy-mode
+    :commands (swiper ivy-completing-read)
+    :bind (("C-s" . swiper)
+           ("C-r" . swiper)
            ("C-c C-r" . ivy-resume)
            ([f6] . ivy-resume))
+    :bind (:map ivy-minibuffer-map
+                ("RET" . ivy-alt-done))
     :config
-    (ivy-mode 1))
+    (ivy-mode 1)
+    (setq ivy-re-builders-alist
+          '((t . ivy--regex-fuzzy)))
+    ;; TMP settings
+    (setq colir-compose-method "")
+    (setq ivy-format-function 'ivy-format-function-line))
 #+END_SRC
+
+** flx
+Fuzzy matching in Emacs, especially for using it with ivy.
+
+Garbage colector set to 20 MB as said in the [[https://github.com/lewang/flx#gc-optimization][README]].
+#+BEGIN_SRC emacs-lisp
+  (use-package flx
+    :ensure t
+    :config
+    (setq gc-cons-threshold 20000000))
+#+END_SRC
+
 ** cdlatex
 Speed-up insertion of LaTeX environments and math templates. Need
 [[AUCTeX]].
@@ -2031,7 +1962,16 @@ Speed-up insertion of LaTeX environments and math templates. Need
         :config
         (add-hook 'org-mode-hook 'turn-on-org-cdlatex))
 #+END_SRC
+* Temporary
+** counsel
 #+BEGIN_SRC emacs-lisp
+  (use-package counsel
+    :ensure t
+    :bind (("M-x" . counsel-M-x)
+           ("C-x C-f" . counsel-find-file)
+           ("C-h f" . counsel-describe-function)
+           ("C-h v" . counsel-describe-variable)))
+#+END_SRC
 
 
 * End
