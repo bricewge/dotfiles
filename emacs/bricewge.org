@@ -280,18 +280,7 @@ Shorctut all responses to "yes or no" questions to "y" and "n".
   (defalias 'yes-or-no-p 'y-or-n-p)
 #+END_SRC
 * Custom functions and variables
-** emacs -diff
-Add the option =-diff= to emacs to show the difference betwen two files.
-Usage: emacs -diff file1 file2.
 
-Used by yaourt when diff configuration files.
-#+BEGIN_SRC emacs-lisp
-(defun command-line-diff (switch)
-  (let ((file1 (pop command-line-args-left))
-        (file2 (pop command-line-args-left)))
-    (ediff file1 file2)))
-(add-to-list 'command-switch-alist '("diff" . command-line-diff))
-#+END_SRC
 * Org-Mode
 *** General
 Org-Mode is installed and loaded in =init.el=.
@@ -1147,79 +1136,96 @@ Same thing but for autosaved commits.
 #+END_SRC
 
 ** Dired
+Dired is a visual directory editor, an hybride bettewn =cd=, =ls= and
+consorts.
+
+Customize how dired buffers are listed:
+- a: show hidden files
+- l: show as a list
+- h: use human redable sizes
+- v: sort number naturally (eg: 1, 2, 11 and not 1, 11, 2)
+- time-style: use international time style YYYY-MM-DD HH:SS
+
+Display available hard-drive space in a humman readable way. If
+several directories has to be deleted, ask to confirm it only one time
+not several. Copy from one dired dir to the next dired dir shown in a
+split window. Stop dired to confirm when copying a folder. Be clean,
+use the trash-bin! Let us have a key that puts the dired buffer into
+interactive renaming mode. Hiding hidden files with "§" key. Hide
+metadata of the files by default, need to be before dired-x.
 #+BEGIN_SRC emacs-lisp
-  ;; Hide metadata of the files by default, need to be before dired-x.
-  (add-hook 'dired-mode-hook 'dired-hide-details-mode)
-  ;; Customize how dired buffers are listed:
-  ;; - a: show hidden files
-  ;; - l: show as a list
-  ;; - h: use human redable sizes
-  ;; - v: sort number naturally (eg: 1, 2, 11 and not 1, 11, 2)
-  ;; - time-style: use international time style YYYY-MM-DD HH:SS
-  (setq dired-listing-switches "--time-style long-iso -lhvA")
-  ;; Display available space in a humman readable way
-  (setq directory-free-space-args "-h")
-  ;; If several directories has to be deleted, ask to confirm it only
-  ;; one time not several.
-  (setq dired-recursive-deletes 'always)
-  ;; Copy from one dired dir to the next dired dir shown in a split window
-  (setq dired-dwim-target t)
-  ;; Handle zip compression with Z
-  (eval-after-load "dired-aux"
-    '(add-to-list 'dired-compress-file-suffixes
-                  '("\\.zip\\'" ".zip" "unzip")))
-  ;; Stop dired to confirm when copying a folder.
-  (setq dired-recursive-copies 'always)
-  ;; Be clean, use the trash-bin!
-  (setq delete-by-moving-to-trash t)
+  (use-package dired
+    :demand t
+    :init
+    (add-hook 'dired-mode-hook 'dired-hide-details-mode t)
+    :commands (dired
+               find-name-dired
+               find-dired)
+    :bind (:map dired-mode-map
+                ("C-c e" . wdired-change-to-wdired-mode))
+    :config
+    (setq delete-by-moving-to-trash t)
+    (setq dired-listing-switches "--time-style long-iso -lhvA")
+    (setq directory-free-space-args "-h")
+    (setq dired-recursive-deletes 'always)
+    (setq dired-dwim-target t)
+    (setq dired-recursive-copies 'always))
+#+END_SRC
 
-  ;; Let us have a key that puts the dired buffer into interactive renaming mode
-  ;; (add-hook 'dired-mode-hook
-  ;;           '(lambda () (local-set-key (kbd "C-c e") 'wdired-change-to-wdired-mode)))
-  (add-hook 'dired-mode-hook
-            '(lambda ()
-               (local-set-key (kbd "C-c e") 'wdired-change-to-wdired-mode)
-               (local-set-key (kbd "<mouse-2>") 'dired-open-file)))
+*** dired-x
+#+BEGIN_SRC emacs-lisp
+  (use-package dired-x
+    :commands dired-omit-mode
+    :bind ("C-x C-j" . dired-jump)
+    :bind (:map dired-mode-map
+                ("§" . dired-omit-mode))
+    :init
+    (add-to-list 'dired-mode-hook 'dired-omit-mode t)
+    :config
+    (setq dired-omit-files "^\\...+$"))
+#+END_SRC
 
+*** dired-aux
+Handle zip compression with Z
+#+BEGIN_SRC emacs-lisp
+  (use-package dired-aux
+    :config
+    (add-to-list 'dired-compress-file-suffixes
+                 '("\\.zip\\'" ".zip" "unzip")))
+#+END_SRC
 
-  ;; Enable Dired Extra
-  (require 'dired-x)
-
-  ;; Open subdirectory as a tree
+*** dired-subtree
+List files of a directory in a dired buffer.
+#+BEGIN_SRC emacs-lisp
   (use-package dired-subtree
-               :ensure t)
-  (define-key dired-mode-map "i" 'dired-subtree-insert)
-  (define-key dired-mode-map ";" 'dired-subtree-remove)
-  ;; Fix bug https://github.com/Fuco1/dired-hacks/issues/30
-  (add-hook 'dired-subtree-after-insert-hook
-            '(lambda ()
-               (let ((inhibit-read-only t))
-                 (dired-insert-set-properties (point-min) (point-max)))))
-
-  ;; Open files in dired with the chosen program
-  (use-package dired-open
-               :ensure t)
-  (setq dired-open-extensions
-        '(("mp4" . "vlc")
-          ("mkv" . "vlc")
-          ("mp3" . "vlc")
-          ("ogg" . "vlc")
-          ("pdf" . "evince")))
-
+    :ensure t
+    :bind (:map dired-mode-map
+                ("i" . dired-subtree-insert)
+                (";" . dired-subtree-remove)))
 #+END_SRC
-*** Show/hide
+
+*** dired-open
+Open files in dired with the chosen program.
 #+BEGIN_SRC emacs-lisp
-;; Hiding hidden files with "§" key
-(setq dired-omit-files "^\\...+$")
-(define-key dired-mode-map "§" 'dired-omit-mode)
+  (use-package dired-open
+    :ensure t
+    :bind (:map dired-mode-map
+                ("<mouse-2>" . dired-open-file))
+    :config
+    (setq dired-open-extensions
+          '(("mp4" . "vlc")
+            ("mkv" . "vlc")
+            ("mp3" . "vlc")
+            ("ogg" . "vlc")
+            ("pdf" . "evince"))))
 #+END_SRC
-*** sudo
 
+*** dired-toggle-sudo
 #+BEGIN_SRC emacs-lisp
   (use-package dired-toggle-sudo
-               :ensure t)
-  (define-key dired-mode-map (kbd "C-c C-s") 'dired-toggle-sudo)
+    :bind ("C-c s" . dired-toggle-sudo))
 #+END_SRC
+
 ** Games
 *** Scores
 Put the scores of the games in =~/.emacs.d/history/=.
