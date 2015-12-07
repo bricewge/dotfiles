@@ -34,6 +34,7 @@ zsh.zshrc:
     - user: {{ dotfiles.user }}
     - group: {{ dotfiles.user }}
     - mode: 644
+    - template: jinja
     - require:
       - git: zsh.antigen
 

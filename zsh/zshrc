@@ -138,8 +138,11 @@ alias sshs="ssh -O stop"
 alias sshx="ssh -O exit"
 
 # ** ip
+{% if grains['os'] != 'Debian' %}
 # Colorize the output of iproute2
 alias ip='ip -c'
+{% endif %}
+
 # Display only IPv4 or IPv6
 alias ip4="ip -4"
 alias ip6="ip -6"
