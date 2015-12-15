@@ -14,3 +14,4 @@ base:
 #    - gpg
   'I@dotfiles:decrypted:True':
     - ssh
+    - emacs.personal

@@ -70,10 +70,6 @@ emacs.orgdir:
     - require:
       - file: emacs.bricewge
 
-# * TODO Customization
-# Add ~/.emacs.d/custom.el and ~/.emacs.d/bookmarks but
-# obfuscate them with git-crypt.
-
 # * Emacs client
 emacsclient.desktop:
   file.managed:
