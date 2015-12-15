@@ -1803,9 +1803,15 @@ Python auto-completion.
 #+BEGIN_SRC emacs-lisp
   (use-package jedi
     :ensure t
+    :commands jedi:setup
+    :bind (("C-c h" . jedi:show-doc)
+           ("C-c ;" . jedi:goto-definition))
     :init
     (add-hook 'python-mode-hook 'jedi:setup)
     :config
+    (unless (file-exists-p (expand-file-name ".python-environments/"
+                                             user-emacs-directory))
+      (jedi:install-server))
     (setq jedi:complete-on-dot t))
 #+END_SRC
 ** outshine
