@@ -4,23 +4,7 @@
 # * Install
 emacs.install:
   pkg.installed:
-    - pkgs:
-      - emacs
-      - enchant
-      - hunspell-fr
-      - {{ emacs.hunspell_en }}
-      - aspell-fr
-      - aspell-en
-      - {{ emacs.mu }}
-      - {{ emacs.virtualenv2 }}
-      - {{ emacs.virtualenv3 }}
-      - graphicsmagick
-      - wmctrl
-{% if grains['os'] == 'Arch' %}
-      - languagetool
-{% elif grains['os'] == 'Debian' %}
-      - ledger
-{% endif %}
+    - pkgs: {{ emacs.pkgs }}
 
 # * Configuration
 emacs.bricewge:
