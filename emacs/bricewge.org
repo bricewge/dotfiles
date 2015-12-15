@@ -228,7 +228,7 @@ history of the actions done in Emacs.
 
 Save the history of the minibuffer.
 #+BEGIN_SRC emacs-lisp
-  (setq savehist-file (expand-file-name "history" bricewge/emacs-history-directory))
+  (setq savehist-file (expand-file-name "savehist" bricewge/emacs-history-directory))
   (savehist-mode 1)
 #+END_SRC
 ** Backups
@@ -998,6 +998,8 @@ via sudo, on a remote machine with =/sudo:remote_machine:/=.
     (setq tramp-backup-directory-alist backup-directory-alist)
     (setq tramp-use-ssh-controlmaster-options nil)
     (setq tramp-histfile-override nil)
+    (setq tramp-persistency-file-name
+          (expand-file-name "tramp" bricewge/emacs-history-directory))
     (setq tramp-default-proxies-alist
           '(((regexp-quote (system-name)) nil nil)
             (nil "\\`root\\'" "/ssh:%h:"))))
@@ -1676,7 +1678,21 @@ Display diffs in a modern compact way.
   (setq diff-switches "-u")
 #+END_SRC
 
+** eshell
+Store eshell history in the appropriate directory.
+#+BEGIN_SRC emacs-lisp
+  (setq eshell-history-file-name
+        (expand-file-name "eshell" bricewge/emacs-history-directory))
+#+END_SRC
 * Minor modes
+** auto-complete
+#+BEGIN_SRC emacs-lisp
+  (use-package auto-complete
+    :commands auto-complete-mode
+    :config
+    (setq ac-comphist-file
+          (expand-file-name "auto-complete" bricewge/emacs-history-directory)))
+#+END_SRC
 ** winner
 For hydra windows.
 #+BEGIN_SRC emacs-lisp
