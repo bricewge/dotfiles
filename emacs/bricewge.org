@@ -234,8 +234,8 @@ Save the history of the minibuffer.
 ** Backups
 Create a directory to put saves of files edited with Emacs.
 #+BEGIN_SRC emacs-lisp
-(unless (file-exists-p (expand-file-name "save/" user-emacs-directory))
-  (make-directory (expand-file-name "save/" user-emacs-directory)))
+  (unless (file-exists-p (expand-file-name "save/" user-emacs-directory))
+    (make-directory (expand-file-name "save/" user-emacs-directory)))
 #+END_SRC
 
 Don't put backups all over the filesystem but within =~/.emacs.d=. Use sane options for backup
@@ -1223,6 +1223,7 @@ Open files in dired with the chosen program.
 *** dired-toggle-sudo
 #+BEGIN_SRC emacs-lisp
   (use-package dired-toggle-sudo
+    :ensure t
     :bind ("C-c s" . dired-toggle-sudo))
 #+END_SRC
 
