@@ -1858,7 +1858,7 @@ Like the default in Org-mode. Open files with headers folded.
                 ("<S-iso-lefttab>" . outshine-cycle-buffer))
     :config
     (setq outshine-org-style-global-cycling-at-bob-p t)
-    (setq outshine-startup-folded-p t))
+    (setq outshine-startup-folded-p nil))
 #+END_SRC
 
 ** smex
