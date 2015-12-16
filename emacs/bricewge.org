@@ -1203,7 +1203,9 @@ List files of a directory in a dired buffer.
     :ensure t
     :bind (:map dired-mode-map
                 ("i" . dired-subtree-insert)
-                (";" . dired-subtree-remove)))
+                (";" . dired-subtree-remove)
+                ("TAB" . dired-subtree-cycle)
+                ("<S-iso-lefttab>" . dired-subtree-toggle)))
 #+END_SRC
 
 *** dired-open
