@@ -212,10 +212,11 @@ Disabel the annoying beep sound and the visual-bell once and for all.
   (setq auth-sources '("~/.authinfo.gpg"))
 #+END_SRC
 ** system
+Use french translation for time.
 #+BEGIN_SRC emacs-lisp
-  ;; Use french translation for time
   (setq system-time-locale "fr_FR.UTF-8")
 #+END_SRC
+
 ** savehist
 Set up a directory for putting all the files which save some kind of
 history of the actions done in Emacs.
@@ -1054,61 +1055,69 @@ Use Perpignan location, for the geting the sunset and sunrise time.
 
 Translate the days, months and their abbreviations in French.
 #+BEGIN_SRC emacs-lisp
-(setq calendar-week-start-day 1
-      calendar-day-name-array ["Dimanche" "Lundi" "Mardi" "Mercredi"
-			       "Jeudi" "Vendredi" "Samedi"]
-      calendar-day-abbrev-array ["Dim" "Lun" "Mar" "Mer"
-				       "Jeu" "Ven" "Sam"]
-      calendar-day-header-array ["Di" "Lu" "Ma" "Me"
-				       "Je" "Ve" "Sa"]
-      calendar-month-name-array ["Janvier" "Février" "Mars" "Avril" "Mai"
-				 "Juin" "Juillet" "Août" "Septembre"
-				 "Octobre" "Novembre" "Décembre"]
-      calendar-month-abbrev-array ["Jan" "Fév" "Mar" "Avr" "Mai"
-				 "Jun" "Jul" "Aoû" "Sep"
-				 "Oct" "Nov" "Déc"])
-
-(setq parse-time-weekdays
-      '(("dim" . 0)
-	("lun" . 1)
-	("mar" . 2)
-	("mer" . 3)
-	("jeu" . 4)
-	("ven" . 5)
-	("sam" . 6)
-	("dimanche" . 0)
-	("lundi" . 1)
-	("mardi" . 2)
-	("mercredi" . 3)
-	("jeudi" . 4)
-	("vendredi" . 5)
-	("samedi" . 6)))
-(setq parse-time-months
-      '(("jan" . 1)
-	("fev" . 2)
-	("mar" . 3)
-	("avr" . 4)
-	("mai" . 5)
-	("jun" . 6)
-	("jul" . 7)
-	("aoû" . 8)
-	("sep" . 9)
-	("oct" . 10)
-	("nov" . 11)
-	("dec" . 12)
-	("janvier" . 1)
-	("février" . 2)
-	("mars" . 3)
-	("avril" . 4)
-	("mai" . 5)
-	("juin" . 6)
-	("juillet" . 7)
-	("août" . 8)
-	("septembre" . 9)
-	("octobre" . 10)
-	("novembre" . 11)
-	("décembre" . 12)))
+  (setq calendar-week-start-day 1
+        calendar-day-name-array ["Dimanche" "Lundi" "Mardi" "Mercredi"
+                                 "Jeudi" "Vendredi" "Samedi"]
+        calendar-day-abbrev-array ["Dim" "Lun" "Mar" "Mer"
+                                         "Jeu" "Ven" "Sam"]
+        calendar-day-header-array ["Di" "Lu" "Ma" "Me"
+                                         "Je" "Ve" "Sa"]
+        calendar-month-name-array ["Janvier" "Février" "Mars" "Avril" "Mai"
+                                   "Juin" "Juillet" "Août" "Septembre"
+                                   "Octobre" "Novembre" "Décembre"]
+        calendar-month-abbrev-array ["Jan" "Fév" "Mar" "Avr" "Mai"
+                                   "Jun" "Jul" "Aoû" "Sep"
+                                   "Oct" "Nov" "Déc"])
 #+END_SRC
+
+Set the schedule or deadline date with french names.
+#+BEGIN_SRC emacs-lisp
+  (use-package parse-time
+    :config
+    (setq parse-time-weekdays
+          (append parse-time-weekdays
+                  '(("dim" . 0)
+                    ("lun" . 1)
+                    ("mar" . 2)
+                    ("mer" . 3)
+                    ("jeu" . 4)
+                    ("ven" . 5)
+                    ("sam" . 6)
+                    ("dimanche" . 0)
+                    ("lundi" . 1)
+                    ("mardi" . 2)
+                    ("mercredi" . 3)
+                    ("jeudi" . 4)
+                    ("vendredi" . 5)
+                    ("samedi" . 6)))
+          parse-time-months
+          (append parse-time-months
+                  '(("jan" . 1)
+                    ("fev" . 2)
+                    ("mar" . 3)
+                    ("avr" . 4)
+                    ("mai" . 5)
+                    ("jun" . 6)
+                    ("jul" . 7)
+                    ("aoû" . 8)
+                    ("sep" . 9)
+                    ("oct" . 10)
+                    ("nov" . 11)
+                    ("dec" . 12)
+                    ("janvier" . 1)
+                    ("février" . 2)
+                    ("mars" . 3)
+                    ("avril" . 4)
+                    ("mai" . 5)
+                    ("juin" . 6)
+                    ("juillet" . 7)
+                    ("août" . 8)
+                    ("septembre" . 9)
+                    ("octobre" . 10)
+                    ("novembre" . 11)
+                    ("décembre" . 12)))))
+#+END_SRC
+
 ** Magit
 Git interface in Emacs.
 
