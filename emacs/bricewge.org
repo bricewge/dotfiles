@@ -976,6 +976,17 @@ Drag-and-drop images for org-mode.
 #+END_SRC
 
 * Major modes
+** aurel
+Search, vote and download AUR packages.
+#+BEGIN_SRC emacs-lisp
+  (use-package aurel
+    :ensure t
+    :commands (aurel-package-info
+               aurel-package-search
+               aurel-maintainer-search
+               aurel-installed-packages))
+#+END_SRC
+
 ** TRAMP
 Acces distant files as local ones with TRAMP (Transparent Remote
 Access, Multiple Protocols).
