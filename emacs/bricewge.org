@@ -1008,6 +1008,7 @@ via sudo, on a remote machine with =/sudo:remote_machine:/=.
                     :files ("lisp/*.el"))
     :config
     (setq tramp-backup-directory-alist backup-directory-alist)
+    (setq tramp-verbose 2)
     (setq tramp-use-ssh-controlmaster-options nil)
     (setq tramp-histfile-override nil)
     (setq tramp-persistency-file-name
