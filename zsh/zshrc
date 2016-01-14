@@ -25,10 +25,6 @@ EOBUNDLES
 # ** Completions
 # Additional completion definitions for Zsh. 
 antigen bundle zsh-users/zsh-completions src
-# Enable completion for new installed command within the session by
-# not trust the zsh's cache of executable command, and forced it be
-# updated
-zstyle ":completion:*:commands" rehash 1
 
 # ** Fish like features
 if [[ $TERM != "dumb" ]]; then
@@ -106,8 +102,17 @@ antigen apply
 # * Use Emacs key bindings
 bindkey -e
 
+# * Completion
+# Enable completion for new installed command within the session by
+# not trust the zsh's cache of executable command, and forced it be
+# updated
+zstyle ":completion:*:commands" rehash 1
+# *** platformio
+if command -v platformio > /dev/null 2>&1; then
+    autoload bashcompinit && bashcompinit
+    eval "$(_PLATFORMIO_COMPLETE=source platformio)"
+fi
 # * Alias -- shortcuts
-
 # ** sudo
 # Passing alias to sudo
 alias sudo='sudo '
@@ -180,3 +185,4 @@ alias jcu="journalctl --user"
 # ** misc
 alias dotfiles="cd ~/dotfiles && ./init.sh && cd - > /dev/null"
 alias smartcard-fix="sc-stop system-envoy.slice ; killall gpg-agent"
+alias open="xdg-open"
