@@ -33,7 +33,7 @@ cursor_shape = ibeam
 ###  Solarized dark
 [colors]
 foreground = #839496
-foreground_bold = #fdf6xe3
+foreground_bold = #eee8d5
 #foreground_dim = #888888
 background = #002b36
 cursor = #93a1a1
