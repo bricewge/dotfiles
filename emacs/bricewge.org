@@ -817,7 +817,6 @@ recorded. To display the habits in the org-agenda press the "K" key?
 
 ***** Journal
 Capture a journal entry.
-
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'org-capture-templates
 	     '("j"
@@ -845,14 +844,14 @@ Capture a TODO in inbox.org
 ***** Note
 Capture a note in =inbox.org=.
 #+BEGIN_SRC emacs-lisp
-(add-to-list 'org-capture-templates
-	     '("n"
-	       "Note"
-	       entry
-	       (file+datetree "~/document/inbox.org")
-	       "* %? :NOTE:\n%U\n"
-	       )
-	     t)
+  (add-to-list 'org-capture-templates
+               '("n"
+                 "Note"
+                 entry
+                 (file+datetree "~/document/inbox.org")
+                 "* %? :NOTE:\n%U\n"
+                 )
+               t)
 #+END_SRC
 
 ***** Achat
