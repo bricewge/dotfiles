@@ -90,7 +90,7 @@ export DEFAULT_USER
 # "make install" install method doesn't have command completion
 # working; as stated in the README.
 antigen bundle ingydotnet/git-subrepo
-source ~/.antigen/repos/https-COLON--SLASH--SLASH-github.com-SLASH-ingydotnet-SLASH-git-subrepo.git/init
+source ~/.antigen/repos/https-COLON--SLASH--SLASH-github.com-SLASH-ingydotnet-SLASH-git-subrepo.git/.rc
 
 # ** Apply Antigen
 # Tell antigen that you're done.
