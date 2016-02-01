@@ -1148,8 +1148,11 @@ Don't ask to confirm when pushing to the default upstream branch.
     :ensure t
     :commands magit-status
     :bind ("C-x g" . magit-status)
+    :init
+    (magit-wip-after-save-mode)
+    (magit-wip-after-apply-mode)
+    (magit-wip-after-apply-mode)
     :config
-    (setq magit-wip-after-save-mode t)
     (setq magit-completing-read-function 'ivy-completing-read)
     (setq magit-push-always-verify nil))
 #+END_SRC
@@ -1160,8 +1163,11 @@ Step through historic versions of git controlled file.
   (use-package git-timemachine
     :ensure t)
 #+END_SRC
+
 Same thing but for autosaved commits.
-#+BEGIN_SRC emacs-lisp
+I've disabled it since it doesn't use =magit= function yet. Hoping
+it'll be fixed.
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package git-wip-timemachine
     :ensure t)
 #+END_SRC
