@@ -2040,13 +2040,22 @@ development.
 
 * Temporary
 ** counsel
+Replace setting tags in org-mode with counsel:
+- =C-m= selects and exits,
+- =C-M-m= selects without exiting, so you can select multiple tags.
 #+BEGIN_SRC emacs-lisp
   (use-package counsel
     :ensure t
+    :commands (counsel-org-tag counsel-org-tag-agenda)
     :bind (("M-x" . counsel-M-x)
            ("C-x C-f" . counsel-find-file)
            ("C-h f" . counsel-describe-function)
-           ("C-h v" . counsel-describe-variable)))
+           ("C-h v" . counsel-describe-variable))
+    :init
+    (with-eval-after-load 'org
+      (bind-key "C-q" #'counsel-org-tag org-mode-map))
+    (with-eval-after-load 'org-agenda
+      (bind-key "C-q" #'counsel-org-tag-agenda org-agenda-mode-map)))
 #+END_SRC
 
 ** beacon
