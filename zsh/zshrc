@@ -31,42 +31,42 @@ antigen bundle zsh-users/zsh-completions src
 if [[ $TERM != "dumb" ]]; then
 
 # *** Autosuggestion
-# # Didn't work for the moment, have to keep on eye on it
-# # https://github.com/tarruda/zsh-autosuggestions/
-# antigen bundle tarruda/zsh-autosuggestions --branch=v0.1.x
-# autosuggest_start
+    # Didn't work for the moment, have to keep on eye on it
+    # https://github.com/tarruda/zsh-autosuggestions/
+    antigen bundle tarruda/zsh-autosuggestions --branch=v0.1.x
 
-# ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=10'
+    ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=10'
 
-# # Add history-substring-search-* widgets to list of widgets that clear the autosuggestion
-# ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(history-substring-search-up history-substring-search-down)
-# # Remove *-line-or-history widgets from list of widgets that clear the autosuggestion to avoid conflict with history-substring-search-* widgets
-# SH_AUTOSUGGEST_CLEAR_WIDGETS=("${(@)ZSH_AUTOSUGGEST_CLEAR_WIDGETS:#(up|down)-line-or-history}")
+    # Add history-substring-search-* widgets to list of widgets that clear the autosuggestion
+    ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(history-substring-search-up history-substring-search-down)
+    # Remove *-line-or-history widgets from list of widgets that clear the autosuggestion to avoid conflict with history-substring-search-* widgets
+    ZSH_AUTOSUGGEST_CLEAR_WIDGETS=("${(@)ZSH_AUTOSUGGEST_CLEAR_WIDGETS:#(up|down)-line-or-history}")
 
-# # Sourcing zsh-syntax-highlighting need to be done before
-# # zsh-autosuggestions, otherwise this can cause problems.
+    # Sourcing zsh-syntax-highlighting need to be done before
+    # zsh-autosuggestions, otherwise this can cause problems.
 
 # *** Syntax highlighting
-antigen bundle zsh-users/zsh-syntax-highlighting
+    antigen bundle zsh-users/zsh-syntax-highlighting
 
 # *** History substring search
-antigen bundle zsh-users/zsh-history-substring-search
+    antigen bundle zsh-users/zsh-history-substring-search
 
-# Keybindings
-zmodload zsh/terminfo
-bindkey "$terminfo[kcuu1]" history-substring-search-up # Setup up key
-bindkey "$terminfo[kcud1]" history-substring-search-down # Setup down key
-bindkey '^[[A' history-substring-search-up # Set for key up
-bindkey '^[[B' history-substring-search-down # Set for key down
-bindkey -M emacs '^P' history-substring-search-up
-bindkey -M emacs '^N' history-substring-search-down
+    # Keybindings
+    zmodload zsh/terminfo
+    bindkey "$terminfo[kcuu1]" history-substring-search-up # Setup up key
+    bindkey "$terminfo[kcud1]" history-substring-search-down # Setup down key
+    bindkey '^[[A' history-substring-search-up # Set for key up
+    bindkey '^[[B' history-substring-search-down # Set for key down
+    bindkey -M emacs '^P' history-substring-search-up
+    bindkey -M emacs '^N' history-substring-search-down
 
-# Ignore a result if it has already been displayed during the current search
-setopt HIST_IGNORE_ALL_DUPS
-# Use colors from solarized theme
-export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=5,fg=8,bold'
-export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='bg=1,fg=8,bold'
+    # Ignore a result if it has already been displayed during the current search
+    setopt HIST_IGNORE_ALL_DUPS
+    # Use colors from solarized theme
+    export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=5,fg=8,bold'
+    export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='bg=1,fg=8,bold'
 
+    autosuggest_start
 fi # End of the fancies fish's features
 
 # ** Theme
