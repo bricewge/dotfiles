@@ -738,6 +738,13 @@ OPTIONS contains the property list from the org-mode export."
   ; Log the change when rescheduling
   (setq org-log-reschedule 'note)
 #+END_SRC
+
+Clear the state of all checkboxes a reccuring task when done. When
+=:RESET_CHECK_BOXES: t= is in the PROPRIETES drawer.
+#+BEGIN_SRC emacs-lisp
+  (use-package org-checklist)
+#+END_SRC
+
 *** Dates and times
 **** org-agenda
 Make a shortcut to change the state of a TODO item done yesterday.
