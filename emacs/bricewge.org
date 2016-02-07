@@ -330,7 +330,7 @@ org-module instead.
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
 
-(setq org-directory "~/document")
+(setq org-directory "~/org")
 
 ;; Does not set a indentation level when moving heading
 (setq org-adapt-indentation nil)
@@ -360,7 +360,7 @@ Add specials symbols.
 *** MobileOrg
 #+BEGIN_SRC emacs-lisp
 (setq org-mobile-directory "~/ownCloud")
-;(setq org-mobile-files "~/document")
+;(setq org-mobile-files "~/org")
 (setq org-mobile-inbox-for-pull "~/ownCloud/mobileorg.org")
 #+END_SRC
 *** Exporting
@@ -644,7 +644,7 @@ Republie tout a chaque fois, utlisation pendant la configuration
 
 **** Blog
 #+BEGIN_SRC emacs-lisp
-(defvar bwge-blog-base "~/document/blog"
+(defvar bwge-blog-base "~/org/blog"
   "Path to the blog directory.")
 (defvar bwge-blog-htmlroot "~/repos/bricewge.fr"
   "Where to export the blog website.")
@@ -800,7 +800,7 @@ recorded. To display the habits in the org-agenda press the "K" key?
 	     '("w2"
 	       "II deuxième niveau"
 	       entry
-	       (file+headline "~/document/lafay.org" "Niveau II")
+	       (file+headline "~/org/lafay.org" "Niveau II")
 	       (file "~/.emacs.d/org/template/lafay-2.tpl.org")
 	       :clock-in t :clock-resume t :unnarrowed t :empty-lines 1)
 	     t)
@@ -809,7 +809,7 @@ recorded. To display the habits in the org-agenda press the "K" key?
 	     '("w3"
 	       "III troisième niveau"
 	       entry
-	       (file+headline "~/document/lafay.org" "Niveau III")
+	       (file+headline "~/org/lafay.org" "Niveau III")
 	       (file "~/.emacs.d/org/template/lafay-3.tpl.org")
 	       :clock-in t :clock-resume t :unnarrowed t :empty-lines 1)
 	     t)
@@ -822,20 +822,20 @@ Capture a journal entry.
 	     '("j"
 	       "Journal personnel"
 	       plain
-	       (file+datetree "~/document/journal.org.gpg")
+	       (file+datetree "~/org/journal.org.gpg")
 	       "%U\n%?"
 	       :kill-buffer t)
 	     t)
 #+END_SRC
 
-***** To do
-Capture a TODO in inbox.org
+***** Todo
+Capture a TODO in =inbox.org=.
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'org-capture-templates
 	     '("t"
 	       "TODO"
 	       entry
-	       (file+datetree "~/document/inbox.org")
+	       (file "~/org/inbox.org")
 	       "* TODO %?\n%U\n"
 	       :clock-in t :clock-resume t)
 	     t)
@@ -848,7 +848,7 @@ Capture a note in =inbox.org=.
                '("n"
                  "Note"
                  entry
-                 (file+datetree "~/document/inbox.org")
+                 (file "~/org/inbox.org")
                  "* %? :NOTE:\n%U\n"
                  )
                t)
@@ -861,7 +861,7 @@ Capture a buying item in =inbox.org=.
 	     '("a"
 	       "Achat"
 	       checkitem
-	       (file+olp "~/document/organisation.org" "Achats" "Besoins")
+	       (file+olp "~/org/organisation.org" "Achats" "Besoins")
 	       )
 	     t)
 #+END_SRC
@@ -889,7 +889,7 @@ Capture a buying item in =inbox.org=.
                '("b"
                  "Entrée bibliographique"
                  entry
-                 (file "~/document/biblio.org")
+                 (file "~/org/biblio.org")
                  (file "~/.emacs.d/org/template/bibliography.tpl.org")
                  )
                t)
