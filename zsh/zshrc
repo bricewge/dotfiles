@@ -33,7 +33,7 @@ if [[ $TERM != "dumb" ]]; then
 # *** Autosuggestion
     # Didn't work for the moment, have to keep on eye on it
     # https://github.com/tarruda/zsh-autosuggestions/
-    antigen bundle tarruda/zsh-autosuggestions --branch=v0.1.x
+    antigen bundle tarruda/zsh-autosuggestions --branch=v0.2.x
 
     ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=10'
 
@@ -66,7 +66,6 @@ if [[ $TERM != "dumb" ]]; then
     export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=5,fg=8,bold'
     export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='bg=1,fg=8,bold'
 
-    autosuggest_start
 fi # End of the fancies fish's features
 
 # ** Theme
