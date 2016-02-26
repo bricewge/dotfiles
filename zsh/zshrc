@@ -31,19 +31,13 @@ antigen bundle zsh-users/zsh-completions src
 if [[ $TERM != "dumb" ]]; then
 
 # *** Autosuggestion
-    # Didn't work for the moment, have to keep on eye on it
-    # https://github.com/tarruda/zsh-autosuggestions/
-    antigen bundle tarruda/zsh-autosuggestions --branch=v0.2.x
-
-    ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=10'
-
-    # Add history-substring-search-* widgets to list of widgets that clear the autosuggestion
-    ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(history-substring-search-up history-substring-search-down)
-    # Remove *-line-or-history widgets from list of widgets that clear the autosuggestion to avoid conflict with history-substring-search-* widgets
-    ZSH_AUTOSUGGEST_CLEAR_WIDGETS=("${(@)ZSH_AUTOSUGGEST_CLEAR_WIDGETS:#(up|down)-line-or-history}")
-
     # Sourcing zsh-syntax-highlighting need to be done before
     # zsh-autosuggestions, otherwise this can cause problems.
+    antigen bundle zsh-users/zsh-autosuggestions
+
+    ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=10'
+    # Add history-substring-search-* widgets to list of widgets that clear the autosuggestion
+    ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(history-substring-search-up history-substring-search-down)
 
 # *** Syntax highlighting
     antigen bundle zsh-users/zsh-syntax-highlighting
