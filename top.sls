@@ -9,6 +9,7 @@ base:
     - offlineimap
     - termite
     - texlive
+    - virtualbox
     - zsh
   'I@dotfiles:user:bricewge and G@os:Arch':
     - git
