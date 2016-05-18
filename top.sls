@@ -6,6 +6,7 @@ base:
     - enchant
     - font
     - redshift
+    - isync
     - offlineimap
     - termite
     - texlive
