@@ -43,4 +43,8 @@ zsh.zshrc:
 zsh.trash:
   pkg.installed:
     - name: trash-cli
+{% elif grains['os'] == 'MacOS' %}
+zsh.trash:
+  pkg.installed:
+    - name: trash
 {% endif %}
