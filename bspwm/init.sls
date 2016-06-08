@@ -1,6 +1,6 @@
 {% import 'dotfiles.jinja' as dotfiles with context %}
 
-{% if grains['os'] == 'Archlinux' %}
+{% if grains['os'] == 'Arch' %}
 bspwm.install:
   pkg.installed:
     - pkgs:
