@@ -1,0 +1,20 @@
+[Desktop Entry]
+Type=Action
+Name[en_US]=Open in termite
+Name[en]=Open in termite
+Name[fr_FR]=Ouvrir dans termite
+Name[fr]=Ouvrir dans termite
+TargetLocation=true
+ToolbarLabel[en_US]=Open in termite
+ToolbarLabel[en]=Open in termite
+ToolbarLabel[fr_FR]=Ouvrir dans termite
+ToolbarLabel[fr]=Ouvrir dans termite
+Profiles=profile-zero;
+
+[X-Action-Profile profile-zero]
+Name[en_US]=Default profile
+Name[en]=Default profile
+Name[fr_FR]=Profil par défaut
+Name[fr]=Profil par défaut
+Exec=/bin/termite -d %f
+MimeTypes=inode/directory;

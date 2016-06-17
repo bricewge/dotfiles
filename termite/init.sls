@@ -56,3 +56,15 @@ termite.theme:
     - mode: 755
     - dir_mode: 755
     - makedirs: True
+
+# Add a contextual menu in file managers to start termite in the
+# current directory. In Nautilus it need "nautilus-actions" installed.
+termite.filemanager:
+  file.managed:
+    - name: {{ dotfiles.home }}/.local/share/file-manager/actions/open-in-termite.desktop
+    - source: salt://termite/open-in-termite.desktop
+    - user: {{ dotfiles.user }}
+    - group: {{ dotfiles.user }}
+    - mode: 644
+    - dir_mode: 755
+    - makedirs: True
