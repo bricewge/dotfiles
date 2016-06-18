@@ -26,8 +26,7 @@ emacs.init:
         (require 'ob-tangle)
         (org-babel-tangle-file \"~/.emacs.d/bricewge.org\" \"~/.emacs.d/bricewge.el\")
         )"
-    - user: {{ dotfiles.user }}
-    - group: {{ dotfiles.user }}
+    - runas: {{ dotfiles.user }}
     - cwd: {{ dotfiles.home }}
     - onchanges:
       - file: emacs.bricewge

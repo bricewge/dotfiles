@@ -31,8 +31,7 @@ font.fontconfig:
 font.update:
   cmd.run:
     - name: fc-cache -v
-    - user: {{ dotfiles.user }}
-    - group: {{ dotfiles.user }}
+    - runas: {{ dotfiles.user }}
     - cwd: {{ dotfiles.home }}
     - onchanges:
       - file: font.meslo

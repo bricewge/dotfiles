@@ -994,7 +994,7 @@ Search, vote and download AUR packages.
 #+END_SRC
 
 ** TRAMP
-Acces distant files as local ones with TRAMP (Transparent Remote
+Access distant files as local ones with TRAMP (Transparent Remote
 Access, Multiple Protocols).
 
 I had stumbled upon [[http://git.savannah.gnu.org/cgit/tramp.git/commit/?id=69929c2728460fd8e2d965ad61b76cddc48ff1c5][a]] [[http://git.savannah.gnu.org/cgit/tramp.git/commit/?id=73aa25684228120df164687a68c1d55dc53be89c][couple]] of bugs in TRAMP 2.2.11 – the built-in
@@ -1003,7 +1003,7 @@ And as TRAMP isn't available in MELPA and co. I need to compile it
 from the source.
 
 The backups of the files opened with TRAMP are stored in the same
-direcotry as local ones. When connecting through ssh use the default
+directory as local ones. When connecting through ssh use the default
 settings form =~/.ssh/config= and use the default history file. The
 last part is a little bit of sorcery to edit root owned files file,
 via sudo, on a remote machine with =/sudo:remote_machine:/=.
