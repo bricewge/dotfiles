@@ -1,5 +1,9 @@
 {% import 'dotfiles.jinja' as dotfiles with context %}
 
+git.install:
+  pkg.installed:
+    - name: git
+
 git.config:
   file.managed:
     - name: {{ dotfiles.home }}/.config/git/config
@@ -19,3 +23,11 @@ git.ignore:
     - mode: 644
     - dir_mode: 755
     - makedirs: True
+
+{% if grains['os'] == 'Debian' %}
+# On arch it need to be install from AUR
+git-crypt.install:
+  pkg.installed:
+    - name: git-crypt
+    - fromrepo: testing
+{% endif %}
