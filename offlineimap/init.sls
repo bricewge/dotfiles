@@ -9,7 +9,7 @@ offlineimap.utf7:
     - name: {{ dotfiles.home }}/.config/offlineimap/utf7.py
     - source: salt://offlineimap/utf7.py
     - user: {{ dotfiles.user }}
-    - group: {{ dotfiles.user }}
+    - group: {{ dotfiles.group }}
     - mode: 755
     - makedirs: True
         
@@ -19,7 +19,7 @@ offlineimap.config:
     - name: {{ dotfiles.home }}/.config/offlineimap/config
     - source: salt://offlineimap/config
     - user: {{ dotfiles.user }}
-    - group: {{ dotfiles.user }}
+    - group: {{ dotfiles.group }}
     - mode: 600
     - template: jinja
     - require:

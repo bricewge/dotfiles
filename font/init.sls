@@ -5,7 +5,7 @@ font.meslo:
     - name: {{ dotfiles.home }}/.local/share/fonts/
     - source: salt://font/meslo/
     - user: {{ dotfiles.user }}
-    - group: {{ dotfiles.user }}
+    - group: {{ dotfiles.group }}
     - file_mode: 644
     - dir_mode: 755
 
@@ -14,7 +14,7 @@ font.powerline:
     - name: {{ dotfiles.home }}/.local/share/fonts/PowerlineSymbols.otf
     - source: salt://font/PowerlineSymbols.otf
     - user: {{ dotfiles.user }}
-    - group: {{ dotfiles.user }}
+    - group: {{ dotfiles.group }}
     - mode: 644
     - require:
       - file: font.meslo
@@ -24,7 +24,7 @@ font.fontconfig:
     - name: {{ dotfiles.home }}/.config/fontconfig/
     - source: salt://font/fontconfig/
     - user: {{ dotfiles.user }}
-    - group: {{ dotfiles.user }}
+    - group: {{ dotfiles.group }}
     - file_mode: 644
     - dir_mode: 755
 

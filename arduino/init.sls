@@ -5,7 +5,7 @@ arduino.directory:
   file.directory:
     - name: {{ dotfiles.home }}/divers/arduino
     - user: {{ dotfiles.user }}
-    - group: {{ dotfiles.user }}
+    - group: {{ dotfiles.group }}
     - makedirs: True
 
 arduino.sketchbook:

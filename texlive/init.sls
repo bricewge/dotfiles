@@ -13,6 +13,6 @@ beamer.themes:
     - name: {{ dotfiles.home }}/.texmf/tex/latex/beamer/
     - source: salt://texlive/beamer
     - user: {{ dotfiles.user }}
-    - group: {{ dotfiles.user }}
+    - group: {{ dotfiles.group }}
     - file_mode: 644
     - dir_mode: 755

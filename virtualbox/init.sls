@@ -23,7 +23,7 @@ virtualbox.config.absent:
     - name: {{ dotfiles.home }}/.config/VirtualBox/VirtualBox.xml
     - source: salt://virtualbox/VirtualBox.xml
     - user: {{ dotfiles.user }}
-    - group: {{ dotfiles.user }}
+    - group: {{ dotfiles.group }}
     - mode: 644
     - dir_mode: 755
     - makedirs: True

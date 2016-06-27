@@ -21,7 +21,7 @@ termite.dark:
     - name: {{ dotfiles.home }}/.config/termite/dark
     - source: salt://termite/dark
     - user: {{ dotfiles.user }}
-    - group: {{ dotfiles.user }}
+    - group: {{ dotfiles.group }}
     - mode: 644
     - dir_mode: 755
     - makedirs: True
@@ -31,7 +31,7 @@ termite.light:
     - name: {{ dotfiles.home }}/.config/termite/light
     - source: salt://termite/light
     - user: {{ dotfiles.user }}
-    - group: {{ dotfiles.user }}
+    - group: {{ dotfiles.group }}
     - mode: 644
     - require:
       - file: termite.dark
@@ -41,7 +41,7 @@ termite.config:
     - name: {{ dotfiles.home }}/.config/termite/config
     - target: {{ dotfiles.home }}/.config/termite/dark
     - user: {{ dotfiles.user }}
-    - group: {{ dotfiles.user }}
+    - group: {{ dotfiles.group }}
     - mode: 644
     - force: True
     - require:
@@ -52,7 +52,7 @@ termite.theme:
     - name: {{ dotfiles.home }}/.local/bin/theme
     - source: salt://termite/theme
     - user: {{ dotfiles.user }}
-    - group: {{ dotfiles.user }}
+    - group: {{ dotfiles.group }}
     - mode: 755
     - dir_mode: 755
     - makedirs: True
@@ -64,7 +64,7 @@ termite.filemanager:
     - name: {{ dotfiles.home }}/.local/share/file-manager/actions/open-in-termite.desktop
     - source: salt://termite/open-in-termite.desktop
     - user: {{ dotfiles.user }}
-    - group: {{ dotfiles.user }}
+    - group: {{ dotfiles.group }}
     - mode: 644
     - dir_mode: 755
     - makedirs: True

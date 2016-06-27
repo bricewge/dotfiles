@@ -10,7 +10,7 @@ redshift.conf:
     - name: {{ dotfiles.home }}/.config/redshift.conf
     - source: salt://redshift/redshift.conf
     - user: {{ dotfiles.user }}
-    - group: {{ dotfiles.user }}
+    - group: {{ dotfiles.group }}
     - mode: 644
     - dir_mode: 755
     - makedirs: True
@@ -20,7 +20,7 @@ redshift.autostart:
     - name: {{ dotfiles.home }}/.config/autostart/redshift-gtk.desktop
     - target: /usr/share/applications/redshift-gtk.desktop
     - user: {{ dotfiles.user }}
-    - group: {{ dotfiles.user }}
+    - group: {{ dotfiles.group }}
     - mode: 755
     - dir_mode: 755
     - makedirs: True

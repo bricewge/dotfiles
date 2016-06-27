@@ -5,7 +5,7 @@ enchant.fr_FR.copy:
     - name: {{ dotfiles.fileroot }}/enchant/fr_FR.dic
     - source: {{ dotfiles.home }}/.config/enchant/fr_FR.dic
     - user: {{ dotfiles.user }}
-    - group: {{ dotfiles.user }}
+    - group: {{ dotfiles.group }}
     - mode: 644
     - dir_mode: 755
     - makedirs: True
@@ -16,7 +16,7 @@ enchant.fr_FR:
     - name: {{ dotfiles.home }}/.config/enchant/fr_FR.dic
     - source: salt://enchant/fr_FR.dic
     - user: {{ dotfiles.user }}
-    - group: {{ dotfiles.user }}
+    - group: {{ dotfiles.group }}
     - mode: 644
     - dir_mode: 755
     - makedirs: True

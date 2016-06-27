@@ -12,7 +12,7 @@ emacs.bricewge:
     - name: {{ dotfiles.home }}/.emacs.d/bricewge.org
     - source: salt://emacs/bricewge.org
     - user: {{ dotfiles.user }}
-    - group: {{ dotfiles.user }}
+    - group: {{ dotfiles.group }}
     - mode: 644
     - dir_mode: 755
     - makedirs: True
@@ -37,7 +37,7 @@ emacs.service:
     - name: {{ dotfiles.home }}/.config/systemd/user/emacs.service
     - source: salt://emacs/emacs.service
     - user: {{ dotfiles.user }}
-    - group: {{ dotfiles.user }}
+    - group: {{ dotfiles.group }}
     - mode: 644
     - dir_mode: 755
     - makedirs: True
@@ -49,7 +49,7 @@ emacs.enable:
     - name: {{ dotfiles.home }}/.config/systemd/user/default.target.wants/emacs.service
     - target: {{ dotfiles.home }}/.config/systemd/user/emacs.service
     - user: {{ dotfiles.user }}
-    - group: {{ dotfiles.user }}
+    - group: {{ dotfiles.group }}
     - mode: 644
     - dir_mode: 755
     - makedirs: True
@@ -62,7 +62,7 @@ emacs.orgdir:
     - name: {{ dotfiles.home }}/.emacs.d/org
     - source: salt://emacs/org
     - user: {{ dotfiles.user }}
-    - group: {{ dotfiles.user }}
+    - group: {{ dotfiles.group }}
     - file_mode: 644
     - dir_mode: 755
     - include_empty: True
@@ -75,7 +75,7 @@ emacsclient.desktop:
     - name: {{ dotfiles.home }}/.local/share/applications/emacs-client.desktop
     - source: salt://emacs/emacs-client.desktop
     - user: {{ dotfiles.user }}
-    - group: {{ dotfiles.user }}
+    - group: {{ dotfiles.group }}
     - mode: 755
     - dir_mode: 755
     - makedirs: True

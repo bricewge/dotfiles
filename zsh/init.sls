@@ -16,7 +16,7 @@ zsh.zprofile:
     - name: {{ dotfiles.home }}/.zprofile
     - source: salt://zsh/zprofile
     - user: {{ dotfiles.user }}
-    - group: {{ dotfiles.user }}
+    - group: {{ dotfiles.group }}
     - mode: 644
 
 zsh.profile:
@@ -24,7 +24,7 @@ zsh.profile:
     - name: {{ dotfiles.home }}/.profile
     - source: salt://zsh/profile
     - user: {{ dotfiles.user }}
-    - group: {{ dotfiles.user }}
+    - group: {{ dotfiles.group }}
     - mode: 644
   
 zsh.zshrc:
@@ -32,7 +32,7 @@ zsh.zshrc:
     - name: {{ dotfiles.home }}/.zshrc
     - source: salt://zsh/zshrc
     - user: {{ dotfiles.user }}
-    - group: {{ dotfiles.user }}
+    - group: {{ dotfiles.group }}
     - mode: 644
     - template: jinja
     - require:

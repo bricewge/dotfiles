@@ -2,7 +2,8 @@
 
 set -e
 
-user=$(whoami)
+user=$(id -un)
+group=$(id -gn)
 home=$HOME
 fileroot=$(pwd)
 decrypted=False
@@ -22,6 +23,7 @@ sudo salt-call                                       \
      state.highstate                                 \
      pillar="{'dotfiles':                            \
                         {'user': '$user',            \
+                         'group': '$group',          \
                          'home': '$home',            \
                          'fileroot': '$fileroot',    \
                          'decrypted': '$decrypted'}, \
