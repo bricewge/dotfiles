@@ -1,0 +1,4 @@
+{% set font = salt['grains.filter_by']({
+    'Arch': {'path': '/.local/share/fonts'},
+    'MacOS': {'path': '/Library/Fonts'}
+}, default='Arch') %}

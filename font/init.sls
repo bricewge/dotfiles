@@ -1,8 +1,9 @@
 {% import 'dotfiles.jinja' as dotfiles with context %}
+{% from 'font/map.jinja' import font with context %}
 
 font.meslo:
   file.recurse:
-    - name: {{ dotfiles.home }}/.local/share/fonts/
+    - name: {{ dotfiles.home }}{{ font.path }}/
     - source: salt://font/meslo/
     - user: {{ dotfiles.user }}
     - group: {{ dotfiles.group }}
@@ -11,13 +12,17 @@ font.meslo:
 
 font.powerline:
   file.managed:
-    - name: {{ dotfiles.home }}/.local/share/fonts/PowerlineSymbols.otf
+    - name: {{ dotfiles.home }}{{ font.path }}/PowerlineSymbols.otf
     - source: salt://font/PowerlineSymbols.otf
     - user: {{ dotfiles.user }}
     - group: {{ dotfiles.group }}
     - mode: 644
     - require:
       - file: font.meslo
+
+font.fontconfig.install:
+  pkg.installed:
+    - name: fontconfig
 
 font.fontconfig:
   file.recurse:
@@ -30,7 +35,7 @@ font.fontconfig:
 
 font.update:
   cmd.run:
-    - name: fc-cache -v
+    - name: fc-cache -v {{ dotfiles.home }}{{ font.path }}
     - runas: {{ dotfiles.user }}
     - cwd: {{ dotfiles.home }}
     - onchanges:
