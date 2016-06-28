@@ -6,6 +6,8 @@ base:
     - enchant
     - env
     - font
+    - git
+    - gpg
     - redshift
     - isync
     - offlineimap
@@ -13,9 +15,6 @@ base:
     - texlive
     - virtualbox
     - zsh
-  'I@dotfiles:user:bricewge and G@os:Arch':
-    - git
-#    - gpg
   'I@dotfiles:decrypted:True':
     - ssh
     - emacs.personal

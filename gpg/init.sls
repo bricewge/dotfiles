@@ -3,6 +3,26 @@
 # Don't apply this state otherwise it will modify your system
 # rather than your user configuration!
 
+# ** GnuPG
+gpg.install:
+  pkg.installed:
+{% if grains['os'] != 'MacOS' %}
+    - name: gnupg2
+{% elif grains['os'] == 'MacOS' %}
+    - pkgs:
+      - gnupg21
+      - pinentry-mac
+    - tap: homebrew/versions
+{% endif %}
+
+# Retrieve my GPG public key
+gnupg.key.bricewge:
+  gpg.present:
+    - name: 0x3d36caa0116f0f99
+    - user: {{ dotfiles.user }}
+    - keyserver: pool.sks-keyservers.net
+
+{% if grains['os'] != 'MacOS' %}
 # ** envoy
 envoy.install:
   pkg.installed:
@@ -46,3 +66,4 @@ envoy.smartcard:
     - enable: True
     - require:
       - pkg: envoy.smartcard
+{% endif %}
