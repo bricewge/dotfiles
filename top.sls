@@ -4,6 +4,7 @@ base:
     - bspwm
     - emacs
     - enchant
+    - env
     - font
     - redshift
     - isync

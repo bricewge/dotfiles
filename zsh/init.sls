@@ -1,5 +1,8 @@
 {% import 'dotfiles.jinja' as dotfiles with context %}
 
+include:
+  - env
+
 zsh.install:
   pkg.installed:
     - name: zsh
@@ -18,14 +21,8 @@ zsh.zprofile:
     - user: {{ dotfiles.user }}
     - group: {{ dotfiles.group }}
     - mode: 644
-
-zsh.profile:
-  file.managed:
-    - name: {{ dotfiles.home }}/.profile
-    - source: salt://zsh/profile
-    - user: {{ dotfiles.user }}
-    - group: {{ dotfiles.group }}
-    - mode: 644
+    - require:
+      - file: env.profile
   
 zsh.zshrc:
   file.managed:
@@ -48,3 +45,10 @@ zsh.trash:
   pkg.installed:
     - name: trash
 {% endif %}
+
+zsh.default:
+  user.present:
+    - name: {{ dotfiles.user }}
+    - shell: /bin/zsh
+    - require:
+      - file: zsh.zshrc

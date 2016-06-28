@@ -2,43 +2,37 @@
 # Executed by all login shells.
 # Put all environement variables in it.
 # * Path
-PATH="$HOME/.local/bin:$HOME/.config/bspwm/panel:$PATH"
-PATH="$(ruby -e 'puts Gem.user_dir')/bin:$PATH"
-export PATH
+export PATH="$HOME/.local/bin:$HOME/.config/bspwm/panel:/usr/local/bin:$PATH"
+export PATH="$(ruby -e 'puts Gem.user_dir')/bin:$PATH"
 
 # * Language
 # Set default language
-LANG=fr_FR.utf8
-LC_CTYPE="fr_FR.UTF-8"
-LC_NUMERIC="fr_FR.UTF-8"
-LC_TIME="fr_FR.UTF-8"
-LC_COLLATE="fr_FR.UTF-8"
-LC_MONETARY="fr_FR.UTF-8"
-LC_MESSAGES="fr_FR.UTF-8"
-LC_PAPER="fr_FR.UTF-8"
-LC_NAME="fr_FR.UTF-8"
-LC_ADDRESS="fr_FR.UTF-8"
-LC_TELEPHONE="fr_FR.UTF-8"
-LC_MEASUREMENT="fr_FR.UTF-8"
-LC_IDENTIFICATION="fr_FR.UTF-8"
+export LANG="fr_FR.utf8"
+export LC_CTYPE="fr_FR.UTF-8"
+export LC_NUMERIC="fr_FR.UTF-8"
+export LC_TIME="fr_FR.UTF-8"
+export LC_COLLATE="fr_FR.UTF-8"
+export LC_MONETARY="fr_FR.UTF-8"
+export LC_MESSAGES="fr_FR.UTF-8"
+export LC_PAPER="fr_FR.UTF-8"
+export LC_NAME="fr_FR.UTF-8"
+export LC_ADDRESS="fr_FR.UTF-8"
+export LC_TELEPHONE="fr_FR.UTF-8"
+export LC_MEASUREMENT="fr_FR.UTF-8"
+export LC_IDENTIFICATION="fr_FR.UTF-8"
 # Set language preferences
-LANGUAGE="fr_FR:en_US:en"
-
-# Export it all!
-export LANG LANGUAGE LC_CTYPE LC_NUMERIC LC_TIME LC_COLLATE LC_MONETARY \
-LC_MESSAGES LC_PAPER LC_NAME LC_ADDRESS LC_TELEPHONE LC_MEASUREMENT \
-LC_IDENTIFICATION
+export LANGUAGE="fr_FR:en_US:en"
 
 # * Editor
 # Set Emacs as the default editor.
-EDITOR="emacsclient -t"
-VISUAL="emacs -nw"
-export EDITOR VISUAL
+export EDITOR="emacsclient -t"
+export VISUAL="emacs -nw"
 
 # * Browser
-BROWSER="firefox"
-export BROWSER
+export BROWSER="firefox"
 
+
+{% if grains['os'] != 'MacOS' %}
 # * systemd
 # Needed to run Xorg as a systemd service
 # https://wiki.archlinux.org/index.php/Systemd/User#Xorg_as_a_systemd_user_service
@@ -51,4 +45,8 @@ systemctl --user set-environment XDG_VTNR=1
 
 # Needed until envoy work with =GnuPG= >=2.1.13
 export GNUPGHOME=/run/user/`id -u`/gnupg
-
+{% endif %}
+{% if grains['os'] == 'MacOS' %}
+gpgconf --launch gpg-agent
+export SSH_AUTH_SOCK=$HOME/.gnupg/S.gpg-agent.ssh
+{% endif %}
