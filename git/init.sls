@@ -24,7 +24,7 @@ git.ignore:
     - dir_mode: 755
     - makedirs: True
 
-{% if grains['os'] == 'Debian' %}
+{% if grains['os'] != 'Arch' %}
 # On arch it need to be install from AUR
 git-crypt.install:
   pkg.installed:

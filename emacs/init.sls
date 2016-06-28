@@ -5,6 +5,14 @@
 emacs.install:
   pkg.installed:
     - pkgs: {{ emacs.pkgs }}
+{% if grains['os'] == 'MacOS' %}
+    - options:
+      - --with-emacs
+      - --with-cocoa
+      - --with-imagemagick
+    - taps:
+      - homebrew/emacs
+{% endif %}
 
 # * Configuration
 emacs.bricewge:

@@ -11,7 +11,11 @@ termite.terminfo:
     - name: /etc/terminfo/x/xterm-termite
     - source: salt://termite/xterm-termite
     - user: root
+    {% if grains['os'] == 'Arch' %}
     - group: root
+    {% elif grains['os'] == 'MacOS' %}
+    - group: wheel
+    {% endif %}
     - mode: 644
     - dir_mode: 755
     - makedirs: True

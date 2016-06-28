@@ -280,6 +280,21 @@ Shorctut all responses to "yes or no" questions to "y" and "n".
 #+BEGIN_SRC emacs-lisp
   (defalias 'yes-or-no-p 'y-or-n-p)
 #+END_SRC
+* OS specific
+{% endraw %} {% if grains['os'] == 'MacOS'  %}
+** macOS
+#+BEGIN_SRC emacs-lisp
+  (use-package exec-path-from-shell
+    :ensure t
+    :config
+    (setq exec-path-from-shell-variables '("PATH"
+                                           "MANPATH"
+                                           "SSH_AUTH_SOCK"))
+    (exec-path-from-shell-initialize))
+
+  (setq insert-directory-program (executable-find "gls"))
+#+END_SRC
+{% endif %} {% raw %}
 * Custom functions and variables
 
 * Org-Mode
@@ -2069,9 +2084,8 @@ highligthing where it moved.
     (setq beacon-blink-when-focused t)
     (add-to-list 'beacon-dont-blink-major-modes 'undo-tree-visualizer-mode t))
 #+END_SRC
-
-** transmission
 {% endraw %}
+** transmission
 Give you acces to your transmission daemon in Emacs!
 #+BEGIN_SRC emacs-lisp
   (use-package transmission
