@@ -7,7 +7,7 @@ bspwm.install:
       - adwaita-icon-theme
       - bspwm
       - conky
-      - dmenu
+      - dmenu2
       - sxhkd
       - feh
       - unclutter
