@@ -54,6 +54,15 @@ envoy.gdmpsswd:
     - require:
       - pkg: envoy.install
 
+# Needed until envoy work with GnuPG >=2.1.13
+envoy.fix:
+  file.symlink:
+    - name: {{ dotfiles.home }}/.gnupg/S.gpg-agent
+    - target: /run/user/{{ dotfiles.uid }}/gnupg/S.gpg-agent
+    - require:
+      - service: envoy.install
+      - gpg: gnupg.key.bricewge
+
 # ** pcscd
 envoy.smartcard:
   pkg.installed:

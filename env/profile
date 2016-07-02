@@ -43,8 +43,6 @@ systemctl --user set-environment XDG_VTNR=1
 # envoy ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDT5fzsASMTCqeFuB4IcNzillPec7yQa7Kpq8KJiMQvv0xOHV7/Ha1gYHO6mjEFu5iILMnmKepvIP/dasQbZCw0v8LY49XDC+CL9qCCGmfwwXA9FNlu4sYkzXq5l6k8RLisCopbQTCoQxaKd/N5EDGDj6bXHiOYAIjl6HqbCh8+QaHcXwsuHTSb7MezTkkZBAPSj+YJfTQto4Q46aCY5f2grNXq5UCNrJ8nqR260/iDrnqm9uTr6ipllCp+KhZXxSIF9hl8X/J3TkXx73lnx3nPgcMESqkbeKVXF83LNZE5JrdBr1QT1FghDi6GKIFqfk/4x4kOEOvAjcteVfdQ3V1b cardno:000603362679
 # source <(envoy -p)
 
-# Needed until envoy work with =GnuPG= >=2.1.13
-export GNUPGHOME=/run/user/`id -u`/gnupg
 {% endif %}
 {% if grains['os'] == 'MacOS' %}
 gpgconf --launch gpg-agent

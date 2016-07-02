@@ -3,6 +3,7 @@
 set -e
 
 user=$(id -un)
+uid=$(id -u)
 group=$(id -gn)
 home=$HOME
 fileroot=$(pwd)
@@ -23,6 +24,7 @@ sudo salt-call                                       \
      state.highstate                                 \
      pillar="{'dotfiles':                            \
                         {'user': '$user',            \
+                         'uid': '$uid',              \
                          'group': '$group',          \
                          'home': '$home',            \
                          'fileroot': '$fileroot',    \
