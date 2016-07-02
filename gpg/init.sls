@@ -1,19 +1,19 @@
 {% import 'dotfiles.jinja' as dotfiles with context %}
+{% from 'gpg/map.jinja' import gpg with context %}
 
 # Don't apply this state otherwise it will modify your system
 # rather than your user configuration!
 
-# ** GnuPG
+# * GnuPG
+# Dependencie needed for salt's gpg module
+gnupg.python.install:
+  pkg.installed:
+    - name: {{ gpg.python }}
+
 gpg.install:
   pkg.installed:
-{% if grains['os'] != 'MacOS' %}
-    - name: gnupg2
-{% elif grains['os'] == 'MacOS' %}
-    - pkgs:
-      - gnupg21
-      - pinentry-mac
+    - pkgs: {{ gpg.pkgs }}
     - tap: homebrew/versions
-{% endif %}
 
 # Retrieve my GPG public key
 gnupg.key.bricewge:
@@ -21,12 +21,15 @@ gnupg.key.bricewge:
     - name: 0x3d36caa0116f0f99
     - user: {{ dotfiles.user }}
     - keyserver: pool.sks-keyservers.net
+    - require:
+      - pkg: gnupg.python.install
 
+# * smartcard
 {% if grains['os'] != 'MacOS' %}
 # ** envoy
 envoy.install:
   pkg.installed:
-    - name: envoy
+    - name: envoy-git
   service.running:
     - name: envoy@gpg-agent.socket
     - enable: True

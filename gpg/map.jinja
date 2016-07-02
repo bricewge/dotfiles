@@ -1,0 +1,6 @@
+{% set gpg = salt['grains.filter_by']({
+    'Arch': {'pkgs': ['gnupg'],
+             'python': 'python2-gnupg'},
+    'MacOS': {'pkgs': ['gnupg21',
+                      'pinentry-mac']}
+}, default='Arch') %}
