@@ -22,7 +22,7 @@ font.powerline:
 
 font.fontconfig.install:
   pkg.installed:
-    - name: fontconfig
+    - name: {{ font.fontconfig }}
 
 font.fontconfig:
   file.recurse:
