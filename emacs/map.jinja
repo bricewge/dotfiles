@@ -2,17 +2,20 @@
 {% set emacs = salt['grains.filter_by']({
     'Arch': {'pkgs': [
 	'aspell-en',
-	'aspell-fr',
+        'aspell-fr',
+        'clang',
 	'emacs',
 	'enchant',
 	'hunspell-en',
-	'hunspell-fr',
+        'hunspell-fr',
+        'global',
 	'graphicsmagick',
 	'languagetool',
-	'mu',
+        'mu',
 	'python2-virtualenv',
 	'python-virtualenv',
-	'wmctrl'
+        'ttf-symbola',
+        'wmctrl'
     ] },
     'Debian': { 'pkgs': [
 	'aspell-fr',
@@ -26,6 +29,7 @@
         'mu4e',
         'python-virtualenv',
         'python3-virtualenv',
+        'ttf-ancient-fonts',
 	'wmctrl'
     ] },
     'MacOS': { 'pkgs': [
@@ -37,6 +41,6 @@
 	'graphicsmagick',
 	'ledger',
         'mu',
-	'org-mode'
+        'org-mode'
     ] }
 }) %}

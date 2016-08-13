@@ -1363,7 +1363,7 @@ Mode to edit MediaWiki, with the site I'm used to contribute.
 #+END_SRC
 ** conf-mode
 Enable conf-mode for systemd service files, snippet [[https://wiki.archlinux.org/index.php/Emacs#Syntax_Highlighting_for_Systemd_Files][from the arch wiki.]]
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
  (add-to-list 'auto-mode-alist '("\\.service\\'" . conf-unix-mode))
  (add-to-list 'auto-mode-alist '("\\.timer\\'" . conf-unix-mode))
  (add-to-list 'auto-mode-alist '("\\.target\\'" . conf-unix-mode))
@@ -1741,16 +1741,22 @@ Acces [[https://www.passwordstore.org/][pass]], the standard unix password manag
     :ensure t)
 #+END_SRC
 
-Integrate Emacs' auth-source with password-store
+Integrate Emacs' auth-source with password-store.
 #+BEGIN_SRC emacs-lisp
-  (use-package pass
+  (use-package auth-password-store
     :ensure t
     :config (auth-pass-enable))
 #+END_SRC
 
+Generate passwords.
+#+BEGIN_SRC emacs-lisp
+  (use-package password-generator
+    :ensure t)
+#+END_SRC
+
 * Minor modes
 ** auto-complete
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package auto-complete
     :commands auto-complete-mode
     :config
@@ -2016,6 +2022,10 @@ Isearch with an overview.
           '((t . ivy--regex-fuzzy))
           ivy-initial-inputs-alist nil)
     (setq colir-compose-method "") ;; Don't colorize by combining colors
+    (use-package ivy-hydra
+      :ensure t
+      :bind (:map ivy-minibuffer-map ("C-o" . hydra-ivy/body))
+      )
     )
 #+END_SRC
 
@@ -2114,6 +2124,99 @@ Give you acces to your transmission daemon in Emacs!
 #+END_SRC
 *** TODO Make an hydra for transmission.el
 
+** company
+#+BEGIN_SRC emacs-lisp
+  (use-package company
+    :ensure t
+    :config (add-hook 'after-init-hook 'global-company-mode))
+#+END_SRC
+
+test config
+#+BEGIN_SRC emacs-lisp
+  ;; == irony-mode ==
+  (use-package irony
+    :ensure t
+    :defer t
+    :init
+    (add-hook 'c++-mode-hook 'irony-mode)
+    (add-hook 'c-mode-hook 'irony-mode)
+    (add-hook 'objc-mode-hook 'irony-mode)
+    :config
+    ;; replace the `completion-at-point' and `complete-symbol' bindings in
+    ;; irony-mode's buffers by irony-mode's function
+    (defun my-irony-mode-hook ()
+      (define-key irony-mode-map [remap completion-at-point]
+        'irony-completion-at-point-async)
+      (define-key irony-mode-map [remap complete-symbol]
+        'irony-completion-at-point-async))
+    (add-hook 'irony-mode-hook 'my-irony-mode-hook)
+    (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+    (unless (file-exists-p (expand-file-name "irony" user-emacs-directory))
+      (irony-install-server))
+    )
+
+  ;; == company-mode ==
+  (use-package company
+    :ensure t
+    :defer t
+    :init (add-hook 'after-init-hook 'global-company-mode)
+    :config
+    (use-package company-irony :ensure t :defer t)
+    (setq company-idle-delay              nil
+          company-minimum-prefix-length   2
+          company-show-numbers            t
+          company-tooltip-limit           20
+          company-dabbrev-downcase        nil
+          company-backends                '((company-irony company-gtags))
+          )
+    :bind ("C-;" . company-complete-common)
+    )
+#+END_SRC
+*** company-emoji
+#+BEGIN_SRC emacs-lisp
+  (use-package company-emoji
+    :ensure t
+    :defer t
+    :init
+    (defun --set-emoji-font (frame)
+      "Adjust the font settings of FRAME so Emacs can display emoji properly."
+      (if (eq system-type 'darwin)
+          ;; For NS/Cocoa
+          (set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji") frame 'prepend)
+        ;; For Linux
+        (set-fontset-font t 'symbol (font-spec :family "Symbola") frame 'prepend)))
+
+
+    ;; For when Emacs is started in GUI mode:
+    (--set-emoji-font nil)
+    ;; Hook for when a frame is created with emacsclient
+    ;; see https://www.gnu.org/software/emacs/manual/html_node/elisp/Creating-Frames.html
+    (add-hook 'after-make-frame-functions '--set-emoji-font)
+    (add-to-list 'company-backends 'company-emoji))
+#+END_SRC
+
+*** company-quickhelp
+#+BEGIN_SRC emacs-lisp
+  (use-package company-quickhelp
+    :ensure t
+    :config
+    (company-quickhelp-mode 1))
+#+END_SRC
+
+** systemd
+#+BEGIN_SRC emacs-lisp
+  (use-package systemd
+    :ensure t)
+#+END_SRC
+** gitlab
+#+BEGIN_SRC emacs-lisp
+  (use-package ivy-gitlab
+    :ensure t
+    :config
+    (setq gitlab-host "https://git.bricewge.fr"
+          gitlab-username "bricewge"
+          gitlab-password "foo"))
+#+END_SRC
 * End
 *Dirty* workaround for [[https://github.com/bbatsov/solarized-emacs/issues/18][incorrect colours in terminal]]. Need to be at the end of
 the config file.
