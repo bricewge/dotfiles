@@ -2,15 +2,14 @@
 
 set -e
 
-MINPARAMS=1
-
-if [ "${1}" == dark ] ; then
-    ln -sf /home/bricewge/.config/termite/dark /home/bricewge/.config/termite/config
-elif [ "${1}" == light ] ; then
+if [ "/home/bricewge/.config/termite/config" -ef \
+     "/home/bricewge/.config/termite/dark" ]; then
     ln -sf /home/bricewge/.config/termite/light /home/bricewge/.config/termite/config
-else
-    echo "You only have the choice between 'dark' or 'light'!"
-    exit 1
+    emacsclient --eval "(load-theme 'solarized-light)"
+elif [ "/home/bricewge/.config/termite/config" -ef \
+     "/home/bricewge/.config/termite/light" ]; then
+    ln -sf /home/bricewge/.config/termite/dark /home/bricewge/.config/termite/config
+    emacsclient --eval "(load-theme 'solarized-dark)"
 fi
 
 killall -s USR1 termite

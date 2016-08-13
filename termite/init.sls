@@ -47,9 +47,9 @@ termite.config:
     - user: {{ dotfiles.user }}
     - group: {{ dotfiles.group }}
     - mode: 644
-    - force: True
     - require:
       - file: termite.dark
+    - unless: test -h {{ dotfiles.home }}/.config/termite/config
 
 termite.theme:
   file.managed:
