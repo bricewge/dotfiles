@@ -1734,6 +1734,20 @@ Store eshell history in the appropriate directory.
   (setq eshell-history-file-name
         (expand-file-name "eshell" bricewge/emacs-history-directory))
 #+END_SRC
+** pass
+Acces [[https://www.passwordstore.org/][pass]], the standard unix password manager, within Emacs.
+#+BEGIN_SRC emacs-lisp
+  (use-package pass
+    :ensure t)
+#+END_SRC
+
+Integrate Emacs' auth-source with password-store
+#+BEGIN_SRC emacs-lisp
+  (use-package pass
+    :ensure t
+    :config (auth-pass-enable))
+#+END_SRC
+
 * Minor modes
 ** auto-complete
 #+BEGIN_SRC emacs-lisp

@@ -30,8 +30,8 @@ export VISUAL="emacs -nw"
 
 # * Browser
 export BROWSER="firefox"
-
-
+# * Pass
+export PASSWORD_STORE_GENERATED_LENGTH=24
 {% if grains['os'] != 'MacOS' %}
 # * systemd
 # Needed to run Xorg as a systemd service
@@ -42,7 +42,6 @@ systemctl --user set-environment XDG_VTNR=1
 # # Use the gpg-agent from envoy
 # envoy ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDT5fzsASMTCqeFuB4IcNzillPec7yQa7Kpq8KJiMQvv0xOHV7/Ha1gYHO6mjEFu5iILMnmKepvIP/dasQbZCw0v8LY49XDC+CL9qCCGmfwwXA9FNlu4sYkzXq5l6k8RLisCopbQTCoQxaKd/N5EDGDj6bXHiOYAIjl6HqbCh8+QaHcXwsuHTSb7MezTkkZBAPSj+YJfTQto4Q46aCY5f2grNXq5UCNrJ8nqR260/iDrnqm9uTr6ipllCp+KhZXxSIF9hl8X/J3TkXx73lnx3nPgcMESqkbeKVXF83LNZE5JrdBr1QT1FghDi6GKIFqfk/4x4kOEOvAjcteVfdQ3V1b cardno:000603362679
 # source <(envoy -p)
-
 {% endif %}
 {% if grains['os'] == 'MacOS' %}
 gpgconf --launch gpg-agent
