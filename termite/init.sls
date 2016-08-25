@@ -51,16 +51,6 @@ termite.config:
       - file: termite.dark
     - unless: test -h {{ dotfiles.home }}/.config/termite/config
 
-termite.theme:
-  file.managed:
-    - name: {{ dotfiles.home }}/.local/bin/theme
-    - source: salt://termite/theme
-    - user: {{ dotfiles.user }}
-    - group: {{ dotfiles.group }}
-    - mode: 755
-    - dir_mode: 755
-    - makedirs: True
-
 # Add a contextual menu in file managers to start termite in the
 # current directory. In Nautilus it need "nautilus-actions" installed.
 termite.filemanager:

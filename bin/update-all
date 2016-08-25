@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# Update all the software that can be updated.
+
+# Archlinux
+pacaur -Suy
+# .pacsave .bak  .pacnew et compagnie
+
+# ZSH
+antibody update
+
+# Emacs. TODO Quelpa packages get marked as faild by
+# auto-package-update, they should been updated by him
+emacsclient --eval "(progn                       \
+                      (auto-package-update-now)  \
+                      (quelpa-self-upgrade)      \
+                      (quelpa-upgrade))"

@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Toogle betwen dark and light themes
+
 set -e
 
 if [ "/home/bricewge/.config/termite/config" -ef \

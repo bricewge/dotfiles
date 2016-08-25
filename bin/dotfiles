@@ -1,0 +1,46 @@
+#!/bin/python2
+
+# Apply current dotfiles to this user
+# alias dotfiles="cd ~/dotfiles && git pull && ./init.sh && cd - > /dev/null"
+
+from sys import argv
+from subprocess import call
+from os import path, getenv
+from getpass import getuser
+
+# Variables for setting pillar
+user = getuser()
+home = path.expanduser("~")
+fileroot = getenv("DOTFILES") or path.dirname(path.abspath(argv[0]))
+decrypted = False
+
+dotfiles = path.expanduser("~/dotfiles")
+
+
+def pull():
+    call(['git', 'pull'], cwd=dotfiles)
+
+def apply():
+    #call('./init.sh', cwd=dotfiles)
+    print("Running as '\033[1m%s\033[0m' with home directory '\033[1m%s\033[0m'" % (user, home))
+
+def main():
+    if argv[1] == ('apply' or ''):
+        print("Apply dotfiles")
+        apply()
+    elif argv[1] == 'update':
+        print("Git pull and apply")
+        pull()
+        apply()
+    elif argv[1] == 'test':
+        print("fileroot: " + fileroot)
+        print("Running as '\033[1m%s\033[0m' with home directory '\033[1m%s\033[0m'" % (user, home))
+    else:
+        print("Wrong option")
+        return(1)
+
+if __name__ == '__main__':
+  main()
+
+
+

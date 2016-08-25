@@ -1,6 +1,7 @@
 base:
   '*':
     - arduino
+    - bin
     - bspwm
     - emacs
     - enchant
