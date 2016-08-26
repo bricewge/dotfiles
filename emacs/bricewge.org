@@ -331,7 +331,7 @@ org-module instead.
 
   ; Set tags not to far from the headline because the font size reduce the space
   ; availaible
-  (setq org-tags-column -67)
+  (setq org-tags-column -64)
 
   ; Replace the "..." of folded headings by something more fancy
   (setq org-ellipsis "⤵")
