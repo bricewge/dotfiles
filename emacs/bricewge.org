@@ -1763,6 +1763,15 @@ Generate passwords.
     (setq ac-comphist-file
           (expand-file-name "auto-complete" bricewge/emacs-history-directory)))
 #+END_SRC
+** auto-package-update
+Usefull to update emacs packages from the CLI.
+#+BEGIN_SRC emacs-lisp
+  (use-package auto-package-update
+    :ensure t
+    :config
+    (setq auto-package-update-delete-old-versions t))
+#+END_SRC
+
 ** winner
 For hydra windows.
 #+BEGIN_SRC emacs-lisp
