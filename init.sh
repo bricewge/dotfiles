@@ -6,7 +6,7 @@ user=$(id -un)
 uid=$(id -u)
 group=$(id -gn)
 home=$HOME
-fileroot=$(pwd)
+fileroot=`echo $0 | sed "s|/init.sh$||g"`
 decrypted=False
 
 if file "$fileroot/ssh/init.sls" | grep -q text$; then

@@ -173,8 +173,7 @@ alias scu-mask-now="scu-mask --now"
 alias jc="sudo journalctl --system"
 alias jcu="journalctl --user"
 
-
 # ** misc
-alias dotfiles="cd ~/dotfiles && git pull && ./init.sh && cd - > /dev/null"
+alias dotfiles="git -C ~/dotfiles pull ; ~/dotfiles/init.sh"
 alias smartcard-fix="sc-stop system-envoy.slice ; killall gpg-agent"
 alias open="xdg-open"
