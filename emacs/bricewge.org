@@ -1154,17 +1154,24 @@ Set the schedule or deadline date with french names.
 ** Magit
 Git interface in Emacs.
 
-Use the great ivy for completion in Magit.
-Don't ask to confirm when pushing to the default upstream branch.
+Use magit WIP modes to save work in progress in git. When navigating
+in logs automaticliy update the relevant buffers. Use the great ivy
+for completion in Magit. Don't ask to confirm when pushing to the
+default upstream branch.
 #+BEGIN_SRC emacs-lisp
   (use-package magit
     :ensure t
     :commands magit-status
     :bind ("C-x g" . magit-status)
     :init
+    ; Wip
     (magit-wip-after-save-mode)
     (magit-wip-after-apply-mode)
-    (magit-wip-after-apply-mode)
+    (magit-wip-before-change-mode)
+    ; Log navigation
+    (add-hook 'magit-section-movement-hook 'magit-status-maybe-update-revision-buffer)
+    (add-hook 'magit-section-movement-hook 'magit-log-maybe-update-blob-buffer)
+    (add-hook 'magit-section-movement-hook 'magit-status-maybe-update-blob-buffer)
     :config
     (setq magit-completing-read-function 'ivy-completing-read)
     (setq magit-push-always-verify nil))
@@ -1754,6 +1761,25 @@ Generate passwords.
     :ensure t)
 #+END_SRC
 
+** weechat
+Chat via [[https://weechat.org/][Weechat]]'s relay.
+#+BEGIN_SRC emacs-lisp
+  (use-package weechat
+    :ensure t
+    :config
+    (setq weechat-host-default "durian"
+          weechat-port-default 9001
+          weechat-mode-default "ssh -W localhost:%p %h"
+          weechat-sync-buffer-read-status t
+          weechat-modules '(weechat-button
+                            weechat-complete
+                            weechat-image
+                            weechat-latex)
+          weechat-image-max-width 600)
+    )
+  (require 'weechat-image)
+  ;tracking, notification, latex
+#+END_SRC
 * Minor modes
 ** auto-complete
 #+BEGIN_SRC emacs-lisp :tangle no
@@ -1790,7 +1816,7 @@ For hydra windows.
   (setq sentence-end-double-space nil)
 
   ;; Use it in the folowing modes
-  (add-hook 'org-mode-hook 'auto-fill-mode)
+  (add-hook 'text-mode-hook 'auto-fill-mode)
   ;(add-hook 'sh-mode-hook 'auto-fill-mode)
   (add-hook 'emacs-lisp-mode-hook 'auto-fill-mode)
 #+END_SRC
@@ -2083,6 +2109,46 @@ development.
     (platformio-setup-compile-buffer))
 #+END_SRC
 
+** sensitive
+Mode that disable creation of backup files and auto-save when editing
+sensitive files in Emacs.
+From: http://anirudhsasikumar.net/blog/2005.01.21.html
+#+BEGIN_SRC emacs-lisp
+  (define-minor-mode sensitive-mode
+    "For sensitive files like password lists.
+  It disables backup creation and auto saving.
+
+  With no argument, this command toggles the mode.
+  Non-null prefix argument turns on the mode.
+  Null prefix argument turns off the mode."
+    ;; The initial value.
+    nil
+    ;; The indicator for the mode line.
+    " Sensitive"
+    ;; The minor mode bindings.
+    nil
+    (if (symbol-value sensitive-mode)
+        (progn
+          ;; disable backups
+          (set (make-local-variable 'backup-inhibited) t)
+          ;; disable magit's wip modes
+          (magit-wip-after-save-local-mode)
+          ;; disable auto-save
+          (if auto-save-default
+              (auto-save-mode -1)))
+      ;resort to default value of backup-inhibited
+      (kill-local-variable 'backup-inhibited)
+      ;resort to default auto save setting
+      (if auto-save-default
+          (auto-save-mode 1))))
+#+END_SRC
+Enable sensitive mode when editing gpg files or files in =/dev/shm/=
+like when doing a =pass edit=.
+#+BEGIN_SRC emacs-lisp
+  (setq auto-mode-alist
+        (append '(("^/dev/shm/" . sensitive-mode))
+           auto-mode-alist))
+#+END_SRC
 * Temporary
 ** counsel
 Replace setting tags in org-mode with counsel:
