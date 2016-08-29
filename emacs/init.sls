@@ -88,3 +88,7 @@ emacsclient.desktop:
     - mode: 755
     - dir_mode: 755
     - makedirs: True
+
+# * Test of spacemacs
+include:
+  - .spacemacs

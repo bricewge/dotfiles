@@ -1,4 +1,4 @@
 ! Use a nice cursor them form Gnome 3
 Xcursor.theme: Adwaita
 
-emacs.font: Meslo LG S 11
+! emacs.font: Meslo LG S 11
