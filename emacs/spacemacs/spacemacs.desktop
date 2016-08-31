@@ -1,4 +1,4 @@
-{% import 'dotfiles.jinja' as dotfiles with context %}wq
+{% import 'dotfiles.jinja' as dotfiles with context %}
 [Desktop Entry]
 Name=Spacemacs
 GenericName=Text Editor

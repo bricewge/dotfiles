@@ -1,6 +1,8 @@
+# -*- org-confirm-babel-evaluate: nil; -*-
 #+TITLE: Brice Waegeneire's Emacs configuration
 #+AUTHOR: Brice Waegeneire
 #+OPTIONS: toc:4 h:4
+#+PROPERTY: header-args :results silent
 
 * About this file
 Inspired by [[http://pages.sachachua.com/.emacs.d/Sacha.html][Sacha's configuration]] organisation.
@@ -2054,7 +2056,8 @@ Isearch with an overview.
     (ivy-mode 1)
     ;; Fuzzy matching
     (setq ivy-re-builders-alist
-          '((t . ivy--regex-fuzzy))
+          '((swiper . ivy--regex-fuzzy)
+            (t . ivy--regex-plus))
           ivy-initial-inputs-alist nil)
     (setq colir-compose-method "") ;; Don't colorize by combining colors
     (use-package ivy-hydra
