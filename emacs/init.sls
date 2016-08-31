@@ -36,8 +36,7 @@ emacs.init:
         )"
     - runas: {{ dotfiles.user }}
     - cwd: {{ dotfiles.home }}
-    - creates: {{ dotfiles.home }}/.emacs.d/init.el
-    - watch‹:
+    - watch:
       - file: emacs.bricewge
 
 # * Service
