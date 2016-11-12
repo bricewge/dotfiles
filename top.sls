@@ -12,6 +12,7 @@ base:
     - redshift
     - isync
     - mpv
+    - tmux
     - offlineimap
     - termite
     - texlive

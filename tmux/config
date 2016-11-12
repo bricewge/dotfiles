@@ -1,0 +1,15 @@
+# Mouse fix
+set -g mouse on
+set -g history-limit 30000
+bind -T root WheelUpPane   if-shell -F -t = "#{alternate_on}" "send-keys -M" "select-pane -t =; copy-mode -e; send-keys -M"
+bind -T root WheelDownPane if-shell -F -t = "#{alternate_on}" "send-keys -M" "select-pane -t =; send-keys -M"
+
+# Tab navigation
+bind -n S-up new-window
+bind -n S-down kill-window
+bind -n S-left prev
+bind -n S-right next
+bind -n C-left swap-window -t -1
+bind -n C-right swap-window -t +1
+# Reload config
+bind r source-file ~/.tmux.conf
