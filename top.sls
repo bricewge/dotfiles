@@ -11,6 +11,7 @@ base:
     - gpg
     - redshift
     - isync
+    - mpv
     - offlineimap
     - termite
     - texlive
