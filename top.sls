@@ -1,23 +1,24 @@
 base:
   '*':
-    - arduino
     - bin
-    - bspwm
     - emacs
     - enchant
     - env
     - font
     - git
     - gpg
-    - redshift
     - isync
-    - mpv
     - tmux
     - offlineimap
     - termite
     - texlive
-    - virtualbox
     - zsh
+  'I@dotfiles:graphics:True':
+    - arduino
+    - bspwm
+    - redshift
+    - mpv
+    - virtualbox
   'I@dotfiles:decrypted:True':
     - ssh
     - emacs.personal
