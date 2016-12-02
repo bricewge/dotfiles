@@ -30,6 +30,7 @@ export VISUAL="emacs -nw"
 
 # * Browser
 export BROWSER="firefox"
+
 # * Pass
 export PASSWORD_STORE_GENERATED_LENGTH=24
 {% if grains['os'] != 'MacOS' %}

@@ -1,0 +1,13 @@
+{% set antibody_url = "https://github.com/getantibody/antibody/releases/download/v2.0.1/" %}
+
+{% set zsh = salt['grains.filter_by']({
+'Arch' : {'antibody': {'source': antibody_url + 'antibody_Linux_x86_64.tar.gz',
+                       'hash': 'sha256=0d900febaa351d2328a1c7218dfc6a9885397877fd6f144a75213644e15ab517'},
+          'trash': 'trash-cli'},
+'Debian' : {'antibody': {'source': antibody_url + 'antibody_Linux_x86_64.tar.gz',
+                         'hash': 'sha256=0d900febaa351d2328a1c7218dfc6a9885397877fd6f144a75213644e15ab517'},
+          'trash': 'trash-cli'},
+'MacOS' : {'antibody': {'source': antibody_url + 'antibody_Darwin_x86_64.tar.gz',
+                        'hash': 'sha256=cf2f6a03740187b06f205bf342653e7a8f6a23be93270d340b37cb6a9970f0af'},
+          'trash': 'trash'}
+}, default='Arch') %}

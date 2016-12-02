@@ -3,28 +3,19 @@
 # Do not put environement varialbes in it, use
 # .profile for it.
 #if [ "$TMUX" = "" ]; then tmux; fi
-# * Antigen -- plugin manager
-source ~/.antigen/antigen.zsh
+# * Antibody -- plugin manager
+source <(antibody init)
 
-# ** oh-my-zsh features
-# Load the oh-my-zsh's library.
-antigen use oh-my-zsh
-
-# Plungin for oh-my-zsh
-# https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins
-antigen bundles <<EOBUNDLES
-  # Git and github autocompletions and aliases
-  git
-  git-extras
-
-  # Other
-  command-not-found
-  archlinux
-EOBUNDLES
+# ** prezto
+# antibody bundle sorin-ionescu/prezto
+if [ -e "~/.zprezto" ] ; then
+    ln -s ~/.cache/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-sorin-ionescu-SLASH-prezto/ ~/.zprezto
+    git -C ~/.zprezto submodule update
+fi
 
 # ** Completions
 # Additional completion definitions for Zsh. 
-antigen bundle zsh-users/zsh-completions src
+antibody bundle zsh-users/zsh-completions
 
 # ** Fish like features
 # Disable the fancies fish's features in Emacs
@@ -33,17 +24,16 @@ if [[ $TERM != "dumb" ]]; then
 # *** Autosuggestion
     # Sourcing zsh-syntax-highlighting need to be done before
     # zsh-autosuggestions, otherwise this can cause problems.
-    antigen bundle zsh-users/zsh-autosuggestions
-
+    antibody bundle zsh-users/zsh-autosuggestions
     ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=10'
     # Add history-substring-search-* widgets to list of widgets that clear the autosuggestion
     ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(history-substring-search-up history-substring-search-down)
 
 # *** Syntax highlighting
-    antigen bundle zsh-users/zsh-syntax-highlighting
+    antibody bundle zsh-users/zsh-syntax-highlighting
 
 # *** History substring search
-    antigen bundle zsh-users/zsh-history-substring-search
+    antibody bundle zsh-users/zsh-history-substring-search
 
     # Keybindings
     zmodload zsh/terminfo
@@ -67,43 +57,106 @@ fi # End of the fancies fish's features
 if [[ $TERM == "dumb" ]]; then
     PS1='$ '
 else
-    antigen theme https://gist.github.com/agnoster/3712874.git agnoster
+    antibody bundle agnoster/agnoster-zsh-theme
+    setopt promptsubst
 fi
 
 # Remove the prefix prompt when logged as bricewge
 DEFAULT_USER="bricewge"
 export DEFAULT_USER
 
+# *** man pages
+# Solarized theme in man pages
+antibody bundle zlsun/solarized-man
+
+# *** notify when long running commands stop
+antibody bundle ihashacks/notifyosd.zsh
+
 # ** Packages
-# Packages installed via antigen when there is no other correct way to
+# Packages installed via antibody when there is no correct way to
 # do it.
 
 # *** git-subrepo
 # Install git-subrepo. I don't use the package manager for this as the
 # "make install" install method doesn't have command completion
 # working; as stated in the README.
-antigen bundle ingydotnet/git-subrepo
-source ~/.antigen/repos/https-COLON--SLASH--SLASH-github.com-SLASH-ingydotnet-SLASH-git-subrepo.git/.rc
+antibody bundle ingydotnet/git-subrepo
+source ~/.cache/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-ingydotnet-SLASH-git-subrepo/.rc
 
-# ** Apply Antigen
-# Tell antigen that you're done.
-antigen apply
-# End of Antigen -- plugin manager
+# * ZSH config
+# ** environment
+# *** Smart URLs
+autoload -Uz url-quote-magic
+zle -N self-insert url-quote-magic
 
+# *** General
+setopt BRACE_CCL          # Allow brace character class list expansion.
+setopt COMBINING_CHARS    # Combine zero-length punctuation characters (accents)
+                          # with the base character.
+setopt RC_QUOTES          # Allow 'Henry''s Garage' instead of 'Henry'\''s Garage'.
+unsetopt MAIL_WARNING     # Don't print a warning message if a mail file has been accessed.
+
+# *** Jobs
+setopt LONG_LIST_JOBS     # List jobs in the long format by default.
+setopt AUTO_RESUME        # Attempt to resume existing job before creating a new process.
+setopt NOTIFY             # Report status of background jobs immediately.
+unsetopt BG_NICE          # Don't run all background jobs at a lower priority.
+unsetopt HUP              # Don't kill jobs on shell exit.
+unsetopt CHECK_JOBS       # Don't report on jobs when shell exit.
+
+# ** command-not-found
+# Load command-not-found on Debian-based distributions.
+if [[ -s '/etc/zsh_command_not_found' ]]; then
+  source '/etc/zsh_command_not_found'
+# Load command-not-found on Arch Linux-based distributions.
+elif [[ -s '/usr/share/doc/pkgfile/command-not-found.zsh' ]]; then
+  source '/usr/share/doc/pkgfile/command-not-found.zsh'
+# Return if requirements are not found.
+else
+  return 1
+fi
+
+# ** History
+export HISTFILE="${ZDOTDIR:-$HOME}/.zhistory"       # The path to the history file.
+export HISTSIZE=10000                   # The maximum number of events to save in the internal history.
+export SAVEHIST=10000                   # The maximum number of events to save in the history file.
+
+setopt BANG_HIST                 # Treat the '!' character specially during expansion.
+setopt EXTENDED_HISTORY          # Write the history file in the ':start:elapsed;command' format.
+setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
+setopt SHARE_HISTORY             # Share history between all sessions.
+setopt HIST_EXPIRE_DUPS_FIRST    # Expire a duplicate event first when trimming history.
+setopt HIST_IGNORE_DUPS          # Do not record an event that was just recorded again.
+setopt HIST_IGNORE_ALL_DUPS      # Delete an old recorded event if a new event is a duplicate.
+setopt HIST_FIND_NO_DUPS         # Do not display a previously found event.
+setopt HIST_IGNORE_SPACE         # Do not record an event starting with a space.
+setopt HIST_SAVE_NO_DUPS         # Do not write a duplicate event to the history file.
+setopt HIST_VERIFY               # Do not execute immediately upon history expansion.
+setopt HIST_BEEP                 # Beep when accessing non-existent history.
 
 # * Use Emacs key bindings
 bindkey -e
 
 # * Completion
+# Enable completion
+autoload -Uz compinit
+compinit
+# Use menu for choising correct completion
+zstyle ':completion:*' menu select
 # Enable completion for new installed command within the session by
 # not trust the zsh's cache of executable command, and forced it be
 # updated
 zstyle ":completion:*:commands" rehash 1
-# *** platformio
-if command -v platformio > /dev/null 2>&1; then
-    autoload bashcompinit && bashcompinit
-    eval "$(_PLATFORMIO_COMPLETE=source platformio)"
-fi
+# # *** platformio
+# if command -v platformio > /dev/null 2>&1; then
+#     autoload bashcompinit && bashcompinit
+#     eval "$(_PLATFORMIO_COMPLETE=source platformio)"
+#     eval "$(_PLATFORMIO_COMPLETE=source pio)"
+# fi
+
+# ** saltsatck
+# source /usr/share/zsh/site-functions/_salt
+
 # * Alias -- shortcuts
 # ** sudo
 # Passing alias to sudo
@@ -135,7 +188,7 @@ alias sshs="ssh -O stop"
 alias sshx="ssh -O exit"
 
 # ** ip
-{% if grains['os'] != 'Debian' %}
+{% if grains['os_family'] == 'Arch' %}
 # Colorize the output of iproute2
 alias ip='ip -c'
 {% endif %}
@@ -177,3 +230,5 @@ alias jcu="journalctl --user"
 alias dotfiles="git -C ~/dotfiles pull ; ~/dotfiles/init.sh"
 alias smartcard-fix="sc-stop system-envoy.slice ; killall gpg-agent"
 alias open="xdg-open"
+alias mpvg="mpv --profile=pseudo-gui"
+alias ip-public="dig +short myip.opendns.com @resolver1.opendns.com"

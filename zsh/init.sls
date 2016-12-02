@@ -1,18 +1,21 @@
 {% import 'dotfiles.jinja' as dotfiles with context %}
+{% from 'zsh/map.jinja' import zsh with context %}
 
 include:
   - env
-
+# * Install
 zsh.install:
   pkg.installed:
     - name: zsh
 
-zsh.antigen:
-  git.latest:
-    - name: https://github.com/zsh-users/antigen.git
-    - target: {{ dotfiles.home }}/.antigen
-    - rev: master
+# * Config
+zsh.zshenv:
+  file.managed:
+    - name: {{ dotfiles.home }}/.zshenv
+    - source: salt://zsh/zshenv
     - user: {{ dotfiles.user }}
+    - group: {{ dotfiles.group }}
+    - mode: 644
 
 zsh.zprofile:
   file.managed:
@@ -33,22 +36,47 @@ zsh.zshrc:
     - mode: 644
     - template: jinja
     - require:
-      - git: zsh.antigen
+      - archive: zsh.antibody
 
-# Install trash-cli as rm is inactivated by zshrc
-{% if grains['os'] == 'Debian' %}
-zsh.trash:
-  pkg.installed:
-    - name: trash-cli
-{% elif grains['os'] == 'MacOS' %}
-zsh.trash:
-  pkg.installed:
-    - name: trash
-{% endif %}
+zsh.zpreztorc:
+  file.managed:
+    - name: {{ dotfiles.home }}/.zpreztorc
+    - source: salt://zsh/zpreztorc
+    - user: {{ dotfiles.user }}
+    - group: {{ dotfiles.group }}
+    - mode: 644
+    - template: jinja
 
+# Use =zsh= as the default shell
 zsh.default:
   user.present:
     - name: {{ dotfiles.user }}
     - shell: /bin/zsh
     - require:
       - file: zsh.zshrc
+
+# * other software
+# ** antibody - zsh package manager
+zsh.antibody:
+  archive.extracted:
+    - name: {{ dotfiles.home }}/.local/bin/
+    - source: {{ zsh.antibody.source }}
+    - source_hash: {{ zsh.antibody.hash }}
+    - archive_format: tar
+    - options: ' ./antibody'
+    - user: {{ dotfiles.user }}
+    - group: {{ dotfiles.group }}
+    - if_missing: {{ dotfiles.home }}/.local/bin/antibody
+
+# ** trash
+# Install trash-cli as rm is desactivated by zshrc
+zsh.trash:
+  pkg.installed:
+    - name: {{ zsh.trash }}
+{% if grains['os'] == 'Debian' %}
+# ** command-not-found
+# Availaible in AUR for Archlinux
+zsh.command-not-found:
+  pkg.installed:
+    - name: command-not-found
+{% endif %}
