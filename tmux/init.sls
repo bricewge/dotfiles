@@ -13,3 +13,17 @@ tmux-config:
     - user: {{ dotfiles.user }}
     - group: {{ dotfiles.group }}
     - mode: 644
+
+tmux-plugin-manager:
+  file.directory:
+    - name: {{ dotfiles.home }}/.tmux/plugins/
+    - user: {{ dotfiles.user }}
+    - group: {{ dotfiles.group }}
+    - mode: 755
+    - makedirs: True
+  git.latest:
+    - name: https://github.com/tmux-plugins/tpm.git
+    - target: {{ dotfiles.home }}/.tmux/plugins/tpm
+    - branch: master
+    - require:
+      - file: tmux-plugin-manager
