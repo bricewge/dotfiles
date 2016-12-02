@@ -2162,9 +2162,15 @@ Replace setting tags in org-mode with counsel:
     :ensure t
     :commands (counsel-org-tag counsel-org-tag-agenda)
     :bind (("M-x" . counsel-M-x)
+           ("M-y" . counsel-yank-pop)
            ("C-x C-f" . counsel-find-file)
            ("C-h f" . counsel-describe-function)
-           ("C-h v" . counsel-describe-variable))
+           ("C-h v" . counsel-describe-variable)
+           ("C-c g" . counsel-git)
+           ("C-c j" . counsel-git-grep)
+           ("C-c k" . counsel-ag)
+           :map ivy-minibuffer-map
+           ("M-y" . ivy-next-line))
     :init
     (with-eval-after-load 'org
       (bind-key "C-q" #'counsel-org-tag org-mode-map))
