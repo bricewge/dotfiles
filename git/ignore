@@ -1,4 +1,7 @@
-# Created by https://www.gitignore.io/api/emacs,vagrant,gpg,linux,osx
+# Custom part
+.clang_complete
+
+# Created by https://www.gitignore.io/api/emacs,vagrant,gpg,linux,osx,c
 
 ### Emacs ###
 # -*- mode: gitignore; -*-
@@ -44,6 +47,10 @@ flycheck_*.el
 # projectiles files
 .projectile
 
+# directory configuration
+.dir-locals.el
+
+
 ### Vagrant ###
 .vagrant/
 
@@ -54,7 +61,6 @@ secring.*
 
 
 ### Linux ###
-*~
 
 # temporary files which can be created if a process still has a handle open of a deleted file
 .fuse_hidden*
@@ -65,6 +71,9 @@ secring.*
 # Linux trash folder which might appear on any partition or disk
 .Trash-*
 
+# .nfs files are created when an open file is removed but is still being accessed
+.nfs*
+
 
 ### OSX ###
 *.DS_Store
@@ -73,11 +82,8 @@ secring.*
 
 # Icon must end with two \r
 Icon
-
-
 # Thumbnails
 ._*
-
 # Files that might appear in the root of a volume
 .DocumentRevisions-V100
 .fseventsd
@@ -86,10 +92,63 @@ Icon
 .Trashes
 .VolumeIcon.icns
 .com.apple.timemachine.donotpresent
-
 # Directories potentially created on remote AFP share
 .AppleDB
 .AppleDesktop
 Network Trash Folder
 Temporary Items
 .apdisk
+
+
+### C ###
+# Prerequisites
+*.d
+
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+
+# Linker output
+*.ilk
+*.map
+*.exp
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+
+# Debug files
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# Kernel Module Compile Results
+*.mod*
+*.cmd
+modules.order
+Module.symvers
+Mkfile.old
+dkms.conf
