@@ -10,9 +10,10 @@ base:
     - isync
     - tmux
     - offlineimap
-    - termite
     - texlive
     - zsh
+  'not G@os:MacOS':
+    - termite
   'I@dotfiles:graphics:True':
     - arduino
     - bspwm
