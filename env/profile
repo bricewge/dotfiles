@@ -45,6 +45,8 @@ systemctl --user set-environment XDG_VTNR=1
 # source <(envoy -p)
 {% endif %}
 {% if grains['os'] == 'MacOS' %}
-gpgconf --launch gpg-agent
+export PATH=$HOME/Library/Python/2.7/bin/:$PATH
 export SSH_AUTH_SOCK=$HOME/.gnupg/S.gpg-agent.ssh
+export HOMEBREW_CASK_OPTS='--appdir=~/Applications'
+source ~/.brewconfig.zsh
 {% endif %}
