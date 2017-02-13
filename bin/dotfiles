@@ -1,4 +1,4 @@
-#!/bin/python2
+#!/usr/bin/env python2
 
 # Apply current dotfiles to this user
 # alias dotfiles="cd ~/dotfiles && git pull && ./init.sh && cd - > /dev/null"
