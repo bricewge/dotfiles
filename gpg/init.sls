@@ -5,24 +5,38 @@
 # rather than your user configuration!
 
 # * GnuPG
+{% if grains['os'] != 'MacOS' %}
 # Dependencie needed for salt's gpg module
 gnupg.python.install:
   pkg.installed:
     - name: {{ gpg.python }}
+{% endif %}
 
 gpg.install:
   pkg.installed:
     - pkgs: {{ gpg.pkgs }}
     - tap: homebrew/versions
 
+gpg-agent-conf:
+  file.managed:
+    - name: {{ dotfiles.home }}/.gnupg/gpg-agent.conf
+    - source: salt://gpg/gpg-agent.conf
+    - user: {{ dotfiles.user }}
+    - mode: 600
+    - makedirs: True
+    - dirmode: 700
+    - template: jinja
+
 # Retrieve my GPG public key
+{% if grains['os'] != 'MacOS' %}
 gnupg.key.bricewge:
   gpg.present:
     - name: 0x3d36caa0116f0f99
     - user: {{ dotfiles.user }}
     - keyserver: pool.sks-keyservers.net
     - require:
-      - pkg: gnupg.python.install
+      - pip: gnupg.python.install
+{% endif %}
 
 # * smartcard
 {% if grains['os'] != 'MacOS' %}
