@@ -1,7 +1,10 @@
+- defaults:
+    link:
+      force: true
+
 # * spacemacs
-- shell:
-    - git clone https://github.com/syl20bnr/spacemacs.git ~/.spacemacs.d
 - link:
+    ~/.spacemacs.d: emacs/spacemacs/spacemacs.d
     ~/.local/bin/spacemacs: emacs/spacemacs/spacemacs
     ~/.spacemacs: emacs/spacemacs/config
 
@@ -10,10 +13,7 @@
     ~/.profile: env/profile
 
 # * zsh
-- shell:
-    - curl -sL https://git.io/antibody | sed -e "s|sudo ||" -e "s|/usr/local|~/.local|"  | bash
 - link:
     ~/.zprofile: zsh/zprofile
     ~/.zshrc: zsh/zshrc
-    ~/.zshenv: zsh/zshenv
     ~/.zpreztorc: zsh/zpreztorc
