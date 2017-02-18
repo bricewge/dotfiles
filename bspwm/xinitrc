@@ -1,14 +1,14 @@
 # -*- mode: sh -*-
 xrdb ~/.Xresources
 # Load terminus font for bar
-xset +fp /usr/share/fonts/local 
+xset +fp /usr/share/fonts/local
 xset fp rehash
 
 # Enable hotkeys
 sxhkd &
 
-# Set a wallpaper 
-feh --bg-fill {{ salt['pillar.get']('dotfiles:fileroot') }}/wallpaper/geometric_fade.png &
+# Set a wallpaper
+feh --bg-fill ~/.dotfiles/wallpaper/geometric_fade.png &
 
 #Set color temperature according to time of day
 redshift &

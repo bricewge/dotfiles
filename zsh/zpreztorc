@@ -25,7 +25,7 @@ zstyle ':prezto:load' pmodule \
   'spectrum' \
   'utility' \
   'prompt' \
-#  {% if grains['os'] == 'Debian' %}'command-not-found'{% endif %}
+# 'command-not-found'
 
 # * Autosuggestions
 # Set the query found color.

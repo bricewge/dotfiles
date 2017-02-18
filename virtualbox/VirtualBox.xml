@@ -16,7 +16,7 @@
     <NetserviceRegistry>
       <DHCPServers/>
     </NetserviceRegistry>
-    <SystemProperties defaultMachineFolder="{{ home }}/vm" defaultHardDiskFormat="VDI" VRDEAuthLibrary="VBoxAuth" webServiceAuthLibrary="VBoxAuth" LogHistoryCount="3" exclusiveHwVirt="true"/>
+    <SystemProperties defaultMachineFolder="~/vm" defaultHardDiskFormat="VDI" VRDEAuthLibrary="VBoxAuth" webServiceAuthLibrary="VBoxAuth" LogHistoryCount="3" exclusiveHwVirt="true"/>
     <USBDeviceFilters/>
   </Global>
 </VirtualBox>

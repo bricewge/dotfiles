@@ -35,8 +35,8 @@ nametrans = lambda folder: re.sub('brouillon', '\[Gmail\].Brouillons',
 [Repository gmail-remote]
 type = IMAP
 remotehost = imap.gmail.com
-remoteuser = {{ salt['pillar.get']('dotfiles:offlineimap:gmail:user') }}
-remotepass = {{ salt['pillar.get']('dotfiles:offlineimap:gmail:password') }}
+remoteuser = user 
+remotepass = pass
 ssl = yes
 sslcacertfile = /etc/ssl/certs/ca-certificates.crt
 maxconnections = 1

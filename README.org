@@ -1,6 +1,11 @@
 #+TITLE: dotfiles
-Brice Waegeneire's dotfiles for GNU/Linux managed with [[https://saltstack.com/][SaltStack]].
+Brice Waegeneire's dotfiles for GNU/Linux managed with +[[https://saltstack.com/][SaltStack]]+.
 
+* TODO
+** Move away from saltstack
+- [ ] fix password for offlinemap and transmission (in emacs)
+- [ ] fix env/profile OSX specific conf
+- [ ] fix os specific emacs conf
 * Using this dotfiles
 1. Install =saltstack= from your package manager.
 2. =$ git clone https://github.com/bricewge/dotfiles=
