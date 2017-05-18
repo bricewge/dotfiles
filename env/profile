@@ -2,8 +2,7 @@
 # Executed by all login shells.
 # Put all environement variables in it.
 # * Path
-export PATH="$HOME/.local/bin:$HOME/.config/bspwm/panel:/usr/local/bin:$PATH"
-export PATH="$(ruby -e 'puts Gem.user_dir')/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 # * Language
 # Set default language
@@ -36,8 +35,3 @@ export PASSWORD_STORE_GENERATED_LENGTH=24
 
 # * ssh-agent and gpg-agent
 export SSH_AUTH_SOCK=$HOME/.gnupg/S.gpg-agent.ssh
-export HOMEBREW_CASK_OPTS='--appdir=~/Applications'
-
-# * OSX specific
-#export PATH=$HOME/Library/Python/2.7/bin/:$PATH
-#source ~/.brewconfig.zsh
