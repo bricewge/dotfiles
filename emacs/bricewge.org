@@ -116,7 +116,12 @@ solarized-theme
     (setq solarized-use-variable-pitch nil)
     (setq x-underline-at-descent-line t))
 
-  (load-theme 'solarized-dark t)
+  (if (string= "light"
+	       (file-name-base
+		(nth 0 (file-attributes
+			"~/.config/termite/config"))))
+      (load-theme 'solarized-light t)
+    (load-theme 'solarized-dark t))
 #+END_SRC
 
 ** Fonts
