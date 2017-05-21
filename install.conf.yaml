@@ -14,6 +14,5 @@
 
 # * zsh
 - link:
-    ~/.zprofile: zsh/zprofile
+    ~/.zenv: zsh/zenv
     ~/.zshrc: zsh/zshrc
-    ~/.zpreztorc: zsh/zpreztorc
