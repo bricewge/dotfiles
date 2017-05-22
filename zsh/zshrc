@@ -2,86 +2,114 @@
 # Loaded by every zsh shell
 # Do not put environement varialbes in it, use
 # .profile for it.
+
+OS_NAME=$(cat /etc/os-release | head -1 | cut -d '=' -f 2)
 #if [ "$TMUX" = "" ]; then tmux; fi
-# * Antibody -- plugin manager
-source <(antibody init)
+# * Zplug
+source ~/.zplug/init.zsh
+
+zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 
 # ** prezto
-# antibody bundle sorin-ionescu/prezto
-if [ -e "~/.zprezto" ] ; then
-    ln -s ~/.cache/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-sorin-ionescu-SLASH-prezto/ ~/.zprezto
-    git -C ~/.zprezto submodule update
-fi
+# *** tmux
+#zplug "modules/tmux",       from:prezto
+zstyle ':prezto:module:tmux:auto-start' local 'yes'
+
+# # WAITING Break completion https://github.com/sorin-ionescu/prezto/issues/1245
+# # should be fixed in zsh 5.3.2
+# zplug "modules/editor",     from:prezto
+# # Set the key mapping style to 'emacs' or 'vi'.
+# zstyle ':prezto:module:editor' key-bindings 'emacs'
+# # Auto convert .... to ../..
+# zstyle ':prezto:module:editor' dot-expansion 'yes'
+
+zplug "modules/history",    from:prezto
+
+zplug "modules/utility",    from:prezto
+zstyle ':prezto:module:utility:ls'    color 'yes'
+zstyle ':prezto:module:utility:diff'  color 'yes'
+zstyle ':prezto:module:utility:wdiff' color 'yes'
+zstyle ':prezto:module:utility:make'  color 'yes'
+
+# acces color by their name
+zplug "modules/spectrum", from:prezto
+
+zplug "modules/command-not-found", from:prezto, if:"[[ $OS_NAME != 'NixOS' ]]"
+
+zplug "modules/directory", from:prezto
 
 # ** Completions
-# Additional completion definitions for Zsh. 
-antibody bundle zsh-users/zsh-completions
+# Additional completion definitions for Zsh.
+zplug "zsh-users/zsh-completions", from:github
 
 # ** Fish like features
 # Disable the fancies fish's features in Emacs
-if [[ $TERM != "dumb" ]]; then
-
 # *** Autosuggestion
-    # Sourcing zsh-syntax-highlighting need to be done before
-    # zsh-autosuggestions, otherwise this can cause problems.
-    antibody bundle zsh-users/zsh-autosuggestions
-    ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=10'
-    # Add history-substring-search-* widgets to list of widgets that clear the autosuggestion
-    ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(history-substring-search-up history-substring-search-down)
-
-# *** Syntax highlighting
-    antibody bundle zsh-users/zsh-syntax-highlighting
+# Sourcing zsh-syntax-highlighting need to be done before
+# zsh-autosuggestions, otherwise this can cause problems.
+zplug "zsh-users/zsh-autosuggestions", from:github, if:"[[ $TERM != 'dumb' ]]", \
+      hook-load:"ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=10';
+      ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(history-substring-search-up history-substring-search-down)"
 
 # *** History substring search
-    antibody bundle zsh-users/zsh-history-substring-search
+zplug "zsh-users/zsh-history-substring-search", from:github, \
+     if:"[[ $TERM != 'dumb' ]]", \
+     hook-load:"zmodload zsh/terminfo;
+     bindkey "$terminfo[kcuu1]" history-substring-search-up;
+     bindkey "$terminfo[kcud1]" history-substring-search-down;
+     bindkey '^[[A' history-substring-search-up;
+     bindkey '^[[B' history-substring-search-down;
+     bindkey -M emacs '^P' history-substring-search-up;
+     bindkey -M emacs '^N' history-substring-search-down;
+     HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=5,fg=8,bold';
+     HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='bg=1,fg=8,bold'"
 
-    # Keybindings
-    zmodload zsh/terminfo
-    bindkey "$terminfo[kcuu1]" history-substring-search-up # Setup up key
-    bindkey "$terminfo[kcud1]" history-substring-search-down # Setup down key
-    bindkey '^[[A' history-substring-search-up # Set for key up
-    bindkey '^[[B' history-substring-search-down # Set for key down
-    bindkey -M emacs '^P' history-substring-search-up
-    bindkey -M emacs '^N' history-substring-search-down
-
-    # Ignore a result if it has already been displayed during the current search
-    setopt HIST_IGNORE_ALL_DUPS
-    # Use colors from solarized theme
-    export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=5,fg=8,bold'
-    export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='bg=1,fg=8,bold'
-
-fi # End of the fancies fish's features
-
-# ** Theme
+# # ** Theme
 # Always use a theme except when TRAMP (Emacs) is used.
 if [[ $TERM == "dumb" ]]; then
     PS1='$ '
-else
-    antibody bundle agnoster/agnoster-zsh-theme
-    setopt promptsubst
+fi
+zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme, if:"[[ $TERM != 'dumb' ]]"
+# zplug "agnoster/agnoster-zsh-theme", use:agnoster.zsh-theme, from:github, as:theme
+# # Remove the prefix prompt when logged as bricewge
+# export DEFAULT_USER="bricewge"
+
+# # *** man pages
+# # Solarized theme in man pages
+zplug "bricewge/solarized-man", from:github
+# WAITING for upstream to merge changes
+# zplug "zlsun/solarized-man", from:github
+
+# # ** Packages
+# # Packages installed via antibody when there is no correct way to
+# # do it.
+
+# # *** TODO git-subrepo
+# # Install git-subrepo. I don't use the package manager for this as the
+# # "make install" install method doesn't have command completion
+# # working; as stated in the README.
+# antibody bundle ingydotnet/git-subrepo
+# # source ~/.cache/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-ingydotnet-SLASH-git-subrepo/.rc
+
+# ** Misc
+# *** Syntax highlighting
+zplug "zsh-users/zsh-syntax-highlighting", from:github, \
+      if:"[[ $TERM != 'dumb' ]]"
+
+# # *** notify when a long running command exit
+zplug "marzocchi/zsh-notify", from:github
+
+# ** Apply ZPLUG
+# Install plugins if there are plugins that have not been installed
+if ! zplug check --verbose 2>-; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
 fi
 
-# Remove the prefix prompt when logged as bricewge
-DEFAULT_USER="bricewge"
-export DEFAULT_USER
-
-# *** man pages
-# Solarized theme in man pages
-antibody bundle zlsun/solarized-man
-
-# *** notify when long running commands stop
-antibody bundle ihashacks/notifyosd.zsh
-
-# ** Packages
-# Packages installed via antibody when there is no correct way to
-# do it.
-
-# *** git-subrepo
-# Install git-subrepo. I don't use the package manager for this as the
-# "make install" install method doesn't have command completion
-# working; as stated in the README.
-antibody bundle ingydotnet/git-subrepo
-source ~/.cache/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-ingydotnet-SLASH-git-subrepo/.rc
+# Then, source plugins and add commands to $PATH
+zplug load #--verbose
 
 # * ZSH config
 # ** environment
@@ -103,15 +131,6 @@ setopt NOTIFY             # Report status of background jobs immediately.
 unsetopt BG_NICE          # Don't run all background jobs at a lower priority.
 unsetopt HUP              # Don't kill jobs on shell exit.
 unsetopt CHECK_JOBS       # Don't report on jobs when shell exit.
-
-# ** command-not-found
-# Load command-not-found on Debian-based distributions.
-if [[ -s '/etc/zsh_command_not_found' ]]; then
-  source '/etc/zsh_command_not_found'
-# Load command-not-found on Arch Linux-based distributions.
-elif [[ -s '/usr/share/doc/pkgfile/command-not-found.zsh' ]]; then
-  source '/usr/share/doc/pkgfile/command-not-found.zsh'
-fi
 
 # ** History
 export HISTFILE="${ZDOTDIR:-$HOME}/.zhistory"       # The path to the history file.
@@ -144,15 +163,13 @@ zstyle ':completion:*' menu select
 # not trust the zsh's cache of executable command, and forced it be
 # updated
 zstyle ":completion:*:commands" rehash 1
-# # *** platformio
+# # *** TODO platformio
 # if command -v platformio > /dev/null 2>&1; then
 #     autoload bashcompinit && bashcompinit
 #     eval "$(_PLATFORMIO_COMPLETE=source platformio)"
 #     eval "$(_PLATFORMIO_COMPLETE=source pio)"
 # fi
 
-# ** saltsatck
-# source /usr/share/zsh/site-functions/_salt
 
 # * Alias -- shortcuts
 # ** sudo
@@ -186,13 +203,27 @@ alias sshx="ssh -O exit"
 
 # ** ip
 # Colorize the output of iproute2
-if [[ -s '/etc/arch-release' ]]; then
+if [[ $OS_NAME != "Debian" ]]; then
     alias ip='ip -c'
 fi
 
 # Display only IPv4 or IPv6
 alias ip4="ip -4"
 alias ip6="ip -6"
+
+# ** pastebin ptpb.pw
+pb () {
+  curl -F "c=@${1:--}" https://ptpb.pw/
+}
+
+pbx () {
+  curl -sF "c=@${1:--}" -w "%{redirect_url}" 'https://ptpb.pw/?r=1' -o /dev/stderr | pbcopy
+}
+
+pbs () {
+  asciinema rec /tmp/$$.json
+  pbx /tmp/$$.json
+}
 
 # ** systemd
 # Code from oh-my-zsh plugin with scu addition
@@ -226,6 +257,5 @@ alias jcu="journalctl --user"
 # ** misc
 alias dotfiles="git -C ~/dotfiles pull ; ~/dotfiles/init.sh"
 alias smartcard-fix="sc-stop system-envoy.slice ; killall gpg-agent"
-alias open="xdg-open"
 alias mpvg="mpv --profile=pseudo-gui"
 alias ip-public="dig +short myip.opendns.com @resolver1.opendns.com"

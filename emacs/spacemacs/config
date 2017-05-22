@@ -67,7 +67,10 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(all-the-icons
+                                      all-the-icons-dired
+                                      spaceline-all-the-icons
+                                      spaceline-all-the-icons-config)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -262,7 +265,7 @@ values."
    ;; If non nil line numbers are turned on in all `prog-mode' and `text-mode'
    ;; derivatives. If set to `relative', also turns on relative line numbers.
    ;; (default nil)
-   dotspacemacs-line-numbers nil
+   dotspacemacs-line-numbers 'relative
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
    dotspacemacs-folding-method 'origami
@@ -343,6 +346,34 @@ you should place your code here."
                  (tab-stop-list . (4 8 12))))
 
   (push '(other . "42") c-default-style)
+  ;; Package management
+  ;;;; Quelpa
+                                        ; [[https://github.com/quelpa/quelpa][Quelpa]] is usefull when a
+                                        ; package is not yet in MELPA or need a patch. It can be build from source and installed with =package.el= seamlessly.
+  (use-package quelpa
+    :ensure t
+    :init
+    (setq quelpa-update-melpa-p nil))
+
+                                        ; Enable the use of Quelpa with use-package.
+  (use-package quelpa-use-package
+    :ensure t
+    :config
+    (quelpa-use-package-activate-advice))
+  ;; Theme
+  (setq neo-theme 'icons)
+  (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+  ;; (use-package spaceline-all-the-icons :after spaceline 
+  ;;   :load-path "~/.dotfiles/emacs/spacemacs/spaceline-all-the-icons.el")
+  ;; (use-package spaceline :after powerline
+  ;;   :config (setq-default mode-line-format '("%e" (:eval (spaceline-ml-ati)))))
+  (use-package spaceline-all-the-icons
+    :quelpa ((spaceline-all-the-icons
+              :fetcher github repo "domtronn/spaceline-all-the-icons.el")
+             :upgrade t)
+    :after spaceline
+    :config (spaceline-all-the-icons-theme)
+    )
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
