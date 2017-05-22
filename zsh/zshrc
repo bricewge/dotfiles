@@ -6,12 +6,16 @@
 OS_NAME=$(cat /etc/os-release | head -1 | cut -d '=' -f 2)
 #if [ "$TMUX" = "" ]; then tmux; fi
 # * Zplug
-source ~/.zplug/init.zsh
+export ZPLUG_HOME=${HOME}/.zplug
+if [[ ! -d ${ZPLUG_HOME} ]]; then
+    git clone https://github.com/zplug/zplug $ZPLUG_HOME
+fi
 
+source ~/.zplug/init.zsh
 zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 
 # ** prezto
-# *** tmux
+# # *** tmux
 #zplug "modules/tmux",       from:prezto
 zstyle ':prezto:module:tmux:auto-start' local 'yes'
 
@@ -44,13 +48,6 @@ zplug "zsh-users/zsh-completions", from:github
 
 # ** Fish like features
 # Disable the fancies fish's features in Emacs
-# *** Autosuggestion
-# Sourcing zsh-syntax-highlighting need to be done before
-# zsh-autosuggestions, otherwise this can cause problems.
-zplug "zsh-users/zsh-autosuggestions", from:github, if:"[[ $TERM != 'dumb' ]]", \
-      hook-load:"ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=10';
-      ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(history-substring-search-up history-substring-search-down)"
-
 # *** History substring search
 zplug "zsh-users/zsh-history-substring-search", from:github, \
      if:"[[ $TERM != 'dumb' ]]", \
@@ -64,21 +61,32 @@ zplug "zsh-users/zsh-history-substring-search", from:github, \
      HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=5,fg=8,bold';
      HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='bg=1,fg=8,bold'"
 
-# # ** Theme
+# ** Theme
 # Always use a theme except when TRAMP (Emacs) is used.
 if [[ $TERM == "dumb" ]]; then
     PS1='$ '
 fi
-zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme, if:"[[ $TERM != 'dumb' ]]"
+zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme, \
+      if:"[[ $TERM != 'dumb' ]]", \
+      hook-load:"PURE_GIT_PULL=0"
+zplug "mafredri/zsh-async", from:github, on:"sindresorhus/pure"
+
+# Agnoster theme
 # zplug "agnoster/agnoster-zsh-theme", use:agnoster.zsh-theme, from:github, as:theme
 # # Remove the prefix prompt when logged as bricewge
 # export DEFAULT_USER="bricewge"
 
 # # *** man pages
 # # Solarized theme in man pages
-zplug "bricewge/solarized-man", from:github
+#zplug "bricewge/solarized-man", from:github
 # WAITING for upstream to merge changes
-# zplug "zlsun/solarized-man", from:github
+zplug "zlsun/solarized-man", from:github
+
+# dircolors
+if [[ ! -e "${HOME}/.local/share/dircolors/solarized" ]]; then
+    git clone https://github.com/seebi/dircolors-solarized.git ${HOME}/.local/share/dircolors/solarized
+fi
+eval $(dircolors $HOME/.local/share/dircolors/solarized/dircolors.ansi-universal)
 
 # # ** Packages
 # # Packages installed via antibody when there is no correct way to
@@ -90,6 +98,14 @@ zplug "bricewge/solarized-man", from:github
 # # working; as stated in the README.
 # antibody bundle ingydotnet/git-subrepo
 # # source ~/.cache/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-ingydotnet-SLASH-git-subrepo/.rc
+
+# *** Autosuggestion
+# Sourcing zsh-syntax-highlighting need to be done before
+# zsh-autosuggestions, otherwise this can cause problems.
+zplug "zsh-users/zsh-autosuggestions", from:github, \
+      if:"[[ $TERM != 'dumb' ]]", \
+      hook-load:"ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=10';
+      ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(history-substring-search-up history-substring-search-down)"
 
 # ** Misc
 # *** Syntax highlighting
