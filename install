@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+
+set -e
+
+if [[ ! -d "~/.local/src/bork"]]; then
+    mkdir -p ~/.local/{src,bin}
+    git clone https://github.com/mattly/bork ~/.local/src/bork
+    ln -s ~/.local/src/bork/bin/bork ~/.local/bin/bork
+    ln -s ~/.local/src/bork/bin/bork-compile ~/.local/bin/bork-compile
+fi
