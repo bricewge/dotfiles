@@ -40,4 +40,6 @@ export HOMEBREW_CASK_OPTS='--appdir=~/Applications'
 
 # * OSX specific
 #export PATH=$HOME/Library/Python/2.7/bin/:$PATH
-#source ~/.brewconfig.zsh
+if [ -f "$HOME/.brewconfig.zsh" ]; then
+    source ~/.brewconfig.zsh
+fi

@@ -229,3 +229,9 @@ alias smartcard-fix="sc-stop system-envoy.slice ; killall gpg-agent"
 alias open="xdg-open"
 alias mpvg="mpv --profile=pseudo-gui"
 alias ip-public="dig +short myip.opendns.com @resolver1.opendns.com"
+
+# * 42
+if [[ `hostname | cut -d . -f 2-3` == "42.fr" ]]; then
+    unset -f precmd
+    source ~/42/project/rush/lisp/env.zsh
+fi
