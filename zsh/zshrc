@@ -4,6 +4,11 @@
 # .profile for it.
 #if [ "$TMUX" = "" ]; then tmux; fi
 # * Antibody -- plugin manager
+if [ ! -x "$HOME/.local/bin/antibody" ] ; then
+   mkdir -p ~/.local/bin/
+   curl -sL https://git.io/antibody | sed -e "s|sudo ||" -e "s|/usr/local|~/.local|" | bash
+   antibody update
+fi
 source <(antibody init)
 
 # ** prezto
