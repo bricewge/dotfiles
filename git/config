@@ -7,3 +7,5 @@
 	quotepath = false
 [push]
 	default = simple
+[gpg]
+	program = gpg2
