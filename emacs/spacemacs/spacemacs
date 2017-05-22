@@ -1,2 +1,2 @@
-#!/bin/sh
+#!/usr/bin/env sh
 emacs -Q --eval "(progn (setq user-emacs-directory \"~/.spacemacs.d/\") (load-file \"~/.spacemacs.d/init.el\"))"
