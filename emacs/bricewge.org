@@ -808,6 +808,36 @@ recorded. To display the habits in the org-agenda press the "K" key?
 (setq org-capture-templates '())
 #+END_SRC
 
+Capture from the command line or from the DE with the command
+=emacsclient -ne "(make-capture-frame)"=.
+#+BEGIN_SRC emacs-lisp
+  (defadvice org-capture-finalize
+      (after delete-capture-frame activate)
+    "Advise capture-finalize to close the frame"
+    (if (equal "capture" (frame-parameter nil 'name))
+      (delete-frame)))
+
+  (defadvice org-capture-select-template (around delete-capture-frame activate)
+    "Advise org-capture-select-template to close the frame on abort"
+    (unless (ignore-errors ad-do-it t)
+      (setq ad-return-value "q"))
+    (if (and
+	 (equal "q" ad-return-value)
+	 (equal "capture" (frame-parameter nil 'name)))
+	(delete-frame)))
+
+  (use-package noflet
+    :ensure t )
+  (defun make-capture-frame ()
+    "Create a new frame and run org-capture."
+    (interactive)
+    (make-frame '((name . "capture")))
+    (select-frame-by-name "capture")
+    (delete-other-windows)
+    (noflet ((switch-to-buffer-other-window (buf) (switch-to-buffer buf)))
+      (org-capture)))
+#+END_SRC
+
 ***** Workout
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'org-capture-templates
@@ -1394,7 +1424,7 @@ I use those modes to manage emails.
 It's not possible to use =MELPA= or =Quelpa= to install =mu= because
 it require extra build steps. Until [[https://github.com/djcb/mu/issues/370][this issue]] is solved, I need to
 install it [[https://aur.archlinux.org/packages/mu-git/][from the AUR]] or building it [[http://www.djcbsoftware.nl/code/mu/mu4e/Installation.html#Installation][manualy.]]
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e")
   (require 'mu4e)
   (require 'smtpmail)
