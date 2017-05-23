@@ -31,6 +31,7 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     octave
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -42,17 +43,19 @@ values."
      (c-c++ :variables c-c++-enable-clang-support t)
      deft
      emacs-lisp
+     common-lisp
      git
      html
      ivy
      javascript
      markdown
      nginx
+     nlinum
      org
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
-     pdf-tools
+     ;pdf-tools
      python
      ranger
      ;; spell-checking
@@ -70,7 +73,8 @@ values."
    dotspacemacs-additional-packages '(all-the-icons
                                       all-the-icons-dired
                                       spaceline-all-the-icons
-                                      spaceline-all-the-icons-config)
+                                      solarized-theme
+                                      quelpa-use-package)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -142,8 +146,8 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-dark
-                         spacemacs-light)
+   dotspacemacs-themes '(solarized-dark
+                         solarized-light)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
@@ -152,7 +156,7 @@ values."
                                :size 13
                                :weight normal
                                :width normal
-                               :powerline-scale 1.1)
+                               :powerline-scale 1.3)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The key used for Emacs commands (M-x) (after pressing on the leader key).
@@ -348,32 +352,45 @@ you should place your code here."
   (push '(other . "42") c-default-style)
   ;; Package management
   ;;;; Quelpa
-                                        ; [[https://github.com/quelpa/quelpa][Quelpa]] is usefull when a
-                                        ; package is not yet in MELPA or need a patch. It can be build from source and installed with =package.el= seamlessly.
+  ; [[https://github.com/quelpa/quelpa][Quelpa]] is usefull when a package is
+  ; not yet in MELPA or need a patch. It can be build from source and installed
+  ; with =package.el= seamlessly.
   (use-package quelpa
     :ensure t
     :init
     (setq quelpa-update-melpa-p nil))
 
-                                        ; Enable the use of Quelpa with use-package.
+  ; Enable the use of Quelpa with use-package.
   (use-package quelpa-use-package
     :ensure t
     :config
     (quelpa-use-package-activate-advice))
+  ;; SSH
+  (use-package exec-path-from-shell
+    :ensure t
+    :config
+    (setq exec-path-from-shell-variables '("PATH"
+                                           "MANPATH"
+                                           "SSH_AUTH_SOCK"
+                                           "SBCL_HOME"))
+    (exec-path-from-shell-initialize))
+  ;; macOS specific
+  (setq powerline-default-separator 'nil)
   ;; Theme
-  (setq neo-theme 'icons)
-  (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
-  ;; (use-package spaceline-all-the-icons :after spaceline 
-  ;;   :load-path "~/.dotfiles/emacs/spacemacs/spaceline-all-the-icons.el")
-  ;; (use-package spaceline :after powerline
-  ;;   :config (setq-default mode-line-format '("%e" (:eval (spaceline-ml-ati)))))
-  (use-package spaceline-all-the-icons
-    :quelpa ((spaceline-all-the-icons
-              :fetcher github repo "domtronn/spaceline-all-the-icons.el")
-             :upgrade t)
-    :after spaceline
-    :config (spaceline-all-the-icons-theme)
+  (use-package solarized-theme
+    :ensure t
+    :config
+    ;; (setq solarized-use-variable-pitch nil)
+    ;; (setq x-underline-at-descent-line t)
     )
+  ;; Don't change the font for some headings and titles
+  (setq solarized-use-variable-pitch nil)
+  (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+  ;; (use-package spaceline-all-the-icons
+  ;;   :after spaceline
+  ;;   :config (spaceline-all-the-icons-theme))
+  ;; Common lisp
+  (setq inferior-lisp-program "/Users/bwaegene/.sbcl/bin/sbcl")
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -383,9 +400,14 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" default)))
+ '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
    (quote
-    (quelpa-use-package pdf-tools tablist all-the-icons-dired git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter flyspell-correct-ivy flyspell-correct flycheck-pos-tip pos-tip flycheck diff-hl auto-dictionary company-statistics company-c-headers company auto-yasnippet yasnippet ac-ispell auto-complete ranger disaster cmake-mode clang-format origami xterm-color smeargle shell-pop orgit org-projectile pcache org-present org org-pomodoro alert log4e gntp org-download multi-term mmm-mode markdown-toc markdown-mode magit-gitflow htmlize gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md evil-magit magit magit-popup git-commit with-editor eshell-z eshell-prompt-extras esh-help ws-butler window-numbering which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-make helm helm-core google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump popup f s diminish define-word counsel-projectile projectile pkg-info epl counsel swiper ivy column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash async aggressive-indent adaptive-wrap ace-window ace-link avy quelpa package-build spacemacs-theme))))
+    (quelpa-use-package slime-company slime common-lisp-snippets nlinum-relative nlinum spaceline-all-the-icons all-the-icons font-lock+ gruvbox-theme darktooth-theme zonokai-theme zenburn-theme zen-and-art-theme underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme tronesque-theme toxi-theme tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spacegray-theme soothe-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme seti-theme reverse-theme railscasts-theme purple-haze-theme professional-theme planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme pastels-on-dark-theme organic-green-theme omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme niflheim-theme naquadah-theme mustang-theme monokai-theme monochrome-theme molokai-theme moe-theme minimal-theme material-theme majapahit-theme lush-theme light-soap-theme jbeans-theme jazz-theme ir-black-theme inkpot-theme heroku-theme hemisu-theme hc-zenburn-theme gruber-darker-theme grandshell-theme gotham-theme gandalf-theme flatui-theme flatland-theme firebelly-theme farmhouse-theme espresso-theme dracula-theme django-theme autothemer darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes afternoon-theme yapfify web-mode web-beautify terraform-mode hcl-mode tagedit systemd slim-mode scss-mode sass-mode salt-mode mmm-jinja2 yaml-mode pyvenv pytest pyenv-mode py-isort pug-mode pip-requirements pdf-tools tablist nginx-mode livid-mode skewer-mode simple-httpd live-py-mode less-css-mode json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc hy-mode haml-mode emmet-mode deft cython-mode company-web web-completion-data company-tern dash-functional tern company-quickhelp company-anaconda coffee-mode anaconda-mode pythonic git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter flyspell-correct-ivy flyspell-correct flycheck-pos-tip pos-tip flycheck diff-hl auto-dictionary company-statistics company-c-headers company auto-yasnippet yasnippet ac-ispell auto-complete ranger disaster cmake-mode clang-format origami xterm-color smeargle shell-pop orgit org-projectile pcache org-present org org-pomodoro alert log4e gntp org-download multi-term mmm-mode markdown-toc markdown-mode magit-gitflow htmlize gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md evil-magit magit magit-popup git-commit with-editor eshell-z eshell-prompt-extras esh-help ws-butler window-numbering which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-make helm helm-core google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump popup f s diminish define-word counsel-projectile projectile pkg-info epl counsel swiper ivy column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash async aggressive-indent adaptive-wrap ace-window ace-link avy quelpa package-build spacemacs-theme)))
+ '(paradox-github-token t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
