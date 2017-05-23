@@ -3,7 +3,15 @@
 # Do not put environement varialbes in it, use
 # .profile for it.
 
-OS_NAME=$(cat /etc/os-release | head -1 | cut -d '=' -f 2)
+case `uname` in
+    Linux)
+        OS=$(cat /etc/os-release | head -1 | cut -d '=' -f 2);;
+    Darwin)
+        OS="macos";;
+    *)
+        OS="unknown";;
+esac
+
 #if [ "$TMUX" = "" ]; then tmux; fi
 # * Zplug
 export ZPLUG_HOME=${HOME}/.zplug
@@ -83,10 +91,14 @@ zplug "mafredri/zsh-async", from:github, on:"sindresorhus/pure"
 zplug "zlsun/solarized-man", from:github
 
 # dircolors
-if [[ ! -e "${HOME}/.local/share/dircolors/solarized" ]]; then
-    git clone https://github.com/seebi/dircolors-solarized.git ${HOME}/.local/share/dircolors/solarized
+if [[ $OS != "macos" ]]; then
+    if [[ ! -e "${HOME}/.local/share/dircolors/solarized" ]]; then
+        git clone https://github.com/seebi/dircolors-solarized.git ${HOME}/.local/share/dircolors/solarized
+    fi
+    eval $(dircolors $HOME/.local/share/dircolors/solarized/dircolors.ansi-universal)
+else
+    export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
 fi
-eval $(dircolors $HOME/.local/share/dircolors/solarized/dircolors.ansi-universal)
 
 # # ** Packages
 # # Packages installed via antibody when there is no correct way to
@@ -279,7 +291,6 @@ alias ip-public="dig +short myip.opendns.com @resolver1.opendns.com"
 # * 42
 if [[ `hostname | cut -d . -f 2-3` == "42.fr" ]]; then
     unset -f precmd
-    source ~/42/project/rush/lisp/env.zsh
     # export PATH=$HOME/Library/Python/2.7/bin/:$PATH
     source ~/.brewconfig.zsh
     export HOMEBREW_CASK_OPTS='--appdir=~/Applications'
