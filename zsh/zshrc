@@ -280,4 +280,7 @@ alias ip-public="dig +short myip.opendns.com @resolver1.opendns.com"
 if [[ `hostname | cut -d . -f 2-3` == "42.fr" ]]; then
     unset -f precmd
     source ~/42/project/rush/lisp/env.zsh
+    # export PATH=$HOME/Library/Python/2.7/bin/:$PATH
+    source ~/.brewconfig.zsh
+    export HOMEBREW_CASK_OPTS='--appdir=~/Applications'
 fi

@@ -35,10 +35,3 @@ export PASSWORD_STORE_GENERATED_LENGTH=24
 
 # * ssh-agent and gpg-agent
 export SSH_AUTH_SOCK=$HOME/.gnupg/S.gpg-agent.ssh
-
-# * OSX specific
-#export PATH=$HOME/Library/Python/2.7/bin/:$PATH
-if [ -f "$HOME/.brewconfig.zsh" ]; then
-    source ~/.brewconfig.zsh
-    export HOMEBREW_CASK_OPTS='--appdir=~/Applications'
-fi
