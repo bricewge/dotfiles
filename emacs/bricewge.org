@@ -289,18 +289,8 @@ Shorctut all responses to "yes or no" questions to "y" and "n".
 * OS specific
 ** macOS
 #+BEGIN_SRC emacs-lisp :tangle no
-  (use-package exec-path-from-shell
-    :ensure t
-    :config
-    (setq exec-path-from-shell-variables '("PATH"
-                                           "MANPATH"
-                                           "SSH_AUTH_SOCK"))
-    (exec-path-from-shell-initialize))
-
   (setq insert-directory-program (executable-find "gls"))
 #+END_SRC
-* Custom functions and variables
-
 * Org-Mode
 *** General
 Org-Mode is installed and loaded in =init.el=.
@@ -1853,6 +1843,16 @@ For hydra windows.
   (add-hook 'text-mode-hook 'auto-fill-mode)
   ;(add-hook 'sh-mode-hook 'auto-fill-mode)
   (add-hook 'emacs-lisp-mode-hook 'auto-fill-mode)
+#+END_SRC
+** exec-path-from-shell
+#+BEGIN_SRC emacs-lisp
+  (use-package exec-path-from-shell
+    :ensure t
+    :config
+    (setq exec-path-from-shell-variables '("PATH"
+                                           "MANPATH"
+                                           "SSH_AUTH_SOCK"))
+    (exec-path-from-shell-initialize))
 #+END_SRC
 ** git-gutter
 Display on the left side an indicator whether a line has been inserted, modified or deleted.
