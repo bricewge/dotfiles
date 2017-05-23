@@ -5,6 +5,7 @@
 [core]
 	editor = emacsclient -t -a ""
 	quotepath = false
+	excludesfile = /Users/bwaegene/.gitignore
 [push]
 	default = simple
 [gpg]
