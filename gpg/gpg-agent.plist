@@ -6,14 +6,9 @@
     <string>bricewge.gpg-agent</string>
     <key>ProgramArguments</key>
     <array>
-      <string>/Users/bwaegene/.brew/bin/gpg-agent</string>
-      <string>--pinentry-program</string>
-      <string>/Users/bwaegene/.brew/bin/pinentry-mac</string>
-      <string>--homedir</string>
-      <string>/Users/bwaegene/.gnupg</string>
-      <string>--options</string>
-      <string>/Users/bwaegene/.gnupg/gpg-agent.conf</string>
-      <string>--daemon</string>
+      <string>/Users/bwaegene/.brew/bin/gpgconf</string>
+      <string>--launch</string>
+      <string>gpg-agent</string>
     </array>
     <key>KeepAlive</key>
     <true/>
