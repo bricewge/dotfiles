@@ -129,7 +129,7 @@ zplug "marzocchi/zsh-notify", from:github
 
 # ** Apply ZPLUG
 # Install plugins if there are plugins that have not been installed
-if ! zplug check --verbose 2>-; then
+if ! zplug check --verbose 2>&-; then
     printf "Install? [y/N]: "
     if read -q; then
         echo; zplug install
