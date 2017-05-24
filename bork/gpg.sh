@@ -1,11 +1,12 @@
 dotfiles="$HOME/.dotfiles"
 
-ok brew-tap homebrew/versions
-ok brew gnupg21
-ok brew pinentry-mac
-# import key
-gpg2 --import <(curl -L https://clbin.com/HgBmJ)
+if [[ $OS == "macos" ]]; then
+    ok brew gnupg21
+    ok brew pinentry-mac
+    ok symlink ~/.gnupg/gpg-agent.conf $dotfiles/gpg/gpg-agent.conf
+    ok symlink ~/Library/LaunchAgents/bricewge.gpg-agent.plist $dotfiles/gpg/gpg-agent.plist
+fi
 # TODO chmod diectory
 ok directory ~/.gnupg
-ok symlink ~/.gnupg/gpg-agent.conf $dotfiles/gpg/gpg-agent.conf
-ok symlink ~/Library/LaunchAgents/bricewge.gpg-agent.plist $dotfiles/gpg/gpg-agent.plist
+# import personal public key
+gpg2 --import <(curl -L https://clbin.com/HgBmJ)
