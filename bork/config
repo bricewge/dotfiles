@@ -1,0 +1,9 @@
+# -*- mode: sh -*-
+
+# Contain reused variables for the borkfiles
+
+: ${dotfiles:="$HOME/.dotfiles"}
+source "$dotfiles/env/profile"
+if [[ $OS == "macos" ]]; then
+    appdir="--appdir=$HOME/Applications"
+fi
