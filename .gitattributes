@@ -1,4 +1,4 @@
-emacs/custom.el filter=git-crypt diff=git-crypt
+emacs/emacs-old/custom.el filter=git-crypt diff=git-crypt
 emacs/bookmarks filter=git-crypt diff=git-crypt
 ssh/* filter=git-crypt diff=git-crypt
 .gitattributes !filter !diff
