@@ -184,14 +184,15 @@
 
   (setq org-html-mathjax-template "<script type=\"text/x-mathjax-config\">\nMathJax.Hub.Config({\n  \"HTML-CSS\": {\nlinebreaks: { automatic: true } },\n         SVG: { linebreaks: { automatic: true } }\n});\n</script>\n<script type=\"text/javascript\" src=\"http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML\"></script>\n<script type=\"text/javascript\">\n<!--/*--><![CDATA[/*><!--*/\n    MathJax.Hub.Config({\n        // Only one of the two following lines, depending on user settings\n        // First allows browser-native MathML display, second forces HTML/CSS\n        :MMLYES: config: [\"MMLorHTML.js\"], jax: [\"input/TeX\"],\n        :MMLNO: jax: [\"input/TeX\", \"output/HTML-CSS\"],\n        extensions: [\"tex2jax.js\",\"TeX/AMSmath.js\",\"TeX/AMSsymbols.js\",\n                     \"TeX/noUndefined.js\", \"TeX/mhchem.js\"],\n        tex2jax: {\n            inlineMath: [ [\"\\\\(\",\"\\\\)\"] ],\n            displayMath: [ ['$$','$$'], [\"\\\\[\",\"\\\\]\"], [\"\\\\begin{displaymath}\",\"\\\\end{displaymath}\"] ],\n            skipTags: [\"script\",\"noscript\",\"style\",\"textarea\",\"pre\",\"code\"],\n            ignoreClass: \"tex2jax_ignore\",\n            processEscapes: false,\n            processEnvironments: true,\n            preview: \"TeX\"\n        },\n        showProcessingMessages: true,\n        displayAlign: \"%ALIGN\",\n        displayIndent: \"%INDENT\",\n\n        \"HTML-CSS\": {\n             scale: %SCALE,\n             availableFonts: [\"STIX\",\"TeX\"],\n             preferredFont: \"TeX\",\n             webFont: \"TeX\",\n             imageFont: \"TeX\",\n             showMathMenu: true,\n        },\n        MMLorHTML: {\n             prefer: {\n                 MSIE:    \"MML\",\n                 Firefox: \"MML\",\n                 Opera:   \"HTML\",\n                 other:   \"HTML\"\n             }\n        }\n    });\n/*]]>*///-->\n</script>")
 
-  (use-package ox-ioslide
-    :ensure t
-    :config (require 'ox-ioslide-helper))
+  ;; (use-package ox-ioslide
+  ;;   :ensure t
+  ;;   ;; :requires (makey)
+  ;;   :config (require 'ox-ioslide-helper))
 
-  (use-package ox-twbs
-    :ensure t
-    :config
-    (setq org-twbs-mathjax-template org-html-mathjax-template))
+  ;; (use-package ox-twbs
+  ;;   :ensure t
+  ;;   :config
+  ;;   (setq org-twbs-mathjax-template org-html-mathjax-template))
 
   (setq org-publish-use-timestamps-flag nil)
 
@@ -208,137 +209,137 @@
   (defvar bwge-uni-htmlroot "~/repos/uni.bricewge.fr"
     "Where to export the uni website.")
 
-  (add-to-list 'org-publish-project-alist
-               '("uni" :components ("uni-html" "uni-source" "uni-extra"))
-               t)
+  ;; (add-to-list 'org-publish-project-alist
+  ;;              '("uni" :components ("uni-html" "uni-source" "uni-extra"))
+  ;;              t)
 
-  (add-to-list 'org-publish-project-alist
-               `("uni-html"
-                 :base-directory ,bwge-uni-base
-                 :publishing-directory ,bwge-uni-htmlroot
-                 :exclude "\\(Fiches\\|TP\\|TD\\|S[0-9].org\\)"
-                 :recursive t
-                 :base-extension "org"
-                 :publishing-function org-html-publish-to-html
-                 :section-numbers nil
-                 :language "fr"
-                 :headline-levels 6
-                 :with-toc nil
-                 :html-postamble nil
-                 :html-head  "<link rel=\"stylesheet\" href=\"/home/bricewge/repos/uni.bricewge.fr/static/normalize.css\" type=\"text/css\"/>\n<link rel=\"stylesheet\" href=\"/home/bricewge/repos/uni.bricewge.fr/static/style.css\" type=\"text/css\"/>\n<link href='http://fonts.googleapis.com/css?family=Cardo:400,400italic,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>\n"
-                 :html-link-home "/index.html"
-                 :html-doctype "html5"
-                 :html-html5-fancy t
-                 :auto-sitemap t
-                 :sitemap-filename "/index.org"
-                 :sitemap-title "Notes de cours")
-               t)
+  ;; (add-to-list 'org-publish-project-alist
+  ;;              `("uni-html"
+  ;;                :base-directory ,bwge-uni-base
+  ;;                :publishing-directory ,bwge-uni-htmlroot
+  ;;                :exclude "\\(Fiches\\|TP\\|TD\\|S[0-9].org\\)"
+  ;;                :recursive t
+  ;;                :base-extension "org"
+  ;;                :publishing-function org-html-publish-to-html
+  ;;                :section-numbers nil
+  ;;                :language "fr"
+  ;;                :headline-levels 6
+  ;;                :with-toc nil
+  ;;                :html-postamble nil
+  ;;                :html-head  "<link rel=\"stylesheet\" href=\"/home/bricewge/repos/uni.bricewge.fr/static/normalize.css\" type=\"text/css\"/>\n<link rel=\"stylesheet\" href=\"/home/bricewge/repos/uni.bricewge.fr/static/style.css\" type=\"text/css\"/>\n<link href='http://fonts.googleapis.com/css?family=Cardo:400,400italic,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>\n"
+  ;;                :html-link-home "/index.html"
+  ;;                :html-doctype "html5"
+  ;;                :html-html5-fancy t
+  ;;                :auto-sitemap t
+  ;;                :sitemap-filename "/index.org"
+  ;;                :sitemap-title "Notes de cours")
+  ;;              t)
 
-  (add-to-list 'org-publish-project-alist
-               `("uni-extra"
-                 :base-directory ,bwge-uni-base
-                 :publishing-directory ,bwge-uni-htmlroot
-                 :exclude "\\(Fiches\\|TP\\|TD\\|S[0-9].org\\)"
-                 :base-extension "css\\|png\\|svg"
-                 :publishing-function org-publish-attachment
-                 :recursive t)
-               t)
+  ;; (add-to-list 'org-publish-project-alist
+  ;;              `("uni-extra"
+  ;;                :base-directory ,bwge-uni-base
+  ;;                :publishing-directory ,bwge-uni-htmlroot
+  ;;                :exclude "\\(Fiches\\|TP\\|TD\\|S[0-9].org\\)"
+  ;;                :base-extension "css\\|png\\|svg"
+  ;;                :publishing-function org-publish-attachment
+  ;;                :recursive t)
+  ;;              t)
 
-  (add-to-list 'org-publish-project-alist
-               `("uni-source"
-                 :base-directory ,bwge-uni-base
-                 :publishing-directory ,bwge-uni-htmlroot
-                 :exclude "\\(Fiches\\|TP\\|TD\\|S[0-9].org\\)"
-                 :base-extension "org"
-                 :publishing-function org-org-publish-to-org;org-publish-attachment
-                 :recursive t
-                 :htmlized-source t
-                 :plain-source t)
-               t)
+  ;; (add-to-list 'org-publish-project-alist
+  ;;              `("uni-source"
+  ;;                :base-directory ,bwge-uni-base
+  ;;                :publishing-directory ,bwge-uni-htmlroot
+  ;;                :exclude "\\(Fiches\\|TP\\|TD\\|S[0-9].org\\)"
+  ;;                :base-extension "org"
+  ;;                :publishing-function org-org-publish-to-org;org-publish-attachment
+  ;;                :recursive t
+  ;;                :htmlized-source t
+  ;;                :plain-source t)
+  ;;              t)
 
-  (add-to-list 'org-publish-project-alist
-               '("pelican" :components ("pelican-md" "pelican-extra"))
-               t)
+  ;; (add-to-list 'org-publish-project-alist
+  ;;              '("pelican" :components ("pelican-md" "pelican-extra"))
+  ;;              t)
 
-  (add-to-list 'org-publish-project-alist
-               '("pelican-md"
-                 :base-directory "~/Pelican"
-                 :publishing-directory "~/git/bricewge.fr/content/Blog"
-                 :recursive t
-                 :base-extension "org"
-                 :publishing-function org-md-publish-to-md
-                 :with-toc nil
-                 :section-numbers nil
-                 :with-tags nil
-                 :with-timestamps nil)
-               t)
+  ;; (add-to-list 'org-publish-project-alist
+  ;;              '("pelican-md"
+  ;;                :base-directory "~/Pelican"
+  ;;                :publishing-directory "~/git/bricewge.fr/content/Blog"
+  ;;                :recursive t
+  ;;                :base-extension "org"
+  ;;                :publishing-function org-md-publish-to-md
+  ;;                :with-toc nil
+  ;;                :section-numbers nil
+  ;;                :with-tags nil
+  ;;                :with-timestamps nil)
+  ;;              t)
 
-  (add-to-list 'org-publish-project-alist
-               '("pelican-extra"
-                 :base-directory "~/Pelican/Images"
-                 :publishing-directory "~/git/bricewge.fr/content/images"
-                 :recursive t
-                 :base-extension "css\\|png\\|svg"
-                 :publishing-function org-publish-attachment)
-               t)
+  ;; (add-to-list 'org-publish-project-alist
+  ;;              '("pelican-extra"
+  ;;                :base-directory "~/Pelican/Images"
+  ;;                :publishing-directory "~/git/bricewge.fr/content/images"
+  ;;                :recursive t
+  ;;                :base-extension "css\\|png\\|svg"
+  ;;                :publishing-function org-publish-attachment)
+  ;;              t)
 
-  (defvar bwge-blog-base "~/org/blog"
-    "Path to the blog directory.")
-  (defvar bwge-blog-htmlroot "~/repos/bricewge.fr"
-    "Where to export the blog website.")
+  ;; (defvar bwge-blog-base "~/org/blog"
+  ;;   "Path to the blog directory.")
+  ;; (defvar bwge-blog-htmlroot "~/repos/bricewge.fr"
+  ;;   "Where to export the blog website.")
 
-  (add-to-list 'org-publish-project-alist
-               '("blog" :components ("blog-content" "blog-static"))
-               t)
+  ;; (add-to-list 'org-publish-project-alist
+  ;;              '("blog" :components ("blog-content" "blog-static"))
+  ;;              t)
 
-  (add-to-list 'org-publish-project-alist
-               `("blog-content"
-                 :base-directory ,bwge-blog-base
-                 :base-extension "org"
-                 :publishing-directory ,bwge-blog-htmlroot
-                 :html-extension "html"
-                 :publishing-function org-html-publish-to-html
-                 :auto-sitemap t
-                 :sitemap-filename "archive.org"
-                 :sitemap-title "Archive"
-                 :sitemap-sort-files anti-chronologically
-                 :sitemap-style list
-                 :makeindex t
-                 :recursive t
-                 :section-numbers nil
-                 :with-toc nil
-                 :with-latex t
-                 :with-author nil
-                 :with-creator nil
-                 :html-doctype "html5"
-                 :html-html5-fancy t
-                 :html-head-include-default-style nil
-                 :html-head-include-scripts nil
-                 :html-preamble org-mode-blog-preamble
-                 :html-postamble nil
-                 :html-head  "<link rel=\"stylesheet\" href=\"static/style.css\" type=\"text/css\"/>\n")
+  ;; (add-to-list 'org-publish-project-alist
+  ;;              `("blog-content"
+  ;;                :base-directory ,bwge-blog-base
+  ;;                :base-extension "org"
+  ;;                :publishing-directory ,bwge-blog-htmlroot
+  ;;                :html-extension "html"
+  ;;                :publishing-function org-html-publish-to-html
+  ;;                :auto-sitemap t
+  ;;                :sitemap-filename "archive.org"
+  ;;                :sitemap-title "Archive"
+  ;;                :sitemap-sort-files anti-chronologically
+  ;;                :sitemap-style list
+  ;;                :makeindex t
+  ;;                :recursive t
+  ;;                :section-numbers nil
+  ;;                :with-toc nil
+  ;;                :with-latex t
+  ;;                :with-author nil
+  ;;                :with-creator nil
+  ;;                :html-doctype "html5"
+  ;;                :html-html5-fancy t
+  ;;                :html-head-include-default-style nil
+  ;;                :html-head-include-scripts nil
+  ;;                :html-preamble org-mode-blog-preamble
+  ;;                :html-postamble nil
+  ;;                :html-head  "<link rel=\"stylesheet\" href=\"static/style.css\" type=\"text/css\"/>\n")
 
-               t)
+  ;;              t)
 
-  (add-to-list 'org-publish-project-alist
-               `("blog-rss"
-                 :base-directory ,bwge-blog-base
-                 :base-extension "org"
-                 :publishing-directory ,bwge-blog-htmlroot
-                 :publishing-function org-rss-publish-to-rss
-                 :html-link-home "https://bricewge.fr/"
-                 :html-link-use-abs-url t)
-               t)
+  ;; (add-to-list 'org-publish-project-alist
+  ;;              `("blog-rss"
+  ;;                :base-directory ,bwge-blog-base
+  ;;                :base-extension "org"
+  ;;                :publishing-directory ,bwge-blog-htmlroot
+  ;;                :publishing-function org-rss-publish-to-rss
+  ;;                :html-link-home "https://bricewge.fr/"
+  ;;                :html-link-use-abs-url t)
+  ;;              t)
 
-  (add-to-list 'org-publish-project-alist
-               `("blog-static"
-                 :base-directory ,bwge-blog-base
-                 :publishing-directory ,bwge-blog-htmlroot
-                 :base-extension "css\\|js\\|png\\|jpg\\|gif\\|ico"
-                 :publishing-directory org-mode-blog-publishing-directory
-                 :recursive t
-                 :publishing-function org-publish-attachment)
-               t)
+  ;; (add-to-list 'org-publish-project-alist
+  ;;              `("blog-static"
+  ;;                :base-directory ,bwge-blog-base
+  ;;                :publishing-directory ,bwge-blog-htmlroot
+  ;;                :base-extension "css\\|js\\|png\\|jpg\\|gif\\|ico"
+  ;;                :publishing-directory org-mode-blog-publishing-directory
+  ;;                :recursive t
+  ;;                :publishing-function org-publish-attachment)
+  ;;              t)
 
   (defun org-mode-blog-preamble (options)
     "The function that creates the preamble (sidebar) for the blog.
@@ -409,8 +410,8 @@ OPTIONS contains the property list from the org-mode export."
          (equal "capture" (frame-parameter nil 'name)))
         (delete-frame)))
 
-  (use-package noflet
-    :ensure t )
+  ;; (use-package noflet
+  ;;   :ensure t )
   (defun make-capture-frame ()
     "Create a new frame and run org-capture."
     (interactive)
