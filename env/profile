@@ -35,3 +35,13 @@ export PASSWORD_STORE_GENERATED_LENGTH=24
 
 # * ssh-agent and gpg-agent
 export SSH_AUTH_SOCK=$HOME/.gnupg/S.gpg-agent.ssh
+
+# * Personal variables
+case `uname` in
+    Linux)
+        OS=$(sed -n 's|^ID=\(.*\)|\1|p' /etc/os-release);;
+    Darwin)
+        OS="macos";;
+    *)
+        OS="unknown";;
+esac

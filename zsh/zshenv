@@ -1,5 +1,5 @@
 # -*- mode: sh -*-
 
 # Load =~/.profile= in compatibility mode. By default it's not loaded
-# by zsh due to incompatibilites with standart shells.
+# by zsh due to incompatibilites with standard shells.
 [[ -e ~/.profile ]] && emulate sh -c 'source ~/.profile'

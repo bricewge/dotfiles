@@ -1,16 +1,7 @@
 # -*- mode: sh -*-
 # Loaded by every zsh shell
-# Do not put environement varialbes in it, use
+# Do not put environement variables in it, use
 # .profile for it.
-
-case `uname` in
-    Linux)
-        OS=$(cat /etc/os-release | head -1 | cut -d '=' -f 2);;
-    Darwin)
-        OS="macos";;
-    *)
-        OS="unknown";;
-esac
 
 #if [ "$TMUX" = "" ]; then tmux; fi
 # * Zplug
@@ -46,7 +37,7 @@ zstyle ':prezto:module:utility:make'  color 'yes'
 # acces color by their name
 zplug "modules/spectrum", from:prezto
 
-zplug "modules/command-not-found", from:prezto, if:"[[ $OS_NAME != 'NixOS' ]]"
+zplug "modules/command-not-found", from:prezto, if:"[[ $OS != 'nixos' ]]"
 
 zplug "modules/directory", from:prezto
 
@@ -231,7 +222,7 @@ alias sshx="ssh -O exit"
 
 # ** ip
 # Colorize the output of iproute2
-if [[ $OS_NAME != "Debian" ]]; then
+if [[ $OS != "debian" ]]; then
     alias ip='ip -c'
 fi
 
@@ -287,7 +278,7 @@ alias dotfiles="git -C ~/dotfiles pull ; ~/dotfiles/init.sh"
 alias smartcard-fix="sc-stop system-envoy.slice ; killall gpg-agent"
 alias mpvg="mpv --profile=pseudo-gui"
 alias ip-public="dig +short myip.opendns.com @resolver1.opendns.com"
-
+alias tar=bsdtar
 # * 42
 if [[ `hostname | cut -d . -f 2-3` == "42.fr" ]]; then
     unset -f precmd
