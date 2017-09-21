@@ -1,4 +1,4 @@
-dotfiles="$HOME/.dotfiles"
+include config
 
 if [[ $OS == "macos" ]]; then
     ok brew gnupg21
@@ -8,5 +8,7 @@ if [[ $OS == "macos" ]]; then
 fi
 # TODO chmod diectory
 ok directory ~/.gnupg
-# import personal public key
-gpg2 --import <(curl -L https://clbin.com/HgBmJ)
+# Import personal public key
+if !gpg2 --list-keys 3D36CAA0116F0F99 >/dev/null 2>&1; then
+    gpg2 --import <(curl -L https://clbin.com/HgBmJ)
+fi
