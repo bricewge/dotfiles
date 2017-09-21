@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+# Load default environement
+source ~/.profile
