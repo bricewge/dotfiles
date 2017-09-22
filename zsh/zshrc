@@ -247,27 +247,21 @@ pbs () {
 # ** systemd
 # Code from oh-my-zsh plugin with scu addition
 
-user_commands=(
+systemd_cmds_user=(
   list-units is-active status show help list-unit-files
   is-enabled list-jobs show-environment cat)
 
-sudo_commands=(
+systemd_cmds_sudo=(
   start stop reload restart try-restart isolate kill
   reset-failed enable disable reenable preset mask unmask
   link load cancel set-environment unset-environment
   edit)
 
-for c in $user_commands; do; alias sc-$c="systemctl $c"; done
-for c in $sudo_commands; do; alias sc-$c="sudo systemctl $c"; done
-for c in $sudo_commands $user_commands ; do; alias scu-$c="systemctl $c"; done
-
-alias sc-enable-now="sc-enable --now"
-alias sc-disable-now="sc-disable --now"
-alias sc-mask-now="sc-mask --now"
-
-alias scu-enable-now="scu-enable --now"
-alias scu-disable-now="scu-disable --now"
-alias scu-mask-now="scu-mask --now"
+for c in $systemd_cmds_user; do; alias sc-$c="systemctl $c"; done
+for c in $systemd_cmds_sudo; do; alias sc-$c="sudo systemctl $c"; done
+for c in $systemd_cmds_sudo $systemd_cmds_user ; do;
+  alias scu-$c="systemctl --user $c";
+done
 
 # *** journald
 alias jc="sudo journalctl --system"
