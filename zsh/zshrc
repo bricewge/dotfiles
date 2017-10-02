@@ -180,7 +180,7 @@ compinit
 zstyle ':completion:*' menu select
 # Enable completion for new installed command within the session by
 # not trust the zsh's cache of executable command, and forced it be
-# updated
+#    Updated: 2017/10/02 10:34:14 by bwaegene         ###   ########.fr        #
 zstyle ":completion:*:commands" rehash 1
 # # *** TODO platformio
 # if command -v platformio > /dev/null 2>&1; then
@@ -275,7 +275,10 @@ alias ip-public="dig +short myip.opendns.com @resolver1.opendns.com"
 alias tar=bsdtar
 # * 42
 if [[ `hostname | cut -d . -f 2-3` == "42.fr" ]]; then
+    # Disable constant logging of the terminal
     unset -f precmd
+    # Disable PIV popup https://www.yubico.com/support/knowledge-base/categories/articles/unpair-yubikey-piv-login-macos-sierra/
+    sc_auth pairing_ui -s disable
     # export PATH=$HOME/Library/Python/2.7/bin/:$PATH
     source ~/.brewconfig.zsh
     export HOMEBREW_CASK_OPTS='--appdir=~/Applications'
