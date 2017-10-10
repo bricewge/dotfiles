@@ -1,3 +1,3 @@
-dotfiles="$HOME/.dotfiles"
+include config
 
-ok symlink ~/.profile $dotfiles/env/profile
+ok symlink ~/.profile "${dotfiles}/env/profile"
