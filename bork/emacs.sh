@@ -1,6 +1,6 @@
 include config
 
-ok github ~/.emacs.d syl20bnr/spacemacs
+ok github ~/.emacs.d syl20bnr/spacemacs --branch=develop
 ok symlink ~/.spacemacs "${dotfiles}/emacs/spacemacs.conf"
 # ok symlink ~/.emacs.d/private/bricewge $dotfiles/emacs/private/bricewge
 ok symlink ~/.emacs.d/bookmarks "${dotfiles}/emacs/bookmarks"
