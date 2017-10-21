@@ -62,3 +62,4 @@ xbanish -i Mod4 &
 xsetroot -cursor_name left_ptr &
 # Fancy things *BUT* with too much bugs
 # compton &
+udiskie --notify &
