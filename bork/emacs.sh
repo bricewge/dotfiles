@@ -20,6 +20,11 @@ if [[ $OS == "macos" ]]; then
                 - -C ~/Library/Fonts/source-code-pro/ \
                 source-code-pro-2.030R-ro-1.050R-it/OTF/
     fi
+    if ok brew node; then
+        ok npm tern
+        ok npm js-beautify
+        ok npm eslint
+    fi
 fi
 
 # * emacs-old
