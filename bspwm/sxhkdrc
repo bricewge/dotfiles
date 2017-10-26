@@ -47,9 +47,9 @@ super + {comma,semicolon}
 super + g
   bspc config window_gap $( [ `bspc config window_gap` -eq $BSPWM_GAP ] && echo 0 || echo $BSPWM_GAP )
 
-# Rotate the tree clockwise
-super + r
- bspc node @/ -R 90
+# Rotate the tree clockwise and counter-clockwise
+super + {_,shift + }r
+ bspc node @/ -R {+,-}90
 
 # ** vim movments
 # Select windows and move them in the current desktop 
