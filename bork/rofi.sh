@@ -18,3 +18,8 @@ ok directory ~/.config/rofi-power
 ok symlink ~/.config/rofi-power/config "${dotfiles}/rofi/rofi-power.conf"
 
 ok github ~/.local/src/rofi-scripts carnager/rofi-scripts
+
+
+ok github ~/.local/src/udiskie-dmenu fogine/udiskie-dmenu
+ok symlink "${HOME}/.local/bin/udiskie-dmenu" \
+   "${HOME}/.local/src/udiskie-dmenu/udiskie-dmenu"

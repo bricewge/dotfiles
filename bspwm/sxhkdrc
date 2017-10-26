@@ -146,6 +146,9 @@ super + space ; space
 super + p
 	rofi-pass
 
+super + u
+  UDISKIE_DMENU_LAUNCHER=rofi udiskie-dmenu -matching regex -dmenu -i -no-custom -multi-select
+
 super + c
 	emacsclient -ne "(make-capture-frame)"
 
