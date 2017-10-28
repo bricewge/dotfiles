@@ -63,3 +63,5 @@ xsetroot -cursor_name left_ptr &
 # Fancy things *BUT* with too much bugs
 # compton &
 udiskie --notify &
+# disable DPMS
+xset s off -dpms
