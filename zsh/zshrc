@@ -180,7 +180,7 @@ compinit
 zstyle ':completion:*' menu select
 # Enable completion for new installed command within the session by
 # not trust the zsh's cache of executable command, and forced it be
-#    Updated: 2017/10/24 18:26:43 by bwaegene         ###   ########.fr        #
+#    Updated: 2017/11/01 17:59:11 by bricewge         ###   ########.fr        #
 zstyle ":completion:*:commands" rehash 1
 # # *** TODO platformio
 # if command -v platformio > /dev/null 2>&1; then
@@ -273,6 +273,7 @@ alias smartcard-fix="sc-stop system-envoy.slice ; killall gpg-agent"
 alias mpvg="mpv --profile=pseudo-gui"
 alias ip-public="dig +short myip.opendns.com @resolver1.opendns.com"
 alias tar=bsdtar
+alias open=xdg-open
 # * 42
 if [[ `hostname | cut -d . -f 2-3` == "42.fr" ]]; then
     # Disable constant logging of the terminal
