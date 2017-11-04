@@ -108,15 +108,6 @@ super + shift + {Left,Right}
 ~button1
 	bspc node pointed -f
 
-super + button{1-3}
-	bspc pointer -g {move,resize_side,resize_corner}
-
-super + !button{1-3}
-	bspc pointer -t %i %i
-
-super + @button{1-3}
-	bspc pointer -u
-
 # * Launcher hotkeys
 super + space ; t
 	termite
