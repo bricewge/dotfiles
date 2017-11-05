@@ -1,13 +1,14 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
-# Update all the software that can be updated.
+#    Updated: 2017/11/05 18:24:36 by bricewge         ###   ########.fr        #
 
-# Archlinux
-pacaur -Suy
-# .pacsave .bak  .pacnew et compagnie
+if [[ $OS == "archlinux" ]]; then
+    pacaur -Suy # Archlinux. TODO .pacsave .bak .pacnew ...
+elif [[ $OS == "nixos" ]]; then
+    sudo nixos-rebuild --no-build-hook switch --upgrade
+fi
 
-# ZSH
-antibody update
+zplug update # ZSH
 
 # Emacs. TODO Quelpa packages get marked as faild by
 # auto-package-update, they should been updated by him

@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+
+kbd_ids=$(xinput list | sed -n 's|.*anne.*id=\([0-9]\+\).*|\1|pI')
+
+for id in $kbd_ids; do
+    xkbcomp -i $id \
+            -w 9 \
+            -synch ~/téléchargement/lafayette_linux_v0.5.xkb \
+            $DISPLAY
+done
