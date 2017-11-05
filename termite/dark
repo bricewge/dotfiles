@@ -1,4 +1,4 @@
-# -*- mode: conf -*-
+# -*- mode: conf; eval: (rainbow-mode); -*-
 [options]
 resize_grip = false
 scroll_on_output = false

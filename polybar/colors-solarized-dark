@@ -11,4 +11,5 @@ alert = #bd2c40
 
 ; Local Variables:
 ; mode: conf-windows
+; eval: (rainbow-mode)
 ; End:

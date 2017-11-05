@@ -27,4 +27,5 @@ alert = ${self.red}
 
 ; Local Variables:
 ; mode: conf-windows
+; eval: (rainbow-mode)
 ; End:
