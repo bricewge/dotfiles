@@ -110,6 +110,8 @@ super + shift + {Left,Right}
 
 # * Launcher hotkeys
 super + space ; t
+	kitty
+super + space ; T
 	termite
 
 # ** TODO Should open a clean emacs
@@ -131,8 +133,11 @@ super + space ; shift + w
 super + space ; v
 	mpv --profile=pseudo-gui
 
+# super + v
+#   xclip -o
+
 super + space ; space
-	rofi -show combi -combi-modi "run,ssh,pass:rofi-pass" -modi combi
+	rofi -show drun -combi-modi "drun,run,ssh,pass:rofi-pass" -modi combi
 # dmenu_run -l 20 -w 200 -y 19 -fn -lucy-tewi-medium-r-normal--11-90-75-75-p-58-iso10646-1 -nb '#232c31' -nf '#6c7a80' -sf '#ac4142' -sb '#232c31'
 super + p
 	rofi-pass
@@ -143,8 +148,8 @@ super + w
 super + u
   UDISKIE_DMENU_LAUNCHER=rofi udiskie-dmenu -matching regex -dmenu -i -no-custom -multi-select
 
-super + c
-	emacsclient -ne "(make-capture-frame)"
+# super + c
+# 	emacsclient -ne "(make-capture-frame)"
 
 # * Media keys
 XF86MonBrightnessDown
