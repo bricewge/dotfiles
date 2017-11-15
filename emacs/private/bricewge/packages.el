@@ -474,7 +474,7 @@ OPTIONS contains the property list from the org-mode export."
                '("a"
                  "Achat"
                  checkitem
-                 (file+olp "~/org/organisation.org" "Achats" "Besoins")
+                 (file+olp "~/org/listes.org" "Achats" "Besoins")
                  )
                t)
 
