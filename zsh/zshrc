@@ -4,7 +4,7 @@
 # .profile for it.
 
 #if [ "$TMUX" = "" ]; then tmux; fi
-# * Zplug
+# * zplug
 export ZPLUG_HOME=${HOME}/.zplug
 if [[ ! -d ${ZPLUG_HOME} ]]; then
     git clone https://github.com/zplug/zplug $ZPLUG_HOME
@@ -41,16 +41,16 @@ zplug "modules/command-not-found", from:prezto, if:"[[ $OS != 'nixos' ]]"
 
 zplug "modules/directory", from:prezto
 
-# ** Completions
+# ** completions
 # Additional completion definitions for Zsh.
 zplug "zsh-users/zsh-completions", from:github
 
-# ** Fish like features
+# ** fish like features
 # Disable the fancies fish's features in Emacs
 # *** History substring search
 zplug "zsh-users/zsh-history-substring-search", from:github, \
-     if:"[[ $TERM != 'dumb' ]]", \
-     hook-load:"zmodload zsh/terminfo;
+      if:"[[ $TERM != 'dumb' ]]", \
+      hook-load:"zmodload zsh/terminfo;
      bindkey "$terminfo[kcuu1]" history-substring-search-up;
      bindkey "$terminfo[kcud1]" history-substring-search-down;
      bindkey '^[[A' history-substring-search-up;
@@ -60,7 +60,7 @@ zplug "zsh-users/zsh-history-substring-search", from:github, \
      HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=5,fg=8,bold';
      HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='bg=1,fg=8,bold'"
 
-# ** Theme
+# ** theme
 # Always use a theme except when TRAMP (Emacs) is used.
 if [[ $TERM == "dumb" ]]; then
     PS1='$ '
@@ -110,7 +110,7 @@ zplug "zsh-users/zsh-autosuggestions", from:github, \
       hook-load:"ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=10';
       ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(history-substring-search-up history-substring-search-down)"
 
-# ** Misc
+# ** misc
 # *** Syntax highlighting
 zplug "zsh-users/zsh-syntax-highlighting", from:github, \
       if:"[[ $TERM != 'dumb' ]]"
@@ -118,7 +118,7 @@ zplug "zsh-users/zsh-syntax-highlighting", from:github, \
 # # *** notify when a long running command exit
 zplug "marzocchi/zsh-notify", from:github
 
-# ** Apply ZPLUG
+# ** apply zplug
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose 2>&-; then
     printf "Install? [y/N]: "
@@ -130,7 +130,7 @@ fi
 # Then, source plugins and add commands to $PATH
 zplug load #--verbose
 
-# * ZSH config
+# * zsh config
 # ** environment
 # *** Smart URLs
 autoload -Uz url-quote-magic
@@ -139,7 +139,7 @@ zle -N self-insert url-quote-magic
 # *** General
 setopt BRACE_CCL          # Allow brace character class list expansion.
 setopt COMBINING_CHARS    # Combine zero-length punctuation characters (accents)
-                          # with the base character.
+# with the base character.
 setopt RC_QUOTES          # Allow 'Henry''s Garage' instead of 'Henry'\''s Garage'.
 unsetopt MAIL_WARNING     # Don't print a warning message if a mail file has been accessed.
 
@@ -151,7 +151,7 @@ unsetopt BG_NICE          # Don't run all background jobs at a lower priority.
 unsetopt HUP              # Don't kill jobs on shell exit.
 unsetopt CHECK_JOBS       # Don't report on jobs when shell exit.
 
-# ** History
+# ** history
 export HISTFILE="${ZDOTDIR:-$HOME}/.zhistory"       # The path to the history file.
 export HISTSIZE=10000                   # The maximum number of events to save in the internal history.
 export SAVEHIST=10000                   # The maximum number of events to save in the history file.
@@ -169,10 +169,10 @@ setopt HIST_SAVE_NO_DUPS         # Do not write a duplicate event to the history
 setopt HIST_VERIFY               # Do not execute immediately upon history expansion.
 setopt HIST_BEEP                 # Beep when accessing non-existent history.
 
-# * Use Emacs key bindings
+# ** emacs key bindings
 bindkey -e
 
-# * Completion
+# * completion
 # Enable completion
 autoload -Uz compinit
 compinit
@@ -180,7 +180,7 @@ compinit
 zstyle ':completion:*' menu select
 # Enable completion for new installed command within the session by
 # not trust the zsh's cache of executable command, and forced it be
-#    Updated: 2017/11/01 17:59:11 by bricewge         ###   ########.fr        #
+#    Updated: 2017/11/15 21:35:02 by bricewge         ###   ########.fr        #
 zstyle ":completion:*:commands" rehash 1
 # # *** TODO platformio
 # if command -v platformio > /dev/null 2>&1; then
@@ -190,12 +190,12 @@ zstyle ":completion:*:commands" rehash 1
 # fi
 
 
-# * Alias -- shortcuts
+# * alias
 # ** sudo
 # Passing alias to sudo
 alias sudo='sudo '
 
-# ** Emacs
+# ** emacs
 emacs-diff() {
     emacsclient -nc -a "" --eval "                                 \
         (progn                                                     \
@@ -232,49 +232,49 @@ alias ip6="ip -6"
 
 # ** pastebin ptpb.pw
 pb () {
-  curl -F "c=@${1:--}" https://ptpb.pw/
+    curl -F "c=@${1:--}" https://ptpb.pw/
 }
 
 pbx () {
-  curl -sF "c=@${1:--}" -w "%{redirect_url}" 'https://ptpb.pw/?r=1' -o /dev/stderr | pbcopy
+    curl -sF "c=@${1:--}" -w "%{redirect_url}" 'https://ptpb.pw/?r=1' -o /dev/stderr | pbcopy
 }
 
 pbs () {
-  asciinema rec /tmp/$$.json
-  pbx /tmp/$$.json
+    asciinema rec /tmp/$$.json
+    pbx /tmp/$$.json
 }
 
-# ** systemd
-# Code from oh-my-zsh plugin with scu addition
+# ** linux
+if [[ "${OS}" != "macos" ]]; then
+    # *** systemd
+    # Code from oh-my-zsh plugin with scu addition
 
-systemd_cmds_user=(
-  list-units is-active status show help list-unit-files
-  is-enabled list-jobs show-environment cat)
+    systemd_cmds_user=(
+        list-units is-active status show help list-unit-files
+        is-enabled list-jobs show-environment cat)
 
-systemd_cmds_sudo=(
-  start stop reload restart try-restart isolate kill
-  reset-failed enable disable reenable preset mask unmask
-  link load cancel set-environment unset-environment
-  edit)
+    systemd_cmds_sudo=(
+        start stop reload restart try-restart isolate kill
+        reset-failed enable disable reenable preset mask unmask
+        link load cancel set-environment unset-environment
+        edit)
 
-for c in $systemd_cmds_user; do; alias sc-$c="systemctl $c"; done
-for c in $systemd_cmds_sudo; do; alias sc-$c="sudo systemctl $c"; done
-for c in $systemd_cmds_sudo $systemd_cmds_user ; do;
-  alias scu-$c="systemctl --user $c";
-done
+    for c in $systemd_cmds_user; do; alias sc-$c="systemctl $c"; done
+    for c in $systemd_cmds_sudo; do; alias sc-$c="sudo systemctl $c"; done
+    for c in $systemd_cmds_sudo $systemd_cmds_user ; do;
+                                                       alias scu-$c="systemctl --user $c";
+    done
 
-# *** journald
-alias jc="sudo journalctl --system"
-alias jcu="journalctl --user"
+    # ** journald
+    alias jc="sudo journalctl --system"
+    alias jcu="journalctl --user"
 
-# ** misc
-alias dotfiles="git -C ~/dotfiles pull ; ~/dotfiles/init.sh"
-alias smartcard-fix="sc-stop system-envoy.slice ; killall gpg-agent"
-alias mpvg="mpv --profile=pseudo-gui"
-alias ip-public="dig +short myip.opendns.com @resolver1.opendns.com"
-alias tar=bsdtar
-alias open=xdg-open
-# * 42
+    # ** misc
+    alias tar=bsdtar
+    alias open=xdg-open
+fi
+
+# ** 42born2code
 if [[ `hostname | cut -d . -f 2-3` == "42.fr" ]]; then
     # Disable constant logging of the terminal
     unset -f precmd
