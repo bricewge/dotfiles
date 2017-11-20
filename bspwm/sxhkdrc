@@ -148,8 +148,9 @@ super + w
 super + u
   UDISKIE_DMENU_LAUNCHER=rofi udiskie-dmenu -matching regex -dmenu -i -no-custom -multi-select
 
-# super + c
-# 	emacsclient -ne "(make-capture-frame)"
+super + o
+  org-capture
+
 
 # * macOS shortcuts
 
