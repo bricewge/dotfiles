@@ -70,7 +70,7 @@ super + ctrl + shift + {h,l}
 	bspc node --to-desktop ${dir} && \
   bspc node last --focus
 
-# * EXPERIMENTAL
+# ** EXPERIMENTAL
 # Trying modal interaction
 # ** resize
 super + r: {h,j,k,l}
@@ -108,7 +108,7 @@ super + shift + {Left,Right}
 ~button1
 	bspc node pointed -f
 
-# * Launcher hotkeys
+# * app launchers
 super + space ; t
 	kitty
 super + space ; T
@@ -122,23 +122,22 @@ super + space ; shift + e
         emacs-old
 
 super + space ; f 
-	nautilus
+  nautilus
 
 super + space ; w
-	firefox
+  firefox
 
 super + space ; shift + w
-	chromium
+  chromium
 
 super + space ; v
-	mpv --profile=pseudo-gui
-
-# super + v
-#   xclip -o
+  mpv --profile=pseudo-gui
 
 super + space ; space
 	rofi -show drun -combi-modi "drun,run,ssh,pass:rofi-pass" -modi combi
 # dmenu_run -l 20 -w 200 -y 19 -fn -lucy-tewi-medium-r-normal--11-90-75-75-p-58-iso10646-1 -nb '#232c31' -nf '#6c7a80' -sf '#ac4142' -sb '#232c31'
+
+# * ¿ interface ?
 super + p
 	rofi-pass
 
@@ -151,7 +150,13 @@ super + u
 super + o
   org-capture
 
+# ** screenshot
+super + Print
+	maim --select ~/image/screenshot/$(date +%s).png
 
+super + shift + Print
+	maim ~/image/screenshot/$(date +%s).png
+# ** TODO notifications
 # * macOS shortcuts
 
 # For selection, copy and paste. Thanks to:
@@ -171,19 +176,26 @@ super + a
   xvkbd -xsendevent -text '\[Control_L]a'
 
 # * Media keys
+# ** monitor brightness
 XF86MonBrightnessDown
 	xbacklight -fps 10 -ctrl acpi_video0 -7
 
 XF86MonBrightnessUp
 	xbacklight -fps 10 -ctrl acpi_video0 +7
 
+# ** launchers
+# XF86LaunchA
+
+# XF86LaunchB
+
+# ** keyboard brightness
 XF86KbdBrightnessDown
 	xbacklight -fps 10 -ctrl smc::kbd_backlight -7
 
 XF86KbdBrightnessUp
 	xbacklight -fps 10 -ctrl smc::kbd_backlight +7
 
-# ** audio
+# ** multimedia
 XF86AudioPrev
   playerctl previous
 
@@ -193,6 +205,7 @@ XF86AudioPlay
 XF86AudioNext
   playerctl next
 
+# ** audio volume
 XF86AudioRaiseVolume
 	pactl set-sink-mute @DEFAULT_SINK@ false ; pactl set-sink-volume @DEFAULT_SINK@ +5db
 
@@ -202,6 +215,7 @@ XF86AudioLowerVolume
 XF86AudioMute
 	pactl set-sink-mute @DEFAULT_SINK@ toggle
 
+# ** system
 XF86PowerOff
   rofi-power "loginctl terminate-user ${USER}" 
   # notify-send "poweroff button disabled" 
