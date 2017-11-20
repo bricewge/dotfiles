@@ -121,30 +121,11 @@ ramp-capacity-2 = 
 ramp-capacity-3 = 
 ramp-capacity-4 = 
 
-; ** volume
+; ** powermenu
 [module/powermenu]
-type = custom/menu
-
-label-open = 
-label-open-margin-right= 2
-label-close = 
-label-close-foreground = ${colors.primary}
-label-separator = |
-label-separator-foreground = ${colors.foreground-alt}
-format-spacing = 1
-label-menu-0-background = ${colors.background-alt}
-
-menu-0-0 = 
-menu-0-0-exec = menu-open-1
-menu-0-1 = 
-menu-0-1-exec = menu-open-2
-
-; Validate 
-menu-1-0 =     
-menu-1-0-exec = sudo reboot
-
-menu-2-0 =  
-menu-2-0-exec = sudo poweroff
+type = custom/text
+content = "   "
+click-left = rofi-power
 
 ; ** TODO custom sxhkd mode
 [module/sxhkd]
