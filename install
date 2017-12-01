@@ -15,4 +15,8 @@ source ./env/profile
 
 if [[ ! -d $dotfiles ]]; then
     git clone https://github.com/bricewge/dotfiles $dotfiles
+    # I want to use ssh keys to authenticate with github, not credentials
+    if [[ $USER == "bricewge" ]] || [[ $USER == "bwaegene" ]]; then
+        git -C $dotfiles remote set-url origin git@github.com:bricewge/dotfiles.git
+    fi
 fi
