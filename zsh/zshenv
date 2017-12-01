@@ -2,4 +2,6 @@
 
 # Load =~/.profile= in compatibility mode. By default it's not loaded
 # by zsh due to incompatibilites with standard shells.
-[[ -e ~/.profile ]] && emulate sh -c 'source ~/.profile'
+if [[ $SHLVL == 1 && ! -o LOGIN ]]; then
+    [[ -e ~/.profile ]] && emulate sh -c 'source ~/.profile'
+fi
