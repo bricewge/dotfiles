@@ -32,7 +32,7 @@ case `uname` in
         OS="unknown";;
 esac
 
-#** macOS
+# ** macOS
 if [[ $OS == "macos" ]]; then
    export PATH=$HOME/.brew/bin:$PATH
 fi
