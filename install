@@ -11,6 +11,8 @@ if [[ ! -d "~/.local/src/bork" ]]; then
     ln -s ~/.local/src/bork/bin/bork-compile ~/.local/bin/bork-compile
 fi
 
+source ./env/profile
+
 if [[ ! -d $dotfiles ]]; then
     git clone https://github.com/bricewge/dotfiles $dotfiles
 fi
