@@ -1,5 +1,8 @@
 include config
 
+if [[ $OS == "macos" ]]; then
+	brew install pass
+fi
 if pass help >/dev/null 2>&1 ; then
     if [ ! -d "${HOME}/.password-store" ]; then
         pass git clone git@github.com:bricewge/pass.git
