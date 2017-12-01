@@ -10,6 +10,6 @@ if [[ $OS == "macos" ]]; then
     ok symlink ~/Library/LaunchAgents/bricewge.gpg-agent.plist "${dotfiles}/gpg/gpg-agent.plist"
 fi
 # Import personal public key
-if !gpg2 --list-keys 3D36CAA0116F0F99 >/dev/null 2>&1; then
-    gpg2 --import <$(curl -L https://clbin.com/HgBmJ)
+if ! gpg --list-keys 3D36CAA0116F0F99 >/dev/null 2>&1; then
+    curl -sSL https://clbin.com/HgBmJ | gpg --import -
 fi
