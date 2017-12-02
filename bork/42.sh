@@ -6,11 +6,18 @@ fi
 ok directory "/sgoinfre/goinfre/Perso/${USER}"
 chmod 700 "/sgoinfre/goinfre/Perso/${USER}"
 ok symlink "${HOME}/sgoinfre" "/sgoinfre/goinfre/Perso/${USER}"
+ok directory "/Volumes/Storage/goinfre/${USER}"
+chmod 700 "/Volumes/Storage/goinfre/${USER}"
 ok symlink "${HOME}/goinfre" "/Volumes/Storage/goinfre/${USER}"
 ok symlink "${HOME}/VirtualBox VMs" "${HOME}/sgoinfre/VirtualBox VMs"
 ok symlink "${HOME}/.docker" "${USER}/sgoinfre/docker"
 
 source "${dotfiles}/env/profile"
-source "${dotfiles}/zsh/zshrc"
+# source "${dotfiles}/zsh/zshrc"
 ok git "${HOME}/.brew" https://github.com/Homebrew/brew.git
 
+ok brew python3
+ok symlink "${HOME}/Library/LaunchAgents/bricewge.42home-fix.plist" \
+   "${dotfiles}/misc/42home-fix.plist"
+launchctl load ~/.dotfiles/misc/42home-fix.plist
+launchctl start bricewge.42home-fix
