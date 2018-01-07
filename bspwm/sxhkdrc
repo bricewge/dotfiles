@@ -109,17 +109,17 @@ super + shift + {Left,Right}
 	bspc node pointed -f
 
 # * app launchers
-super + space ; t
-	kitty
 super + space ; T
-	termite
+	SHLVL=-1 ; kitty
+super + space ; t
+	SHLVL=-1 termite
 
 #  TODO Should open a clean emacs
 super + space ; e
         emacsclient -nc -a "" -e "(switch-to-buffer \"*Bookmark List*\")"
 
 super + space ; shift + e
-        emacs-old
+        emacs
 
 super + space ; f 
   nautilus
@@ -175,7 +175,7 @@ super + x
 super + a
   xvkbd -xsendevent -text '\[Control_L]a'
 
-# * Media keys
+# * media keys
 # ** monitor brightness
 XF86MonBrightnessDown
 	xbacklight -fps 10 -ctrl acpi_video0 -7
@@ -183,10 +183,10 @@ XF86MonBrightnessDown
 XF86MonBrightnessUp
 	xbacklight -fps 10 -ctrl acpi_video0 +7
 
-# ** launchers
-# XF86LaunchA
+# ** TODO launchers
+# {super + F3, XF86LaunchA}
 
-# XF86LaunchB
+# {super + F4, XF86LaunchB}
 
 # ** keyboard brightness
 XF86KbdBrightnessDown
@@ -196,31 +196,31 @@ XF86KbdBrightnessUp
 	xbacklight -fps 10 -ctrl smc::kbd_backlight +7
 
 # ** multimedia
-XF86AudioPrev
+{super + F7 XF86AudioPrev}
   playerctl previous
 
-XF86AudioPlay
+{super + F8, XF86AudioPlay}
   playerctl play-pause
 
-XF86AudioNext
+{super + F9, XF86AudioNext}
   playerctl next
 
 # ** audio volume
-XF86AudioRaiseVolume
-	pactl set-sink-mute @DEFAULT_SINK@ false ; pactl set-sink-volume @DEFAULT_SINK@ +5db
+{super + F10, XF86AudioMute}
+	pactl set-sink-mute @DEFAULT_SINK@ toggle
 
-XF86AudioLowerVolume
+{super + F11, XF86AudioLowerVolume}
 	pactl set-sink-mute @DEFAULT_SINK@ false ; pactl set-sink-volume @DEFAULT_SINK@ -5db
 
-XF86AudioMute
-	pactl set-sink-mute @DEFAULT_SINK@ toggle
+{super + F12, XF86AudioRaiseVolume}
+	pactl set-sink-mute @DEFAULT_SINK@ false ; pactl set-sink-volume @DEFAULT_SINK@ +5db
 
 # ** system
 XF86PowerOff
   rofi-power "loginctl terminate-user ${USER}" 
   # notify-send "poweroff button disabled" 
 
-# * Specials hotkeys
+# * window manager
 # Reload UI configurations
 super + Escape
 	 pkill -USR1 -x "(sxhkd|compton)" && \
