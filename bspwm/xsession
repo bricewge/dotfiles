@@ -1,3 +1,3 @@
 #!/usr/bin/env sh
-. ~/.xprofile
-bspwm
+source ~/.profile
+exec bspwm -c ~/.config/bspwm/bspwmrc

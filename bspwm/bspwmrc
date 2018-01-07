@@ -1,5 +1,19 @@
 #!/usr/bin/env sh
 
+#source "${HOME}/.xprofile"
+#source "${HOME}/.profile"
+
+
+# Enable hotkeys
+# SXHKD_SHELL=/bin/sh sxhkd &
+SXHKD_SHELL=/run/current-system/sw/bin/sh sxhkd &
+sxhkd_fifo=/tmp/sxhkd-${USER}.fifo
+# SEGV
+#mkfifo "${sxhkd_fifo}"
+#sxhkd -s "${sxhkd_fifo}" &
+#sleep 5 && killall sxhkd
+#sxhkd &
+
 # * bspwm config
 bspc monitor eDP1 -d 1 2 3 4 5
 bspc monitor HDMI1 -d TV
@@ -33,17 +47,17 @@ bspc rule -a Emacs:capture state=floating sticky=on
 bspc rule -a Gimp state=floating
 
 # * other stuff to start
-MONITOR=eDP1 polybar --reload example &
-MONITOR=HDMI1 polybar --reload example &
+# MONITOR=eDP1 polybar --reload example &
+# MONITOR=HDMI1 polybar --reload example &
 
-# Enable hotkeys
-# SXHKD_SHELL=/bin/sh sxhkd &
-SXHKD_SHELL=/bin/sh
-sxhkd_fifo=${HOME}/tmp/sxhkd.fifo
-mkfifo "${sxhkd_fifo}" ; sxhkd -s "${sxhkd_fifo}" &
+polybar-auto.sh &
 
+cd ~/tmp/umonitor && ./usr/bin/umonitor --listen && cd -
+bspc monitor eDP1 -d 1 2 3 4 5
+bspc monitor HDMI1 -d TV
+bspc desktop -f 3
 # To get rofi-pass working
-setxkbmap fr mac
+# setxkbmap fr mac
 # From ~/.xinitrc
 xrdb ~/.Xresources
 # Load terminus font for bar
