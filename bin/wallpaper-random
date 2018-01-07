@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 cd /tmp
-feh --bg-fill --keep-http `xrandr | awk '/\*/ { gsub("x","/",$1); printf "https://unsplash.it/%s/?random", $1}'`
+feh --bg-fill --keep-http `xrandr | awk '/\*/ { gsub("x","/",$1); printf "https://unsplash.it/%s/?random", $1; exit}'`
 cd -
