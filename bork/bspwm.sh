@@ -1,6 +1,8 @@
 include config
 
-ok directory ${HOME}/.config/{bspwm,polybar,sxhkd}
+ok directory ${HOME}/.config/bspwm
+ok directory ${HOME}/.config/polybar
+ok directory ${HOME}/.config/sxhkd
 
 ok symlink "${HOME}/.xinitrc" "${dotfiles}/bspwm/xinitrc"
 ok symlink "${HOME}/.Xresources" "${dotfiles}/bspwm/Xresources"

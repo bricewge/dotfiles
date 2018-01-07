@@ -4,19 +4,20 @@ set -e
 
 : ${dotfiles:="$HOME/.dotfiles"}
 
-if [[ ! -d "~/.local/src/bork" ]]; then
-    mkdir -p ~/.local/{src,bin}
-    git clone https://github.com/mattly/bork ~/.local/src/bork
-    ln -s ~/.local/src/bork/bin/bork ~/.local/bin/bork
-    ln -s ~/.local/src/bork/bin/bork-compile ~/.local/bin/bork-compile
+if ! [ -d "${HOME}/.local/src/bork" ]; then
+	mkdir -p ~/.local/{src,bin}
+	git clone https://github.com/mattly/bork ~/.local/src/bork
+	ln -sf ~/.local/src/bork/bin/bork ~/.local/bin/bork
+	ln -sf ~/.local/src/bork/bin/bork-compile ~/.local/bin/bork-compile
 fi
 
 source ./env/profile
 
-if [[ ! -d $dotfiles ]]; then
-    git clone https://github.com/bricewge/dotfiles $dotfiles
-    # I want to use ssh keys to authenticate with github, not credentials
-    if [[ $USER == "bricewge" ]] || [[ $USER == "bwaegene" ]]; then
-        git -C $dotfiles remote set-url origin git@github.com:bricewge/dotfiles.git
-    fi
+if ! [ -d "${dotfiles}" ]; then
+	git clone https://github.com/bricewge/dotfiles $dotfiles
+fi
+
+# I want to use ssh keys to authenticate with github, not credentials
+if [[ $USER == "bricewge" ]] || [[ $USER == "bwaegene" ]]; then
+	git -C $dotfiles remote set-url origin git@github.com:bricewge/dotfiles.git
 fi
