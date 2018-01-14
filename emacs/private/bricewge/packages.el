@@ -499,8 +499,7 @@ OPTIONS contains the property list from the org-mode export."
 
   (setq org-attach-directory "attachment/")
 
-  (setq org-refile-targets (quote ((nil :maxlevel . 9)
-                                   (org-agenda-files :maxlevel . 9))))
+  (setq org-refile-targets  '((org-agenda-files :maxlevel . 6)))
 
   (setq org-archive-location (concat org-directory "/archive/%s_archive::* Archived Tasks"))
   (setq org-archive-mark-done nil)
