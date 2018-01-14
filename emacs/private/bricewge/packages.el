@@ -36,11 +36,6 @@
 
   (setq org-drill-scope 'file) ; Other value: directory
 
-  ;; Standard key bindings
-  (global-set-key "\C-cl" 'org-store-link)
-  (global-set-key "\C-ca" 'org-agenda)
-  (global-set-key "\C-cb" 'org-iswitchb)
-
   (setq org-directory "~/org")
 
   ;; Does not set a indentation level when moving heading
@@ -390,7 +385,6 @@ OPTIONS contains the property list from the org-mode export."
         org-habit-show-habits nil)
 
   (setq org-default-notes-file (concat org-directory "/inbox.org"))
-  (define-key global-map "\C-cc" 'org-capture)
 
   ;; Needed to add others items to the list, prefer using "add-to-list".
   (setq org-capture-templates '())
