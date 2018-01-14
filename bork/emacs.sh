@@ -2,8 +2,8 @@ include config
 
 ok github ~/.emacs.d syl20bnr/spacemacs --branch=develop
 ok symlink ~/.spacemacs "${dotfiles}/emacs/spacemacs.conf"
-# ok symlink ~/.emacs.d/private/bricewge $dotfiles/emacs/private/bricewge
 ok symlink ~/.emacs.d/bookmarks "${dotfiles}/emacs/bookmarks"
+ok symlink ~/.emacs.d/custom.el "${dotfiles}/emacs/custom.el"
 
 for dir in ${dotfiles}/emacs/private/*/ ; do
     ok symlink "${HOME}/.emacs.d/private/$(basename ${dir})" \
