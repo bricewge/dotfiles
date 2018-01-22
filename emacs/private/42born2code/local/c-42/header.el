@@ -253,7 +253,7 @@
     (if (buffer-modified-p)
         (progn
           (goto-char (point-min))
-          (if (search-forward "Updated" nil t)
+          (if (re-search-forward "Updated:.*#\\{3\\} \\{3\\}#\\{8\\}\.fr" nil t)
               (progn
                 (delete-region
                  (progn (beginning-of-line) (point))
