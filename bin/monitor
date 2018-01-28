@@ -1,0 +1,17 @@
+#!/usr/bin/env sh
+
+# Toogle between input sources for BenQ GW2765HT monitor
+
+model="BenQ GW2765"
+dp="x0f"
+hdmi="x11"
+
+current_source=$(sudo ddcutil getvcp 0x60 --model "${model}" --terse | cut -d' ' -f4)
+
+if [[ $current_source == $dp ]]; then
+    new_source=$hdmi
+elif [[ $current_source == $hdmi ]]; then
+    new_source=$dp
+fi
+
+sudo ddcutil setvcp 0x60 0$new_source --model "${model}"
