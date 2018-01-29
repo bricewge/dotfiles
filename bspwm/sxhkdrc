@@ -4,51 +4,29 @@
 # ** Not orded, yet
 
 # Close or kill a window
-super + {_,shift + }d
+super + {_, shift +} d
 	bspc node -{c,k}
-# super + b
-# 	bspc desktop -B
 
 # Toggle the state of the window
-super + {_,shift +} f
+super + {_, shift +} f
 	bspc node -t \~{floating,fullscreen}
+super + {_, shift +} s
+	bspc node -t \~{tiled,pseudo_tiled}
 
-super + {_,shift, +} s
-	bspc node -t \~tiled
+# Switch between the last node/monitor
+super + {_, shift +} Tab
+	bspc {node,monitor} -f last
 
-super + {Tab,at}
-	bspc {node,desktop} -f last
-
-# Seems useless since their is ~alt + tab~ 
-# super + {o,i}
-# 	bspc control --record-history off; \
-# 	bspc node {older,newer} -f; \
-# 	bspc control --record-history on
-
-# super + y
-# 	bspc node -w last.manual
-
+# Swap the current node with the biggest node of the desktop
 super + m
-	bspc node --swap biggest.local
-
-# super + {_,shift + }c
-# 	bspc window -f {next,prev}
-
-# super + ctrl + {_,shift + }space
-# 	bspc {window -p cancel,desktop -c}
-
-super + {comma,semicolon}
-	bspc desktop --focus {next,prev}
-
-# super + ctrl + {1-9}
-# 	bspc window -r 0.{1-9}
+	bspc node focused --swap biggest.local
 
 # Toogle windows gap
 super + g
-  bspc config window_gap $( [ `bspc config window_gap` -eq $BSPWM_GAP ] && echo 0 || echo $BSPWM_GAP )
+  bspc config window_gap $( [[ `bspc config window_gap` -eq $BSPWM_GAP ]] && echo 0 || echo $BSPWM_GAP )
 
 # Rotate the tree clockwise and counter-clockwise
-super + {_,shift + }r
+super + {_, shift +} r
  bspc node @/ -R {+,-}90
 
 # ** vim movments
@@ -70,65 +48,58 @@ super + ctrl + shift + {h,l}
 	bspc node --to-desktop ${dir} && \
   bspc node last --focus
 
-# ** EXPERIMENTAL
-# Trying modal interaction
 # ** resize
-super + r: {h,j,k,l}
+# Increase size from a side
+super + z: {h,j,k,l}
   bspc node --resize {left -20 0, bottom 0 20, top 0 -20, right 20 0}
-super + r: shift + {h,j,k,l}
+# Decrease size from a side
+super + z: shift + {h,j,k,l}
   bspc node --resize {left 20 0, bottom 0 -20, top 0 20, right -20 0}
 
-
-
 # ** Move between desktops
-# Switch to desktop 1-6 with recpectivly &, é, ", ', (, §
-super + {ampersand,eacute,quotedbl,apostrophe,parenleft,section}
-	bspc desktop -f ^{1-6}
-
-super + {1-6}
-	bspc desktop -f ^{1-6}
+# Switch to desktop with numbers 
+super + {1-9}
+	bspc desktop --focus {1-9}
+# Switch to desktop for Macbook Air French AZERTY keyboard
+super + {ampersand,eacute,quotedbl,apostrophe,parenleft,section,egrave,exclam,ccedilla}
+	bspc desktop --focus ^{1-9}
 
 # Send the selected window to the desktop 1-6 and follow it, if no
 # window is selected go to the desktop 1-6 anyway.
-super + {1-6}
-	nth={1-6} && \
-	bspc node --to-desktop ^${nth} && \
+super + shift + {1-6}
+	bspc node focused --to-desktop "{1-6}" &&\
   bspc node last --focus
 # Go to the next or previous desktop
-super + {Left,Right}
-	bspc desktop -f {prev,next}
+super + {Left, comma, Right, period}
+	bspc desktop -f {prev,prev,next,next}
 # Move the selected window to the next or previous desktop
 super + shift + {Left,Right}
 	dir={prev,next} && \
 	bspc node --to-desktop ${dir} && \
   bspc node last --focus
 
-
 # ** Mouse actions
 ~button1
 	bspc node pointed -f
 
 # * app launchers
-super + space ; T
-	SHLVL=-1 ; kitty
-super + space ; t
-	SHLVL=-1 termite
+# Terminal
+super + space ; {t, T}
+	SHLVL=-1  {termite, kitty}
 
-#  TODO Should open a clean emacs
-super + space ; e
-        emacsclient -nc -a "" -e "(switch-to-buffer \"*Bookmark List*\")"
+# Editor
+# TODO Should open a clean emacs
+super + space ; {e, E}
+        {emacsclient -nc -a "" -e "(switch-to-buffer \"*Bookmark List*\")", emacs}
 
-super + space ; shift + e
-        emacs
-
+# File browser
+# TODO Add ranger.el
 super + space ; f 
   nautilus
 
-super + space ; w
-  firefox
-
-super + space ; shift + w
-  chromium
+# Web browser
+super + space ; {w, W}
+  {firefox,chromium}
 
 super + space ; v
   mpv --profile=pseudo-gui
@@ -149,6 +120,19 @@ super + u
 
 super + o
   org-capture
+
+# super + 0
+#   xdotool search --onlyvisible --name TermiteDropDown windowunmap \
+#       || xdotool search --name TermiteDropdown windowmap \
+#       || termite --name TermiteDropdown --geometry=`xdotool getdisplaygeometry | awk '{ print $1"x"$2/3 }'`
+
+# super + =
+#     id=$(bspc query -N -n "focused");\
+#     if [ -n "$id" ];then \
+#         xprop -id $id -f _SCRATCH 32ii -set _SCRATCH $(date +%s,%N);\
+#         bspc node -t "floating";\
+#         xdotool windowunmap $id;\
+#     fi
 
 # ** screenshot
 super + Print
@@ -184,9 +168,11 @@ XF86MonBrightnessUp
 	xbacklight -fps 10 -ctrl acpi_video0 +7
 
 # ** TODO launchers
-# {super + F3, XF86LaunchA}
+{super + F3, XF86LaunchA, super + bracketleft}
+  dropdown.sh
 
-# {super + F4, XF86LaunchB}
+{super + F4, XF86LaunchB, super + bracketright}
+  riseup.sh
 
 # ** keyboard brightness
 XF86KbdBrightnessDown
@@ -196,7 +182,7 @@ XF86KbdBrightnessUp
 	xbacklight -fps 10 -ctrl smc::kbd_backlight +7
 
 # ** multimedia
-{super + F7 XF86AudioPrev}
+{super + F7, XF86AudioPrev}
   playerctl previous
 
 {super + F8, XF86AudioPlay}
@@ -207,18 +193,17 @@ XF86KbdBrightnessUp
 
 # ** audio volume
 {super + F10, XF86AudioMute}
-	pactl set-sink-mute @DEFAULT_SINK@ toggle
+  amixer -q set Master toggle
 
 {super + F11, XF86AudioLowerVolume}
-	pactl set-sink-mute @DEFAULT_SINK@ false ; pactl set-sink-volume @DEFAULT_SINK@ -5db
+  amixer -q set Master 5%- unmute
 
 {super + F12, XF86AudioRaiseVolume}
-	pactl set-sink-mute @DEFAULT_SINK@ false ; pactl set-sink-volume @DEFAULT_SINK@ +5db
+  amixer -q set Master 5%+ unmute
 
 # ** system
 XF86PowerOff
   rofi-power "loginctl terminate-user ${USER}" 
-  # notify-send "poweroff button disabled" 
 
 # * window manager
 # Reload UI configurations
@@ -228,7 +213,16 @@ super + Escape
 
 # Quit bspwm and kill the panel
 super + alt + Escape
-        pkill conky; pkill polybar; bspc quit
+   pkill conky; pkill polybar; bspc quit
 
 # ~Escape
 # 	~/.config/bspwm/panel/scripts/toggle_conky *
+
+# * workarounds
+# Disable Ctrl+q for Firefox
+# ctrl + q
+#   notify-send "ctrl+q pressed" ;\
+#   xdo key_press -k 105 ; sleep 0.2 ;\
+#   xdo key_press -k 24 ; sleep 0.2 ;\
+#   xdo key_release -k 24 ; sleep 0.2 ;\
+#   xdo key_release -k 105
