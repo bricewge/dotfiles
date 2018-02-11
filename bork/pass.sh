@@ -1,11 +1,11 @@
 include config
 
 if [[ $OS == "macos" ]]; then
-	brew install pass
+	ok brew pass
 fi
 if pass help >/dev/null 2>&1 ; then
     if [ ! -d "${HOME}/.password-store" ]; then
-        pass git clone git@github.com:bricewge/pass.git
+        git clone git@github.com:bricewge/pass.git "${HOME}/.password-store"
     fi
     if [ ! -x "${HOME}/.password-store/.git/hooks/post-commit" ]; then
         cat > "${HOME}/.password-store/.git/hooks/post-commit" <<-EOF
