@@ -1,63 +1,21 @@
 #+TITLE: dotfiles
-Brice Waegeneire's dotfiles for GNU/Linux managed with +[[https://saltstack.com/][SaltStack]]+.
+Brice Waegeneire's dotfiles for UNIX managed with +[[https://github.com/mattly/bork][Bork]]+.
 
-* TODO
-** Move away from saltstack
-- [ ] fix password for offlinemap and transmission (in emacs)
-- [ ] fix env/profile OSX specific conf
-- [ ] fix os specific emacs conf
-* Using this dotfiles
-1. Install =saltstack= from your package manager.
-2. =$ git clone https://github.com/bricewge/dotfiles=
-3. =$ cd ./dotfiles && ./init.sh=
+* Install
+git clone https://github.com/bricewge/dotfiles.git ~/.dotfiles
+cd ~/.dotfiles
+./install
+source ./env/profile
+bork satisfy ./bork/git.sh
+bork satisfy ./bork/ssh.sh
+git crypt unlock
 
-* Integrate it in your salt master
-If you find this dotfiles usefull you can integrate a part or all of
-it to your usual saltstack workflow with a master.
-
-You'll need to modify your salt master config by adding the path where
-you clone this repo –for example =/home/fordprefect/dotfiles=- to =file_roots=.
-#+BEGIN_SRC yaml /etc/salt/master
-  file_roots:
-    base:
-      - /srv/salt
-      - /home/fordprefect/dotfiles
-#+END_SRC
-
-Now include the parts you want to your =top.sls=. Maybe for your
-=bar= machine you only need to configure =emacs=, =termite= and =zsh=.
-#+BEGIN_SRC yaml /srv/salt/top.sls
-  base:
-    '*':
-      - foo
-    'bar':
-      - emacs
-      - termite
-      - zsh
-#+END_SRC
-
-Then you need to set a pillar with the username and paths which are
-noramally set by the =init.sh= script.
-#+BEGIN_SRC yaml /srv/pillar/dotfiles.sls
-  dotfiles:
-    user: fordprefect
-    home: /home/fordprefect
-    fileroot: /home/fordprefect/dotfiles
-#+END_SRC
-
-Finally you can apply the states you choosed with an usual
-=state.highstate= along side yours.
-#+BEGIN_SRC sh
- $ sudo salt '*' state.highstate
-#+END_SRC
-
-* Notes
-If you are me you'll want to decrypt the =ssh= directory before
-running =./init.sh=. To do so install [[https://www.agwa.name/projects/git-crypt/][git-crypt]], run =git-crypt
-unlock= in the repository and then =./init.sh=.
-
-To apply the configurations of GUI only software you need to set the
-pillar =dotfiles:graphics= to =True=
+* Past systems
+Before using =Bork=, this repository was managed with:
+- custom shell scripts
+- myrepos
+- vcsh
+- salstack
 
 * License
 All of this repository is under [[https://creativecommons.org/publicdomain/zero/1.0/][CC0 1.0]] license except the =wallpaper= subdirectory.
