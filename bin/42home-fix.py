@@ -25,7 +25,7 @@ def fix_dotemacs():
         os.remove(dotemacs.as_posix())
 
 def main ():
-    fix_library()
+    #fix_library()
     fix_dotemacs()
 
 if __name__ == "__main__":
