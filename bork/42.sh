@@ -8,7 +8,7 @@ chmod 700 "/sgoinfre/goinfre/Perso/${USER}"
 ok symlink "${HOME}/sgoinfre" "/sgoinfre/goinfre/Perso/${USER}"
 ok directory "/Volumes/Storage/goinfre/${USER}"
 chmod 700 "/Volumes/Storage/goinfre/${USER}"
-ok symlink "${HOME}/goinfre" "/Volumes/Storage/goinfre/${USER}"
+ok symlink "/Volumes/Storage/goinfre/${USER}" "${HOME}/goinfre"
 ok symlink "${HOME}/VirtualBox VMs" "${HOME}/sgoinfre/VirtualBox VMs"
 ok symlink "${HOME}/.docker" "${USER}/sgoinfre/docker"
 
@@ -21,3 +21,18 @@ ok symlink "${HOME}/Library/LaunchAgents/bricewge.42home-fix.plist" \
    "${dotfiles}/misc/42home-fix.plist"
 launchctl load ~/.dotfiles/misc/42home-fix.plist
 launchctl start bricewge.42home-fix
+
+# * macOS
+# ** Finder
+# Display ~/Library
+chflags nohidden ~/Library/
+
+# TODO macOS setup
+# - time
+# - bluetooth
+# - keyboard
+# - mouse
+# - security
+# - wifi
+
+# TODO iTerm
