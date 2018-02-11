@@ -6,6 +6,7 @@ if [[ $OS == "macos" ]]; then
     ok brew htop
     ok brew the_silver_searcher
     ok brew tldr
+    ok brew tmux
     ok brew trash
     ok brew tree
     ok brew valgrind
