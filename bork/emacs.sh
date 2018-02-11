@@ -13,8 +13,8 @@ done
 if [[ $OS == "macos" ]]; then
     ok cask emacs "${appdir}"
     # fonts
-    ok directory ~/Library/Fonts/source-code-pro
-    if [[ ! -e ~/Library/Fonts/ ]]; then
+    if [[ ! -e ~/Library/Fonts/source-code-pro/ ]]; then
+        ok directory ~/Library/Fonts/source-code-pro
         curl -L https://github.com/adobe-fonts/source-code-pro/archive/2.030R-ro/1.050R-it.tar.gz | \
             tar --strip-components=1 -zxvf \
                 - -C ~/Library/Fonts/source-code-pro/ \
