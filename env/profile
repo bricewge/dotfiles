@@ -37,6 +37,12 @@ if [[ $OS == "macos" ]]; then
    export PATH=$HOME/.brew/bin:$PATH
 fi
 
+# * Machines
+# ** 42born2code
+if [[ $(hostname | cut -d . -f 2-3) == "42.fr" ]]; then
+    export HOMEBREW_CASK_OPTS='--appdir=~/Applications'
+fi
+
 # * Editor
 # Set Emacs as the default editor.
 export EDITOR="emacsclient -t"
