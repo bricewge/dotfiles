@@ -10,6 +10,11 @@ set -g @scroll-speed-num-lines-per-scroll 1
 # bind -T root WheelUpPane   if-shell -F -t = "#{alternate_on}" "send-keys -M" "select-pane -t =; copy-mode -e; send-keys -M"
 # bind -T root WheelDownPane if-shell -F -t = "#{alternate_on}" "send-keys -M" "select-pane -t =; send-keys -M"
 
+# * theme
+set -g @plugin 'seebi/tmux-colors-solarized'
+set -g @colors-solarized 'dark'
+
+# * shortcuts
 # Tab navigation
 bind -n S-up new-window
 bind -n S-down kill-window
@@ -22,3 +27,7 @@ bind r source-file ~/.tmux.conf
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run '~/.tmux/plugins/tpm/tpm'
+
+# make solarized theme less flashy
+set-window-option -g window-status-current-attr bold
+set-window-option -g window-status-current-fg colour12 #base0
