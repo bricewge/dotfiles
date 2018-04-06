@@ -14,4 +14,4 @@ elif [ "/home/bricewge/.config/termite/config" -ef \
     emacsclient --eval "(load-theme 'solarized-dark)"
 fi
 
-killall -s USR1 termite
+pkill -USR1 termite
