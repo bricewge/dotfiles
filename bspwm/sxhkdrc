@@ -105,8 +105,7 @@ super + space ; v
   mpv --profile=pseudo-gui
 
 super + space ; space
-	rofi -show drun -combi-modi "drun,run,ssh,pass:rofi-pass" -modi combi
-# dmenu_run -l 20 -w 200 -y 19 -fn -lucy-tewi-medium-r-normal--11-90-75-75-p-58-iso10646-1 -nb '#232c31' -nf '#6c7a80' -sf '#ac4142' -sb '#232c31'
+  rofi -show drun
 
 # * ¿ interface ?
 super + p
