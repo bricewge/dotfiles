@@ -1,5 +1,4 @@
 #!/usr/bin/env sh
 
-icon=""
-
+icon=""
 echo "${icon}"
