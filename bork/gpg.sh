@@ -17,5 +17,8 @@ else
 fi
 # Import personal public key
 if ! gpg --list-keys 3D36CAA0116F0F99 >/dev/null 2>&1; then
-    curl -sSL https://clbin.com/HgBmJ | gpg --import -
+    curl -sSL https://ptpb.pw/YCsD | gpg --import -
+    if systemctl --user --quiet is-active gpg-agents.service; then
+        systemctl --user restart gpg-agent.service
+    fi
 fi
