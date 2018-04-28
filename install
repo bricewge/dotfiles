@@ -5,7 +5,7 @@ set -e
 : ${dotfiles:="${HOME}/.dotfiles"}
 
 if ! [ -d "${HOME}/.local/src/bork" ]; then
-	mkdir -p "${HOME}/.local/{src,bin}"
+	mkdir -p "${HOME}/.local/"{src,bin}
 	git clone https://github.com/mattly/bork "${HOME}/.local/src/bork"
   git -C "${HOME}/.local/src/bork" checkout tags/v0.11.0 -b v0.11.0
 	ln -sf "${HOME}/.local/src/bork/bin/bork" "${HOME}/.local/bin/bork"
