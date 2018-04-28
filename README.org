@@ -2,13 +2,15 @@
 Brice Waegeneire's dotfiles for UNIX managed with +[[https://github.com/mattly/bork][Bork]]+.
 
 * Install
-git clone https://github.com/bricewge/dotfiles.git ~/.dotfiles
-cd ~/.dotfiles
-./install
-source ./env/profile
-bork satisfy ./bork/git.sh
-bork satisfy ./bork/ssh.sh
-git crypt unlock
+#+BEGIN_SRC sh
+  git clone https://github.com/bricewge/dotfiles.git ~/.dotfiles
+  cd ~/.dotfiles
+  ./install
+  source ./env/profile
+  bork satisfy ./bork/git.sh
+  git crypt unlock
+  bork satisfy ./bork/ssh.sh
+#+END_SRC
 
 * Past systems
 Before using =Bork=, this repository was managed with:
