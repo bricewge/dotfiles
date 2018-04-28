@@ -1,8 +1,19 @@
 #!/usr/bin/env sh
 
-#source "${HOME}/.xprofile"
-#source "${HOME}/.profile"
+source "${HOME}/.xprofile"
+source "${HOME}/.profile"
 
+# * Early setup
+# Setup monitors
+autorandr --change --force
+# Set a wallpaper
+if [[ -x "${HOME}"/.fehbg ]]; then
+    "${HOME}"/.fehbg &
+else
+    feh --bg-fill ~/image/fp0Jtgr.jpg &
+fi
+# Set a nice cursor
+xsetroot -cursor_name left_ptr
 
 # Enable hotkeys
 # SXHKD_SHELL=/bin/sh sxhkd &
@@ -15,13 +26,12 @@ sxhkd_fifo=/tmp/sxhkd-${USER}.fifo
 #sxhkd &
 
 # * bspwm config
-bspc monitor eDP1 -d 1 2 3 4 5
-bspc monitor HDMI1 -d TV
-bspc desktop -f 3
+bspc monitor eDP1 -d I II III IV V
+bspc desktop -f III
 
 # TEST
 bspc config remove_disabled_monitors true
-bspc config remove_unplugged_monitors true
+# bspc config remove_unplugged_monitors true
 bspc config merge_overlapping_monitors true
 # TEST
 
@@ -42,20 +52,17 @@ bspc config presel_feedback_color "#b58900"
 
 # ** windows rules
 bspc rule -a Pinentry state=floating sticky=on
-bspc rule -a Emacs state=tiled # needed because of issue #551 in bspwm
+bspc rule -a Emacs state=tiled # needed because of issue bspwm/551
 bspc rule -a Emacs:capture state=floating sticky=on
 bspc rule -a Gimp state=floating
 
 # * other stuff to start
-# MONITOR=eDP1 polybar --reload example &
+MONITOR=eDP1 polybar --reload example &
 # MONITOR=HDMI1 polybar --reload example &
 
-polybar-auto.sh &
+# polybar-auto.sh &
 
-cd ~/tmp/umonitor && ./usr/bin/umonitor --listen && cd -
-bspc monitor eDP1 -d 1 2 3 4 5
-bspc monitor HDMI1 -d TV
-bspc desktop -f 3
+# cd ~/tmp/umonitor && ./usr/bin/umonitor --listen && cd -
 # To get rofi-pass working
 # setxkbmap fr mac
 # From ~/.xinitrc
@@ -64,18 +71,12 @@ xrdb ~/.Xresources
 #xset +fp /usr/share/fonts/local
 #xset fp rehash
 
-# Set a wallpaper
-if [[ -x "${HOME}"/.fehbg ]]; then
-    "${HOME}"/.fehbg &
-else
-    feh --bg-fill ~/image/fp0Jtgr.jpg &
-fi
 # Hide the cursor when not used
 xbanish -i Mod4 &
-# Use a basic cursor
-xsetroot -cursor_name left_ptr &
 # Fancy things *BUT* with too much bugs
 # compton &
 udiskie --notify &
+bspc rule -a TermiteDropdown sticky=on floating=on
+dropdown.sh &
 # disable DPMS
 xset s off -dpms
