@@ -2,6 +2,13 @@
 
 bspc monitor DP1 -d 1 2 3 4 5
 bspc desktop --focus 3
+# Kill old processes before starting a new one
+for pid in $(pidof polybar)
+do
+    if cat /proc/$pid/environ | tr \\0 \\n | grep -q "MONITOR=${MONITOR}"; then
+        kill $pid
+    fi
+done
 polybar_log=$(mktemp --tmpdir polybar.XXX)
 MONITOR=DP1 nohup polybar --reload example 2>&1 1>"${polybar_log}" &
 
