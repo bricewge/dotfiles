@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+bspc monitor DP1 -d 1 2 3 4 5
+bspc desktop --focus 3
+polybar_log=$(mktemp --tmpdir polybar.XXX)
+MONITOR=DP1 nohup polybar --reload example 2>&1 1>"${polybar_log}" &
+
+pacmd set-card-profile 0 output:hdmi-stereo
