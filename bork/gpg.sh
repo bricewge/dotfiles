@@ -1,5 +1,7 @@
 include config
 
+key="3D36CAA0116F0F99"
+
 ok directory "${HOME}/.gnupg" --mode=700
 
 if [[ $OS == "macos" ]]; then
@@ -15,9 +17,15 @@ if [[ $OS == "macos" ]]; then
 else
     ok symlink ~/.gnupg/gpg-agent.conf "${dotfiles}/gpg/gpg-agent.conf"
 fi
-# Import personal public key
-if ! gpg --list-keys 3D36CAA0116F0F99 >/dev/null 2>&1; then
+
+# TODO Import trust with --import-ownertrust https://gist.github.com/chrisroos/1205934
+# NOTE For it to be usable with pass you need to manually run =gpg --card-status=
+# with your smartcard plugged in.
+
+# Import and trust personal public key
+if ! gpg --list-keys "${key}" >/dev/null 2>&1; then
     curl -sSL https://ptpb.pw/YCsD | gpg --import -
+    echo -e "trust\n5\ny\n" | gpg --command-fd 0 --edit-key "${key}"
     if systemctl --user --quiet is-active gpg-agents.service; then
         systemctl --user restart gpg-agent.service
     fi
