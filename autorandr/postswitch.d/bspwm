@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+
+# TODO Fix it when run by systemd with =--batch=
+
+env
+pkill polybar
+for monitor in ${AUTORANDR_MONITORS//:/ }
+do
+    # echo $monitor
+    export MONITOR=$monitor
+    bspc monitor "${MONITOR}" -d 1 2 3 4 5
+
+    polybar_log=$(mktemp --tmpdir polybar.XXX)
+    polybar --reload example &>"${polybar_log}" &
+    disown -h %1
+done
