@@ -191,8 +191,24 @@ zstyle ":completion:*:commands" rehash 1
 
 # * alias
 # ** sudo
-# Passing alias to sudo
-alias sudo='sudo '
+# Pass alias to sudo and prevent =nocorrect= errors
+# https://superuser.com/a/749333
+alias sudo='my_sudo '
+
+function my_sudo {
+    while [[ $# > 0 ]]; do
+        case "$1" in
+            command) shift ; break ;;
+            nocorrect|noglob) shift ;;
+            *) break ;;
+        esac
+    done
+    if [[ $# = 0 ]]; then
+        command sudo zsh
+    else
+        noglob command sudo $@
+    fi
+}
 
 # ** emacs
 emacs-diff() {
