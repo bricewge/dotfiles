@@ -14,7 +14,14 @@ set -g @scroll-speed-num-lines-per-scroll 1
 set -g @plugin 'seebi/tmux-colors-solarized'
 set -g @colors-solarized 'dark'
 
+# * copy/paste selection
+set -g @plugin 'tmux-plugins/tmux-yank'
+
 # * shortcuts
+set -g prefix M-' '
+
+# VIM style
+set-window-option -g mode-keys vi
 # Tab navigation
 bind -n S-up new-window
 bind -n S-down kill-window
