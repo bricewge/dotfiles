@@ -290,7 +290,7 @@ if [[ "${OS}" != "macos" ]]; then
 
     # ** misc
     alias tar=bsdtar
-    alias open=xdg-open
+    alias open=mimeo
 fi
 
 # ** 42born2code
