@@ -10,6 +10,7 @@ ok symlink "${HOME}/.config/polybar" "${dotfiles}/polybar"
 
 ok directory "${HOME}/.config/mimeo"
 ok symlink "${HOME}/.config/mimeo/associations.txt" "${dotfiles}/bspwm/mimeo.conf"
+ok symlink "${HOME}/.config/user-dirs.dirs" "${dotfiles}/bspwm/user-dirs.dirs"
 
 ok directory "${HOME}/.config/bspwm"
 ok symlink "${HOME}/.config/bspwm/bspwmrc" "${dotfiles}/bspwm/bspwmrc"
