@@ -266,29 +266,12 @@ pbs () {
 # ** linux
 if [[ "${OS}" != "macos" ]]; then
     # *** systemd
-    # Code from oh-my-zsh plugin with scu addition
-
-    systemd_cmds_user=(
-        list-units is-active status show help list-unit-files
-        is-enabled list-jobs show-environment cat)
-
-    systemd_cmds_sudo=(
-        start stop reload restart try-restart isolate kill
-        reset-failed enable disable reenable preset mask unmask
-        link load cancel set-environment unset-environment
-        edit)
-
-    for c in $systemd_cmds_user; do; alias sc-$c="systemctl $c"; done
-    for c in $systemd_cmds_sudo; do; alias sc-$c="sudo systemctl $c"; done
-    for c in $systemd_cmds_sudo $systemd_cmds_user ; do;
-                                                       alias scu-$c="systemctl --user $c";
-    done
-
-    # ** journald
+    alias sc="sudo systemctl"
+    alias scu="systemctl --user"
     alias jc="sudo journalctl --system"
     alias jcu="journalctl --user"
 
-    # ** misc
+    # *** misc
     alias tar=bsdtar
     alias open=mimeo
 fi
