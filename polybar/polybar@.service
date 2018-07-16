@@ -1,0 +1,11 @@
+[Unit]
+Description=Poybar, create status bar per monitor
+
+[Service]
+Type=simple
+ExecStart=/run/current-system/sw/bin/polybar --reload example
+Environment=MONITOR=%i
+Environment=PATH=/run/current-system/sw/bin
+
+[Install]
+WantedBy=default.target

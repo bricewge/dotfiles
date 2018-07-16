@@ -7,6 +7,8 @@ ok symlink "${HOME}/.xsession" "${dotfiles}/bspwm/xsession"
 ok symlink "${HOME}/.config/compton.conf" "${dotfiles}/bspwm/compton.conf"
 
 ok symlink "${HOME}/.config/polybar" "${dotfiles}/polybar"
+ok directory "${XDG_CONFIG_HOME}/systemd/user"
+ok symlink "${XDG_CONFIG_HOME}/systemd/user/polybar@.service" "${dotfiles}/polybar/polybar@.service"
 
 ok directory "${HOME}/.config/mimeo"
 ok symlink "${HOME}/.config/mimeo/associations.txt" "${dotfiles}/bspwm/mimeo.conf"
