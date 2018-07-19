@@ -42,7 +42,9 @@ set-window-option -g window-status-current-attr bold
 set-window-option -g window-status-current-fg colour12 #base0
 
 # Use 256 colors, fix zsh-users/zsh-autosuggestions/#229
-set -g default-terminal "tmux-256color"
+# set -g default-terminal "tmux-256color"
+set -g default-terminal "xterm-24bit"
+set -g terminal-overrides ',xterm-24bit:Tc'
 
 # * session group
 new-session -d -s torrent

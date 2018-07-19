@@ -197,7 +197,7 @@ zstyle ":completion:*:commands" rehash 1
 # ** sudo
 # Pass alias to sudo and prevent =nocorrect= errors
 # https://superuser.com/a/749333
-alias sudo='my_sudo '
+alias sudo='TERM=xterm-256color my_sudo '
 
 function my_sudo {
     while [[ $# > 0 ]]; do
@@ -223,8 +223,8 @@ emacs-diff() {
 }
 
 # Shortcut for emacs editor
-alias ec='emacsclient -t -a ""'
-alias ecg='emacsclient -nc -a ""'
+alias ec='TERM=xterm-24bit emacsclient -t -a ""'
+alias ecg='TERM=xterm-24bit emacsclient -nc -a ""'
 alias ediff=emacs-diff
 
 # ** rm
@@ -234,6 +234,7 @@ If you want to delete a file FOREVER use \\\rm."; false'
 alias th='trash'
 
 # ** ssh
+alias ssh="TERM=xterm-256color ssh"
 # Stop multiplexing of an host gracefully
 alias sshs="ssh -O stop"
 # Immediatlly terminate multiplexing of an host
