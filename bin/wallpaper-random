@@ -1,4 +1,10 @@
 #!/usr/bin/env sh
+
+output=${HOME}/picture/wallpaper/random/
+
+if [[ -d ${output} ]]; then mkdir -p "${output}"; fi
 cd /tmp
-feh --bg-fill --keep-http `xrandr | awk '/\*/ { gsub("x","/",$1); printf "https://unsplash.it/%s/?random", $1; exit}'`
+feh --bg-fill \
+    --output-dir "${output}" \
+    --keep-http `xrandr | awk '/\*/ { gsub("x","/",$1); printf "https://unsplash.it/%s/?random", $1; exit}'`
 cd -

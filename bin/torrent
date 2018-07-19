@@ -1,0 +1,22 @@
+#!/usr/bin/env zsh
+
+infohash=$(webtorrent info $uri | jq -r '.infoHash')
+args=("$@")
+shift args
+
+out=~/tmp/torrent/"${infohash}"
+command="webtorrent download \"$1\" ${args[*]} \
+           --out \"${out}\" \
+           --mpv
+"
+
+
+# unset ${args[0]}
+# args-=("$0")
+# echo $1 ${args[*]}
+
+mkdir -p "${out}"
+tmux new-window \
+     -t torrent \
+     -n "${infohash}" \
+     "${command}"
