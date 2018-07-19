@@ -142,6 +142,7 @@ setopt COMBINING_CHARS    # Combine zero-length punctuation characters (accents)
 # with the base character.
 setopt RC_QUOTES          # Allow 'Henry''s Garage' instead of 'Henry'\''s Garage'.
 unsetopt MAIL_WARNING     # Don't print a warning message if a mail file has been accessed.
+setopt CHASE_LINKS        # Always use abolute path when cd with a symlink
 
 # *** Jobs
 setopt LONG_LIST_JOBS     # List jobs in the long format by default.

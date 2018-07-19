@@ -1,5 +1,6 @@
 # Custom part
 .clang_complete
+.direnv/
 
 # Created by https://www.gitignore.io/api/emacs,vagrant,gpg,linux,osx,c
 

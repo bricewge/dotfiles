@@ -43,6 +43,11 @@ if [[ $(hostname | cut -d . -f 2-3) == "42.fr" ]]; then
     export HOMEBREW_CASK_OPTS='--appdir=~/Applications'
 fi
 
+# * languages
+# ** go
+export GOPATH=~/misc/go
+export PATH=~/misc/go/bin:$PATH
+
 # * Editor
 # Set Emacs as the default editor.
 export EDITOR="emacsclient -t"

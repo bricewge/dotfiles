@@ -16,6 +16,8 @@ set -g @colors-solarized 'dark'
 
 # * copy/paste selection
 set -g @plugin 'tmux-plugins/tmux-yank'
+set -g @plugin 'tmux-plugins/tmux-copycat'
+set -g @plugin 'tmux-plugins/tmux-open'
 
 # * shortcuts
 set -g prefix M-' '
@@ -41,3 +43,7 @@ set-window-option -g window-status-current-fg colour12 #base0
 
 # Use 256 colors, fix zsh-users/zsh-autosuggestions/#229
 set -g default-terminal "tmux-256color"
+
+# * session group
+new-session -d -s torrent
+new-session -s main
