@@ -60,9 +60,9 @@ super + z: shift + {h,j,k,l}
 # Switch to desktop within monitor
 super + {1-9}
 	bspc desktop --focus 'focused:^'{1-9}
-# Switch to desktop for Macbook Air French AZERTY keyboard
-super + {ampersand,eacute,quotedbl,apostrophe,parenleft,section,egrave,exclam,ccedilla}
-	bspc desktop --focus ^{1-9}
+# # Switch to desktop for Macbook Air French AZERTY keyboard
+# super + {ampersand,eacute,quotedbl,apostrophe,parenleft,section,egrave,exclam,ccedilla}
+# 	bspc desktop --focus ^{1-9}
 # Switch betwen monitors
 super + alt + {1-9}
   bspc monitor --focus '^'{1-9}
@@ -88,7 +88,7 @@ super + shift + {Left,Right}
 # * app launchers
 # Terminal
 super + space ; {t, T}
-	SHLVL=-1  {termite, kitty}
+	alacritty --command tmux {new-session -t main,_}
 
 # Editor
 # TODO Should open a clean emacs
