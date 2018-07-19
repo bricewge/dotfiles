@@ -2,9 +2,8 @@
   '(org))
 
 (defun bricewge/post-init-org ()
-    ;;;;;;;;;;;;;;;;;;;;;;;
-  ;; OLD CONFIGURATION ;;
-    ;;;;;;;;;;;;;;;;;;;;;;;
+;;; old
+;;;; generic
   (setq org-modules '(org-habit
                       org-protocol
                       org-bibtex
@@ -13,26 +12,22 @@
                       org-drill
                       org-bullets))
 
-  ;; Use fancy UTF-8 bullets for the headings.
-  (add-hook 'org-mode-hook 'org-bullets-mode)
-  ;; Soft wrapped line at word boundary.
-  (add-hook 'org-mode-hook 'visual-line-mode)
+  (add-hook 'org-mode-hook 'org-bullets-mode) ;; Use fancy UTF-8 bullets for the headings.
+  (add-hook 'org-mode-hook 'visual-line-mode) ;; Soft wrapped line at word boundary.
 
-  ;; Display entities as UTF-8 characters.
-  (setq org-pretty-entities t)
+  (setq org-pretty-entities t) ;; Display entities as UTF-8 characters.
 
   ;; Show decent width image at startup.
   (setq org-image-actual-width '(600))
   (setq org-startup-with-inline-images t)
 
-                                        ;(setq org-startup-with-latex-preview t)
+  ;; (setq org-startup-with-latex-preview t)
 
-                                        ; Set tags not to far from the headline because the font size reduce the space
-                                        ; availaible
+  ;; Set tags not to far from the headline because the font size reduce the space
+  ;; availaible
   (setq org-tags-column -63)
 
-                                        ; Replace the "..." of folded headings by something more fancy
-  (setq org-ellipsis "⤵")
+  (setq org-ellipsis "⤵") ; Replace the "..." of folded headings by something more fancy
 
   (setq org-drill-scope 'file) ; Other value: directory
 
@@ -41,36 +36,39 @@
   ;; Does not set a indentation level when moving heading
   (setq org-adapt-indentation nil)
 
+  (setq org-attach-directory "attachment/")
+
+  (setq org-refile-targets  '((org-agenda-files :maxlevel . 6)))
+
+
+;;;; crypt
   ;; Encrypt all entries before saving
   (eval-after-load 'org-crypt
     '(org-crypt-use-before-save-magic))
   (setq org-tags-exclude-from-inheritance (quote ("crypt")))
-                                        ; GPG key to use for encryption: brice.wge@gmail.com
-  (setq org-crypt-key "116F0F99")
+  (setq org-crypt-key "116F0F99") ;;  brice.wge@gmail.com
+
 
   (setq org-entities-user '(
-                                        ;			  ("space" "\\ " nil " " " " " " " ")
+                            ;;			  ("space" "\\ " nil " " " " " " " ")
                             ("male" "\\male " t "&#9794" "[male symbol]" "[male symbol]" "♂")
                             ("female" "\\female " t "&#9792" "[female symbol]" "[female symbol]" "♀")
                             ("ohm" "\\ohm " t "&&Omega" "[Omega]" "[Omega]" "Ω")
                             ))
-
-  (setq org-mobile-directory "~/ownCloud")
-                                        ;(setq org-mobile-files "~/org")
-  (setq org-mobile-inbox-for-pull "~/ownCloud/mobileorg.org")
 
   ;; Add exporter
   (setq org-export-backends '(ascii
                               latex
                               md
                               odt
-                                        ; Not part of Emacs
+                              ;; Not part of Emacs
                               koma-letter
                               ))
 
   (use-package htmlize
     :ensure t)
 
+;;;; latex
   (setq org-latex-pdf-process
         '("xelatex -interaction nonstopmode -output-directory %o %f"
           "biber %b"
@@ -174,7 +172,7 @@
 
   (setq org-latex-preview-ltxpng-directory
         (expand-file-name "org/ltxpng/" user-emacs-directory))
-
+;;;; html
   (setq org-html-doctype "html5")
 
   (setq org-html-mathjax-template "<script type=\"text/x-mathjax-config\">\nMathJax.Hub.Config({\n  \"HTML-CSS\": {\nlinebreaks: { automatic: true } },\n         SVG: { linebreaks: { automatic: true } }\n});\n</script>\n<script type=\"text/javascript\" src=\"http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML\"></script>\n<script type=\"text/javascript\">\n<!--/*--><![CDATA[/*><!--*/\n    MathJax.Hub.Config({\n        // Only one of the two following lines, depending on user settings\n        // First allows browser-native MathML display, second forces HTML/CSS\n        :MMLYES: config: [\"MMLorHTML.js\"], jax: [\"input/TeX\"],\n        :MMLNO: jax: [\"input/TeX\", \"output/HTML-CSS\"],\n        extensions: [\"tex2jax.js\",\"TeX/AMSmath.js\",\"TeX/AMSsymbols.js\",\n                     \"TeX/noUndefined.js\", \"TeX/mhchem.js\"],\n        tex2jax: {\n            inlineMath: [ [\"\\\\(\",\"\\\\)\"] ],\n            displayMath: [ ['$$','$$'], [\"\\\\[\",\"\\\\]\"], [\"\\\\begin{displaymath}\",\"\\\\end{displaymath}\"] ],\n            skipTags: [\"script\",\"noscript\",\"style\",\"textarea\",\"pre\",\"code\"],\n            ignoreClass: \"tex2jax_ignore\",\n            processEscapes: false,\n            processEnvironments: true,\n            preview: \"TeX\"\n        },\n        showProcessingMessages: true,\n        displayAlign: \"%ALIGN\",\n        displayIndent: \"%INDENT\",\n\n        \"HTML-CSS\": {\n             scale: %SCALE,\n             availableFonts: [\"STIX\",\"TeX\"],\n             preferredFont: \"TeX\",\n             webFont: \"TeX\",\n             imageFont: \"TeX\",\n             showMathMenu: true,\n        },\n        MMLorHTML: {\n             prefer: {\n                 MSIE:    \"MML\",\n                 Firefox: \"MML\",\n                 Opera:   \"HTML\",\n                 other:   \"HTML\"\n             }\n        }\n    });\n/*]]>*///-->\n</script>")
@@ -199,151 +197,7 @@
                                         ; Do not generate internal css formatting for HTML exports
   (setq org-html-htmlize-output-type 'css)
 
-  (defvar bwge-uni-base "~/Dropbox/Université/"
-    "Path to the uni directory.")
-  (defvar bwge-uni-htmlroot "~/repos/uni.bricewge.fr"
-    "Where to export the uni website.")
-
-  ;; (add-to-list 'org-publish-project-alist
-  ;;              '("uni" :components ("uni-html" "uni-source" "uni-extra"))
-  ;;              t)
-
-  ;; (add-to-list 'org-publish-project-alist
-  ;;              `("uni-html"
-  ;;                :base-directory ,bwge-uni-base
-  ;;                :publishing-directory ,bwge-uni-htmlroot
-  ;;                :exclude "\\(Fiches\\|TP\\|TD\\|S[0-9].org\\)"
-  ;;                :recursive t
-  ;;                :base-extension "org"
-  ;;                :publishing-function org-html-publish-to-html
-  ;;                :section-numbers nil
-  ;;                :language "fr"
-  ;;                :headline-levels 6
-  ;;                :with-toc nil
-  ;;                :html-postamble nil
-  ;;                :html-head  "<link rel=\"stylesheet\" href=\"/home/bricewge/repos/uni.bricewge.fr/static/normalize.css\" type=\"text/css\"/>\n<link rel=\"stylesheet\" href=\"/home/bricewge/repos/uni.bricewge.fr/static/style.css\" type=\"text/css\"/>\n<link href='http://fonts.googleapis.com/css?family=Cardo:400,400italic,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>\n"
-  ;;                :html-link-home "/index.html"
-  ;;                :html-doctype "html5"
-  ;;                :html-html5-fancy t
-  ;;                :auto-sitemap t
-  ;;                :sitemap-filename "/index.org"
-  ;;                :sitemap-title "Notes de cours")
-  ;;              t)
-
-  ;; (add-to-list 'org-publish-project-alist
-  ;;              `("uni-extra"
-  ;;                :base-directory ,bwge-uni-base
-  ;;                :publishing-directory ,bwge-uni-htmlroot
-  ;;                :exclude "\\(Fiches\\|TP\\|TD\\|S[0-9].org\\)"
-  ;;                :base-extension "css\\|png\\|svg"
-  ;;                :publishing-function org-publish-attachment
-  ;;                :recursive t)
-  ;;              t)
-
-  ;; (add-to-list 'org-publish-project-alist
-  ;;              `("uni-source"
-  ;;                :base-directory ,bwge-uni-base
-  ;;                :publishing-directory ,bwge-uni-htmlroot
-  ;;                :exclude "\\(Fiches\\|TP\\|TD\\|S[0-9].org\\)"
-  ;;                :base-extension "org"
-  ;;                :publishing-function org-org-publish-to-org;org-publish-attachment
-  ;;                :recursive t
-  ;;                :htmlized-source t
-  ;;                :plain-source t)
-  ;;              t)
-
-  ;; (add-to-list 'org-publish-project-alist
-  ;;              '("pelican" :components ("pelican-md" "pelican-extra"))
-  ;;              t)
-
-  ;; (add-to-list 'org-publish-project-alist
-  ;;              '("pelican-md"
-  ;;                :base-directory "~/Pelican"
-  ;;                :publishing-directory "~/git/bricewge.fr/content/Blog"
-  ;;                :recursive t
-  ;;                :base-extension "org"
-  ;;                :publishing-function org-md-publish-to-md
-  ;;                :with-toc nil
-  ;;                :section-numbers nil
-  ;;                :with-tags nil
-  ;;                :with-timestamps nil)
-  ;;              t)
-
-  ;; (add-to-list 'org-publish-project-alist
-  ;;              '("pelican-extra"
-  ;;                :base-directory "~/Pelican/Images"
-  ;;                :publishing-directory "~/git/bricewge.fr/content/images"
-  ;;                :recursive t
-  ;;                :base-extension "css\\|png\\|svg"
-  ;;                :publishing-function org-publish-attachment)
-  ;;              t)
-
-  ;; (defvar bwge-blog-base "~/org/blog"
-  ;;   "Path to the blog directory.")
-  ;; (defvar bwge-blog-htmlroot "~/repos/bricewge.fr"
-  ;;   "Where to export the blog website.")
-
-  ;; (add-to-list 'org-publish-project-alist
-  ;;              '("blog" :components ("blog-content" "blog-static"))
-  ;;              t)
-
-  ;; (add-to-list 'org-publish-project-alist
-  ;;              `("blog-content"
-  ;;                :base-directory ,bwge-blog-base
-  ;;                :base-extension "org"
-  ;;                :publishing-directory ,bwge-blog-htmlroot
-  ;;                :html-extension "html"
-  ;;                :publishing-function org-html-publish-to-html
-  ;;                :auto-sitemap t
-  ;;                :sitemap-filename "archive.org"
-  ;;                :sitemap-title "Archive"
-  ;;                :sitemap-sort-files anti-chronologically
-  ;;                :sitemap-style list
-  ;;                :makeindex t
-  ;;                :recursive t
-  ;;                :section-numbers nil
-  ;;                :with-toc nil
-  ;;                :with-latex t
-  ;;                :with-author nil
-  ;;                :with-creator nil
-  ;;                :html-doctype "html5"
-  ;;                :html-html5-fancy t
-  ;;                :html-head-include-default-style nil
-  ;;                :html-head-include-scripts nil
-  ;;                :html-preamble org-mode-blog-preamble
-  ;;                :html-postamble nil
-  ;;                :html-head  "<link rel=\"stylesheet\" href=\"static/style.css\" type=\"text/css\"/>\n")
-
-  ;;              t)
-
-  ;; (add-to-list 'org-publish-project-alist
-  ;;              `("blog-rss"
-  ;;                :base-directory ,bwge-blog-base
-  ;;                :base-extension "org"
-  ;;                :publishing-directory ,bwge-blog-htmlroot
-  ;;                :publishing-function org-rss-publish-to-rss
-  ;;                :html-link-home "https://bricewge.fr/"
-  ;;                :html-link-use-abs-url t)
-  ;;              t)
-
-  ;; (add-to-list 'org-publish-project-alist
-  ;;              `("blog-static"
-  ;;                :base-directory ,bwge-blog-base
-  ;;                :publishing-directory ,bwge-blog-htmlroot
-  ;;                :base-extension "css\\|js\\|png\\|jpg\\|gif\\|ico"
-  ;;                :publishing-directory org-mode-blog-publishing-directory
-  ;;                :recursive t
-  ;;                :publishing-function org-publish-attachment)
-  ;;              t)
-
-  (defun org-mode-blog-preamble (options)
-    "The function that creates the preamble (sidebar) for the blog.
-OPTIONS contains the property list from the org-mode export."
-    (let ((base-directory (plist-get options :base-directory)))
-      (org-babel-with-temp-filebuffer (expand-file-name "html/preamble.html" base-directory) (buffer-string))))
-
-  ;; Changing a task state is done with C-c C-t KEY
-  (setq org-use-fast-todo-selection t)
+;;;; GTD
   ;; Change a todo state with S- rigth and left arrows
   (setq org-treat-S-cursor-todo-selection-as-state-change nil)
 
@@ -363,11 +217,11 @@ OPTIONS contains the property list from the org-mode export."
 
   (setq org-log-done (quote time)) ;; Log the time when a task is marked as DONE
   (setq org-log-into-drawer t)  ;; Keep the log info in the :LOGBOOK: drawer
-                                        ; Log the change when rescheduling
-  (setq org-log-reschedule 'note)
+  (setq org-log-reschedule 'note) ;; Log the change when rescheduling
 
   (use-package org-checklist)
 
+;;;; agenda
   (use-package org-agenda
     :bind (:map org-agenda-mode-map
                 ("Y" . org-agenda-todo-yesterday))
@@ -375,8 +229,8 @@ OPTIONS contains the property list from the org-mode export."
     (setq org-agenda-start-on-weekday nil)
     )
 
-  (when (daemonp)
-    (run-at-time "4:30am" (* 3600 24) 'org-agenda nil "a"))
+  ;; (when (daemonp)
+  ;;   (run-at-time "4:30am" (* 3600 24) 'org-agenda nil "a"))
 
   (setq org-habit-graph-column 85
         org-habit-show-habits-only-for-today nil
@@ -386,6 +240,7 @@ OPTIONS contains the property list from the org-mode export."
 
   (setq org-default-notes-file (concat org-directory "/inbox.org"))
 
+  ;;;; capture
   ;; Needed to add others items to the list, prefer using "add-to-list".
   (setq org-capture-templates '())
 
@@ -496,15 +351,12 @@ OPTIONS contains the property list from the org-mode export."
                  (file "~/.emacs.d/org/template/bibliography.tpl.org")
                  )
                t)
-
-  (setq org-attach-directory "attachment/")
-
-  (setq org-refile-targets  '((org-agenda-files :maxlevel . 6)))
-
+;;;; archive
   (setq org-archive-location (concat org-directory "/archive/%s_archive::* Archived Tasks"))
   (setq org-archive-mark-done nil)
   (setq org-archive-reversed-order t)
 
+;;;; source code
   (setq org-src-fontify-natively t)
   (setq org-src-window-setup 'current-window)
   )
