@@ -10,7 +10,7 @@ autorandr --change --force
 if [[ -x "${HOME}"/.fehbg ]]; then
     "${HOME}"/.fehbg &
 else
-    feh --bg-fill ~/image/fp0Jtgr.jpg &
+    feh --bg-fill ~/picture/wallpaper/schicka-307-unsplash.jpg &
 fi
 # Set a nice cursor
 xsetroot -cursor_name left_ptr
@@ -26,7 +26,8 @@ sxhkd_fifo=/tmp/sxhkd-${USER}.fifo
 #sxhkd &
 
 # * bspwm config
-bspc monitor eDP1 -d I II III IV V
+bspc monitor LVDS1 -d I II III IV V
+# bspc monitor HDMI1 -d 1 2 3 4 5
 bspc desktop -f III
 
 # TEST
@@ -55,9 +56,12 @@ bspc rule -a Pinentry state=floating sticky=on
 bspc rule -a Emacs state=tiled # needed because of issue bspwm/551
 bspc rule -a Emacs:capture state=floating sticky=on
 bspc rule -a Gimp state=floating
+bspc rule -a .zathura-wrapped_ state=tiled
+# TODO Fix firefox which startup floating
 
 # * other stuff to start
-MONITOR=eDP1 polybar --reload example &
+MONITOR=LVDS1 polybar --reload example &
+# MONITOR=eDP1 polybar --reload example &
 # MONITOR=HDMI1 polybar --reload example &
 
 # polybar-auto.sh &
