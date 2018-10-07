@@ -28,6 +28,7 @@ modules-right = volume battery date powermenu
 
 tray-position = right
 tray-padding = 2
+tray-background = ${colors.background}
 
 wm-restack = bspwm
 override-redirect = true

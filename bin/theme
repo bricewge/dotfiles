@@ -4,14 +4,22 @@
 
 set -e
 
-if [ "/home/bricewge/.config/termite/config" -ef \
-     "/home/bricewge/.config/termite/dark" ]; then
-    ln -sf /home/bricewge/.config/termite/light /home/bricewge/.config/termite/config
-    emacsclient --eval "(load-theme 'solarized-light)"
-elif [ "/home/bricewge/.config/termite/config" -ef \
-     "/home/bricewge/.config/termite/light" ]; then
-    ln -sf /home/bricewge/.config/termite/dark /home/bricewge/.config/termite/config
-    emacsclient --eval "(load-theme 'solarized-dark)"
+state_file="${XDG_RUNTIME_DIR}/theme"
+
+if [ -n "$1" ]; then
+    theme=$([ "$1" = "dark" ] && echo dark || echo light )
+elif [ -e "${state_file}" ]; then
+    theme=$([ $(cat "${state_file}") = "light" ] && echo dark || echo light )
+else
+    theme="light"
 fi
 
+echo "${theme}" > "${state_file}"
+
+ln -sf "${XDG_CONFIG_HOME}/termite/${theme}" "${XDG_CONFIG_HOME}/termite/config"
 pkill -USR1 termite
+ln -sf "${XDG_CONFIG_HOME}/polybar/solarized-${theme}" "${XDG_CONFIG_HOME}/polybar/colors"
+pkill -USR1 polybar
+sed -i "s/\(^colors: \*\).*/\1${theme}/g" "${XDG_CONFIG_HOME}/alacritty/alacritty.yml"
+# TODO Add tmux support
+emacsclient --eval "(load-theme 'solarized-${theme})"
