@@ -22,4 +22,5 @@ ln -sf "${XDG_CONFIG_HOME}/polybar/solarized-${theme}" "${XDG_CONFIG_HOME}/polyb
 pkill -USR1 polybar
 sed -i "s/\(^colors: \*\).*/\1${theme}/g" "${XDG_CONFIG_HOME}/alacritty/alacritty.yml"
 # TODO Add tmux support
+# TODO Add firefox support
 emacsclient --eval "(load-theme 'solarized-${theme})"

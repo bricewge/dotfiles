@@ -86,6 +86,10 @@ super + shift + {Left,Right}
 	bspc node pointed -f
 
 # * app launchers
+# Stop the key chain if the mouse buttons are pressed
+super + space ; {~button1, ~button2, ~button3}
+  echo {1,2,3}
+
 # Terminal
 super + space ; {t, T}
 	alacritty --command tmux {new-session -t main,_}
@@ -93,7 +97,7 @@ super + space ; {t, T}
 # Editor
 # TODO Should open a clean emacs
 super + space ; {e, E}
-        {emacsclient -nc -a "" -e "(switch-to-buffer \"*Bookmark List*\")", emacs}
+        {emacsclient -nc -a "", emacs}
 
 # File browser
 # TODO Add ranger.el
@@ -137,11 +141,14 @@ super + o
 #     fi
 
 # ** screenshot
-super + Print
-	maim --select ~/image/screenshot/$(date +%s).png
+super + space ; s
+	maim ~/image/screenshot/$(date +%s).png && \
+   notify-send -u low "new window screenshot"
 
-super + shift + Print
-	maim ~/image/screenshot/$(date +%s).png
+super + space ; S
+	maim --select ~/image/screenshot/$(date +%s).png && \
+   notify-send -u low "new screenshot"
+
 # ** TODO notifications
 # * macOS shortcuts
 
@@ -185,13 +192,13 @@ XF86KbdBrightnessUp
 
 # ** multimedia
 {super + F7, XF86AudioPrev}
-  playerctl previous
+  playerctl previous || mpc prev
 
 {super + F8, XF86AudioPlay}
-  playerctl play-pause
+  playerctl play-pause || mpc toggle
 
 {super + F9, XF86AudioNext}
-  playerctl next
+  playerctl next || mpc next
 
 # ** audio volume
 {super + F10, XF86AudioMute}
@@ -211,7 +218,7 @@ XF86PowerOff
 # Reload UI configurations
 super + Escape
 	 pkill -USR1 -x "(sxhkd|compton)" && \
-   notify-send "sxhkd reloaded"
+   notify-send -u low "sxhkd reloaded"
 
 # Quit bspwm and kill the panel
 super + alt + Escape

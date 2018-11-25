@@ -17,7 +17,7 @@ xsetroot -cursor_name left_ptr
 
 # Enable hotkeys
 # SXHKD_SHELL=/bin/sh sxhkd &
-SXHKD_SHELL=/run/current-system/sw/bin/sh sxhkd &
+SXHKD_SHELL=/run/current-system/sw/bin/sh sxhkd -t 2 &
 sxhkd_fifo=/tmp/sxhkd-${USER}.fifo
 # SEGV
 #mkfifo "${sxhkd_fifo}"
@@ -57,7 +57,8 @@ bspc rule -a Emacs state=tiled # needed because of issue bspwm/551
 bspc rule -a Emacs:capture state=floating sticky=on
 bspc rule -a Gimp state=floating
 bspc rule -a .zathura-wrapped_ state=tiled
-# TODO Fix firefox which startup floating
+bspc rule -a Nightly state=tiled
+bspc rule -a Nightly:Dialog state=floating
 
 # * other stuff to start
 MONITOR=LVDS1 polybar --reload example &
