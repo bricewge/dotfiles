@@ -22,8 +22,8 @@ font-2 = Noto Sans:size=11;1
 
 enable-ipc = true
 
-modules-left = sxhkd
-modules-center = bspwm 
+modules-left = sxhkd mpd
+modules-center = bspwm
 modules-right = volume battery date powermenu
 
 tray-position = right
@@ -78,6 +78,23 @@ label-focused-urgent = %icon%
 label-focused-urgent-foreground = ${colors.orange}
 label-focused-urgent-padding = 1
 label-focused-urgent-underline= ${colors.primary}
+
+; ** mpd
+[module/mpd]
+type = internal/mpd
+
+; Host where mpd is running (either ip or domain name)
+; Can also be the full path to a unix socket where mpd is running.
+host = 127.0.0.1
+port = 6600
+; password = mysecretpassword
+
+; Seconds to sleep between progressbar/song timer sync
+; Default: 1
+interval = 2
+format-online = %{A1:mpc toggle:} %{A3:mpc next:}<label-song> %{A} %{A}
+
+label-song-foreground = ${colors.foreground-alt}
 
 ; ** date
 [module/date]
