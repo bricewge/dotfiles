@@ -1,0 +1,26 @@
+#-*- mode: conf-mode -*-
+[global]
+    follow = mouse
+    geometry = "0x1+36+0"
+    notification_height = 22
+    horizontal_padding = 4
+    frame_width = 4
+    shrink = yes
+    font = MesloLGS Nerd Font 12
+    sort = yes
+
+[urgency_low]
+    background = "#93a1a1"
+    frame_color = "#93a1a1"
+    foreground = "#073642"
+
+[urgency_normal]
+    background = "#b58900"
+    frame_color = "#b58900"
+    foreground = "#073642"
+
+[urgency_critical]
+    background = "#dc322f"
+    frame_color = "#dc322f"
+    foreground = "#073642"
+    timeout = 0
