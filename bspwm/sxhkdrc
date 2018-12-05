@@ -45,9 +45,7 @@ super + ctrl + {h,l}
 	bspc desktop --focus {prev,next}
 super + ctrl + shift + {h,l}
 	dir={prev,next} && \
-	bspc node --to-desktop ${dir} && \
-  bspc node last --focus
-
+	bspc node --to-desktop ${dir} --follow
 # ** resize
 # Increase size from a side
 super + z: {h,j,k,l}
@@ -57,7 +55,7 @@ super + z: shift + {h,j,k,l}
   bspc node --resize {left 20 0, bottom 0 -20, top 0 20, right -20 0}
 
 # ** Move between desktops
-# Switch to desktop within monitor
+# Switch to desktop within a monitor
 super + {1-9}
 	bspc desktop --focus 'focused:^'{1-9}
 # # Switch to desktop for Macbook Air French AZERTY keyboard
@@ -70,16 +68,14 @@ super + alt + {1-9}
 # Send the selected window to the desktop 1-6 and follow it, if no
 # window is selected go to the desktop 1-6 anyway.
 super + shift + {1-9}
-	bspc node focused --to-desktop 'focused:^'{1-9} &&\
-  bspc node last --focus
+	bspc node focused --to-desktop 'focused:^'{1-9} --follow
 # Go to the next or previous desktop
 super + {Left, comma, Right, period}
 	bspc desktop -f {prev,prev,next,next}
 # Move the selected window to the next or previous desktop
 super + shift + {Left,Right}
 	dir={prev,next} && \
-	bspc node --to-desktop ${dir} && \
-  bspc node last --focus
+	bspc node --to-desktop ${dir} --follow
 
 # ** Mouse actions
 ~button1
@@ -192,13 +188,13 @@ XF86KbdBrightnessUp
 
 # ** multimedia
 {super + F7, XF86AudioPrev}
-  playerctl previous || mpc prev
+  playerctl previous || mpvctl previous || mpc prev
 
 {super + F8, XF86AudioPlay}
-  playerctl play-pause || mpc toggle
+  playerctl play-pause || mpvctl play-pause || mpc toggle
 
 {super + F9, XF86AudioNext}
-  playerctl next || mpc next
+  playerctl next || mpvctl next || mpc next
 
 # ** audio volume
 {super + F10, XF86AudioMute}
