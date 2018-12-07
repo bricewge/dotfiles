@@ -253,17 +253,20 @@ alias ip6="ip -6"
 # ** misc
 alias yt="youtube-dl"
 alias ff="firefox"
+alias mpv="mpv --input-ipc-server=$HOME/.mpv.socket"
+alias feh="feh --scale-down --auto-zoom -B black -g ''"
+alias to="webtorrent"
 
 # ** pastebin ptpb.pw
 pb () {
     curl -F "c=@${1:--}" https://ptpb.pw/
 }
 
-pbx () {
+pb-paste () {
     curl -sF "c=@${1:--}" -w "%{redirect_url}" 'https://ptpb.pw/?r=1' -o /dev/stderr | pbcopy
 }
 
-pbs () {
+pb-cinema () {
     asciinema rec /tmp/$$.json
     pbx /tmp/$$.json
 }
@@ -277,8 +280,8 @@ if [[ "${OS}" != "macos" ]]; then
     alias jcu="journalctl --user"
 
     # *** misc
-    alias tar=bsdtar
-    alias open=mimeo
+    alias tar="bsdtar"
+    alias open="mimeo"
 fi
 
 # ** 42born2code
