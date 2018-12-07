@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+# TODO q should exit rmacs like ranger
+
+emacsclient --create-frame \
+    --frame-parameters='(quote (name . "dired"))' \
+    --eval "(dired \"$1\")"
