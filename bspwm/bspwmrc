@@ -15,15 +15,14 @@ fi
 # Set a nice cursor
 xsetroot -cursor_name left_ptr
 
-# Enable hotkeys
-# SXHKD_SHELL=/bin/sh sxhkd &
-SXHKD_SHELL=/run/current-system/sw/bin/sh sxhkd -t 2 &
-sxhkd_fifo=/tmp/sxhkd-${USER}.fifo
-# SEGV
-#mkfifo "${sxhkd_fifo}"
-#sxhkd -s "${sxhkd_fifo}" &
-#sleep 5 && killall sxhkd
-#sxhkd &
+# ** sxhkd
+# NOTE This should be in ~/.xinitrc
+# TODO Exit should be notified somewhat
+# tmpdir=$(mktemp sxhkd.XXXX -dt) || exit 1
+fifo=${HOME}/.sxhkd.fifo
+mkfifo "$fifo" || { rmd "$fifo"; exit 1; }
+sxhkd -s "${fifo}" -t 2 &
+~/.config/bspwm/sxhkd-listener.sh &
 
 # * bspwm config
 bspc monitor LVDS1 -d I II III IV V

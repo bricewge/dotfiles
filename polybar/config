@@ -147,12 +147,17 @@ ramp-capacity-4 = 
 ; ** powermenu
 [module/powermenu]
 type = custom/text
-content = "   "
+content = "  "
 click-left = rofi-power "loginctl kill-session $XDG_SESSION_ID"
 
-; ** TODO custom sxhkd mode
+; ** sxhkd
 [module/sxhkd]
-type = custom/script
+; Indicate if sxhkd has began a chain.
+type = custom/ipc
+hook-0 = echo "%{B#93a1a1 F#586e75}  %{B- F-}"
+hook-1 = echo "%{B#b58900 F#586e75}  %{B- F-}"
+initial = 1
+click-left = rofi -show drun
 
 ; ** mpd
 [module/mpv]
@@ -163,16 +168,6 @@ tail = true
 click-left = mpvctl toggle
 click-right = mpvctl next
 click-middle = mpvctl prev
-
-[module/demo]
-type = custom/ipc
-hook-0 = echo foobar
-hook-1 = date +%s
-hook-2 = whoami
-initial = 1
-click-left = polybar-msg -p %pid% hook demo 1
-click-right = polybar-msg -p %pid% hook demo 2
-double-click-left = polybar-msg -p %pid% hook demo 3
 
 ; * settings
 [settings]
