@@ -5,7 +5,7 @@
 
 # Close or kill a window
 super + {_, shift +} d
-	bspc node -{c,k}
+	bspc node --{close,kill}
 
 # Toggle the state of the window
 super + {_, shift +} f
@@ -28,6 +28,16 @@ super + g
 # Rotate the tree clockwise and counter-clockwise
 super + {_, shift +} r
  bspc node @/ -R {+,-}90
+
+# ** monitor
+# Cycle through monitors
+super + {q,w}
+    bspc monitor --focus {next,prev}
+
+# Move to monitor
+super + {shift,alt} + {q,w}
+    bspc {node,desktop} --to-monitor {next,prev}
+# TODO report crash when =bspc desktop --to-monitor-prev=
 
 # ** vim movments
 # Select windows and move them in the current desktop 
