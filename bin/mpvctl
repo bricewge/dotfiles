@@ -1,0 +1,162 @@
+#!/usr/bin/env bash
+#
+# mpvctl
+#
+# Forked from https://github.com/Duncaen/mpvctl
+
+# TODO Find a way to handle socat error properly
+
+err() {
+	printf "Error: %s\n" "$@"
+	exit 1
+}
+
+usage() {
+	cat <<EOFUSAGE
+Usage: $PROGNAME <command> [arguments]
+       find ~/music/ -type f | $PROGNAME [replace]
+
+mpvctl program for controlling MPV inspired by mpc.
+
+Commands:
+  play                               start playing
+  pause                              pause current file
+  toggle                             toggles between play and pause
+  stop                               stop and clear playlist
+  next                               play next file
+  prev                               play previous file
+  ls                                 list the playlist
+  clear                              clear the playlist
+  shuffle                            shuffle the playlist
+  prop [...]                         get properties
+  add [...]                          add parameters to playlist
+  replace [...]                      replace playlist with parameters
+  album [...]                        play matching albums
+  track [...]                        play matching tracks
+  metadata                           show metadata of the current media
+  seek [+-](<HH:MM:SS> | <0-100%>)   seeks by hour, minute, seconds or percent
+EOFUSAGE
+}
+
+cmd() {
+	cmd="$1"
+	args=""
+	idx=0
+	shift
+	for a in "$@"; do
+		[ $(( idx=idx+1 )) -le "$#" ] && args="$args, "
+		case "${a}" in
+			true|false|[0-9]*) args="${args}${a}" ;;
+			*) args="${args}\"${a}\""
+		esac
+	done
+	res=$(printf '{ "command": ["%s"%s] }\n' "$cmd" "$args" | $UNIX_SOCK_CMD) || exit $?
+    echo $res
+    jq --exit-status -r '.error? == "success"' >/dev/null <<< $res || exit $?
+}
+
+append() {
+	opt="$1"
+	[ -n "$opt" ] && shift
+	if [ -t 0 ]; then
+		for f in "$@"; do
+			cmd "loadfile" "${f}" "$opt >/dev/null"
+		done
+	else
+		while read f; do
+			cmd "loadfile" "${f}" "$opt >/dev/null"
+		done
+	fi
+}
+
+list() {
+	cmd "get_property" "playlist" | "${JQ_CMD}" -M .data[].filename
+}
+
+search() {
+	type="$1"
+	shift
+	case "$type" in
+		album) $ALBUM_SEARCH_CMD "$@" ;;
+		track) $TRACK_SEARCH_CMD "$@" ;;
+	esac
+}
+
+metadata() {
+    cmd "get_property" "filtered-metadata" | "${JQ_CMD}" ".data"
+}
+
+seek() {
+    mode="$1"
+    shift
+    case "$mode" in
+        [+-]*%) cmd "seek" "${mode:1:-1}" "relative-percent" >/dev/null ;;
+        *%) cmd "seek" "${mode:0:-1}" "absolute-percent" >/dev/null ;;
+        [+-]*) cmd "seek" "${mode}" "relative" >/dev/null ;;
+        *) cmd "seek" "${mode}" "absolute" >/dev/null ;;
+    esac
+}
+
+cli() {
+	cmd="$1"
+	[ -n "$cmd" ] && shift
+	case "$cmd" in
+		prop) for p; do cmd "get_property" "$p"; done ;;
+		pa|pa[use]*) cmd "set_property" "pause" "true" >/dev/null ;;
+		p|p[lay]*) cmd "set_property" "pause" "false" >/dev/null ;;
+        t|t[oggle]*) cmd "cycle" "pause" >/dev/null ;;
+		s|s[top]*) cmd "stop" >/dev/null ;;
+		n|n[ext]*) cmd "playlist-next" >/dev/null ;;
+		p|p[rev]*) cmd "playlist-prev" >/dev/null ;;
+		add|append) append "append-play" "$@" ;;
+		rep|replace) append "replace" "$@" ;;
+		ls|list) list "$@" ;;
+		c|c[lear]*) cmd "playlist-clear" >/dev/null ;;
+		shuffle) cmd "playlist-shuffle" >/dev/null ;;
+		search) search "$@" ;;
+		album) search "album" "$@" | append "replace" ;;
+		track) search "track" "$@" | append "replace" ;;
+        metadata) metadata "$@" ;;
+        seek) seek "$@" ;;
+		*) usage && exit 1 ;;
+	esac
+}
+
+: ${PROGNAME:="$0"}
+: ${UNIX_SOCK_PATH:="${HOME}/.mpv.socket"}
+
+: ${JQ_CMD:=$(command -v jq)}
+[ -z "$JQ_CMD" ] && err "could not find jq"
+
+if [ -z "$UNIX_SOCK_CMD" ]; then
+	if [ -x $(command -v socat) ]; then
+		UNIX_SOCK_CMD="socat - ${UNIX_SOCK_PATH}"
+	elif [ -x $(command -v nc) ]; then
+		UNIX_SOCK_CMD="nc -U ${UNIX_SOCK_PATH}"
+	else
+		err "could not find netcat or socat"
+	fi
+fi
+
+if [ -z "$ALBUM_SEARCH_CMD" ]; then
+	if [ -x $(command -v beet) ]; then
+		ALBUM_SEARCH_CMD="beet ls -a -p"
+	fi
+fi
+
+if [ -z "$TRACK_SEARCH_CMD" ]; then
+	if [ -x $(command -v beet) ]; then
+		TRACK_SEARCH_CMD="beet ls -p"
+	fi
+fi
+
+cli "$@"
+# if [ -p /dev/fd/0 ]; then
+# 	cli "$@"
+# else
+# 	case "${opt:=$1}" in
+# 	append*|replace) shift; append "$opt" ;;
+# 	*) append "append-play" ;;
+# 	esac
+# fi
+exit 0

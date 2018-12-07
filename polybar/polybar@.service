@@ -5,7 +5,7 @@ Description=Poybar, create status bar per monitor
 Type=simple
 ExecStart=/run/current-system/sw/bin/polybar --reload example
 Environment=MONITOR=%i
-Environment=PATH=/run/current-system/sw/bin
+Environment=PATH=%u/.local/bin:%u.nix-profile/bin/:/run/current-system/sw/bin
 
 [Install]
 WantedBy=default.target

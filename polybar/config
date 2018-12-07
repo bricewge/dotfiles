@@ -22,7 +22,7 @@ font-2 = Noto Sans:size=11;1
 
 enable-ipc = true
 
-modules-left = sxhkd mpd
+modules-left = sxhkd mpv
 modules-center = bspwm
 modules-right = volume battery date powermenu
 
@@ -111,7 +111,7 @@ label-alt-foreground = ${colors.foreground-alt}
 
 ; ** volume
 [module/volume]
-type = internal/volume
+type = internal/alsa
 
 format-volume = <ramp-volume> <label-volume>
 format-muted = <label-muted>
@@ -154,14 +154,15 @@ click-left = rofi-power "loginctl kill-session $XDG_SESSION_ID"
 [module/sxhkd]
 type = custom/script
 
-interval = 1
-exec = ~/.config/polybar/sxhkd.sh
-format-padding = 1 
-format-background = ${colors.background-alt}
+; ** mpd
+[module/mpv]
+type = custom/script
+exec =  ~/.config/polybar/mpvctl.sh
 format-foreground = ${colors.foreground-alt}
-
-;  until https://github.com/ryanoasis/nerd-fonts/issues/157 is fixed and the
-; real NixOS logo can be used
+tail = true
+click-left = mpvctl toggle
+click-right = mpvctl next
+click-middle = mpvctl prev
 
 [module/demo]
 type = custom/ipc

@@ -191,7 +191,7 @@ XF86KbdBrightnessUp
   playerctl previous || mpvctl previous || mpc prev
 
 {super + F8, XF86AudioPlay}
-  playerctl play-pause || mpvctl play-pause || mpc toggle
+  playerctl play-pause | mpvctl toggle || mpc toggle
 
 {super + F9, XF86AudioNext}
   playerctl next || mpvctl next || mpc next
