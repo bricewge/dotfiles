@@ -106,7 +106,7 @@ time = %H:%M
 date-alt = "%Y-%m-%d "
 time-alt = %H:%M:%S
 label = %date%%time%
-format =  <label> 
+format =  <label>
 label-alt-foreground = ${colors.foreground-alt}
 
 ; ** volume
