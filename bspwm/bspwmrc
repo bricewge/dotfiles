@@ -16,12 +16,10 @@ fi
 xsetroot -cursor_name left_ptr
 
 # ** sxhkd
-# NOTE This should be in ~/.xinitrc
-# TODO Exit should be notified somewhat
-# tmpdir=$(mktemp sxhkd.XXXX -dt) || exit 1
-fifo=${HOME}/.sxhkd.fifo
-mkfifo "$fifo" || { rmd "$fifo"; exit 1; }
-sxhkd -s "${fifo}" -t 2 &
+SXHKD_FIFO=${HOME}/.sxhkd.fifo
+[ -e "$SXHKD_FIFO" ] && rm "$SXHKD_FIFO"
+mkfifo "$SXHKD_FIFO"
+sxhkd -s "$SXHKD_FIFO" -t 2 &
 ~/.config/bspwm/sxhkd-listener.sh &
 
 # * bspwm config
@@ -29,11 +27,8 @@ bspc monitor LVDS1 -d I II III IV V
 # bspc monitor HDMI1 -d 1 2 3 4 5
 bspc desktop -f III
 
-# TEST
 bspc config remove_disabled_monitors true
-# bspc config remove_unplugged_monitors true
 bspc config merge_overlapping_monitors true
-# TEST
 
 bspc config top_padding 30
 
@@ -63,19 +58,8 @@ bspc rule -a 'Nightly:*' state=floating
 scu restart redshift &
 # * other stuff to start
 MONITOR=LVDS1 polybar --reload example &
-# MONITOR=eDP1 polybar --reload example &
-# MONITOR=HDMI1 polybar --reload example &
 
-# polybar-auto.sh &
-
-# cd ~/tmp/umonitor && ./usr/bin/umonitor --listen && cd -
-# To get rofi-pass working
-# setxkbmap fr mac
-# From ~/.xinitrc
 xrdb ~/.Xresources
-# Load terminus font for bar
-#xset +fp /usr/share/fonts/local
-#xset fp rehash
 
 # Hide the cursor when not used
 xbanish -i Mod4 &

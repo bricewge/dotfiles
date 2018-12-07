@@ -1,4 +1,7 @@
 #!/usr/bin/env sh
+#
+# Listen on sxhkd events to:
+# - indicate when in a chord chain
 
 SXHKD_FIFO=${SXHKD_FIFO:-${HOME}/.sxhkd.fifo}
 
