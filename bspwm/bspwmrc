@@ -54,12 +54,14 @@ bspc config presel_feedback_color "#b58900"
 # ** windows rules
 bspc rule -a Pinentry state=floating sticky=on
 bspc rule -a Emacs state=tiled # needed because of issue bspwm/551
-bspc rule -a Emacs:capture state=floating sticky=on
+bspc rule -a Emacs:org-capture state=floating sticky=on
 bspc rule -a Gimp state=floating
 bspc rule -a .zathura-wrapped_ state=tiled
-bspc rule -a Nightly state=tiled
-bspc rule -a Nightly:Dialog state=floating
+bspc rule -a Nightly:Navigator state=tiled #firefox
+bspc rule -a 'Nightly:*' state=floating
 
+
+scu restart redshift &
 # * other stuff to start
 MONITOR=LVDS1 polybar --reload example &
 # MONITOR=eDP1 polybar --reload example &
