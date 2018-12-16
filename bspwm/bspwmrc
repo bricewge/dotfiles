@@ -51,8 +51,8 @@ bspc rule -a Emacs state=tiled # needed because of issue bspwm/551
 bspc rule -a Emacs:org-capture state=floating sticky=on
 bspc rule -a Gimp state=floating
 bspc rule -a .zathura-wrapped_ state=tiled
-bspc rule -a Nightly:Navigator state=tiled #firefox
-bspc rule -a 'Nightly:*' state=floating
+bspc rule -a 'Nightly:*' state=floating # Firefox
+bspc rule -a Nightly:Navigator state=tiled
 
 
 scu restart redshift &
