@@ -207,8 +207,13 @@ XF86KbdBrightnessUp
   playerctl next || mpvctl next || mpc next
 
 # ** audio volume
-{super + F10, XF86AudioMute}
+# WAITING fixed https://github.com/baskerville/sxhkd/issues/131
+super + F10
   amixer -q set Master toggle
+
+XF86AudioMute
+  sink=$(pactl list sinks short | sed -n -e 's/^\([[:digit:]]\+\).*alsa_output.*analog-stereo.*/\1/p') && \
+  pactl set-sink-mute "${sink}" toggle
 
 {super + F11, XF86AudioLowerVolume}
   amixer -q set Master 5%- unmute
