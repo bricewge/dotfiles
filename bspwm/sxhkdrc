@@ -216,6 +216,10 @@ XF86KbdBrightnessUp
 {super + F12, XF86AudioRaiseVolume}
   amixer -q set Master 5%+ unmute
 
+XF86AudioMicMute
+  source=$(pactl list sources short | sed -n -e 's/^\([[:digit:]]\+\).*alsa_input.*analog-stereo.*/\1/p') && \
+  pactl set-source-mute "${source}" toggle
+
 # ** system
 XF86PowerOff
   rofi-power "loginctl terminate-user ${USER}" 
