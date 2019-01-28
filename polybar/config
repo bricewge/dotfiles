@@ -111,7 +111,7 @@ label-alt-foreground = ${colors.foreground-alt}
 
 ; ** volume
 [module/volume]
-type = internal/alsa
+type = internal/pulseaudio
 
 format-volume = <ramp-volume> <label-volume>
 format-muted = <label-muted>
