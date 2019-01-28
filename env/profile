@@ -51,6 +51,9 @@ export PATH=~/misc/go/bin:$PATH
 # ** nodejs
 export PATH=~/misc/nodejs/bin:$PATH
 
+# * man
+export MANWIDTH=75
+
 # * Editor
 # Set Emacs as the default editor.
 export EDITOR="emacsclient -t"
