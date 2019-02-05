@@ -1,0 +1,8 @@
+# remember where I left off my reading
+set continuous−hist−save true
+# use common clipboard
+set selection-clipboard clipboard
+
+# Local Variables:
+# mode: conf
+# End:
