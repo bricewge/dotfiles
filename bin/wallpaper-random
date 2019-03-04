@@ -1,10 +1,12 @@
 #!/usr/bin/env sh
 
-output=${HOME}/picture/wallpaper/random/
+# Use a random image from unsplash as the wallpaper.
 
-if [[ -d ${output} ]]; then mkdir -p "${output}"; fi
-cd /tmp
+output=${HOME}/picture/wallpaper/random/
+if [ -d "${output}" ]; then mkdir -p "${output}"; fi
+
+cd /tmp || exit 1
 feh --bg-fill \
     --output-dir "${output}" \
-    --keep-http `xrandr | awk '/\*/ { gsub("x","/",$1); printf "https://unsplash.it/%s/?random", $1; exit}'`
-cd -
+    --keep-http "$(xrandr | awk '/\*/ { gsub("x","/",$1); printf "https://unsplash.it/%s/?random", $1; exit}')"
+cd - || exit 1
