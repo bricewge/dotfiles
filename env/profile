@@ -54,6 +54,9 @@ export PATH=~/misc/nodejs/bin:$PATH
 # * man
 export MANWIDTH=75
 
+# * coreutils
+export TIME_STYLE=iso
+
 # * Editor
 # Set Emacs as the default editor.
 export EDITOR="emacsclient -t"
