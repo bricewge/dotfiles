@@ -1,7 +1,7 @@
 # -*- mode: sh -*-
-# Loaded by every zsh shell
-# Do not put environement variables in it, use
-# .profile for it.
+#
+# Loaded by every zsh shell Do not put environement variables in it, use
+# ~/.profile for it.
 
 #if [ "$TMUX" = "" ]; then tmux; fi
 # * zplug
@@ -12,6 +12,9 @@ fi
 
 source ~/.zplug/init.zsh
 zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+
+# workaround for https://github.com/zplug/zplug/issues/419
+alias -g zplug="LC_MESSAGES=C zplug"
 
 # ** prezto
 # # *** tmux
