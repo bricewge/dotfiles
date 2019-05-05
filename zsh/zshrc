@@ -3,8 +3,9 @@
 # Loaded by every zsh shell Do not put environement variables in it, use
 # ~/.profile for it.
 
-#if [ "$TMUX" = "" ]; then tmux; fi
 # * zplug
+# TODO Put zplug related code in ~/.zsh/zplug.zsh like:
+# https://github.com/b4b4r07/dotfiles/tree/master/.zsh
 export ZPLUG_HOME=${HOME}/.zplug
 if [[ ! -d ${ZPLUG_HOME} ]]; then
     git clone https://github.com/zplug/zplug $ZPLUG_HOME
@@ -17,10 +18,6 @@ zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 alias -g zplug="LC_MESSAGES=C zplug"
 
 # ** prezto
-# # *** tmux
-#zplug "modules/tmux",       from:prezto
-zstyle ':prezto:module:tmux:auto-start' local 'yes'
-
 # # WAITING Break completion https://github.com/sorin-ionescu/prezto/issues/1245
 # # should be fixed in zsh 5.3.2
 # zplug "modules/editor",     from:prezto
@@ -47,10 +44,12 @@ zplug "modules/directory", from:prezto
 # ** completions
 # Additional completion definitions for Zsh.
 zplug "zsh-users/zsh-completions", from:github
+# TODO Add git-subrepo completion
 
-# ** fish like features
-# Disable the fancies fish's features in Emacs
-# *** History substring search
+# ** UI
+# *** history
+# fish like history navigation
+# TODO Make the hook string into a function
 zplug "zsh-users/zsh-history-substring-search", from:github, \
       if:"[[ $TERM != 'dumb' ]]", \
       hook-load:"zmodload zsh/terminfo;
@@ -64,7 +63,10 @@ zplug "zsh-users/zsh-history-substring-search", from:github, \
      HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='bg=1,fg=8,bold'"
 
 # ** theme
-# Always use a theme except when TRAMP (Emacs) is used.
+# colors an rainbows
+
+# *** prompt
+# Don't theme the prompt when using TRAMP (Emacs)
 if [[ $TERM == "dumb" ]]; then
     PS1='$ '
 fi
@@ -73,18 +75,11 @@ zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme, \
       hook-load:"PURE_GIT_PULL=0"
 zplug "mafredri/zsh-async", from:github, on:"sindresorhus/pure"
 
-# Agnoster theme
-# zplug "agnoster/agnoster-zsh-theme", use:agnoster.zsh-theme, from:github, as:theme
-# # Remove the prefix prompt when logged as bricewge
-# export DEFAULT_USER="bricewge"
-
-# # *** man pages
-# # Solarized theme in man pages
-#zplug "bricewge/solarized-man", from:github
-# WAITING for upstream to merge changes
+# *** man
 zplug "zlsun/solarized-man", from:github
 
-# dircolors
+# *** dircolors
+# TODO Load this with zplug
 if [[ $OS != "macos" ]]; then
     if [[ ! -e "${HOME}/.local/share/dircolors/solarized" ]]; then
         git clone https://github.com/seebi/dircolors-solarized.git ${HOME}/.local/share/dircolors/solarized
