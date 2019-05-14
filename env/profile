@@ -50,6 +50,9 @@ export PATH=~/misc/go/bin:$PATH
 # ** nodejs
 export PATH=~/misc/nodejs/bin:$PATH
 
+# ** zsh
+export ZDOTDIR=~/.zsh
+
 # * man
 export MANWIDTH=75
 
