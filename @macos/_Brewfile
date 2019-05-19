@@ -1,0 +1,32 @@
+cask_args appdir: "~/Applications"
+tap "homebrew/command-not-found"
+
+# utils
+brew "cmatrix"
+brew "coreutils"
+brew "exa"
+brew "git"
+brew "git-subrepo"
+brew "htop"
+brew "ripgrep"
+brew "terminal-notifier"
+brew "tealdeer"
+brew "tmux"
+brew "trash"
+brew "tree"
+brew "valgrind"
+
+# language
+brew "node"
+brew "python3"
+
+# security
+brew "gnupg"
+brew "pass"
+brew "pinentry-mac"
+
+# gui apps
+brew "alacritty"
+brew "redshift", restart_service: :changed
+cask "firefox"
+cask "mpv"

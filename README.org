@@ -1,23 +1,29 @@
 #+TITLE: dotfiles
-Brice Waegeneire's dotfiles for UNIX managed with +[[https://github.com/mattly/bork][Bork]]+.
+Brice Waegeneire's dotfiles for *NIX, largely inspired by [[https://github.com/Kraymer/F-dotfiles][Kraymer/dotfiles]].
 
 * Install
 #+BEGIN_SRC sh
   git clone https://github.com/bricewge/dotfiles.git ~/.dotfiles
   cd ~/.dotfiles
-  ./install
-  source ./env/profile
-  bork satisfy ./bork/git.sh
-  git crypt unlock
-  bork satisfy ./bork/ssh.sh
+  ./dots package
 #+END_SRC
 
-* Past systems
-Before using =Bork=, this repository was managed with:
-- custom shell scripts
-- myrepos
-- vcsh
-- salstack
+* Rules
+| Hierarchy pattern | Description                              | Example                       |
+|-------------------+------------------------------------------+-------------------------------|
+| \_.*              | Will never be stowed                     | alacritty/_alacritty.terminfo |
+| @.*               | Subpackage, stowed when explicitly named | gpg/@macos                    |
+| setup.sh          | Script runned at package installation    | git/setup.sh                  |
+| .shell/alias/.*   | Evaluted by interactive shells           |                               |
+| .shell/profile/.* | Evaluated by login shells                | gpg/.shell/profile/gpg        |
+
+* Past
+Past ways that I used to managed this repository, in chronological order:
+1. unordered shell scripts
+2. [[https://github.com/RichiH/vcsh][vcsh]] with [[https://github.com/RichiH/myrepos][myrepos]]
+3. [[https://github.com/saltstack/salt][salt]]
+4. [[https://github.com/mattly/bork][bork]]
+
 
 * License
 All of this repository is under [[https://creativecommons.org/publicdomain/zero/1.0/][CC0 1.0]] license except the =wallpaper= subdirectory.

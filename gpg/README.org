@@ -1,0 +1,4 @@
+#+TITLE: gpg
+* Note
+When using a [[https://wiki.gnupg.org/SmartCard][smartcard]] for the first time you need to plug it in and then run
+=gpg --card-status=.

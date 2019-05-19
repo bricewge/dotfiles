@@ -1,0 +1,5 @@
+--ignore=^setup.sh
+--ignore=^README.*
+--ignore=^@.*
+--ignore=^_.*
+--no-folding

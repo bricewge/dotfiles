@@ -1,0 +1,95 @@
+# zplugin configuration
+
+# * zplugin
+declare -A ZPLGM
+ZPLGM[HOME_DIR]=$HOME/.zsh/zplugin
+ZPLGM[BIN_DIR]=$ZPLGM[HOME_DIR]/bin
+
+if [[ ! -d "$ZPLGM[BIN_DIR]" ]]; then
+    echo "Installing zplugin" >&2
+    mkdir -p "$ZPLGM[BIN_DIR]"
+    git clone https://github.com/zdharma/zplugin.git "$ZPLGM[BIN_DIR]"
+    source "$ZPLGM[BIN_DIR]/zplugin.zsh"
+    zplugin self-update
+else
+    source "$ZPLGM[BIN_DIR]/zplugin.zsh"
+fi
+
+local ice_defaults
+ice_default="wait'0' silent"
+
+# * theme
+# ** prompt
+zstyle ':prompt:pure:branch' color '10'
+
+# WAITING For https://github.com/sindresorhus/pure/pull/472 to be merged
+zplugin ice wait'!0' silent pick'async.zsh' src'pure.zsh' ver'zstyle-colors'
+zplugin load 'bricewge/pure'
+
+# ** man
+zplugin ice $ice_defaults
+zplugin load 'zlsun/solarized-man'
+
+# * prezto
+# Set the key mapping style to 'emacs' or 'vi'.
+zstyle ':prezto:module:editor' key-bindings 'emacs'
+# Auto convert .... to ../..
+zstyle ':prezto:module:editor' dot-expansion 'yes'
+# Colorize outputs
+zstyle ':prezto:module:utility:ls'    color 'yes'
+zstyle ':prezto:module:utility:diff'  color 'yes'
+zstyle ':prezto:module:utility:wdiff' color 'yes'
+zstyle ':prezto:module:utility:make'  color 'yes'
+
+zstyle ':prezto:load' pmodule \
+    'editor' \
+    'history' \
+    'directory' \
+    'command-not-found' \
+    'spectrum' \
+    'utility'
+
+zplugin ice $ice_defaults src'init.zsh'
+zplugin load 'sorin-ionescu/prezto'
+
+# * completions
+zplugin ice $ice_defaults blockf
+zplugin load 'zsh-users/zsh-completions'
+
+# * UI
+# ** notify
+zplugin ice $ice_defaults
+zplugin load 'marzocchi/zsh-notify'
+
+# ** autosuggestion
+zplugin ice $ice_defaults atload'_zsh_autosuggest_start'
+zplugin load zsh-users/zsh-autosuggestions
+
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=10'
+ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(history-substring-search-up history-substring-search-down)
+
+# ** history
+function _history_substring_search_config() {
+    bindkey "$terminfo[kcuu1]" history-substring-search-up
+    bindkey "$terminfo[kcud1]" history-substring-search-down
+    bindkey '^[[A' history-substring-search-up
+    bindkey '^[[B' history-substring-search-down
+    bindkey -M emacs '^P' history-substring-search-up
+    bindkey -M emacs '^N' history-substring-search-down
+    HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=5,fg=8,bold'
+    HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='bg=1,fg=8,bold'
+}
+
+# NOTE It should be loaded after zsh-syntax-highlighting
+# https://github.com/zsh-users/zsh-history-substring-search#usage
+zplugin ice wait'1' silent atload'_history_substring_search_config'
+zplugin load 'zsh-users/zsh-history-substring-search'
+
+
+# ** syntax highlighting
+zplugin ice $ice_defaults
+zplugin load zsh-users/zsh-syntax-highlighting
+
+# Local Variables:
+# mode: sh
+# End:

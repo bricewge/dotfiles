@@ -5,3 +5,9 @@
 if [[ $SHLVL == 1 && ! -o LOGIN ]]; then
     [[ -e ~/.profile ]] && emulate sh -c 'source ~/.profile'
 fi
+
+if [[ -o INTERACTIVE ]]; then
+    "${HOME}/.shell/init"
+fi
+
+# TODO execute =~/.shell/init= when starting an *interactive* shell

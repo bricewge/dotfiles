@@ -1,0 +1,7 @@
+export GOPATH=$HOME/misc/go
+export PATH=$HOME/misc/go/bin:$PATH
+
+# Local Variables:
+# mode: sh
+# sh-shell: sh
+# End:
