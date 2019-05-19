@@ -66,7 +66,5 @@ xbanish -i Mod4 &
 # Fancy things *BUT* with too much bugs
 # compton &
 udiskie --notify &
-bspc rule -a TermiteDropdown sticky=on floating=on
-dropdown.sh &
 # disable DPMS
 xset s off -dpms

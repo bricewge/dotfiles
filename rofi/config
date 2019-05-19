@@ -1,7 +1,7 @@
 ! -*- mode: conf-xdefaults -*-
 
 rofi.theme:                solarized
-rofi.terminal:             termite
+rofi.terminal:             alacritty
 rofi.ssh-command:          {terminal} -e "{ssh-client} {host}"
 rofi.modi:                 run,drun,combi,ssh,window
 rofi.combi-modi:           run,drun,ssh,window

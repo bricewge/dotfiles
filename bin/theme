@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-
+#
 # Toogle betwen dark and light themes
 
 set -e
@@ -16,8 +16,6 @@ fi
 
 echo "${theme}" > "${state_file}"
 
-ln -sf "${XDG_CONFIG_HOME}/termite/${theme}" "${XDG_CONFIG_HOME}/termite/config"
-pkill -USR1 termite
 ln -sf "${XDG_CONFIG_HOME}/polybar/solarized-${theme}" "${XDG_CONFIG_HOME}/polybar/colors"
 pkill -USR1 polybar
 sed -i "s/\(^colors: \*\).*/\1${theme}/g" "${XDG_CONFIG_HOME}/alacritty/alacritty.yml"
