@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+#
+# Verify that we don't commit plain files that should have been encrypted.
+# Workaround for https://github.com/AGWA/git-crypt/issues/45
+
+set -e
+
+if [ -d .git-crypt ]; then
+    if ! out=$(git-crypt status -e); then
+        echo "$out" >&2
+        exit 1
+    fi
+fi

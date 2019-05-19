@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+#
+# Execute all scripts in $GIT_DIR/hooks/pre-commit.d
+
+set -e
+
+git_dir=$(git rev-parse --show-toplevel)/$(git rev-parse --git-dir)
+for script in "$git_dir"/hooks/pre-commit.d/*; do
+    if [ ! -x "$script" ]; then continue; fi
+    "$script"
+done

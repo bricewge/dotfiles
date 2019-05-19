@@ -3,16 +3,15 @@
 	name = Brice Waegeneire
 	signingkey = A50C94EA19596020
 [core]
-	editor = emacsclient -t -a ""
 	quotepath = false
-	excludesfile = /Users/bwaegene/.gitignore
+[init]
+	templateDir = ~/.config/git/template
 [push]
 	default = simple
-[gpg]
-	program = gpg2
 [pull]
 	rebase = true
-[magit]
-	hideCampaign = true
 [github]
 	user = bricewge
+[alias]
+	fire = fire
+	crypt = crypt
