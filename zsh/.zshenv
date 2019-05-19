@@ -1,5 +1,3 @@
-# -*- mode: sh -*-
-
 # Load =~/.profile= in compatibility mode. By default it's not loaded
 # by zsh due to incompatibilites with standard shells.
 if [[ $SHLVL == 1 && ! -o LOGIN ]]; then
@@ -7,7 +5,9 @@ if [[ $SHLVL == 1 && ! -o LOGIN ]]; then
 fi
 
 if [[ -o INTERACTIVE ]]; then
-    "${HOME}/.shell/init"
+    "${HOME}/.shell/interactive"
 fi
 
-# TODO execute =~/.shell/init= when starting an *interactive* shell
+# Local Variables:
+# mode: sh
+# End:
