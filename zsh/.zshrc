@@ -89,7 +89,15 @@ alias rm='echo -e "You are looking for *th*, not rm.
 If you want to delete a file FOREVER use \\\rm."; false'
 alias th='trash'
 
-# ** ip
+# ** misc
+alias yt="youtube-dl"
+alias ff="firefox"
+alias feh="feh --scale-down --auto-zoom -B black -g ''"
+alias to="webtorrent"
+alias diff="diff --color -u"
+
+# ** linux
+# *** ip
 # Colorize the output of iproute2
 if [[ $OS != "debian" ]]; then
     alias ip='ip -c'
@@ -99,11 +107,9 @@ fi
 alias ip4="ip -4"
 alias ip6="ip -6"
 
-# ** misc
-alias yt="youtube-dl"
-alias ff="firefox"
-alias feh="feh --scale-down --auto-zoom -B black -g ''"
-alias to="webtorrent"
+# *** systemd
+alias sc="systemctl"
+alias jc="journalctl"
 
 # Local Variables:
 # mode: sh
