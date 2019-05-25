@@ -65,7 +65,7 @@ zstyle ":completion:*:commands" rehash 1
 # ** sudo
 # Pass alias to sudo and prevent =nocorrect= errors
 # https://superuser.com/a/749333
-alias sudo='TERM=xterm-256color my_sudo '
+alias sudo='my_sudo '
 
 function my_sudo {
     while [[ $# > 0 ]]; do

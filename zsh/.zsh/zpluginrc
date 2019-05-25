@@ -19,8 +19,11 @@ local ice_defaults
 ice_default="wait'0' silent"
 
 # * theme
+# ** colors
+. ~/.shell/lib/solarized.sh
+
 # ** prompt
-zstyle ':prompt:pure:branch' color '10'
+zstyle ':prompt:pure:branch' color "$SOLARIZED_BASE01"
 
 # WAITING For https://github.com/sindresorhus/pure/pull/472 to be merged
 zplugin ice wait'!0' silent pick'async.zsh' src'pure.zsh' ver'zstyle-colors'
@@ -65,7 +68,7 @@ zplugin load 'marzocchi/zsh-notify'
 zplugin ice $ice_defaults atload'_zsh_autosuggest_start'
 zplugin load zsh-users/zsh-autosuggestions
 
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=10'
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=$SOLARIZED_BASE01"
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(history-substring-search-up history-substring-search-down)
 
 # ** history
@@ -76,8 +79,8 @@ function _history_substring_search_config() {
     bindkey '^[[B' history-substring-search-down
     bindkey -M emacs '^P' history-substring-search-up
     bindkey -M emacs '^N' history-substring-search-down
-    HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=5,fg=8,bold'
-    HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='bg=1,fg=8,bold'
+    HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="bg=$SOLARIZED_MAGENTA,fg=$SOLARIZED_BASE03,bold"
+    HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND="bg=$SOLARIZED_RED,fg=$SOLARIZED_BASE03,bold"
 }
 
 # NOTE It should be loaded after zsh-syntax-highlighting
