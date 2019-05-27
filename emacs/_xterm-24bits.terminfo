@@ -1,0 +1,17 @@
+xterm-24bit|xterm with 24-bit direct color mode,
+  use=xterm+24bit,
+  use=xterm-256color,
+xterm-24bits|xterm with 24-bit direct color mode,
+  use=xterm+24bits,
+  use=xterm-256color,
+
+# Support for emacs direct color mode. Original from:
+# https://www.gnu.org/software/emacs/manual/html_node/efaq/Colors-on-a-TTY.html
+# Use colon separators.
+xterm+24bit|24-bit direct color mode,
+  setb24=\E[48:2:%p1%{65536}%/%d:%p1%{256}%/%{255}%&%d:%p1%{255}%&%dm,
+  setf24=\E[38:2:%p1%{65536}%/%d:%p1%{256}%/%{255}%&%d:%p1%{255}%&%dm,
+# Use semicolon separators.
+xterm+24bits|24-bit direct color mode,
+  setb24=\E[48;2;%p1%{65536}%/%d;%p1%{256}%/%{255}%&%d;%p1%{255}%&%dm,
+  setf24=\E[38;2;%p1%{65536}%/%d;%p1%{256}%/%{255}%&%d;%p1%{255}%&%dm,
