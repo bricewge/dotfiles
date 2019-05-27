@@ -23,7 +23,8 @@ stow --target "$HOME" "$@"
 for pkg in "$@"; do
     if [ -x "$pkg"/setup.sh ]; then (
             cd "$pkg" || exit 1
-            ./setup.sh
+            # shellcheck disable=SC1091
+            . ./setup.sh
             # TODO execute OS subpacakges setup
     ) fi
 done
