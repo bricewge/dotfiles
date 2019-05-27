@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 #
-# Wrapper around stow.
+# Wrapper around stow. Pass it's argments to stow.
 
 set -e
 
@@ -11,6 +11,12 @@ if [ $# -eq 0 ]; then
 fi
 
 cd "$(dirname "$0")" || exit 1
+DOTFILES=$PWD
+export DOTFILES
+
+printf "DOTFILES=%s" "$DOTFILES" > "$HOME/.shell/profile/dotfiles"
+
+# TODO Source shell env and libs
 
 # Arguments: limit the install to those packages
 stow --target "$HOME" "$@"
@@ -18,5 +24,6 @@ for pkg in "$@"; do
     if [ -x "$pkg"/setup.sh ]; then (
             cd "$pkg" || exit 1
             ./setup.sh
+            # TODO execute OS subpacakges setup
     ) fi
 done

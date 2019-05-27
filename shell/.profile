@@ -54,8 +54,6 @@ case $(uname) in
         OS="unknown";;
 esac
 export OS
-# TODO Uncomment before switching config
-export DOTFILES=${DOTFILES:-$HOME/.dotfiles}
 
 # Local Variables:
 # mode: sh
