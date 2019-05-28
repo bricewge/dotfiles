@@ -109,7 +109,9 @@ alias ip6="ip -6"
 
 # *** systemd
 alias sc="systemctl"
+alias scu="systemctl --user"
 alias jc="journalctl"
+alias jcu="journalctl --user"
 
 # Local Variables:
 # mode: sh
