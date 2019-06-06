@@ -24,6 +24,20 @@ Past ways that I used to managed this repository, in chronological order:
 3. [[https://github.com/saltstack/salt][salt]]
 4. [[https://github.com/mattly/bork][bork]]
 
+* Finish migration
+** TODO Use shell structure defined [[https://blog.flowblok.id.au/2013-02/shell-startup-scripts.html][here]]
+Use folder for ~interactive.d~ and ~login.d~.
+** TODO write a function to git clone or pull
+https://gist.github.com/nicferrier/2277987
+** [X] Commit all old modifications
+** TODO Rebase on master
+** TODO Migrate
+- [ ] bspwm
+- [ ] emacs
+- [ ] fonts
+- [ ] macos
+- [ ] polybar move from systemd service
+- [ ] texlive
 
 * License
 All of this repository is under [[https://creativecommons.org/publicdomain/zero/1.0/][CC0 1.0]] license except the =wallpaper= subdirectory.
