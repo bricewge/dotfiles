@@ -1,14 +1,48 @@
 #+TITLE: dotfiles
-Brice Waegeneire's dotfiles for *NIX, largely inspired by [[https://github.com/Kraymer/F-dotfiles][Kraymer/dotfiles]].
+Brice Waegeneire's dotfiles for *NIX, inspired by [[https://github.com/Kraymer/F-dotfiles][Kraymer/dotfiles]].
 
-* Install
+* Tutorial
+** Dependencies
+This dotfiles need a minimum of dependencies, that are probablly already
+availaible on your system. If it's not the case install the following packages
+with your favorite package manager:
+- =git=
+- =sh=, any POSIX compatible shell will do
+- =stow=
+
+** Using the dotfiles as a whole
+To install all the configurations at one, just enter the following in your terminal:
 #+BEGIN_SRC sh
-  git clone https://github.com/bricewge/dotfiles.git ~/.dotfiles
-  cd ~/.dotfiles
-  ./dots package
+  git clone https://github.com/bricewge/dotfiles.git
+  ./dotfiles/dots
 #+END_SRC
 
-* Rules
+** Using part of the configurations
+If you only want to use a /subset/ of the repository, let's say the
+configuration just for =tmux= and =git=, then write the following in your
+terminal:
+#+BEGIN_SRC sh
+  git clone https://github.com/bricewge/dotfiles.git
+  ./dotfiles/dots tmux git
+#+END_SRC
+
+* How-to guides
+** TODO How-to add a new module
+** TODO How-to add OS specific configuration
+
+* Discussion
+** TODO Priorities
+** TODO Why this organization?
+** TODO Past alternatives
+Previous ways that I used to managed this repository, in chronological order:
+1. unordered shell scripts
+2. [[https://github.com/RichiH/vcsh][vcsh]] with [[https://github.com/RichiH/myrepos][myrepos]]
+3. [[https://github.com/saltstack/salt][salt]]
+4. [[https://github.com/mattly/bork][bork]]
+** TODO Other alternative
+- =homemanager=, Nix based
+* Reference
+** Rules
 | Hierarchy pattern | Description                              | Example                       |
 |-------------------+------------------------------------------+-------------------------------|
 | \_.*              | Will never be stowed                     | alacritty/_alacritty.terminfo |
@@ -16,28 +50,6 @@ Brice Waegeneire's dotfiles for *NIX, largely inspired by [[https://github.com/K
 | setup.sh          | Script runned at package installation    | git/setup.sh                  |
 | .shell/alias/.*   | Evaluted by interactive shells           |                               |
 | .shell/profile/.* | Evaluated by login shells                | gpg/.shell/profile/gpg        |
-
-* Past
-Past ways that I used to managed this repository, in chronological order:
-1. unordered shell scripts
-2. [[https://github.com/RichiH/vcsh][vcsh]] with [[https://github.com/RichiH/myrepos][myrepos]]
-3. [[https://github.com/saltstack/salt][salt]]
-4. [[https://github.com/mattly/bork][bork]]
-
-* Finish migration
-** TODO Use shell structure defined [[https://blog.flowblok.id.au/2013-02/shell-startup-scripts.html][here]]
-Use folder for ~interactive.d~ and ~login.d~.
-** TODO write a function to git clone or pull
-https://gist.github.com/nicferrier/2277987
-** [X] Commit all old modifications
-** TODO Rebase on master
-** TODO Migrate
-- [ ] bspwm
-- [ ] emacs
-- [ ] fonts
-- [ ] macos
-- [ ] polybar move from systemd service
-- [ ] texlive
 
 * License
 All of this repository is under [[https://creativecommons.org/publicdomain/zero/1.0/][CC0 1.0]] license except the =wallpaper= subdirectory.

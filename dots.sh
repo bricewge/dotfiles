@@ -2,6 +2,9 @@
 #
 # Wrapper around stow. Pass it's argments to stow.
 
+# TODO Verify that the dependencies are installed
+# TODO Do not let still encrypted module to be install
+
 set -e
 
 # TODO No arguments: install all the packages
