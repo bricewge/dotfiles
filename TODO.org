@@ -17,3 +17,5 @@ https://gist.github.com/nicferrier/2277987
 - [ ] texlive
 
 * TODO Write documentation
+
+* TODO Replace =stow= with simple script

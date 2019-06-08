@@ -10,7 +10,7 @@ with your favorite package manager:
 - =sh=, any POSIX compatible shell will do
 - =stow=
 
-** Using the dotfiles as a whole
+** Using this dotfiles repository as a whole
 To install all the configurations at one, just enter the following in your terminal:
 #+BEGIN_SRC sh
   git clone https://github.com/bricewge/dotfiles.git
@@ -29,23 +29,50 @@ terminal:
 * How-to guides
 ** TODO How-to add a new module
 ** TODO How-to add OS specific configuration
+** TODO How-to work on breaking changes
+- ~git worktree~
+** TODO How-to manage secrets
+Some file contains sensitive informations and are best being kept private to do
+so we can encrypted them with ~git-crypt~.
 
+However note that his method may not be sufficent based on your threat model,
+in that case, please, do not put them on the Internet nor in ~git~ /at all/.
 * Discussion
-** TODO Priorities
+** Priorities
+*** Portable
+Sticking strictly to POSIX's shell and requering minimal dependencies make those
+~dotfiles~ portable to most systems I use, in particular the ones running
+~busybox~ that doesn't have ~bash~ installed and not much space to install
+additional software.
+*** Modular
+You will rarely need to install the configuration for all of the software you
+have configure, except your workstation. You won't uses ~mpv~ configurations on
+a server for example.
+*** KISS
+Managing ~dotfiles~ can become a chore but don't having some is worse, so let's
+keep it simple.
+*** Hackable
+They're will always be a time when you are forced to use a dirty workaround or
+have some exotic edge-case to take into account, none of which a handy shell
+script can't overcome.
 ** TODO Why this organization?
 ** TODO Past alternatives
-Previous ways that I used to managed this repository, in chronological order:
-1. unordered shell scripts
-2. [[https://github.com/RichiH/vcsh][vcsh]] with [[https://github.com/RichiH/myrepos][myrepos]]
-3. [[https://github.com/saltstack/salt][salt]]
-4. [[https://github.com/mattly/bork][bork]]
-** TODO Other alternative
+Previous ways that I used to managed this repository.
+*** unordered shell scripts
+*** [[https://github.com/RichiH/vcsh][vcsh]] with [[https://github.com/RichiH/myrepos][myrepos]]
+*** [[https://github.com/saltstack/salt][salt]]
+*** [[https://github.com/mattly/bork][bork]]
+- bash
+- not mainted anymore
+** TODO Other alternatives
+
 - =homemanager=, Nix based
 * Reference
-** Rules
+** Module
+** Naming scheme
 | Hierarchy pattern | Description                              | Example                       |
 |-------------------+------------------------------------------+-------------------------------|
-| \_.*              | Will never be stowed                     | alacritty/_alacritty.terminfo |
+| _.*               | Will never be stowed                     | alacritty/_alacritty.terminfo |
 | @.*               | Subpackage, stowed when explicitly named | gpg/@macos                    |
 | setup.sh          | Script runned at package installation    | git/setup.sh                  |
 | .shell/alias/.*   | Evaluted by interactive shells           |                               |
