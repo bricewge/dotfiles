@@ -37,6 +37,10 @@ so we can encrypted them with ~git-crypt~.
 
 However note that his method may not be sufficent based on your threat model,
 in that case, please, do not put them on the Internet nor in ~git~ /at all/.
+** How to uninstall modules
+~./dots~ is just a thin wrapper around ~stow~ allowing you to use it's usual
+arguments. In our case ~-D~ following by the modules to remove. For example to
+get rid of alacratty configuration it's: ~./dots -D alacritty~.
 * Discussion
 ** Priorities
 *** Portable
@@ -49,8 +53,8 @@ You will rarely need to install the configuration for all of the software you
 have configure, except your workstation. You won't uses ~mpv~ configurations on
 a server for example.
 *** KISS
-Managing ~dotfiles~ can become a chore but don't having some is worse, so let's
-keep it simple.
+Declaring ~dotfiles~ bankrupcy never fell good, but don't having a way to manage
+all those configuration is worse. So let's keep it as simple as possible.
 *** Hackable
 They're will always be a time when you are forced to use a dirty workaround or
 have some exotic edge-case to take into account, none of which a handy shell

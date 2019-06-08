@@ -4,6 +4,7 @@
 
 # TODO Verify that the dependencies are installed
 # TODO Do not let still encrypted module to be install
+# TODO When uninstalling remove also files from ./setup.sh
 
 set -e
 
