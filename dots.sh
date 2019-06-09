@@ -2,7 +2,6 @@
 #
 # Wrapper around stow. Pass it's argments to stow.
 
-# TODO Verify that the dependencies are installed
 # TODO Do not let still encrypted module to be install
 # TODO When uninstalling remove also files from ./setup.sh
 
@@ -13,6 +12,14 @@ if [ $# -eq 0 ]; then
     echo "Use with no arguments is not yet implemented"
     exit 1
 fi
+
+# Verify that all the dependencies are installed
+dependencies="git stow curl"
+for dep in ${dependencies}; do
+    command -v "$dep" 1>/dev/null || \
+        (printf "dependenciy '%s' is missing, please install it\n" "$dep" ; \
+        exit 1)
+done
 
 cd "$(dirname "$0")" || exit 1
 DOTFILES=$PWD
