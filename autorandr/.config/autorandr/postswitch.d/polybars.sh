@@ -1,0 +1,1 @@
+../../../../polybar/.local/bin/polybars.sh
