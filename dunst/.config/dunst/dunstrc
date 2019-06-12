@@ -1,4 +1,3 @@
-#-*- mode: conf-mode -*-
 [global]
     follow = mouse
     geometry = "0x1+36+0"
@@ -6,7 +5,9 @@
     horizontal_padding = 4
     frame_width = 4
     shrink = yes
-    font = MesloLGS Nerd Font 12
+    # WAITING https://github.com/ryanoasis/nerd-fonts/issues/254
+    # font = MesloLGS Nerd Font 12
+    font = Meslo LG S 12
     sort = yes
 
 [urgency_low]
@@ -24,3 +25,7 @@
     frame_color = "#dc322f"
     foreground = "#073642"
     timeout = 0
+
+# Local Variables:
+# mode: conf-unix
+# End:
