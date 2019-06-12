@@ -1,23 +1,22 @@
 #+TITLE: dotfiles
 Brice Waegeneire's dotfiles for *NIX, inspired by [[https://github.com/Kraymer/F-dotfiles][Kraymer/dotfiles]].
 
-* Tutorial
-** Dependencies
+** Tutorial
+*** Dependencies
 This dotfiles need a minimum of dependencies, that are probablly already
 availaible on your system. If it's not the case install the following packages
 with your favorite package manager:
 - =git=
-- =sh=, any POSIX compatible shell will do
 - =stow=
 
-** Using this dotfiles repository as a whole
+*** Using this dotfiles repository as a whole
 To install all the configurations at one, just enter the following in your terminal:
 #+BEGIN_SRC sh
   git clone https://github.com/bricewge/dotfiles.git
   ./dotfiles/dots
 #+END_SRC
 
-** Using part of the configurations
+*** Using part of the configurations
 If you only want to use a /subset/ of the repository, let's say the
 configuration just for =tmux= and =git=, then write the following in your
 terminal:
@@ -26,54 +25,54 @@ terminal:
   ./dotfiles/dots tmux git
 #+END_SRC
 
-* How-to guides
-** TODO How-to add a new module
-** TODO How-to add OS specific configuration
-** TODO How-to work on breaking changes
+** How-to guides
+*** TODO How-to add a new module
+*** TODO How-to add OS specific configuration
+*** TODO How-to work on breaking changes
 - ~git worktree~
-** TODO How-to manage secrets
+*** TODO How-to manage secrets
 Some file contains sensitive informations and are best being kept private to do
 so we can encrypted them with ~git-crypt~.
 
 However note that his method may not be sufficent based on your threat model,
 in that case, please, do not put them on the Internet nor in ~git~ /at all/.
-** How to uninstall modules
+*** How to uninstall modules
 ~./dots~ is just a thin wrapper around ~stow~ allowing you to use it's usual
 arguments. In our case ~-D~ following by the modules to remove. For example to
 get rid of alacratty configuration it's: ~./dots -D alacritty~.
-* Discussion
-** Priorities
-*** Portable
+** Discussion
+*** Priorities
+**** Portable
 Sticking strictly to POSIX's shell and requering minimal dependencies make those
 ~dotfiles~ portable to most systems I use, in particular the ones running
 ~busybox~ that doesn't have ~bash~ installed and not much space to install
 additional software.
-*** Modular
+**** Modular
 You will rarely need to install the configuration for all of the software you
 have configure, except your workstation. You won't uses ~mpv~ configurations on
 a server for example.
-*** KISS
+**** KISS
 Declaring ~dotfiles~ bankrupcy never fell good, but don't having a way to manage
 all those configuration is worse. So let's keep it as simple as possible.
-*** Hackable
+**** Hackable
 They're will always be a time when you are forced to use a dirty workaround or
 have some exotic edge-case to take into account, none of which a handy shell
 script can't overcome.
-** TODO Why this organization?
-** TODO Past alternatives
+*** TODO Why this organization?
+*** TODO Past alternatives
 Previous ways that I used to managed this repository.
-*** unordered shell scripts
-*** [[https://github.com/RichiH/vcsh][vcsh]] with [[https://github.com/RichiH/myrepos][myrepos]]
-*** [[https://github.com/saltstack/salt][salt]]
-*** [[https://github.com/mattly/bork][bork]]
+**** unordered shell scripts
+**** [[https://github.com/RichiH/vcsh][vcsh]] with [[https://github.com/RichiH/myrepos][myrepos]]
+**** [[https://github.com/saltstack/salt][salt]]
+**** [[https://github.com/mattly/bork][bork]]
 - bash
 - not mainted anymore
-** TODO Other alternatives
+*** TODO Other alternatives
 
 - =homemanager=, Nix based
-* Reference
-** Module
-** Naming scheme
+** Reference
+*** Module
+*** Naming scheme
 | Hierarchy pattern | Description                              | Example                       |
 |-------------------+------------------------------------------+-------------------------------|
 | _.*               | Will never be stowed                     | alacritty/_alacritty.terminfo |
@@ -82,5 +81,5 @@ Previous ways that I used to managed this repository.
 | .shell/alias/.*   | Evaluted by interactive shells           |                               |
 | .shell/profile/.* | Evaluated by login shells                | gpg/.shell/profile/gpg        |
 
-* License
+** License
 All of this repository is under [[https://creativecommons.org/publicdomain/zero/1.0/][CC0 1.0]] license except the =wallpaper= subdirectory.
