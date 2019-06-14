@@ -1,3 +1,5 @@
+# -*- mode: sh -*-
+#
 # https://github.com/direnv/direnv/wiki/Nix#persistent-cached-shell
 #
 # Usage: use_nix [...]

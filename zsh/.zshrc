@@ -29,6 +29,7 @@ unsetopt HUP              # Don't kill jobs on shell exit.
 unsetopt CHECK_JOBS       # Don't report on jobs when shell exit.
 
 # *** direnv
+# TODO Move to direnv
 eval "$(direnv hook zsh)"
 
 # ** history
