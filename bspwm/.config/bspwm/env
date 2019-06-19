@@ -1,4 +1,8 @@
 # -*- mode: sh; -*-
+
+# TODO Decide on whether to keep this file, if so it should probably go to
+# ~/.shell/profile/bspwm
+
 export PANEL_FIFO=/tmp/panel-fifo
 export BSPWM_WINDOW_GAP=12
 export BSPWM_TOP_PADDING=22

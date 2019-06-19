@@ -107,7 +107,7 @@ super + space ; {e, E}
 
 # File browser
 # TODO Add ranger.el
-super + space ; f 
+super + space ; f
   nautilus
 
 # Web browser
@@ -124,10 +124,10 @@ super + space ; space
 super + p
 	rofi-pass
 
-super + w
+super + space ; n
   rofi-wifi
 
-super + u
+super + space; u
   UDISKIE_DMENU_LAUNCHER=rofi udiskie-dmenu -matching regex -dmenu -i -no-custom -multi-select
 
 super + o
@@ -148,11 +148,11 @@ super + o
 
 # ** screenshot
 super + space ; s
-	maim ~/image/screenshot/$(date +%s).png && \
+ maim ~/picture/screenshot/$(date --iso-8601=seconds).png && \
    notify-send -u low "new window screenshot"
 
 super + space ; S
-	maim --select ~/image/screenshot/$(date +%s).png && \
+ maim --select ~/picture/screenshot/$(date --iso-8601=seconds).png && \
    notify-send -u low "new screenshot"
 
 # ** TODO notifications
@@ -176,11 +176,13 @@ super + a
 
 # * media keys
 # ** monitor brightness
-XF86MonBrightnessDown
-	xbacklight -fps 10 -ctrl acpi_video0 -7
+{super + F1, XF86MonBrightnessDown}
+  xbacklight -ctrl intel_backlight -dec 12; \
+  xbacklight -ctrl ddcci4 -dec 12
 
-XF86MonBrightnessUp
-	xbacklight -fps 10 -ctrl acpi_video0 +7
+{super + F2, XF86MonBrightnessUp}
+  xbacklight -ctrl intel_backlight -inc 12; \
+  xbacklight -ctrl ddcci4 -inc 12
 
 # ** TODO launchers
 {super + F3, XF86LaunchA, super + bracketleft}
@@ -198,36 +200,38 @@ XF86KbdBrightnessUp
 
 # ** multimedia
 {super + F7, XF86AudioPrev}
-  playerctl previous || mpvctl previous || mpc prev
+  mpvc previous || playerctl previous
 
 {super + F8, XF86AudioPlay}
-  playerctl play-pause | mpvctl toggle || mpc toggle
+  mpvc toggle || playerctl play-pause
 
 {super + F9, XF86AudioNext}
-  playerctl next || mpvctl next || mpc next
+  mpvc next || playerctl next
 
 # ** audio volume
 {super + F10, XF86AudioMute}
   pactl set-sink-mute @DEFAULT_SINK@ toggle
 
 {super + F11, XF86AudioLowerVolume}
-  pactl set-sink-volume @DEFAULT_SINK@ -5% | pactl set-sink-mute @DEFAULT_SINK@ 0
+  pactl set-sink-volume @DEFAULT_SINK@ -5% && \
+  pactl set-sink-mute @DEFAULT_SINK@ 0
 
 {super + F12, XF86AudioRaiseVolume}
-  pactl set-sink-volume @DEFAULT_SINK@ +5% | pactl set-sink-mute @DEFAULT_SINK@ 0
+  pactl set-sink-volume @DEFAULT_SINK@ +5% && \
+  pactl set-sink-mute @DEFAULT_SINK@ 0
 
 XF86AudioMicMute
   pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
 # ** system
-XF86PowerOff
-  rofi-power "loginctl terminate-user ${USER}" 
+{super + space; p, XF86PowerOff}
+  rofi-power "bspc quit 1"
 
 # * window manager
 # Reload UI configurations
 super + Escape
-	 pkill -USR1 -x "(sxhkd|compton)" && \
-   notify-send -u low "sxhkd reloaded"
+  pkill -USR1 -x "(sxhkd|compton)" && \
+  notify-send -u low "sxhkd reloaded"
 
 # Quit bspwm and kill the panel
 super + alt + Escape

@@ -106,7 +106,7 @@ time = %H:%M
 date-alt = "%Y-%m-%d "
 time-alt = %H:%M:%S
 label = %date%%time%
-format =  <label>
+format =  <label> 
 label-alt-foreground = ${colors.foreground-alt}
 
 ; ** volume
@@ -148,7 +148,7 @@ ramp-capacity-4 = 
 [module/powermenu]
 type = custom/text
 content = "  "
-click-left = rofi-power "loginctl kill-session $XDG_SESSION_ID"
+click-left = rofi-power "bspc quit 1"
 
 ; ** sxhkd
 [module/sxhkd]

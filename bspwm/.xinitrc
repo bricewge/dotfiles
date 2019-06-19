@@ -8,7 +8,7 @@ xset fp rehash
 sxhkd &
 
 # Set a wallpaper
-feh --bg-fill ~/.dotfiles/wallpaper/geometric_fade.png &
+feh --bg-fill ~/.dotfiles/wallpaper/schicka-307-unsplash.jpg &
 
 #Set color temperature according to time of day
 redshift &

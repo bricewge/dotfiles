@@ -57,7 +57,8 @@ bspc rule -a Nightly:Navigator state=tiled
 
 scu restart redshift &
 # * other stuff to start
-MONITOR=LVDS1 polybar --reload example &
+# run polybars on all monitors
+polybars.sh
 
 xrdb ~/.Xresources
 
