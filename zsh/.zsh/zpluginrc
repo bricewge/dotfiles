@@ -25,9 +25,8 @@ ice_default="wait'0' silent"
 # ** prompt
 zstyle ':prompt:pure:branch' color "$SOLARIZED_BASE01"
 
-# WAITING For https://github.com/sindresorhus/pure/pull/472 to be merged
-zplugin ice wait'!0' silent pick'async.zsh' src'pure.zsh' ver'zstyle-colors'
-zplugin load 'bricewge/pure'
+zplugin ice wait'!0' silent pick'async.zsh' src'pure.zsh'
+zplugin load 'sindresorhus/pure'
 
 # ** man
 zplugin ice $ice_defaults
