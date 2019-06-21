@@ -162,7 +162,7 @@ click-left = rofi -show drun
 ; ** mpd
 [module/mpv]
 type = custom/script
-exec =  ~/.config/polybar/mpvctl.sh
+exec =  ~/.local/bin/mpvctl.sh
 format-foreground = ${colors.foreground-alt}
 tail = true
 click-left = mpvctl toggle
