@@ -25,7 +25,9 @@ ice_default="wait'0' silent"
 # ** prompt
 zstyle ':prompt:pure:branch' color "$SOLARIZED_BASE01"
 
-zplugin ice wait'!0' silent pick'async.zsh' src'pure.zsh'
+# WAITING https://github.com/sindresorhus/pure/issues/332
+zplugin ice wait'!0' silent pick'async.zsh' src'pure.zsh' \
+    atclone"ln -s ./pure.zsh prompt_pure_setup" atload"fpath+=(\$PWD)"
 zplugin load 'sindresorhus/pure'
 
 # ** man
