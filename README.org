@@ -29,7 +29,9 @@ terminal:
 *** TODO How-to add a new module
 *** TODO How-to add OS specific configuration
 *** TODO How-to work on breaking changes
-- ~git worktree~
+~git worktree~ but it doesn't work with ~git-crypt~
+(https://github.com/AGWA/git-crypt/issues/105) so maybe iit can be replaced by
+[[https://github.com/sobolevn/git-secret][git-secret]].
 *** TODO How-to manage secrets
 Some file contains sensitive informations and are best being kept private to do
 so we can encrypted them with ~git-crypt~.
@@ -38,8 +40,9 @@ However note that his method may not be sufficent based on your threat model,
 in that case, please, do not put them on the Internet nor in ~git~ /at all/.
 *** How to uninstall modules
 ~./dots~ is just a thin wrapper around ~stow~ allowing you to use it's usual
-arguments. In our case ~-D~ following by the modules to remove. For example to
-get rid of alacratty configuration it's: ~./dots -D alacritty~.
+arguments. In our case the paramter ~-D~ followed by the modules you you want to
+uninstall will suffice. For example to get rid of alacratty configuration it's:
+~./dots -D alacritty~.
 ** Discussion
 *** Priorities
 **** Portable
