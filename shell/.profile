@@ -1,14 +1,8 @@
 # Executed by all login shells. Only environement variables should goes in here.
 
 # * topics
-# load profile files from the installed modules
-profile_dir=${HOME}/.shell/profile/
-if [ -d "$profile_dir" ]; then
-    for profile in "$profile_dir"/*; do
-        # shellcheck source=/dev/null
-        . "$profile"
-    done
-fi
+# shellcheck source=/dev/null
+. "$HOME/.shell/login.sh"
 
 # * general
 export PATH="$HOME/.local/bin:$PATH"

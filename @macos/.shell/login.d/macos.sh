@@ -1,5 +1,3 @@
-#!/usr/bin/env sh
-
 export PATH=$HOME/.brew/bin:$PATH
 
 if [ "$(hostname | cut -d . -f 2-3)" = "42.fr" ]; then

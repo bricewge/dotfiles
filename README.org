@@ -76,13 +76,13 @@ Previous ways that I used to managed this repository.
 ** Reference
 *** Module
 *** Naming scheme
-| Hierarchy pattern | Description                              | Example                       |
-|-------------------+------------------------------------------+-------------------------------|
-| _.*               | Will never be stowed                     | alacritty/_alacritty.terminfo |
-| @.*               | Subpackage, stowed when explicitly named | gpg/@macos                    |
-| setup.sh          | Script runned at package installation    | git/setup.sh                  |
-| .shell/alias/.*   | Evaluted by interactive shells           |                               |
-| .shell/profile/.* | Evaluated by login shells                | gpg/.shell/profile/gpg        |
+| Hierarchy pattern      | Description                              | Example                       |
+|------------------------+------------------------------------------+-------------------------------|
+| _*                     | Will never be stowed                     | alacritty/_alacritty.terminfo |
+| \@*                    | Subpackage, stowed when explicitly named | gpg/@macos                    |
+| setup.sh               | Script runned at package installation    | git/setup.sh                  |
+| .shell/login.d/*       | Evaluated by login shells                | gpg/.shell/login.d/gpg        |
+| .shell/interactive.d/* | Evaluted by interactive shells           |                               |
 
 ** License
 All of this repository is under [[https://creativecommons.org/publicdomain/zero/1.0/][CC0 1.0]] license except the =wallpaper= subdirectory.

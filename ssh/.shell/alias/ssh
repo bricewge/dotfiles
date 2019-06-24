@@ -1,9 +1,0 @@
-# Stop multiplexing of an host gracefully
-alias sshs="ssh -O stop"
-# Immediatlly terminate multiplexing of an host
-alias sshx="ssh -O exit"
-
-# Local Variables:
-# mode: sh
-# sh-shell: sh
-# End:

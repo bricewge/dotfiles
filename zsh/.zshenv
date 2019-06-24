@@ -5,7 +5,7 @@ if [[ $SHLVL == 1 && ! -o LOGIN ]]; then
 fi
 
 if [[ -o INTERACTIVE ]]; then
-    emulate sh -c 'source ~/.shell/interactive'
+    emulate sh -c 'source ~/.shell/interactive.sh'
 fi
 
 # Local Variables:
