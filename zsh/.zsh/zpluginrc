@@ -62,6 +62,7 @@ zplugin load 'zsh-users/zsh-completions'
 
 # * UI
 # ** notify
+zstyle ':notify:*' command-complete-timeout 15
 zplugin ice $ice_defaults
 zplugin load 'marzocchi/zsh-notify'
 
