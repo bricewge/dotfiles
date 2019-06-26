@@ -4,7 +4,6 @@
 # example: ./create-torrent.sh bob@myhost:/mnt/data ~/download/Sintel/
 
 # TODO Find a way to specify ssh port
-# TODO Call pass only once
 # TODO ssh port forwarding shouldn't be hard coded
 
 set -e
@@ -24,8 +23,9 @@ die() {
 trap die ERR
 
 # get deluge credentials
-deluge_login=$(pass selfhosted/torrent | awk '/login/ {print $2}')
-deluge_password=$(pass selfhosted/torrent | head -n1)
+credentials=$(pass selfhosted/torrent)
+deluge_login=$(echo "$credentials" | head -n1)
+deluge_password=$(echo "$credentials" | awk 'NR>1 && /^login:/ {print $2;exit}')
 
 for source in "$@"; do
     source=./${source%/}
@@ -40,5 +40,6 @@ for source in "$@"; do
         "$source" "$destination"
 
     # add torrent to deluge
-    deluge-console "connect 127.0.0.2:58846 '$deluge_login' '$deluge_password' ; add \"$torrent\""
+    deluge-console "connect 127.0.0.2:58846 '$deluge_login' '$deluge_password' \
+        ; add \"$torrent\""
 done
