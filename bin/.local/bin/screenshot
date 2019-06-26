@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+#
+# Wrapper around maim that:
+# - takes window screenshot like macOS does
+# - notify you when done
+
+# TODO Make border dynamic:  2×sigma+abs(offset),
+# http://www.imagemagick.org/Usage/blur/#shadow
+
+output=$HOME/picture/screenshot/$(date --iso-8601=seconds).png
+
+maim -st 9999999 | \ # force window selection
+    convert - -bordercolor None -border 40x55  \
+    \( +clone -background black -shadow 60x20+0+15 \) \
+    +swap -background none -layers merge +repage \
+    "$output"
+
+
+notify-send -u low -t 2 "new window screenshot"
+# notify-send -u low "new screenshot"

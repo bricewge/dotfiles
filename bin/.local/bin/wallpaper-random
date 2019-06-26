@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+#
+# Use a random image from unsplash as the wallpaper.
+
+# TODO Refactor
+
+output=$HOME/picture/wallpaper/random/
+mkdir -p "$output"
+unsplash_url=$(xrandr | \
+    awk '/\*/ { gsub("x","/",$1); printf "https://unsplash.it/%s/?random", $1; exit}')
+
+cd /tmp || exit 1
+feh --bg-fill \
+    --output-dir "${output}" \
+    --keep-http "$unsplash_url"
+cd - || exit 1
