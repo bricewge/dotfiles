@@ -50,6 +50,7 @@ bspc rule -a Pinentry state=floating sticky=on
 bspc rule -a Emacs state=tiled # needed because of issue bspwm/551
 bspc rule -a Emacs:org-capture state=floating sticky=on
 bspc rule -a Gimp state=floating
+bspc rule -a feh state=floating
 bspc rule -a Zathura state=tiled
 bspc rule -a 'Nightly:*' state=floating # Firefox
 bspc rule -a Nightly:Navigator state=tiled

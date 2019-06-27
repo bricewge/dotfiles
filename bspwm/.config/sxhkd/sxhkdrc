@@ -148,12 +148,11 @@ super + o
 
 # ** screenshot
 super + space ; s
- maim ~/picture/screenshot/$(date --iso-8601=seconds).png && \
-   notify-send -u low "new window screenshot"
+ screenshot  ~/picture/screenshot/$(date --iso-8601=seconds).png
 
 super + space ; S
- maim --select ~/picture/screenshot/$(date --iso-8601=seconds).png && \
-   notify-send -u low "new screenshot"
+ screenshot --select --tolerance 9999999 --hidecursor --nokeyboard \
+   ~/picture/screenshot/$(date --iso-8601=seconds).png
 
 # ** TODO notifications
 # * macOS shortcuts

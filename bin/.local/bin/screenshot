@@ -3,18 +3,38 @@
 # Wrapper around maim that:
 # - takes window screenshot like macOS does
 # - notify you when done
+# - show the screenshot when middle clicking the notification
 
-# TODO Make border dynamic:  2×sigma+abs(offset),
-# http://www.imagemagick.org/Usage/blur/#shadow
+set -e
 
-output=$HOME/picture/screenshot/$(date --iso-8601=seconds).png
+message="new screenshot"
 
-maim -st 9999999 | \ # force window selection
-    convert - -bordercolor None -border 40x55  \
-    \( +clone -background black -shadow 60x20+0+15 \) \
-    +swap -background none -layers merge +repage \
+i=0
+for arg in "$@"; do
+    # unset the last argument
+    i=$((i+1))
+    shift
+    [ $# -ge $i ] && set -- "$@" "$arg"
+    # parse the other arguments
+    case $arg in
+        --select) message="new window screenshot" ;;
+    esac
+done
+# last argument is the output
+output=$arg
+
+maim "$@" | \
+    convert - -background None \
+    -gravity north -splice 0x32  \
+    -gravity south -splice 0x80  \
+    -gravity east -splice 56x0  \
+    -gravity west -splice 56x0  \
+    \( +clone -background black -shadow 50x15+0+20 \) \
+    -background none -compose DstOver -flatten -compose Over \
     "$output"
+    # -layers merge +repage \
 
 
-notify-send -u low -t 2 "new window screenshot"
-# notify-send -u low "new screenshot"
+action=$(dunstify --urgency=low --action="preview,preview" "$message")
+[ "$action" = "preview" ] &&  feh --image-bg gray \
+    --scale-down "$output"
