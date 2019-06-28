@@ -32,8 +32,6 @@ maim "$@" | \
     \( +clone -background black -shadow 50x15+0+20 \) \
     -background none -compose DstOver -flatten -compose Over \
     "$output"
-    # -layers merge +repage \
-
 
 action=$(dunstify --urgency=low --action="preview,preview" "$message")
 [ "$action" = "preview" ] &&  feh --image-bg gray \
