@@ -6,15 +6,9 @@ Use folder for ~interactive.d~ and ~login.d~.
 * TODO write a function to git clone or pull
 https://gist.github.com/nicferrier/2277987
 * Finish migration
-** [X] Commit all old modifications
-** TODO Rebase on master
 ** TODO Migrate
-- [ ] bspwm
 - [ ] emacs
-- [ ] fonts
 - [ ] macos
-- [ ] polybar move from systemd service
-- [ ] texlive
 
 * TODO Write documentation
 
