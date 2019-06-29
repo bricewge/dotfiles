@@ -33,7 +33,7 @@ home_hierarchy() {
 }
 
 # apply state specific to me as a user
-bricewge() {
+user_specific() {
     if [ "$USER" != "bricewge" ] && [ "$USER" != "bwaegene" ]; then return; fi
 
     home_hierarchy
@@ -67,7 +67,7 @@ printf "export DOTFILES=%s" "$DOTFILES" > "$HOME/.shell/login.d/dotfiles.sh"
 
 # TODO Source shell env and libs
 
-bricewge
+user_specific
 
 # Arguments: limit the install to those packages
 stow "$@"
