@@ -70,7 +70,7 @@ printf "export DOTFILES=%s" "$DOTFILES" > "$HOME/.shell/profile/dotfiles"
 bricewge
 
 # Arguments: limit the install to those packages
-stow --target "$HOME" "$@"
+stow "$@"
 for pkg in "$@"; do
     if [ -x "$pkg"/setup.sh ]; then (
             cd "$pkg" || exit 1

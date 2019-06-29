@@ -2,4 +2,5 @@
 --ignore=^README.*
 --ignore=^@.*
 --ignore=^_.*
+--target=~
 --no-folding
