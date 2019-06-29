@@ -63,7 +63,7 @@ cd "$(dirname "$0")" || exit 1
 DOTFILES=$PWD
 export DOTFILES
 
-printf "export DOTFILES=%s" "$DOTFILES" > "$HOME/.shell/profile/dotfiles"
+printf "export DOTFILES=%s" "$DOTFILES" > "$HOME/.shell/login.d/dotfiles.sh"
 
 # TODO Source shell env and libs
 
