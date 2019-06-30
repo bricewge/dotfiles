@@ -1,14 +1,17 @@
 #!/usr/bin/env sh
+#
+# Script executed when bspwm is started.
 
-source "${HOME}/.xprofile"
-source "${HOME}/.profile"
+# shellcheck disable=SC1090
+. "$HOME/.xprofile"
+. "$HOME/.profile"
 
 # * Early setup
 # Setup monitors
 autorandr --change --force
 # Set a wallpaper
-if [[ -x "${HOME}"/.fehbg ]]; then
-    "${HOME}"/.fehbg &
+if [ -x "$HOME"/.fehbg ]; then
+    "$HOME"/.fehbg &
 else
     feh --bg-fill ~/picture/wallpaper/schicka-307-unsplash.jpg &
 fi
@@ -23,6 +26,7 @@ sxhkd -s "$SXHKD_FIFO" -t 2 &
 ~/.config/bspwm/sxhkd-listener.sh &
 
 # * bspwm config
+# TODO Remove hardcoded monitor name and desktops
 bspc monitor LVDS1 -d I II III IV V
 # bspc monitor HDMI1 -d 1 2 3 4 5
 bspc desktop -f III
