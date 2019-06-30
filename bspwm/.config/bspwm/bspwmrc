@@ -13,7 +13,7 @@ autorandr --change --force
 if [ -x "$HOME"/.fehbg ]; then
     "$HOME"/.fehbg &
 else
-    feh --bg-fill ~/picture/wallpaper/schicka-307-unsplash.jpg &
+    feh --bg-fill "$DOTFILES"/_wallpaper/schicka-307-unsplash.jpg &
 fi
 # Set a nice cursor
 xsetroot -cursor_name left_ptr
