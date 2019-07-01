@@ -4,7 +4,9 @@ config_dir=$(bat --config-dir)
 
 # * themes
 mkdir -p "$config_dir/themes"
-git clone https://github.com/paulcpederson/solarized-sublime.git \
+# WAITING https://github.com/sharkdp/bat/issues/339
+# git clone https://github.com/paulcpederson/solarized-sublime.git \
+git clone https://github.com/bricewge/solarized-sublime.git \
   "$config_dir/themes/solarized"
 
 # * syntaxes
