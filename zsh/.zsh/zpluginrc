@@ -23,7 +23,10 @@ ice_default="wait'0' silent"
 . ~/.shell/lib/solarized.sh
 
 # ** prompt
-zstyle ':prompt:pure:branch' color "$SOLARIZED_BASE01"
+zstyle ':prompt:pure:git:branch' color "$SOLARIZED_BASE01"
+zstyle ':prompt:pure:host' color "$SOLARIZED_BASE01"
+zstyle ':prompt:pure:user' color "$SOLARIZED_BASE01"
+zstyle ':prompt:pure:virtualenv' color "$SOLARIZED_BASE01"
 
 # WAITING https://github.com/sindresorhus/pure/issues/332
 zplugin ice wait'!0' silent pick'async.zsh' src'pure.zsh' \
