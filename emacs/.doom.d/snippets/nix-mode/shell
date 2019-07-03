@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: nix shell
+# key: sh
+# expand-env: ((yas-indent-line 'fixed))
+# --
+let
+  pkgs = import <nixpkgs> {};
+in
+
+pkgs.mkShell {
+  buildInputs = with pkgs ; [ $1 ];
+  shellHook = ''$2'';
+}

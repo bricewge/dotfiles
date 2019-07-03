@@ -1,0 +1,32 @@
+# -*- mode: snippet -*-
+# name: package git
+# key: pg
+# --
+{ stdenv, fetchgit$1 }:
+stdenv.mkDerivation rec {
+  name = "$2-\$\{version\}";
+  version = "$3";
+
+  src = fetchgit {
+    url = "$4";
+    rev = "${5:v\$\{version\}}";
+    sha256 = "$6";
+  };
+
+  buildInputs = [${1:$(replace-regexp-in-string "," "" yas-text)} ];
+
+  meta = with stdenv.lib; {
+    description = "$7";
+    homepage = "$8";
+
+    license = licenses.${9:$$
+    (yas-choose-value (json-read-from-string
+    (shell-command-to-string "nix eval --json nixpkgs.lib.licenses")))
+  };
+    maintainers = with maintainers; [ $10 ];
+    platforms = platforms.${11:$$
+    (yas-choose-value (json-read-from-string
+    (shell-command-to-string "nix eval --json nixpkgs.lib.platforms")))
+  };
+  };
+}

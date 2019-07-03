@@ -1,0 +1,33 @@
+# -*- mode: snippet -*-
+# name: package github
+# key: pG
+# --
+{ stdenv, fetchFromGitHub$1 }:
+stdenv.mkDerivation rec {
+  name = "$2-\$\{version\}";
+  version = "$3";
+
+  src = fetchFromGitHub {
+    owner = "$4";
+    repo = "$2";
+    rev = "${5:v\$\{version\}}";
+    sha256 = "$6";
+  };
+
+  buildInputs = [${1:$(replace-regexp-in-string "," "" yas-text)} ];
+
+  meta = with stdenv.lib; {
+    description = "$7";
+    homepage = https://${8:github.com/$4/$2};
+
+    license = licenses.${9:$$
+    (yas-choose-value (json-read-from-string
+    (shell-command-to-string "nix eval --json nixpkgs.lib.licenses")))
+  };
+    maintainers = with maintainers; [ $10 ];
+    platforms = platforms.${11:$$
+    (yas-choose-value (json-read-from-string
+    (shell-command-to-string "nix eval --json nixpkgs.lib.platforms")))
+  };
+  };
+}

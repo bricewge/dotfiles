@@ -1,2 +1,0 @@
-#!/usr/bin/env sh
-emacs -Q --eval "(progn (setq user-emacs-directory \"~/.emacs.d.old/\") (load-file \"~/.emacs.d.old/init.el\"))"

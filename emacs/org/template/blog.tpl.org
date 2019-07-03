@@ -1,9 +1,0 @@
-#+TITLE: %^{Title}
-#+BEGIN_COMMENT
-.. title: %\1
-.. date: %<%Y-%m-%d %H:%M>
-.. tags:
-.. slug:
-#+END_COMMENT
-
-%?
