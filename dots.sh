@@ -27,7 +27,7 @@ home_hierarchy() {
                 vm
 
             mkdir -p \
-                "${XDG_CONFIG_HOME}" \
+                "${XDG_CONFIG_HOME:-$HOME/.config}" \
                 "${HOME}/.local/src"
     )
 }
@@ -63,7 +63,9 @@ cd "$(dirname "$0")" || exit 1
 DOTFILES=$PWD
 export DOTFILES
 
-printf "export DOTFILES=%s" "$DOTFILES" > "$HOME/.shell/login.d/dotfiles.sh"
+test -d "$HOME/.shell/login.d" && \
+    printf  "export DOTFILES=%s" "$DOTFILES" \
+    > "$HOME/.shell/login.d/dotfiles.sh"
 
 # TODO Source shell env and libs
 
