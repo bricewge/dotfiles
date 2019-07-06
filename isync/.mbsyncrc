@@ -1,42 +1,34 @@
-# mbsyncrc based on
+# ~/.mbsyncrc based on
 # http://www.ict4g.net/adolfo/notes/2014/12/27/EmacsIMAP.html
-# ACCOUNT INFORMATION
+
+# * account
 IMAPAccount gmail
-# Address to connect to
 Host imap.gmail.com
 User brice.wge@gmail.com
-PassCmd "/usr/bin/pass email/brice.wge@gmail.com | sed -n '4p'" # retrieves the remote password
+# WAITING daemon mode for mbsync
+# currently I would need to touch the yubikey for each channel to sync...
+# PassCmd "pass email/brice.wge@gmail.com | sed -n '4p'"
+PassCmd "sh -c 'printf $PASSWORD'" # dirty insecure workaround
 AuthMechs LOGIN
 SSLType IMAPS
-SSLVersions TLSv1.2
-CertificateFile /etc/ssl/certs/ca-certificates.crt
+# SSLVersions TLSv1.2
+PipelineDepth 50 # avoid gmail's OVERQUOTA error
 
-# THEN WE SPECIFY THE LOCAL AND REMOTE STORAGE
-# - THE REMOTE STORAGE IS WHERE WE GET THE MAIL FROM (E.G., THE
-#   SPECIFICATION OF AN IMAP ACCOUNT)
-# - THE LOCAL STORAGE IS WHERE WE STORE THE EMAIL ON OUR COMPUTER
-
-# REMOTE STORAGE (USE THE IMAP ACCOUNT SPECIFIED ABOVE)
+# * remote storage
 IMAPStore gmail-remote
 Account gmail
 
-# LOCAL STORAGE (CREATE DIRECTORIES with mkdir -p Maildir/gmail)
+# * local storage
 MaildirStore gmail-local
-Path ~/courriel/gmail
-Inbox ~/courriel/gmail/INBOX
+Path ~/.mail/gmail
+Inbox ~/.mail/gmail/inbox
 
-# CONNECTIONS SPECIFY LINKS BETWEEN REMOTE AND LOCAL FOLDERS
-#
-# CONNECTIONS ARE SPECIFIED USING PATTERNS, WHICH MATCH REMOTE MAIl
-# FOLDERS. SOME COMMONLY USED PATTERS INCLUDE:
-#
-# 1 "*" TO MATCH EVERYTHING
-# 2 "!DIR" TO EXCLUDE "DIR"
-# 3 "DIR" TO MATCH DIR
+# * channels
+# specify links between remote and local folders
 
 Channel gmail-inbox
 Master :gmail-remote:
-Slave :gmail-local:
+Slave :gmail-local:inbox
 Patterns "INBOX"
 Create Both
 Expunge Both
@@ -44,41 +36,41 @@ SyncState *
 
 Channel gmail-trash
 Master :gmail-remote:"[Gmail]/Corbeille"
-Slave :gmail-local:"corbeille"
+Slave :gmail-local:trash
 Create Both
 Expunge Both
 SyncState *
 
 Channel gmail-sent
-Master :gmail-remote:"[Gmail]/Messages envoyés"
-Slave :gmail-local:"envoyes"
+# Master :gmail-remote:"[Gmail]/Messages envoyés"
+Master :gmail-remote:"[Gmail]/Sent Mail"
+Slave :gmail-local:sent
 Create Both
 Expunge Both
 SyncState *
 
 Channel gmail-all
 Master :gmail-remote:"[Gmail]/Tous les messages"
-Slave :gmail-local:"tout"
+Slave :gmail-local:all
 Create Both
 Expunge Both
 SyncState *
 
 Channel gmail-starred
 Master :gmail-remote:"[Gmail]/Important"
-Slave :gmail-local:"important"
+Slave :gmail-local:starred
 Create Both
 Expunge Both
 SyncState *
 
-# GROUPS PUT TOGETHER CHANNELS, SO THAT WE CAN INVOKE
-# MBSYNC ON A GROUP TO SYNC ALL CHANNELS
-#
-# FOR INSTANCE: "mbsync gmail" GETS MAIL FROM
-# "gmail-inbox", "gmail-sent", and "gmail-trash"
-#
+# * groups
 Group gmail
 Channel gmail-inbox
 Channel gmail-sent
 Channel gmail-trash
 Channel gmail-all
 Channel gmail-starred
+
+# Local Variables:
+# mode: conf
+# End:
