@@ -284,6 +284,17 @@
   :config
   (set-face-background 'mmm-default-submode-face nil))
 
+;; * email
+(after! mu4e
+(set-email-account! "gmail"
+  '((mu4e-sent-folder       . "/gmail/sent")
+    (mu4e-drafts-folder     . "/gmail/draft")
+    (mu4e-trash-folder      . "/gmail/trash")
+    (mu4e-refile-folder     . "/gmail/all")
+    (smtpmail-smtp-user     . "brice.wge@gmail.com")
+    (user-mail-address      . "brice.wge@gmail.com")
+    (mu4e-compose-signature . "---\nbricewge ~ 8929 BBC5 73CD 9206 3DDD  979D 3D36 CAA0 116F 0F99"))
+  t))
 ;; * app
 
 ;; * collab

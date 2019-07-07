@@ -139,11 +139,15 @@
        (web +lsp)                       ; the tubes
        ;;vala              ; GObjective-C
 
+       :email
+       (mu4e +gmail)       ; WIP
+       ;;notmuch             ; WIP
+       ;;(wanderlust +gmail) ; WIP
+
        ;; Applications are complex and opinionated modules that transform Emacs
        ;; toward a specific purpose. They may have additional dependencies and
        ;; should be loaded late.
        :app
-       ;;(email +gmail)    ; emacs as an email client
        ;;irc               ; how neckbeards socialize
        regex    ; (WIP)
        ;;(rss +org)        ; emacs as an RSS reader
