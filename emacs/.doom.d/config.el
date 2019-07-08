@@ -190,7 +190,13 @@
   ;; access remote sudo hosts with =/sudo:remote:/path=
   (setq tramp-default-proxies-alist
         '(((regexp-opt (cons (system-name) '("localhost"))) nil nil)
-          (nil "\\`root\\'" "/sshx:%h:"))))
+          (nil "\\`root\\'" "/sshx:%h:")))
+  ;; GUIX specific
+  (setq tramp-remote-path
+        (append tramp-remote-path
+                '("~/.guix-profile/bin" "~/.guix-profile/sbin"
+                  "/run/current-system/profile/bin"
+                  "/run/current-system/profile/sbin"))))
 
 ;; * term
 ;; ** eshell
