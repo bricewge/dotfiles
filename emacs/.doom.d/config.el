@@ -211,6 +211,16 @@
 (after! flyspell
   (setq ispell-dictionary "english"))
 
+;; ** gitpatch
+(after! gitpatch
+  (map! :leader
+        (:prefix "g"
+          :desc "Mail a patch"    :n "m" #'gitpatch-mail
+          :desc "Attach patch to mail"   :n "M" #'gitpatch-mail-attach-patch))
+  (setq gitpatch-mail-function #'+mu4e/compose)
+  (setq gitpatch-mail-database
+        '("guix-devel@gnu.org")))
+
 ;; ** magit
 (after! magit
   (magit-wip-mode))
@@ -265,6 +275,19 @@
 ;; example value: '0x073642'
 
 ;; * lang
+;; ** guile
+(after! guix
+  (setq guix-directory "~/project/guix")
+  (add-hook 'after-init-hook 'global-guix-prettify-mode)
+  (add-hook 'scheme-mode-hook 'guix-devel-mode)
+  (with-eval-after-load 'geiser-guile
+    ;; NOTE: "~/.config/guix/latest/" is invaild,
+    ;; use "~/.config/guix/latest" instead.
+    (add-to-list 'geiser-guile-load-path
+                 (concat (file-name-directory (locate-library "geiser.el"))
+                         "scheme/guile"))
+    (add-to-list 'geiser-guile-load-path "~/.config/guix/latest")))
+
 ;; ** org
 (load! "+org")
 

@@ -29,6 +29,7 @@
 
 (package! guix)
 (package! geiser)
+(package! gitpatch)
 
 (package! ascii-art-to-unicode)
 
@@ -38,5 +39,4 @@
   (:fetcher github
             :repo "bricewge/emacs-doom-themes"
             :branch "hl-fill-column"
-            :files ("*.el" "themes/*.el")
-            ))
+            :files ("*.el" "themes/*.el")))
