@@ -19,28 +19,28 @@ super + {_, shift +} s
 # ** monitor
 # Cycle through monitors
 super + {q,w}
-    bspc monitor --focus {next,prev}
+  bspc monitor --focus {next,prev}
 
-# Move to monitor
+# Move window or desktop to monitor
 super + {shift,alt} + {q,w}
-    bspc {node,desktop} --to-monitor {next,prev}
+  bspc {node,desktop} --to-monitor {next,prev}
 
 # ** resize
-# Increase size from a side
+# Increase window's size from a side
 super + z: {h,j,k,l}
   bspc node --resize {left -20 0, bottom 0 20, top 0 -20, right 20 0}
-# Decrease size from a side
+# Decrease window's size from a side
 super + z: shift + {h,j,k,l}
   bspc node --resize {left 20 0, bottom 0 -20, top 0 20, right -20 0}
 
 # ** movements
-# Select windows and move them in the current desktop
+# Activate window or move it to current desktop
 super + {_,shift + }{h,j,k,l}
-	bspc node --{focus,swap} {west,south,north,east}
+  bspc node --{focus,swap} {west,south,north,east}
 
-# move between desktops
+# Cycle through desktops
 super + ctrl + {h,l}
-	bspc desktop --focus {prev,next}
+  bspc desktop --focus {prev,next}
 
 # Switch to a desktop within a monitor
 super + {1-9}
@@ -52,27 +52,27 @@ super + alt + {1-9}
 # Send the selected window to the desktop 1-6 and follow it, if no
 # window is selected go to the desktop 1-6 anyway.
 super + shift + {1-9}
-	bspc node focused --to-desktop 'focused:^'{1-9} --follow
+  bspc node focused --to-desktop 'focused:^'{1-9} --follow
 # Go to the next or previous desktop
 super + {Left, comma, Right, period}
-	bspc desktop -f {prev,prev,next,next}
+  bspc desktop -f {prev,prev,next,next}
 # Move the selected window to the next or previous desktop
 super + shift + {Left,Right}
-	dir={prev,next} && \
-	bspc node --to-desktop "$dir" --follow
+  dir={prev,next} && \
+  bspc node --to-desktop "$dir" --follow
 
 # Switch between the last node/monitor
 super + {_, shift +} Tab
-	bspc {node,monitor} -f last
+  bspc {node,monitor} -f last
 
 # ** mouse
 ~button1
-	bspc node pointed -f
+  bspc node pointed -f
 
 # ** exotic
-# Swap the current node with the biggest node of the desktop
+# Swap window with the biggest one
 super + m
-	bspc node focused --swap biggest.local
+  bspc node focused --swap biggest.local
 
 # Toogle windows gap
 super + g
@@ -84,20 +84,20 @@ super + {_, shift +} r
  bspc node @/ --rotate {+,-}90
 # * app launchers
 # Stop the key chain if the mouse buttons are pressed
-super + space ; {~button1, ~button2, ~button3}
-  echo {1,2,3}
+super + space ; ~button{1,2,3}
+  echo button{1,2,3} stoped key chain
 
 # Terminal
 super + space ; {t, T}
-	alacritty --command tmux {new-session -t main,_}
+  alacritty --command tmux {new-session -t main,_}
 
-# Editor
 # TODO Should open a clean emacs
+# Text editor
 super + space ; {e, E}
-        {emacsclient -nc -a "", emacs}
+  {emacsclient -nc -a "", emacs}
 
-# File browser
 # TODO Add ranger.el
+# File browser
 super + space ; f
   nautilus
 
@@ -105,9 +105,11 @@ super + space ; f
 super + space ; {w, W}
   {firefox,chromium}
 
+# Video player
 super + space ; v
   mpv --profile=pseudo-gui
 
+# List applications
 super + space ; space
   rofi -show drun
 
@@ -116,15 +118,20 @@ super + space ; space
 super + space ; h
   rofi-sxhkd
 
+# Password manager
 super + space ; p
-	rofi-pass
+  rofi-pass
 
+# WiFi menu
 super + space ; n
   rofi-wifi
 
+# TODO Test this
+# List ?disks?
 super + space; u
   UDISKIE_DMENU_LAUNCHER=rofi udiskie-dmenu -matching regex -dmenu -i -no-custom -multi-select
 
+# Capture note
 super + space ; o
   org-capture
 
@@ -144,12 +151,12 @@ super + space ; o
 # ** screenshot
 # Take a screenshot of all desktops
 super + space ; s
- screenshot  ~/picture/screenshot/$(date --iso-8601=seconds).png
+  screenshot  ~/picture/screenshot/$(date --iso-8601=seconds).png
 
 # Take screenshot of a window
 super + space ; S
- screenshot --select --tolerance 9999999 --hidecursor --nokeyboard \
-   ~/picture/screenshot/$(date --iso-8601=seconds).png
+  screenshot --select --tolerance 9999999 --hidecursor --nokeyboard \
+  ~/picture/screenshot/$(date --iso-8601=seconds).png
 
 # ** TODO notifications
 # * macOS shortcuts
@@ -189,10 +196,10 @@ super + space ; S
 
 # ** keyboard brightness
 XF86KbdBrightnessDown
-	xbacklight -fps 10 -ctrl smc::kbd_backlight -7
+  xbacklight -fps 10 -ctrl smc::kbd_backlight -7
 
 XF86KbdBrightnessUp
-	xbacklight -fps 10 -ctrl smc::kbd_backlight +7
+  xbacklight -fps 10 -ctrl smc::kbd_backlight +7
 
 # ** multimedia
 {super + F7, XF86AudioPrev}
@@ -231,10 +238,10 @@ super + Escape
 
 # Quit bspwm and kill the panel
 super + alt + Escape
-   pkill conky; pkill polybar; bspc quit
+  pkill conky; pkill polybar; bspc quit
 
 # ~Escape
-# 	~/.config/bspwm/panel/scripts/toggle_conky *
+#   ~/.config/bspwm/panel/scripts/toggle_conky *
 
 # * workarounds
 # Disable Ctrl+q for Firefox
