@@ -112,6 +112,10 @@ super + space ; space
   rofi -show drun
 
 # * ¿ interface ?
+# List sxhkd key bindings
+super + space ; h
+  rofi-sxhkd
+
 super + space ; p
 	rofi-pass
 
