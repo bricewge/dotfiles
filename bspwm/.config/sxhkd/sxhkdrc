@@ -1,8 +1,10 @@
 # -*- mode: conf-space -*-
-# Hotkeys for bspwm
-# * bspwm hotkeys
-# ** Not orded, yet
+# keybindings for bspwm
 
+# TODO unhide a window from rofi
+
+# * bspwm hotkeys
+# ** general
 # Close or kill a window
 super + {_, shift +} d
 	bspc node --{close,kill}
@@ -13,21 +15,6 @@ super + {_, shift +} f
 super + {_, shift +} s
 	bspc node -t \~{tiled,pseudo_tiled}
 
-# Switch between the last node/monitor
-super + {_, shift +} Tab
-	bspc {node,monitor} -f last
-
-# Swap the current node with the biggest node of the desktop
-super + m
-	bspc node focused --swap biggest.local
-
-# Toogle windows gap
-super + g
-  bspc config window_gap $( [[ `bspc config window_gap` -eq $BSPWM_GAP ]] && echo 0 || echo $BSPWM_GAP )
-
-# Rotate the tree clockwise and counter-clockwise
-super + {_, shift +} r
- bspc node @/ -R {+,-}90
 
 # ** monitor
 # Cycle through monitors
@@ -37,25 +24,7 @@ super + {q,w}
 # Move to monitor
 super + {shift,alt} + {q,w}
     bspc {node,desktop} --to-monitor {next,prev}
-# TODO report crash when =bspc desktop --to-monitor-prev=
 
-# ** vim movments
-# Select windows and move them in the current desktop 
-super + {_,shift + }{h,j,k,l}
-	bspc node --{focus,swap} {west,south,north,east}
-
-# Resize node from their sides, increase then decrease
-super + alt + {h,j,k,l}
-  bspc node --resize {left -20 0, bottom 0 20, top 0 -20, right 20 0}
-super + alt + shift + {h,j,k,l}
-  bspc node --resize {left 20 0, bottom 0 -20, top 0 20, right -20 0}
-
-# Move between desktop and move node bettwen desktop
-super + ctrl + {h,l}
-	bspc desktop --focus {prev,next}
-super + ctrl + shift + {h,l}
-	dir={prev,next} && \
-	bspc node --to-desktop ${dir} --follow
 # ** resize
 # Increase size from a side
 super + z: {h,j,k,l}
@@ -64,13 +33,18 @@ super + z: {h,j,k,l}
 super + z: shift + {h,j,k,l}
   bspc node --resize {left 20 0, bottom 0 -20, top 0 20, right -20 0}
 
-# ** Move between desktops
-# Switch to desktop within a monitor
+# ** movements
+# Select windows and move them in the current desktop
+super + {_,shift + }{h,j,k,l}
+	bspc node --{focus,swap} {west,south,north,east}
+
+# move between desktops
+super + ctrl + {h,l}
+	bspc desktop --focus {prev,next}
+
+# Switch to a desktop within a monitor
 super + {1-9}
 	bspc desktop --focus 'focused:^'{1-9}
-# # Switch to desktop for Macbook Air French AZERTY keyboard
-# super + {ampersand,eacute,quotedbl,apostrophe,parenleft,section,egrave,exclam,ccedilla}
-# 	bspc desktop --focus ^{1-9}
 # Switch betwen monitors
 super + alt + {1-9}
   bspc monitor --focus '^'{1-9}
@@ -85,12 +59,29 @@ super + {Left, comma, Right, period}
 # Move the selected window to the next or previous desktop
 super + shift + {Left,Right}
 	dir={prev,next} && \
-	bspc node --to-desktop ${dir} --follow
+	bspc node --to-desktop "$dir" --follow
 
-# ** Mouse actions
+# Switch between the last node/monitor
+super + {_, shift +} Tab
+	bspc {node,monitor} -f last
+
+# ** mouse
 ~button1
 	bspc node pointed -f
 
+# ** exotic
+# Swap the current node with the biggest node of the desktop
+super + m
+	bspc node focused --swap biggest.local
+
+# Toogle windows gap
+super + g
+  gap=$(test $(bspc config window_gap) -eq $BSPWM_GAP && echo 0 || echo $BSPWM_GAP ) && \
+  bspc config window_gap
+
+# Rotate the tree clockwise and counter-clockwise
+super + {_, shift +} r
+ bspc node @/ --rotate {+,-}90
 # * app launchers
 # Stop the key chain if the mouse buttons are pressed
 super + space ; {~button1, ~button2, ~button3}
@@ -121,7 +112,7 @@ super + space ; space
   rofi -show drun
 
 # * ¿ interface ?
-super + p
+super + space ; p
 	rofi-pass
 
 super + space ; n
@@ -130,7 +121,7 @@ super + space ; n
 super + space; u
   UDISKIE_DMENU_LAUNCHER=rofi udiskie-dmenu -matching regex -dmenu -i -no-custom -multi-select
 
-super + o
+super + space ; o
   org-capture
 
 # super + 0
@@ -147,9 +138,11 @@ super + o
 #     fi
 
 # ** screenshot
+# Take a screenshot of all desktops
 super + space ; s
  screenshot  ~/picture/screenshot/$(date --iso-8601=seconds).png
 
+# Take screenshot of a window
 super + space ; S
  screenshot --select --tolerance 9999999 --hidecursor --nokeyboard \
    ~/picture/screenshot/$(date --iso-8601=seconds).png
@@ -161,17 +154,17 @@ super + space ; S
 # http://developers-club.com/posts/266375/
 
 # copy
-super + c
-  copypaste.sh copy
-# paste
-super + v
-  copypaste.sh paste
-# cut
-super + x
-  xvkbd -xsendevent -text '\[Control_L]x'
-# select all
-super + a
-  xvkbd -xsendevent -text '\[Control_L]a'
+# super + c
+#   copypaste.sh copy
+# # paste
+# super + v
+#   copypaste.sh paste
+# # cut
+# super + x
+#   xvkbd -xsendevent -text '\[Control_L]x'
+# # select all
+# super + a
+#   xvkbd -xsendevent -text '\[Control_L]a'
 
 # * media keys
 # ** monitor brightness
