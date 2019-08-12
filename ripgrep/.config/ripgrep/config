@@ -1,0 +1,3 @@
+# search hidden files but not .git directories
+--hidden
+--iglob=!.git/
