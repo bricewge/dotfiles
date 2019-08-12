@@ -18,7 +18,7 @@ green = #859900
 
 ; Colors used in the default config
 background = ${self.base02}
-background-alt = ${self.base1}
+background-alt = ${self.base03}
 foreground = ${self.base1}
 foreground-alt = ${self.base01}
 primary = ${self.yellow}

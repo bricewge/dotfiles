@@ -1,7 +1,8 @@
-;;; [Polybar](https://github.com/jaagr/polybar) configuration
+; TODO Remove hardcoded colors:
+; https://github.com/polybar/polybar/wiki/Formatting#format-tags-inside-polybar-config
 
-
-[bar/example]
+; * bar
+[bar/bspwm]
 monitor = ${env:MONITOR:}
 width = 100%
 height = 30
@@ -10,33 +11,34 @@ fixed-center = true
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-underline-size = 2
-underline-color = ${colors.blue}
+line-size = 2
+line-color = ${colors.secondary}
 
-module-margin = 2
+separator = %{F#586e75}|%{F-}
+module-margin = 1
+padding-right= 1
 
 font-0 = MesloLGS Nerd Font:size=12;2
-font-1 = Meslo LG S:size=12;2
-font-2 = Noto Sans:size=11;1
-; Extra symbols: http://fontawesome.io/cheatsheet/
+font-1 = Noto Sans Symbols2:size=12;4
+; Extra symbols: https://www.nerdfonts.com/cheat-sheet/
 
 enable-ipc = true
 
-modules-left = sxhkd mpv
+modules-left = launcher mpv
 modules-center = bspwm
-modules-right = volume battery date powermenu
+modules-right = volume battery date
 
-tray-position = right
-tray-padding = 2
-tray-background = ${colors.background}
+tray-position = ${env:TRAY_POSITION:right}
+tray-background = ${colors.background-alt}
 
 wm-restack = bspwm
 override-redirect = true
 
-; ** colors
+; * colors
 [colors]
 include-file = $HOME/.config/polybar/colors
 
+; * modules
 ; ** xwindow
 [module/xwindow]
 type = internal/xwindow
@@ -47,37 +49,43 @@ label = %title:0:30:...%
 type = internal/bspwm
 
 ;     ● ○
-
-ws-icon-default = 
+; ■ 🞐 ? □ ? ?
 
 ; *** focused
-label-focused-occupied = 
-label-focused-occupied-underline= ${colors.primary}
+label-focused-occupied = ■
+label-focused-occupied-font = 2
 label-focused-occupied-padding = 1
-label-focused-empty = 
-label-focused-empty-underline= ${colors.primary}
+label-focused-occupied-background= ${colors.background-alt}
+label-focused-empty = 🞐
+label-focused-empty-font = 2
 label-focused-empty-padding = 1
+label-focused-empty-background = ${colors.background-alt}
 
 ; *** occupied
-label-occupied = 
-label-occupied-foreground = ${colors.foreground-alt}
+label-occupied = ■
+label-occupied-font = 2
 label-occupied-padding = 1
+label-occupied-foreground = ${colors.foreground-alt}
 
 ; *** empty
-label-empty = 
+label-empty = 🞐
+label-empty-font = 2
 label-empty-foreground = ${colors.foreground-alt}
 label-empty-padding = 1
 
 ; *** urgent
-; TODO Fix urgent
-label-urgent = %icon%
-label-urgent-foreground = ${colors.orange}
+; NOTE An urgent desktop is always occupied because it needs to contain an
+; urgent window to be so.
+label-urgent = ■
+label-urgent-font = 2
+label-urgent-foreground = ${colors.foreground-alt}
+label-urgent-overline = ${colors.alert}
 label-urgent-padding = 1
-label-urgent-occupied = 
-label-focused-urgent = %icon%
-label-focused-urgent-foreground = ${colors.orange}
+label-focused-urgent = ■
+label-focused-urgent-font = 2
+label-focused-urgent-background = ${colors.background-alt}
 label-focused-urgent-padding = 1
-label-focused-urgent-underline= ${colors.primary}
+label-focused-urgent-overline= ${colors.alert}
 
 ; ** mpd
 [module/mpd]
@@ -106,8 +114,7 @@ time = %H:%M
 date-alt = "%Y-%m-%d "
 time-alt = %H:%M:%S
 label = %date%%time%
-format =  <label> 
-label-alt-foreground = ${colors.foreground-alt}
+format =  <label>
 
 ; ** volume
 [module/volume]
@@ -144,20 +151,15 @@ ramp-capacity-2 = 
 ramp-capacity-3 = 
 ramp-capacity-4 = 
 
-; ** powermenu
-[module/powermenu]
-type = custom/text
-content = "  "
-click-left = rofi-power "bspc quit 1"
-
-; ** sxhkd
-[module/sxhkd]
-; Indicate if sxhkd has began a chain.
+; ** launcher
+[module/launcher]
+; Indicate if sxhkd has began a chain and serve as a launcher
 type = custom/ipc
-hook-0 = echo "%{B#93a1a1 F#586e75}  %{B- F-}"
+hook-0 = echo  "%{B#93a1a1 F#586e75}  %{B- F-}"
 hook-1 = echo "%{B#b58900 F#586e75}  %{B- F-}"
 initial = 1
 click-left = rofi -show drun
+click-right = rofi-power "bspc quit 1"
 
 ; ** mpd
 [module/mpv]

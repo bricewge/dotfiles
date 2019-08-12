@@ -5,7 +5,7 @@ PartOf=graphical-session.target
 
 [Service]
 Type=simple
-ExecStart=/run/current-system/sw/bin/polybar --reload example
+ExecStart=/run/current-system/sw/bin/polybar --reload bspwm
 Environment=MONITOR=%i
 Environment=PATH=%h/.local/bin:%h.nix-profile/bin/:/run/current-system/sw/bin
 
