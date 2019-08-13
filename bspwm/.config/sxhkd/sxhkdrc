@@ -86,8 +86,13 @@ super + m
 
 # Toogle windows gap
 super + g
-  gap=$(test $(bspc config window_gap) -eq $BSPWM_GAP && echo 0 || echo $BSPWM_GAP ) && \
-  bspc config window_gap
+  gap=$(test $(bspc config -d focused window_gap) -eq $\{BSPWM_GAP:=20\} \
+        && echo 0 || echo $BSPWM_GAP ) && \
+  bspc config -d focused window_gap $gap
+
+# Increase or reduce the gap between windows
+super + G: super {g,G}
+  bspc config -d focused window_gap "$(($(bspc config -d focused window_gap) {-,+} 5 ))"
 
 # Rotate the tree clockwise and counter-clockwise
 super + {_, shift +} r
