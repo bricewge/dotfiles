@@ -264,9 +264,6 @@ XF86AudioMicMute
   pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
 # ** system
-{super + space; p, XF86PowerOff}
-  rofi-power "bspc quit 1"
-
 # * window manager
 # Reload UI configurations
 super + Escape
@@ -274,11 +271,8 @@ super + Escape
   notify-send -u low "sxhkd reloaded"
 
 # Quit bspwm and kill the panel
-super + alt + Escape
-  pkill conky; pkill polybar; bspc quit
-
-# ~Escape
-#   ~/.config/bspwm/panel/scripts/toggle_conky *
+{super + alt + Escape, XF86PowerOff}
+  rofi-power "bspc quit 1"
 
 # * workarounds
 # Disable Ctrl+q for Firefox
