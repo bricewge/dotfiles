@@ -34,10 +34,6 @@ super + {q,w}
 super + {shift,alt} + {q,w}
   bspc {node,desktop} --to-monitor {next,prev}
 
-# Switch between monitors
-super + alt + {1-9}
-  bspc monitor --focus '^'{1-9}
-
 # ** resize
 # Increase window's size from a side
 super + z: {h,j,k,l}
@@ -74,6 +70,15 @@ super + shift + {Left,Right}
 # Switch between the last node/monitor
 super + {_, shift +} Tab
   bspc {node,monitor} -f last
+
+# ** preselection
+# Select a direction whre to open the next window
+super + alt + {h,j,k,l}
+  bspc node --presel-dir '~{west,south,north,east}'
+
+# Set the preselection ratio
+super + alt + {1-9}
+	bspc node --presel-ratio 0.{1-9}
 
 # ** mouse
 ~button1
