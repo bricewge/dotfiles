@@ -27,11 +27,11 @@ super + y ; {b,n,a}
 
 # ** monitor
 # Cycle through monitors
-super + {q,w}
+super + {comma,period}
   bspc monitor --focus {next,prev}
 
 # Move window or desktop to monitor
-super + {shift,alt} + {q,w}
+super + {shift,alt} + {comma,period}
   bspc {node,desktop} --to-monitor {next,prev}
 
 # ** resize
