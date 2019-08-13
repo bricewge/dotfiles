@@ -216,10 +216,12 @@ super + space ; S
 
 # * media keys
 # ** monitor brightness
+# Increase monitor brigthness
 {super + F1, XF86MonBrightnessDown}
   xbacklight -ctrl intel_backlight -dec 12; \
   xbacklight -ctrl ddcci4 -dec 12
 
+# Decrease monitor brightness
 {super + F2, XF86MonBrightnessUp}
   xbacklight -ctrl intel_backlight -inc 12; \
   xbacklight -ctrl ddcci4 -inc 12
@@ -239,23 +241,29 @@ XF86KbdBrightnessUp
   xbacklight -fps 10 -ctrl smc::kbd_backlight +7
 
 # ** multimedia
+# Previous track
 {super + F7, XF86AudioPrev}
   mpvc previous || playerctl previous
 
+# Play / Pause
 {super + F8, XF86AudioPlay}
   mpvc toggle || playerctl play-pause
 
+# Next track
 {super + F9, XF86AudioNext}
   mpvc next || playerctl next
 
 # ** audio volume
+# # Mute
 {super + F10, XF86AudioMute}
   pactl set-sink-mute @DEFAULT_SINK@ toggle
 
+# Lower volume
 {super + F11, XF86AudioLowerVolume}
   pactl set-sink-volume @DEFAULT_SINK@ -5% && \
   pactl set-sink-mute @DEFAULT_SINK@ 0
 
+# Raise volume
 {super + F12, XF86AudioRaiseVolume}
   pactl set-sink-volume @DEFAULT_SINK@ +5% && \
   pactl set-sink-mute @DEFAULT_SINK@ 0
@@ -273,12 +281,3 @@ super + Escape
 # Quit bspwm and kill the panel
 {super + alt + Escape, XF86PowerOff}
   rofi-power "bspc quit 1"
-
-# * workarounds
-# Disable Ctrl+q for Firefox
-# ctrl + q
-#   notify-send "ctrl+q pressed" ;\
-#   xdo key_press -k 105 ; sleep 0.2 ;\
-#   xdo key_press -k 24 ; sleep 0.2 ;\
-#   xdo key_release -k 24 ; sleep 0.2 ;\
-#   xdo key_release -k 105
