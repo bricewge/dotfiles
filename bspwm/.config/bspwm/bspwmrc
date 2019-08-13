@@ -23,7 +23,7 @@ SXHKD_FIFO=${HOME}/.sxhkd.fifo
 [ -e "$SXHKD_FIFO" ] && rm "$SXHKD_FIFO"
 mkfifo "$SXHKD_FIFO"
 sxhkd -s "$SXHKD_FIFO" -t 2 &
-~/.config/bspwm/sxhkd-listener.sh &
+sxhkd-listener.sh &
 
 # * bspwm config
 # TODO Remove hardcoded monitor name and desktops

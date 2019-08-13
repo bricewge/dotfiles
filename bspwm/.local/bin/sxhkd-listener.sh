@@ -11,6 +11,6 @@ while read -r line <&3; do
         B*) hook=2 ;;
         E*) hook=1 ;;
     esac
-    polybar-msg hook sxhkd "${hook}"
+    polybar-msg hook launcher "${hook}"
 done
 exec 3<&-
