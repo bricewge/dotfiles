@@ -1,8 +1,6 @@
 #!/bin/sh
 #
-# A terminal scratchpad.
-# On subsequent call hide/unhide the scratchpad.
-
+# A terminal scratchpad, killed when executed a second time
 
 set -e
 
@@ -25,30 +23,26 @@ start () {
             tmux set-option -t scratchpad status-position bottom
             xdotool windowsize "$wid" 100% $(( (desktop_height - border_width) / 3 ))
             xdotool windowmove "$wid" "-${border_width:=0}" $(( top_padding - border_width ))
-
+            bspc node "$wid" --flag hidden=off --focus
             break
         done
 fi
 }
 
-toggle_display () {
-    scratchpad=$(xdo id -n scratchpad)
-    hidden=$(wattr m "$scratchpad" || echo on)
+main () {
     monitor=$(bspc query --names --monitors --desktop)
     polybar=$(xdo id -a "polybar-bspwm_$monitor")
 
     # NOTE polybar actions are done with xdo while bspc is used for scratchpad.
     # This is because bspwm doesn't manage polybar's windows.
-    if  [ "$hidden" = "on" ]; then
+    if  ! xdo id -n scratchpad ; then
         # keep polybar on top of the scratchpad
         xdo raise "$polybar"
-        bspc node "$scratchpad" --flag hidden=off --focus
+        start
     else
-        bspc node "$scratchpad" --flag hidden=on
-        # avoid having polybar over fullscreen windows
+        kill "$(xdo pid -n scratchpad)"
         xdo lower "$polybar"
     fi
 }
 
-start
-toggle_display
+main
