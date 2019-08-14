@@ -1,0 +1,24 @@
+#!/usr/bin/env zsh
+#
+# bspwm external rules
+
+set -e
+
+wid=$1
+class=$2
+instance=$3
+intermediate_consequences=$4
+
+rules=()
+case $instance in
+    [Ss]cratchpad)
+            rules+=( "hidden = on" )
+            rules+=( "sticky = on" )
+            rules+=( "state = floating" )
+            rules+=( "layer = normal" )
+            echo "$rules"
+            exit 0
+            ;;
+esac
+
+echo "$rules"

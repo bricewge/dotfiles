@@ -1,0 +1,54 @@
+#!/bin/sh
+#
+# A terminal scratchpad.
+# On subsequent call hide/unhide the scratchpad.
+
+
+set -e
+
+start () {
+    if ! xdo id -n scratchpad; then
+        alacritty --title scratchpad --class scratchpad \
+            --command tmux new-session -A -s scratchpad &
+
+        bspc subscribe node_geometry -c 10 | while read -r _ _ _ wid _; do
+            xwininfo -id "$wid"
+            # TODO replace by `xwinfo`
+            class=$(xprop -id "$wid" WM_CLASS | awk '{gsub(/[",]/,"",$3); print $3; }')
+            if [ "$class" != "scratchpad" ]; then continue; fi
+            #####
+            border_width=$(bspc config -n "$wid" border_width)
+            top_padding=$(bspc config top_padding)
+            desktop_height=$(bspc query --desktop focused --tree | \
+                    jq -rc '.root.rectangle.height|tostring')
+
+            tmux set-option -t scratchpad status-position bottom
+            xdotool windowsize "$wid" 100% $(( (desktop_height - border_width) / 3 ))
+            xdotool windowmove "$wid" "-${border_width:=0}" $(( top_padding - border_width ))
+
+            break
+        done
+fi
+}
+
+toggle_display () {
+    scratchpad=$(xdo id -n scratchpad)
+    hidden=$(wattr m "$scratchpad" || echo on)
+    monitor=$(bspc query --names --monitors --desktop)
+    polybar=$(xdo id -a "polybar-bspwm_$monitor")
+
+    # NOTE polybar actions are done with xdo while bspc is used for scratchpad.
+    # This is because bspwm doesn't manage polybar's windows.
+    if  [ "$hidden" = "on" ]; then
+        # keep polybar on top of the scratchpad
+        xdo raise "$polybar"
+        bspc node "$scratchpad" --flag hidden=off --focus
+    else
+        bspc node "$scratchpad" --flag hidden=on
+        # avoid having polybar over fullscreen windows
+        xdo lower "$polybar"
+    fi
+}
+
+start
+toggle_display

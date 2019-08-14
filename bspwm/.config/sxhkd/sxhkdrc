@@ -119,6 +119,11 @@ super + p
   bspc node --state floating --flag sticky && \
   xdotool getactivewindow windowsize  700 400 windowmove 1100 600
 
+# ** scratchpad
+# Scratchpad termninal
+super + 0
+  scratchpad
+
 # * app launchers
 # Stop the key chain if the mouse buttons are pressed
 super + space ; ~button{1,2,3}
@@ -171,19 +176,6 @@ super + space; u
 # Capture note
 super + space ; o
   org-capture
-
-# super + 0
-#   xdotool search --onlyvisible --name TermiteDropDown windowunmap \
-#       || xdotool search --name TermiteDropdown windowmap \
-#       || termite --name TermiteDropdown --geometry=`xdotool getdisplaygeometry | awk '{ print $1"x"$2/3 }'`
-
-# super + =
-#     id=$(bspc query -N -n "focused");\
-#     if [ -n "$id" ];then \
-#         xprop -id $id -f _SCRATCH 32ii -set _SCRATCH $(date +%s,%N);\
-#         bspc node -t "floating";\
-#         xdotool windowunmap $id;\
-#     fi
 
 # ** screenshot
 # Take a screenshot of all desktops
