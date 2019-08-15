@@ -36,7 +36,8 @@ bspc monitor LVDS1 -d 1
 bspc config remove_disabled_monitors true
 bspc config merge_overlapping_monitors true
 
-bspc config top_padding 30
+bspc config top_padding \
+    "$(awk '$1~/^height$/ {print $3}' < "$XDG_CONFIG_HOME/polybar/config")"
 
 export BSPWM_GAP=16
 bspc config window_gap 0
@@ -54,6 +55,7 @@ bspc config presel_feedback_color "#002b36"
 # ** windows rules
 bspc config external_rules_command "$XDG_CONFIG_HOME/bspwm/external-rules"
 
+# TODO move them to external rules
 bspc rule -a 'Nightly:*' state=floating # Firefox
 bspc rule -a Nightly:Navigator state=tiled
 
