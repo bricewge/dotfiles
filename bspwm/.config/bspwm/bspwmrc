@@ -10,10 +10,13 @@
 # Setup monitors
 autorandr --change --force
 # Set a wallpaper
-if [ -x "$HOME"/.fehbg ]; then
-    "$HOME"/.fehbg &
+if [ -x "$XDG_CONFIG_HOME/setroot/.setroot-restore" ]; then
+    setroot --restore &
 else
-    feh --bg-fill "$DOTFILES"/_wallpaper/schicka-307-unsplash.jpg &
+    setroot --store --blank-color '#002b36' \
+        --on 0 --blur 10 -z "$DOTFILES/_wallpaper/schicka-307-unsplash.jpg" \
+        --on 1 --blur 10 z "$DOTFILES/_wallpaper/schicka-307-unsplash.jpg" &
+
 fi
 # Set a nice cursor
 xsetroot -cursor_name left_ptr
@@ -75,6 +78,9 @@ xbanish -i Mod4 &
 udiskie --notify &
 # disable DPMS
 xset s off -dpms
+
+# blur wallpaper of occupied displays
+wallpaper-blur &
 
 # Local Variables:
 # eval: (rainbow-mode 1)

@@ -1,0 +1,52 @@
+#!/usr/bin/env zsh
+#
+# Blur wallpaper when desktop is occupied. Or change blur manually when called
+# arguments desktop name and the blur radius.
+
+set -e
+
+# 1. split on :[Mm] give state of each monitor
+# 2. look for focused states `O` et `F`
+# 3. blur monitors with O state
+
+# return the index of the named monitor
+# FIXME this is a dummy
+monitor_index() {
+    if [ "$1" = "LVDS1" ]; then
+        echo 0
+    else
+        echo 1
+    fi
+}
+
+set_monitor_blur() {
+    monitor=$1
+    blur=$2
+    restore_path=${XDG_CONFIG_HOME:-$HOME/.config}/setroot/.setroot-restore
+    tmp_file=$(mktemp)
+    index=$(monitor_index "$monitor")
+    awk "{sub(/'--on' '$index' '--blur' '[0-9]+/,\"'--on' '$index' '--blur' '$blur\"); print \$0}" \
+        "$restore_path" >> "$tmp_file"
+    mv -f "$tmp_file" "$restore_path"
+    chmod +x "$restore_path"
+}
+
+if [ $# -gt 0 ]; then
+    set_monitor_blur $@
+    setroot --restore
+    exit
+fi
+
+bspc subscribe report | while read -r report; do
+    monitors=$(awk '{ $0 = substr($0,3); split($0,a,/:[Mm]/); {for (i in a) {print a[i]}}}' \
+        <<< "$report")
+    for monitor in $(echo "$monitors"); do
+        monitor_name=$(awk -F: '{ print $1 }' <<< "$monitor")
+        if grep -qE ':O' <<< "$monitor"; then
+            set_monitor_blur $monitor_name 10
+        elif grep -qE ':F' <<< "$monitor"; then
+            set_monitor_blur $monitor_name 0
+        fi
+    done
+    setroot --restore
+done
