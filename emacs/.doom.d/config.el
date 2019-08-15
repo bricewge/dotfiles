@@ -132,8 +132,8 @@
 ;; )
 
 ;; ** ui
-;; TODO Port solarized dark to doom-themes
-;; (setq doom-theme 'doom-solarized-dark)
+(add-to-list 'default-frame-alist '(font . "Meslo LG S 11"))
+(setq doom-theme 'doom-solarized-dark)
 
 ;; * completion
 ;; ** ivy

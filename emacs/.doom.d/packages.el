@@ -13,8 +13,6 @@
 (package! poporg)
 (package! evil-lion)
 
-(package! solarized-theme)
-
 (package! yasnippet-snippets)
 (package! webpaste)
 
