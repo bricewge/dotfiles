@@ -10,14 +10,30 @@ instance=$3
 intermediate_consequences=$4
 
 rules=()
+case $class in
+    [Pp]inentry)
+            rules+=( "state = floating" )
+            rules+=( "sticky = on" )
+            ;;
+    [Gg]imp|[Ff]eh|[Pp]inentry)
+            rules+=( "state = floating" )
+            ;;
+    [Ee]macs|[Zz]athura)
+            # Needed by emacs because of issue bspwm/551
+            rules+=( "state = tiled" )
+            ;;
+esac
+
 case $instance in
+    [Cc]apture|[Oo]rg-capture)
+            rules+=( "state = floating" )
+            rules+=( "sticky = on" )
+            ;;
     [Ss]cratchpad)
             rules+=( "hidden = on" )
             rules+=( "sticky = on" )
             rules+=( "state = floating" )
             rules+=( "layer = normal" )
-            echo "$rules"
-            exit 0
             ;;
 esac
 

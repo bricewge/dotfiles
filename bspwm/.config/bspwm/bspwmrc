@@ -55,17 +55,11 @@ bspc config presel_feedback_color "#002b36"
 # ** windows rules
 bspc config external_rules_command "$XDG_CONFIG_HOME/bspwm/external-rules"
 
-bspc rule -a Pinentry state=floating sticky=on
-bspc rule -a Emacs state=tiled # needed because of issue bspwm/551
-bspc rule -a Emacs:org-capture state=floating sticky=on
-bspc rule -a Gimp state=floating
-bspc rule -a feh state=floating
-bspc rule -a Zathura state=tiled
 bspc rule -a 'Nightly:*' state=floating # Firefox
 bspc rule -a Nightly:Navigator state=tiled
 
-scu restart redshift &
 # * other stuff to start
+scu restart redshift &
 # run polybars on all monitors
 polybars.sh
 
