@@ -7,6 +7,11 @@
 
 set -e
 
+if [ -t 1 ]; then
+    bold=$(tput bold)
+    normal=$(tput sgr0)
+fi
+
 home_hierarchy() {
     (
             cd "$HOME"
@@ -41,6 +46,14 @@ user_specific() {
         git@github.com:bricewge/dotfiles.git
 }
 
+# pull repositores in ~/.local/src/
+update_repos() {
+    for repo in "$HOME"/.local/src/*/.git; do
+        printf "%s\n" "$bold${repo%*/.git}$normal"
+        ( cd "${repo%*/.git}" && git pull )
+    done
+}
+
 # TODO No arguments: install all the packages
 if [ $# -eq 0 ]; then
     echo "Use with no arguments is not yet implemented"
@@ -70,6 +83,13 @@ test -d "$HOME/.shell/login.d" && \
 # TODO Source shell env and libs
 
 user_specific
+
+case $1 in
+    -u|--update)
+        update_repos
+        exit
+        ;;
+esac
 
 # Arguments: limit the install to those packages
 stow "$@"
