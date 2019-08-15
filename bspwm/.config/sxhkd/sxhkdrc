@@ -53,14 +53,9 @@ super + {_,shift + }{h,j,k,l}
 super + ctrl + {h,l}
   bspc desktop --focus {prev,next}
 
-# Switch to a desktop within a monitor
-super + {1-9}
-  bspc desktop --focus 'focused:^'{1-9}
+super + {_,shift + ,ctrl + shift +,ctrl +}{0-9}
+  ;dynamic_desktops {--df,--ns,--nm,--da} {0-9}
 
-# Send the selected window to the desktop 1-6 and follow it, if no
-# window is selected go to the desktop 1-6 anyway.
-super + shift + {1-9}
-  bspc node focused --to-desktop 'focused:^'{1-9} --follow
 # Go to the next or previous desktop
 super + {Left, comma, Right, period}
   bspc desktop -f {prev,prev,next,next}
@@ -127,7 +122,7 @@ super + V
 
 # ** scratchpad
 # Scratchpad termninal
-super + 0
+super + minus
   scratchpad
 
 # * app launchers

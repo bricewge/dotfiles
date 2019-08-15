@@ -6,6 +6,8 @@
 . "$HOME/.xprofile"
 . "$HOME/.profile"
 
+PATH=$XDG_CONFIG_HOME/bspwm:$PATH
+
 # * Early setup
 # Setup monitors
 autorandr --change --force
@@ -29,10 +31,7 @@ sxhkd -s "$SXHKD_FIFO" -t 2 &
 sxhkd-listener.sh &
 
 # * bspwm config
-# TODO Remove hardcoded monitor name and desktops
-bspc monitor LVDS1 -d I II III IV V
-# bspc monitor HDMI1 -d 1 2 3 4 5
-bspc desktop -f III
+bspc monitor LVDS1 -d 1
 
 bspc config remove_disabled_monitors true
 bspc config merge_overlapping_monitors true

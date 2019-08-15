@@ -17,14 +17,13 @@ else
 fi
 
 for monitor in ${monitors}; do
-    # TODO Remove handwritten monitor names
     if [ "$monitor" = "LVDS1" ]; then
-        bspc monitor "$monitor" -d I II III IV V
-        if [ "$(printf "%s\n" "${monitors}" | wc -l)" -gt 1 ]; then
+        bspc monitor "$monitor" -d 1
+        if [ "$(printf "%s\n" "$monitors" | wc -l)" -gt 1 ]; then
             systemctl --user set-environment  TRAY_POSITION=none
         fi
     else
-        bspc monitor "$monitor" -d 1 2 3 4 5
+        bspc monitor "$monitor" -d  8
         systemctl --user unset-environment TRAY_POSITION
     fi
     systemctl --user start "polybar@${monitor}.service"
