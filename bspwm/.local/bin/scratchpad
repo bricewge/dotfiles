@@ -32,12 +32,14 @@ fi
 main () {
     monitor=$(bspc query --names --monitors --desktop)
     polybar=$(xdo id -a "polybar-bspwm_$monitor")
+    dunst=$(xdo id -N Dunst )
 
     # NOTE polybar actions are done with xdo while bspc is used for scratchpad.
     # This is because bspwm doesn't manage polybar's windows.
     if  ! xdo id -n scratchpad ; then
-        # keep polybar on top of the scratchpad
+        # keep polybar and dunst on top of the scratchpad
         xdo raise "$polybar"
+        xdo raise "$dunst"
         start
     else
         kill "$(xdo pid -n scratchpad)"
