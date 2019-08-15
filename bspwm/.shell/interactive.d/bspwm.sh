@@ -1,0 +1,1 @@
+alias xev='xev -rv'

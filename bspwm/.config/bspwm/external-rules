@@ -8,6 +8,7 @@ wid=$1
 class=$2
 instance=$3
 intermediate_consequences=$4
+name=$(xwininfo -id "$wid" | sed ' /^xwininfo/!d ; s,.*"\(.*\)".*,\1,')
 
 rules=()
 case $class in
@@ -34,6 +35,12 @@ case $instance in
             rules+=( "sticky = on" )
             rules+=( "state = floating" )
             rules+=( "layer = normal" )
+            ;;
+esac
+
+case $name in
+    "Event Tester") # xev
+            rules+=( "state = floating" )
             ;;
 esac
 
