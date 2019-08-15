@@ -2,8 +2,6 @@
 # keybindings for bspwm
 
 # TODO unhide a window from rofi
-# TODO add preselection
-# TODO polish picture-in-picture
 # TODO Setup dynamic desktops
 
 # * bspwm hotkeys
@@ -11,6 +9,10 @@
 # Close or kill a window
 super + {_, shift +} d
   bspc node --{close,kill}
+
+# Insert a window
+super + i
+  bspc node -i
 
 # ** set properties
 # Change window's state
@@ -71,6 +73,10 @@ super + shift + {Left,Right}
 super + {_, shift +} Tab
   bspc {node,monitor} -f last
 
+# Balance the windows tree at root or focused level
+super + {b,B}
+  bspc node {@parent --balance, @/ --equalize}
+
 # ** preselection
 # Select a direction whre to open the next window
 super + alt + {h,j,k,l}
@@ -104,7 +110,7 @@ super + {_, shift +} r
   bspc node @/ --rotate {+,-}90
 
 # Flip the current desktop horizontaly or verticaly
-super + {i,I}
+super + {p,P}
   bspc node @/ --flip {horizontal, vertical}
 
 # *** opacity
@@ -114,7 +120,7 @@ super + o: {o, O}
 
 # *** picture in picture
 # Picture-in-picutre mode
-super + p
+super + V
   compton-trans -c -o 75 && \
   bspc node --state floating --flag sticky && \
   xdotool getactivewindow windowsize  700 400 windowmove 1100 600
