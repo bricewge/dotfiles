@@ -4,13 +4,30 @@
 
 set -e
 
+# * manual tiling
+rules=()
+receptacle=$(bspc query -N -n 'any.leaf.!window' || true)
+preselection=$(bspc query -N -n 'newest.!automatic' || true)
+
+if [ -n "$receptacle" ]; then
+    target="$receptacle"
+    attention="off"
+elif [ -n "$preselection" ]; then
+    target="$preselacle"
+fi
+
+rules+=( "node = ${target:-focused}" )
+rules+=( "follow = ${attention:-on}" )
+echo "$rules"
+
+# * windows rules
 wid=$1
 class=$2
 instance=$3
 intermediate_consequences=$4
 name=$(xwininfo -id "$wid" | sed ' /^xwininfo/!d ; s,.*"\(.*\)".*,\1,')
-
 rules=()
+
 case $class in
     [Pp]inentry)
             rules+=( "state = floating" )

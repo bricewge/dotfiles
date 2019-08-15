@@ -45,14 +45,19 @@ super + z: shift + {h,j,k,l}
   bspc node --resize {left 20 0, bottom 0 -20, top 0 20, right -20 0}
 
 # ** movements
-# Activate window or move it to current desktop
-super + {_,shift + }{h,j,k,l}
-  bspc node --{focus,swap} {west,south,north,east}
+# Activate window in direction
+super + {h,j,k,l}
+  bspc node --focus {west,south,north,east}
+
+# Move window in direction or create a receptacle there
+super + shift + {h,j,k,l}
+  smart_move {west,south,north,east}
 
 # Cycle through desktops
 super + ctrl + {h,l}
   bspc desktop --focus {prev,next}
 
+# Switch or send to desktops, or send to monitor or
 super + {_,shift + ,ctrl + shift +,ctrl +}{0-9}
   ;dynamic_desktops {--df,--ns,--nm,--da} {0-9}
 
