@@ -5,10 +5,6 @@
 
 set -e
 
-# 1. split on :[Mm] give state of each monitor
-# 2. look for focused states `O` et `F`
-# 3. blur monitors with O state
-
 # return the index of the named monitor
 # FIXME this is a dummy
 monitor_index() {
@@ -26,7 +22,7 @@ set_monitor_blur() {
     tmp_file=$(mktemp)
     index=$(monitor_index "$monitor")
     awk "{sub(/'--on' '$index' '--blur' '[0-9]+/,\"'--on' '$index' '--blur' '$blur\"); print \$0}" \
-        "$restore_path" >> "$tmp_file"
+        "$restore_path" >! "$tmp_file"
     mv -f "$tmp_file" "$restore_path"
     chmod +x "$restore_path"
 }
