@@ -36,7 +36,7 @@ case $class in
     [Gg]imp|[Ff]eh|[Pp]inentry)
             rules+=( "state = floating" )
             ;;
-    [Ee]macs|[Zz]athura)
+    [Ee]macs|[Nn]ext|[Zz]athura)
             # Needed by emacs because of issue bspwm/551
             rules+=( "state = tiled" )
             ;;
