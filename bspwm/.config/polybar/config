@@ -19,7 +19,8 @@ module-margin = 1
 padding-right= 1
 
 font-0 = MesloLGS Nerd Font:size=12;2
-font-1 = Noto Sans Symbols2:size=12;4
+; font-1 = Noto Sans Symbols2:size=12;4
+font-1 = Caudex:size=12:weight:bold;0
 ; Extra symbols: https://www.nerdfonts.com/cheat-sheet/
 
 enable-ipc = true
@@ -48,27 +49,39 @@ label = %title:0:30:...%
 [module/bspwm]
 type = internal/bspwm
 
+; ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ ᚷ ᚹ ᚺ ᚾ
 ;     ● ○
 ; ■ 🞐 ? □ ? ?
 
+ws-icon-0 = 0;o
+ws-icon-1 = 1;ᚠ
+ws-icon-2 = 2;ᚢ
+ws-icon-3 = 3;ᚦ
+ws-icon-4 = 4;ᚨ
+ws-icon-5 = 5;ᚱ
+ws-icon-6 = 6;ᚲ
+ws-icon-7 = 7;ᚹ
+ws-icon-8 = 8;ᚺ
+ws-icon-9 = 9;ᚾ
+
 ; *** focused
-label-focused-occupied = ■
+label-focused-occupied = %icon%
 label-focused-occupied-font = 2
 label-focused-occupied-padding = 1
 label-focused-occupied-background= ${colors.background-alt}
-label-focused-empty = 🞐
+label-focused-empty = %icon%
 label-focused-empty-font = 2
 label-focused-empty-padding = 1
 label-focused-empty-background = ${colors.background-alt}
 
 ; *** occupied
-label-occupied = ■
+label-occupied = %icon%
 label-occupied-font = 2
 label-occupied-padding = 1
 label-occupied-foreground = ${colors.foreground-alt}
 
 ; *** empty
-label-empty = 🞐
+label-empty = %icon%
 label-empty-font = 2
 label-empty-foreground = ${colors.foreground-alt}
 label-empty-padding = 1
@@ -76,12 +89,12 @@ label-empty-padding = 1
 ; *** urgent
 ; NOTE An urgent desktop is always occupied because it needs to contain an
 ; urgent window to be so.
-label-urgent = ■
+label-urgent = %icon%
 label-urgent-font = 2
 label-urgent-foreground = ${colors.foreground-alt}
 label-urgent-overline = ${colors.alert}
 label-urgent-padding = 1
-label-focused-urgent = ■
+label-focused-urgent = %icon%
 label-focused-urgent-font = 2
 label-focused-urgent-background = ${colors.background-alt}
 label-focused-urgent-padding = 1
