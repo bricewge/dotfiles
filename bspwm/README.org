@@ -1,0 +1,62 @@
+#+TITLE: bspwm
+
+#+begin_src shell :results output :export results
+tree -a
+#+end_src
+
+#+RESULTS:
+#+begin_example
+.
+├── .config
+│   ├── autorandr
+│   │   └── postswitch.d
+│   │       └── polybars.sh -> ../../../.local/bin/polybars.sh
+│   ├── bspwm
+│   │   ├── bspwmrc
+│   │   ├── dynamic_desktops
+│   │   ├── env
+│   │   ├── external-rules
+│   │   ├── multifaceted_operation
+│   │   └── smart_move
+│   ├── compton.conf
+│   ├── polybar
+│   │   ├── config
+│   │   ├── solarized-dark
+│   │   └── solarized-light
+│   ├── sxhkd
+│   │   └── sxhkdrc
+│   └── systemd
+│       └── user
+│           ├── graphical-session.target.wants
+│           │   └── polybar@.service -> ../polybar@.service
+│           └── polybar@.service
+├── .local
+│   └── bin
+│       ├── mpvctl.sh
+│       ├── polybars.sh
+│       ├── rofi-sxhkd
+│       ├── scratchpad
+│       ├── sxhkd-listener.sh
+│       ├── sxhkd.sh
+│       └── wallpaper-blur
+├── README.org
+├── setup.sh
+├── .shell
+│   └── interactive.d
+│       └── bspwm.sh
+├── _wallpaper
+│   ├── geometric_fade.png
+│   └── schicka-307-unsplash.jpg
+├── .xinitrc
+├── .xprofile
+├── .Xresources
+└── .xsession
+
+14 directories, 30 files
+#+end_example
+
+* Dependencies
+- =wattr=
+- =xdo=
+- =xdotool=
+- =xwinfo=
