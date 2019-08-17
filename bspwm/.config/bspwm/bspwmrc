@@ -27,11 +27,11 @@ xsetroot -cursor_name left_ptr
 SXHKD_FIFO=${HOME}/.sxhkd.fifo
 [ -e "$SXHKD_FIFO" ] && rm "$SXHKD_FIFO"
 mkfifo "$SXHKD_FIFO"
-sxhkd -s "$SXHKD_FIFO" -t 2 &
+sxhkd -s "$SXHKD_FIFO" -t 2 "$XDG_CACHE_HOME/sxhkd.log" &
 sxhkd-listener.sh &
 
 # * bspwm config
-bspc monitor LVDS1 -d 1
+bspc monitor LVDS1 -d 0
 
 bspc config remove_disabled_monitors true
 bspc config merge_overlapping_monitors true
