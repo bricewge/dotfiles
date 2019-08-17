@@ -7,5 +7,9 @@ if ! [ -d "$plugins_dir/tpm" ]; then
     git clone --branch add-branch-to-plugin \
         https://github.com/rafalrothenberger/tpm.git \
         "$plugins_dir/tpm"
-    "$$plugins_dir/tpm/bin/install_plugins"
+    "$plugins_dir/tpm/bin/install_plugins"
+
+    # set default theme
+    ln -s "$HOME/.tmux/themes/solarized-dark.conf" "$HOME/.tmux/current-theme.conf"
 fi
+
