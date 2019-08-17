@@ -130,6 +130,11 @@ super + V
 super + minus
   scratchpad
 
+# ** theme
+# Toggle between light and dark theme variants
+super + equal
+  theme
+
 # * app launchers
 # Stop the key chain if the mouse buttons are pressed
 super + space ; ~button{1,2,3}

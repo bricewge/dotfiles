@@ -1,24 +1,50 @@
 #!/usr/bin/env sh
 #
-# Toogle betwen dark and light themes
+# Toogle betwen dark and light theme variant.
+
+# NOTE Because we are modifying configurations, the changes need to be actually
+#  recored and not just written as a volatile state in memory.
+
+# TODO Set themes, do not toggle only
 
 set -e
 
-state_file="${XDG_RUNTIME_DIR}/theme"
+state_file=${XDG_RUNTIME_DIR}/theme
+theme=${1:-light} # default
 
-if [ -n "$1" ]; then
-    theme=$([ "$1" = "dark" ] && echo dark || echo light )
-elif [ -e "${state_file}" ]; then
-    theme=$([ $(cat "${state_file}") = "light" ] && echo dark || echo light )
-else
-    theme="light"
+if [ -z "$1" ]; then
+    # read state
+    if [ -e "$state_file" ]; then
+        theme=$(cat "$state_file")
+    fi
+    # toggle
+    theme=$(test "$theme" = "light" && echo dark || echo light)
 fi
 
-echo "${theme}" > "${state_file}"
+# save state
+echo "$theme" > "$state_file"
 
-ln -sf "${XDG_CONFIG_HOME}/polybar/solarized-${theme}" "${XDG_CONFIG_HOME}/polybar/colors"
-pkill -USR1 polybar
-sed -i "s/\(^colors: \*\).*/\1${theme}/g" "${XDG_CONFIG_HOME}/alacritty/alacritty.yml"
-# TODO Add tmux support
+# debugging
+# echo $theme
+# exit
+
+# polybar
+ln -sf "${XDG_CONFIG_HOME}/polybar/solarized-${theme}" \
+    "${XDG_CONFIG_HOME}/polybar/colors"
+pkill -USR1 polybar || true
+
+# alacritty
+sed --follow-symlinks \
+    -i "s/\(^colors: \*\).*/\1${theme}/g" \
+    "${XDG_CONFIG_HOME}/alacritty/alacritty.yml"
+
+# tmux
+ln -sf "$HOME/.tmux/themes/solarized-${theme}.conf" "$HOME/.tmux/current-theme.conf"
+tmux source-file "$HOME/.tmux.conf"
+
 # TODO Add firefox support
-emacsclient --eval "(load-theme 'solarized-${theme})"
+pkill -USR1 -f "python.+zen_fox_toggle_light_dark.py"
+
+# emacs
+# TODO use symlinks to record emacs' theme sate
+emacsclient --eval "(load-theme 'doom-solarized-${theme})" || true
