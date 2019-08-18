@@ -7,6 +7,9 @@
 
 set -e
 
+# shellcheck disable=SC1090
+. "$DOTFILES/shell/.shell/lib/utils.sh"
+
 if [ -t 1 ]; then
     bold=$(tput bold)
     normal=$(tput sgr0)
@@ -80,14 +83,16 @@ test -d "$HOME/.shell/login.d" && \
     printf  "export DOTFILES=%s" "$DOTFILES" \
     > "$HOME/.shell/login.d/dotfiles.sh"
 
-# TODO Source shell env and libs
-
 user_specific
 
 case $1 in
     -u|--update)
         update_repos
         exit
+        ;;
+    -a|--all)
+        # select all modules not starting with @
+        set -- $(basename -a "$DOTFILES"/[!@]*/) # we want word splitting here
         ;;
 esac
 
@@ -96,6 +101,7 @@ stow "$@"
 for pkg in "$@"; do
     if [ -x "$pkg"/setup.sh ]; then (
             cd "$pkg" || exit 1
+            if [ $# -gt 1 ]; then printf "%s\n" "$bold${pkg%/}$normal"; fi
             # shellcheck disable=SC1091
             . ./setup.sh
             # TODO execute OS subpackages setup
