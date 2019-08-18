@@ -70,7 +70,7 @@
 ;; * outshine
 (add-hook 'prog-mode-hook #'outshine-mode)
 (add-hook 'conf-mode-hook #'outshine-mode)
-(def-package! outshine
+(use-package! outshine
   ;; TODO binding for evil
   :bind (:map outline-minor-mode-map
           ("<S-iso-lefttab>" . outshine-cycle-buffer))
@@ -80,7 +80,7 @@
   ;; test
   (setq  +emacs-lisp-outline-regexp "[ \t]*;; \\*+"))
 
-(def-package! poporg
+(use-package! poporg
   :commands (poporg-dwim)
   :init
   (map!
@@ -143,7 +143,7 @@
 
 ;; * ui
 ;; TODO fix face, ¿remove me?
-;; (def-package! hl-fill-column
+;; (use-package! hl-fill-column
 ;;   :config
 ;;   (global-hl-fill-column-mode)
 ;;   )
@@ -161,7 +161,7 @@
 ;; * editor
 ;; ** evil
 ;; *** lion
-(def-package! evil-lion
+(use-package! evil-lion
   :commands (evil-lion-left evil-lion-right)
   :init
   (map! :prefix "g"
@@ -171,7 +171,7 @@
 ;; * emacs
 ;; ** dired
 (setq delete-by-moving-to-trash t)
-;; (def-package! ranger
+;; (use-package! ranger
 ;;    :config
 ;;    (setq ranger-footer-delay nil))
 
@@ -226,13 +226,13 @@
   (magit-wip-mode))
 
 ;; ** pass
-(def-package! auth-source-pass
+(use-package! auth-source-pass
   :config
   (setq auth-sources '(password-store))
   (auth-source-forget-all-cached))
 
 ;; ** epub
-(def-package! nov
+(use-package! nov
   :mode ("\\.epub" . nov-mode)
   :config
   ;; (defun my-nov-font-setup ()
@@ -296,7 +296,7 @@
   (setq company-shell-clean-manpage t))
 
 ;; ** systemd
-(def-package! systemd
+(use-package! systemd
   :defer t
   :init
   (setq systemd-use-company-p (featurep! :completion company))
@@ -307,7 +307,7 @@
         :desc "Systemd doc open"   :nve "o" #'systemd-doc-open))
 
 ;; ** vuejs
-(def-package! vue-mode
+(use-package! vue-mode
   :commands (vue-mode)
   :mode "\\.vue"
   :config

@@ -4,5 +4,8 @@
 tic -x -o ~/.terminfo ./_xterm-24bits.terminfo
 
 # doom emacs
-repository https://github.com/hlissner/doom-emacs "$HOME/.emacs.d"
+# WAITING https://github.com/hlissner/doom-emacs/pull/1681
+repository https://github.com/hlissner/doom-emacs \
+    "$HOME/.emacs.d" \
+    bricewge
 "$HOME/.emacs.d/bin/doom" upgrade

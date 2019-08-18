@@ -20,7 +20,7 @@
 (package! alert)
 
 (package! org-caldav
-  :recipe (:fetcher github :repo "grauschnabel/org-caldav")) ;; VTODO support
+  :recipe (:host github :repo "grauschnabel/org-caldav")) ;; VTODO support
 
 (package! org-noter)  ;; annotate documents
 (package! nov)        ;; epub reader
@@ -34,7 +34,10 @@
 ;; WAITING https://github.com/hlissner/emacs-doom-themes/pull/286
 (package! doom-themes
   :recipe
-  (:fetcher github
-            :repo "bricewge/emacs-doom-themes"
-            :branch "hl-fill-column"
-            :files ("*.el" "themes/*.el")))
+  (:host github
+         :repo "hlissner/emacs-doom-themes"
+         :fork (:host nil
+                      :repo "git@github.com:bricewge/emacs-doom-themes.git"
+                      :branch "bricewge"
+                      :remote "bricewge")
+         :files ("*.el" "themes/*.el")))
