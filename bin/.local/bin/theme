@@ -36,14 +36,17 @@ pkill -USR1 polybar || true
 # alacritty
 sed --follow-symlinks \
     -i "s/\(^colors: \*\).*/\1${theme}/g" \
-    "${XDG_CONFIG_HOME}/alacritty/alacritty.yml"
+    "${XDG_CONFIG_HOME}/alacritty/alacritty.yml" || true
 
 # tmux
 ln -sf "$HOME/.tmux/themes/solarized-${theme}.conf" "$HOME/.tmux/current-theme.conf"
-tmux source-file "$HOME/.tmux.conf"
+tmux source-file "$HOME/.tmux.conf" || true
 
-# TODO Add firefox support
-pkill -USR1 -f "python.+zen_fox_toggle_light_dark.py"
+# firefox
+pkill -USR1 -f "python.+zen_fox_toggle_light_dark.py" || true
+
+# rofi
+ln -sf "$XDG_CONFIG_HOME/rofi/solarized-$theme" "$XDG_CONFIG_HOME/rofi/config"
 
 # emacs
 # TODO use symlinks to record emacs' theme sate
