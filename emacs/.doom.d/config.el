@@ -132,8 +132,8 @@
 ;; )
 
 ;; ** ui
-(add-to-list 'default-frame-alist '(font . "Meslo LG S 11"))
 (setq doom-theme 'doom-solarized-dark)
+(setq doom-font "Meslo LG S-11")
 
 ;; * completion
 ;; ** ivy
