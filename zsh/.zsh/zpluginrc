@@ -27,10 +27,13 @@ zstyle ':prompt:pure:git:branch' color "$SOLARIZED_BASE01"
 zstyle ':prompt:pure:host' color "$SOLARIZED_BASE01"
 zstyle ':prompt:pure:user' color "$SOLARIZED_BASE01"
 zstyle ':prompt:pure:virtualenv' color "$SOLARIZED_BASE01"
+zstyle ':prompt:pure:prompt2:faded' color "$SOLARIZED_BASE01"
 
 # WAITING https://github.com/sindresorhus/pure/issues/332
+# WAITING https://github.com/sindresorhus/pure/pull/481
 zplugin ice wait'!0' silent pick'async.zsh' src'pure.zsh' \
-    atclone"ln -s ./pure.zsh prompt_pure_setup" atload"fpath+=(\$PWD)"
+    atclone"ln -s ./pure.zsh prompt_pure_setup" atload"fpath+=(\$PWD)" \
+    cloneopts'--branch fix-ps2-colors'
 zplugin load 'sindresorhus/pure'
 
 # ** man
