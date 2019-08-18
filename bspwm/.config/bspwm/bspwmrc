@@ -25,7 +25,7 @@ xsetroot -cursor_name left_ptr
 SXHKD_FIFO=${HOME}/.sxhkd.fifo
 [ -e "$SXHKD_FIFO" ] && rm "$SXHKD_FIFO"
 mkfifo "$SXHKD_FIFO"
-sxhkd -s "$SXHKD_FIFO" -t 2 "$XDG_CACHE_HOME/sxhkd.log" &
+sxhkd -s "$SXHKD_FIFO" -t 2 -r "$XDG_CACHE_HOME/sxhkd.log" &
 sxhkd-listener.sh &
 
 # * bspwm config
