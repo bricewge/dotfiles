@@ -20,15 +20,16 @@ symlink() {
 repository() {
     repo=$1
     destination=$2
-    shift; shift
+    branch=${3:-master}
 
-    printf "%s: %s\n" "$destination" "$repo"
+    printf "%s: %s at %s\n" "$destination" "$repo" "$branch"
     if [ -e "$destination" ] && \
         git -C "$destination" rev-parse --is-inside-work-tree \
         2>/dev/null 1>/dev/null; then
         git -C "$destination" pull
+        git -C "$destination" checkout "$branch"
     else
         mkdir -p "$(dirname "$destination")"
-        git clone "$repo" $@
+        git clone "$repo" --branch "$branch"
     fi
 }
