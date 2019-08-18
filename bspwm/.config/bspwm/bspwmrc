@@ -6,8 +6,6 @@
 . "$HOME/.xprofile"
 . "$HOME/.profile"
 
-PATH=$XDG_CONFIG_HOME/bspwm:$PATH
-
 # * Early setup
 # Setup monitors
 autorandr --change --force

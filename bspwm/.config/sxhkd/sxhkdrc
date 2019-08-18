@@ -51,7 +51,7 @@ super + {h,j,k,l}
 
 # Move window in direction or create a receptacle there
 super + shift + {h,j,k,l}
-  smart_move {west,south,north,east}
+  "$XDG_CONFIG_HOME/bspwm/smart_move" {west,south,north,east}
 
 # Cycle through desktops
 super + ctrl + {h,l}
@@ -59,7 +59,7 @@ super + ctrl + {h,l}
 
 # Switch or send to desktops, or send to monitor or
 super + {_,shift + ,ctrl + shift +,ctrl +}{0-9}
-  ;dynamic_desktops {--df,--ns,--nm,--da} {0-9}
+  ;"$XDG_CONFIG_HOME/bspwm/dynamic_desktops" {--df,--ns,--nm,--da} {0-9}
 
 # Go to the next or previous desktop
 super + {Left, comma, Right, period}
@@ -84,7 +84,7 @@ super + alt + {h,j,k,l}
 
 # Set the preselection ratio
 super + alt + {1-9}
-	bspc node --presel-ratio 0.{1-9}
+ bspc node --presel-ratio 0.{1-9}
 
 # ** mouse
 ~button1
