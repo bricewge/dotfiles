@@ -176,3 +176,33 @@
        ;; ;; library, and additional ex commands for evil-mode. Use it as a
        ;; ;; reference for your own modules.
        ;; (default +bindings +evil-commands))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("34c99997eaa73d64b1aaa95caca9f0d64229871c200c5254526d0062f8074693" "cb477d192ee6456dc2eb5ca5a0b7bd16bdb26514be8f8512b937291317c7b166" "10461a3c8ca61c52dfbbdedd974319b7f7fd720b091996481c8fb1dded6c6116" "0598c6a29e13e7112cfbc2f523e31927ab7dce56ebb2016b567e1eff6dc1fd4f" "9efd000a42191dcbdb4bab132eec45f098d779b5eb743a4a256a553aaacab1e8" default)))
+ '(safe-local-variable-values
+   (quote
+    ((eval remove-hook
+           (quote poporg-edit-hook)
+           (quote org-mode))
+     (eval add-hook
+           (quote poporg-edit-hook)
+           (quote sh-mode))
+     (eval set
+           (make-local-variable
+            (quote flycheck-emacs-lisp-check-form))
+           +emacs-lisp-reduced-flycheck-emacs-lisp-check-form)
+     (eval modify-syntax-entry 43 "'")
+     (eval modify-syntax-entry 36 "'")
+     (eval modify-syntax-entry 126 "'")))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
