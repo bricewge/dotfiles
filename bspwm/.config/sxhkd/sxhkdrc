@@ -191,11 +191,12 @@ super + space ; o
 # ** screenshot
 # Take a screenshot of all desktops
 super + space ; s
-  screenshot  ~/picture/screenshot/$(date --iso-8601=seconds).png
+  screenshot ~/picture/screenshot/$(date --iso-8601=seconds).png
 
 # Take screenshot of a window
 super + space ; S
-  screenshot --select --tolerance 9999999 --hidecursor --nokeyboard \
+  screenshot --select --tolerance 9999999 --nokeyboard  \
+  --hidecursor --nodecorations=2 \
   ~/picture/screenshot/$(date --iso-8601=seconds).png
 
 # ** TODO notifications
