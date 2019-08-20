@@ -57,7 +57,7 @@
    "yt"		"youtube-dl"
    )
 ;;; autosuggest
-  (def-package! esh-autosuggest
+  (use-package! esh-autosuggest
     ;; :commands (esh-autosuggest-mode)
     :hook (eshell-mode . 'esh-autosuggest-mode)
     ;; :ensure t
@@ -69,7 +69,7 @@
   )
 
 ;;; alert
-(def-package! alert
+(use-package! alert
   :config
   (setq alert-default-style 'libnotify))
 
