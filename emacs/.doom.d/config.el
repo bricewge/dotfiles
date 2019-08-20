@@ -99,37 +99,10 @@
 
 ;; ** project
 (after! projectile
+  ;; Enable the use of projectile through TRAMP
   ;; https://github.com/hlissner/doom-emacs/issues/1087#issuecomment-450757249
   (advice-remove #'projectile-locate-dominating-file
                  #'doom*projectile-locate-dominating-file))
-
-;; (def-package-hook! projectile
-;;   :post-config
-;;   (defun bw/projectile-project-root (&optional dir)
-;;     "Retrieves the root directory of a project if available.
-;; If DIR is not supplied its set to the current directory by default."
-;;     ;; the cached value will be 'none in the case of no project root (this is to
-;;     ;; ensure it is not reevaluated each time when not inside a project) so use
-;;     ;; cl-subst to replace this 'none value with nil so a nil value is used
-;;     ;; instead
-;;     (let ((dir (or dir (directory-file-name default-directory))))
-;;       (cl-subst nil 'none
-;;                 (or (cl-some
-;;                      (lambda (func)
-;;                        (let* ((cache-key (format "%s-%s" func dir))
-;;                               (cache-value (gethash cache-key projectile-project-root-cache)))
-;;                          (if (and cache-value (file-exists-p cache-value))
-;;                              cache-value
-;;                            (let ((value (funcall func (file-truename dir))))
-;;                              (puthash cache-key value projectile-project-root-cache)
-;;                              value))))
-;;                      projectile-project-root-files-functions)
-;;                     ;; set cached to none so is non-nil so we don't try
-;;                     ;; and look it up again
-;;                     'none))))
-;;   ;; (add-function :override (projectile-project-root dir) #'bw/projectile-project-root)
-;;   (advice-add 'projectile-project-root :override 'bw/projectile-project-root)
-;; )
 
 ;; ** ui
 (setq doom-theme 'doom-solarized-dark)
