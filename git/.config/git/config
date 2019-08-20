@@ -15,3 +15,5 @@
 [alias]
 	fire = fire
 	crypt = crypt
+[help]
+	autocorrect = 1
