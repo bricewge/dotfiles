@@ -61,7 +61,6 @@
         :desc "Package list"				:n "p"			#'package-show-package-list)
       (:prefix "o"
         :desc "Pass"						:n "p"			#'pass
-        :desc "Project sidebar"			:n "s"			#'+neotree/open
         :desc "Open URL"					:n "u"			#'open-url
         :desc "Open URL in popup"			:n "U"			#'browse-url-emacs)
       )
