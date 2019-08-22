@@ -112,6 +112,9 @@
 (setq doom-theme 'doom-solarized-dark)
 (setq doom-font "Meslo LG S-11")
 
+(when (getenv "MANWIDTH")
+  (setq-default fill-column (string-to-number (getenv "MANWIDTH"))))
+
 ;; * completion
 ;; ** ivy
 ;; (map! :after ivy
@@ -150,11 +153,11 @@
 (setq delete-by-moving-to-trash t)
 
 ;; ** man
-(after! man
-  (set-face-attribute 'Man-overstrike nil
-                      :inherit font-lock-type-face :bold t)
-  (set-face-attribute 'Man-underline nil
-                      :inherit font-lock-keyword-face :underline t))
+(map! :leader (:prefix "h" :desc "Call WoMan" :n "W" #'woman))
+(after! woman
+  (setq woman-fill-column fill-column)
+  (set-popup-rule! "^\\*WoMan "
+    :slot 2 :side 'right :size (+ 5 woman-fill-column) :select t :quit t))
 
 ;; ** tramp
 (after! tramp
