@@ -175,6 +175,7 @@
        :private
        dired
        org
+       eshell
        )
 
        ;; ;; provides a Spacemacs-inspired keybinding scheme, a custom yasnippet

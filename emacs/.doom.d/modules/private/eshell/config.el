@@ -1,4 +1,4 @@
-;;; ~/.doom.d/+eshell.el -*- lexical-binding: t; -*-
+;;; private/eshell/config.el -*- lexical-binding: t; -*-
 
 ;; NOTE This is a copy of doom/modules/emacs/eshell/autoload.prompts.el
 ;; TODO Port [[https://github.com/sindresorhus/pure][pure]] prompt theme to eshell
@@ -42,31 +42,33 @@
   (setq eshell-prompt-regexp "^❯ ")
 ;;; aliases
   (set-eshell-alias!
-   "q"		"exit"
-   "f"		"find-file $1"
-   "bd"		"eshell-up $1"
-   "l" 		"ls -lh"
-   "ll"		"ls -lah"
-   "d" 		"dired $1"
-   "gl"		"(call-interactively 'magit-log-current)"
-   "gs"		"magit-status"
-   "gc"		"magit-commit"
-   "rg"		"rg --color=always"
-   "ag"		"ag --color=always"
-   "clear"	"clear-scrollback"
-   "yt"		"youtube-dl"
+   "q"    "exit"
+   "f"    "find-file $1"
+   "bd"     "eshell-up $1"
+   "l"      "ls -lh"
+   "ll"     "ls -lah"
+   "d"      "dired $1"
+   "gl"     "(call-interactively 'magit-log-current)"
+   "gs"     "magit-status"
+   "gc"     "magit-commit"
+   "rg"     "rg --color=always"
+   "ag"     "ag --color=always"
+   "clear"  "clear-scrollback"
+   "yt"     "youtube-dl"
    )
-;;; autosuggest
-  (use-package! esh-autosuggest
-    ;; :commands (esh-autosuggest-mode)
-    :hook (eshell-mode . 'esh-autosuggest-mode)
-    ;; :ensure t
-    )
-;;; fix for nixos
-;; https://github.com/hlissner/doom-emacs/issues/913
-  (after! em-term
-    (setq eshell-visual-commands (delete "bash" eshell-visual-commands)))
+
   )
+;;; autosuggest
+(use-package! esh-autosuggest
+  ;; :commands (esh-autosuggest-mode)
+  :hook (eshell-mode . 'esh-autosuggest-mode)
+  ;; :ensure t
+  )
+
+;; ;;; fix for nixos
+;; ;; https://github.com/hlissner/doom-emacs/issues/913
+;; (after! em-term
+;;   (setq eshell-visual-commands (delete "bash" eshell-visual-commands)))
 
 ;;; alert
 (use-package! alert
@@ -77,13 +79,13 @@
 (defun eshell-command-alert (process status)
   "Send `alert' with severity based on STATUS when PROCESS finished."
   (let* ((cmd (process-command process))
-	     (buffer (process-buffer process))
-	     (msg (format "%s: %s" (mapconcat 'identity cmd " ")  status)))
+         (buffer (process-buffer process))
+         (msg (format "%s: %s" (mapconcat 'identity cmd " ")  status)))
     (if (string-prefix-p "finished" status)
-	    (alert msg :buffer buffer :severity  'normal)
-	  (alert msg :buffer buffer :severity 'urgent))))
+        (alert msg :buffer buffer :severity  'normal)
+      (alert msg :buffer buffer :severity 'urgent))))
 
 (add-hook 'eshell-kill-hook #'eshell-command-alert)
 (alert-add-rule :status   '(buried)     ;only send alert when buffer not visible
-		  :mode     'eshell-mode
-		  :style 'notifications)
+                :mode     'eshell-mode
+                :style 'notifications)

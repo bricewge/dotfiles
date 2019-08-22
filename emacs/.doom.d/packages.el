@@ -14,9 +14,6 @@
 (package! yasnippet-snippets)
 (package! webpaste)
 
-(package! esh-autosuggest)
-(package! alert)
-
 (package! guix)
 (package! geiser)
 (package! gitpatch)

@@ -154,7 +154,6 @@
 
 ;; * term
 ;; ** eshell
-(load! "+eshell")
 
 ;; * tools
 ;; ** direnv
