@@ -9,8 +9,6 @@
 (package! vue-mode)
 (package! systemd)
 
-(package! outshine)
-(package! poporg)
 (package! evil-lion)
 
 (package! yasnippet-snippets)
@@ -18,12 +16,6 @@
 
 (package! esh-autosuggest)
 (package! alert)
-
-(package! org-caldav
-  :recipe (:host github :repo "grauschnabel/org-caldav")) ;; VTODO support
-
-(package! org-noter)  ;; annotate documents
-(package! nov)        ;; epub reader
 
 (package! guix)
 (package! geiser)

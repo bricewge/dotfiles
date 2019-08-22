@@ -1,4 +1,4 @@
-;;; ~/.doom.d/+org.el -*- lexical-binding: t; -*-
+;;; private/org/config.el -*- lexical-binding: t; -*-
 
 ;; * org-mode
 ;; ** org-agenda
@@ -111,3 +111,5 @@
   (setf (alist-get 'counsel-org-capture ivy-display-functions-alist)
         #'ivy-display-function-fallback)
   )
+
+(load! "+outshine")
