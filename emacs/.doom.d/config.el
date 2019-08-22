@@ -179,8 +179,8 @@
   (magit-wip-mode))
 
 ;; ** pass
-(use-package! auth-source-pass
-  :config
+(after! auth-source-pass
+  ;; force pass as auth sources
   (setq auth-sources '(password-store))
   (auth-source-forget-all-cached))
 
