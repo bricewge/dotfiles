@@ -148,9 +148,6 @@
 ;; * emacs
 ;; ** dired
 (setq delete-by-moving-to-trash t)
-;; (use-package! ranger
-;;    :config
-;;    (setq ranger-footer-delay nil))
 
 ;; ** man
 (after! man

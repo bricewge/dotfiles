@@ -170,7 +170,11 @@
        ;; library, and additional ex commands for evil-mode. Use it as a
        ;; config. Use it as a reference for your own modules.
        ;; reference for your own modules.
-       (default +bindings +smartparens +evil-commands))
+       (default +bindings +smartparens +evil-commands)
+
+       :private
+       dired
+       )
 
        ;; ;; provides a Spacemacs-inspired keybinding scheme, a custom yasnippet
        ;; ;; library, and additional ex commands for evil-mode. Use it as a
