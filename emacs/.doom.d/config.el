@@ -34,7 +34,7 @@
 
 ;; * keybindings
 (map!
- :n "U"		#'undo-tree-redo
+ :n "U"     #'undo-tree-redo
  ;; Easier window navigation
  :n "C-h"   #'evil-window-left
  :n "C-j"   #'evil-window-down
@@ -47,22 +47,30 @@
  ;;     "C-l" #'evil-window-right))
  )
 (map! :leader
-      :desc "M-x"							:nv "\\"		#'execute-extended-command
+      :desc "M-x"
+      :nv "\\"        #'execute-extended-command
 
       (:prefix "w"
-        :desc "Ace window"					:n "TAB" 		#'ace-window
-        :desc "Ace swap window"			:n "<backtab>"	#'ace-swap-window)
+        :desc "Ace window"
+        :n "TAB"        #'ace-window
+        :desc "Ace swap window"
+        :n "<backtab>"  #'ace-swap-window)
       (:prefix "f"
-        :desc "Change file mode"			:n "m"			#'chmod-current-file
-        :desc "Make symbolic link"			:n "s"			#'make-symbolic-link-current-file
-        :desc "Add file variable"			:n "v"			#'add-file-local-variable
-        :desc "Delete file variable"		:n "V"			#'delete-file-local-variable)
-      (:desc "application" :prefix "a"
-        :desc "Package list"				:n "p"			#'package-show-package-list)
+        :desc "Change file mode"
+        :n "m"          #'chmod-current-file
+        :desc "Make symbolic link"
+        :n "s"          #'make-symbolic-link-current-file
+        :desc "Add file variable"
+        :n "v"          #'add-file-local-variable
+        :desc "Delete file variable"
+        :n "V"          #'delete-file-local-variable)
       (:prefix "o"
-        :desc "Pass"						:n "p"			#'pass
-        :desc "Open URL"					:n "u"			#'open-url
-        :desc "Open URL in popup"			:n "U"			#'browse-url-emacs)
+        :desc "Password manager"
+        :n "w"          #'pass
+        :desc "Open URL"
+        :n "u"          #'open-url
+        :desc "Open URL in popup"
+        :n "U"          #'browse-url-emacs)
       )
 
 
@@ -83,10 +91,10 @@
   :commands (poporg-dwim)
   :init
   (map!
-   :n "C-c \""	#'poporg-dwim
-   (:leader
-     :prefix "t"
-     :desc "Edit in org buffer"	:n "o"	#'poporg-dwim)))
+   :n "C-c \"" #'poporg-dwim
+   (:leader :prefix "t"
+     :desc "Edit in org buffer"
+     :n "o" #'poporg-dwim)))
 
 ;;
 ;;
