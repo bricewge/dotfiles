@@ -1,8 +1,5 @@
 ;; ~/.doom.d/config.el -*- lexical-binding: t; -*-
 
-;; TODO TRAMP use controlmaster
-;; TODO TRAMP remote sudo
-
 (defun chmod-current-file ()
   (interactive)
   (chmod buffer-file-name
@@ -80,7 +77,7 @@
 (use-package! outshine
   ;; TODO binding for evil
   :bind (:map outline-minor-mode-map
-          ("<S-iso-lefttab>" . outshine-cycle-buffer))
+          ("<S-iso-lefttab>" . #'outshine-cycle-buffer))
   :config
   (setq outshine-org-style-global-cycling-at-bob-p t)
   (setq outshine-startup-folded-p nil)
