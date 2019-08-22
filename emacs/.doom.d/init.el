@@ -176,6 +176,7 @@
        dired
        org
        eshell
+       mu4e
        )
 
        ;; ;; provides a Spacemacs-inspired keybinding scheme, a custom yasnippet

@@ -16,9 +16,6 @@
 
 (package! guix)
 (package! geiser)
-(package! gitpatch)
-(package! mu4e-patch
-  :recipe (:host github :repo "seanfarley/mu4e-patch"))
 
 (package! ascii-art-to-unicode)
 

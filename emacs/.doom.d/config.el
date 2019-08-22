@@ -266,7 +266,6 @@
   (set-face-background 'mmm-default-submode-face nil))
 
 ;; * email
-(load! "+mail")
 
 ;; * app
 
