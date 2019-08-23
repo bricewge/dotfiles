@@ -2,6 +2,9 @@
 #
 # TODO Re-add mpvctl
 
+# shellcheck disable=SC1090
+. "${DOTFILES:-.}/shell/.shell/lib/utils.sh"
+
 config_dir=$XDG_CONFIG_HOME/mpv
 mkdir -p "$config_dir/scripts"
 

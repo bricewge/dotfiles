@@ -1,3 +1,8 @@
+#!/bin/sh
+
+# shellcheck disable=SC1090
+. "${DOTFILES:-.}/shell/.shell/lib/utils.sh"
+
 # * rofi
 theme=$(readlink "$XDG_CONFIG_HOME/rofi/config")
 if [ ! "$(dirname "$theme")" =  "$XDG_CONFIG_HOME/rofi" ]; then
@@ -15,7 +20,7 @@ symlink "$HOME/.local/src/menu-calc/=" "$HOME/.local/bin/="
 # git clone https://github.com/zbaylin/rofi-wifi-menu.git \
     repository https://github.com/bricewge/rofi-wifi-menu.git \
 "${HOME}/.local/src/rofi-wifi-menu"
-symlink "$HOME/.local/src/rofi-menu-wifi/rofi-menu-wifi.sh" \
+symlink "$HOME/.local/src/rofi-wifi-menu/rofi-wifi-menu.sh" \
     "$HOME/.local/bin/rofi-wifi"
 
 # * rofi power

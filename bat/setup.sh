@@ -1,4 +1,7 @@
-#!/usr/bin/env sh
+#!//bin/sh
+
+# shellcheck disable=SC1090
+. "${DOTFILES:-.}/shell/.shell/lib/utils.sh"
 
 config_dir=$(bat --config-dir)
 

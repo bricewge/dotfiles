@@ -2,6 +2,9 @@
 
 set -e
 
++# shellcheck disable=SC1090
++. "${DOTFILES:-.}/shell/.shell/lib/utils.sh"
+
 git_fire_dir="$HOME/.local/src/git-fire"
 if [ ! -d "$git_fire_dir" ]; then
     mkdir -p "$git_fire_dir"

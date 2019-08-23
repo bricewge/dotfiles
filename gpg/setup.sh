@@ -1,5 +1,8 @@
 #!/usr/bin/env sh
 
+# shellcheck disable=SC1090
+. "${DOTFILES:-.}/shell/.shell/lib/utils.sh"
+
 keyid="3D36CAA0116F0F99"
 # TODO Fix broken link
 keyurl="https://ptpb.pw/zM1Q"

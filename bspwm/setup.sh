@@ -1,5 +1,8 @@
 #!/usr/bin/env sh
 
+# shellcheck disable=SC1090
+. "${DOTFILES:-.}/shell/.shell/lib/utils.sh"
+
 symlink ./solarized-dark "$HOME/.config/polybar/colors"
 
 # Disable chromium decorations

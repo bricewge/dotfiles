@@ -1,5 +1,3 @@
-#!/bin/sh
-
 symlink() {
     target=$1
     destination=$2
