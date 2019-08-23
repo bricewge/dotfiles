@@ -176,7 +176,9 @@
 
 ;; ** magit
 (after! magit
-  (magit-wip-mode))
+  (magit-wip-mode)
+  ;; don't use the fringe to indicate section visibility
+  (setq magit-section-visibility-indicator '("…" . t)))
 
 ;; ** pass
 (after! auth-source-pass
