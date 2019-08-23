@@ -1,11 +1,10 @@
-#!/usr/bin/env sh
+#!/bin/sh
 
 # shellcheck disable=SC1090
 . "${DOTFILES:-.}/shell/.shell/lib/utils.sh"
 
 keyid="3D36CAA0116F0F99"
-# TODO Fix broken link
-keyurl="https://ptpb.pw/zM1Q"
+keyurl="https://github.com/bricewge.gpg"
 
 # TODO Import trust with --import-ownertrust https://gist.github.com/chrisroos/1205934
 # TODO Import from keyserver

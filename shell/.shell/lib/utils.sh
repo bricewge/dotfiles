@@ -33,4 +33,12 @@ repository() {
         fi
     )
 }
+
+user_is_me() {
+    case "$(whoami)" in
+        bricewge|bwaegene)
+            return 0
+            ;;
+    esac
+    return 1
 }

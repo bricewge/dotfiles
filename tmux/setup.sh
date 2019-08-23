@@ -1,15 +1,15 @@
+#!/bin/sh
+
+# shellcheck disable=SC1090
+. "${DOTFILES:-.}/shell/.shell/lib/utils.sh"
+
 plugins_dir=$HOME/.tmux/plugins
-mkdir -p "$plugins_dir"
+# WAITING https://github.com/tmux-plugins/tpm/pull/158
+# repository https://github.com/tmux-plugins/tpm.git \
+repository https://github.com/rafalrothenberger/tpm.git \
+    "$plugins_dir/tpm" \
+    add-branch-to-plugin
+"$plugins_dir/tpm/bin/install_plugins"
 
-if ! [ -d "$plugins_dir/tpm" ]; then
-    # WAITING https://github.com/tmux-plugins/tpm/pull/158
-    # git clone https://github.com/tmux-plugins/tpm.git "$plugins_dir/tpm"
-    git clone --branch add-branch-to-plugin \
-        https://github.com/rafalrothenberger/tpm.git \
-        "$plugins_dir/tpm"
-    "$plugins_dir/tpm/bin/install_plugins"
-
-    # set default theme
-    ln -s "$HOME/.tmux/themes/solarized-dark.conf" "$HOME/.tmux/current-theme.conf"
-fi
-
+# set default theme
+symlink "$HOME/.tmux/themes/solarized-dark.conf" "$HOME/.tmux/current-theme.conf"
