@@ -175,6 +175,7 @@
        :private
        dired
        org
+       epub
        eshell
        mu4e
        )

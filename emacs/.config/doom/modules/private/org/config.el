@@ -112,4 +112,4 @@
         #'ivy-display-function-fallback)
   )
 
-(load! "+outshine")
+;; (load! "+outshine")
