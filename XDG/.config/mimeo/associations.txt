@@ -6,6 +6,8 @@ firefox %U
 zathura %F
   \.pdf$
   \.epub$
+  \.cbr$
+  \.cbz$
 
 mpv %F
   \.mp3$
