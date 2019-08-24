@@ -14,10 +14,10 @@ if [ -x "${XDG_CONFIG_HOME:=$HOME/.config}/setroot/.setroot-restore" ]; then
     setroot --restore &
 else
     setroot --store --blank-color '#002b36' \
-        --on 0 --blur 10 -z \
-        "${DOTFILES:=$HOME/.dotfiles}/_wallpaper/schicka-307-unsplash.jpg" \
-        --on 1 --blur 10 z \
-        "$DOTFILES/_wallpaper/schicka-307-unsplash.jpg" &
+        --on 0 -z \
+        "${DOTFILES:=$HOME/.dotfiles}/bspwm/_wallpaper/schicka-307-unsplash.jpg" \
+        --on 1 -z \
+        "$DOTFILES/bspwm/_wallpaper/schicka-307-unsplash.jpg" &
 
 fi
 # Set a nice cursor
