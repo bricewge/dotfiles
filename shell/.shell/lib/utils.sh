@@ -24,8 +24,7 @@ repository() {
     (
         cd "$destination" || exit 1
         printf "%s: %s at %s\n" "$destination" "$repo" "$branch"
-        if [ -e "$destination" ] && \
-            git rev-parse --is-inside-work-tree > /dev/null 2>&1 ; then
+        if git rev-parse --is-inside-work-tree > /dev/null 2>&1 ; then
             git pull
             git checkout "$branch"
         else
