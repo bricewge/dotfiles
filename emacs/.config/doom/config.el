@@ -180,7 +180,19 @@
 (after! magit
   (magit-wip-mode)
   ;; don't use the fringe to indicate section visibility
-  (setq magit-section-visibility-indicator '("…" . t)))
+  (setq magit-section-visibility-indicator '("…" . t))
+
+  ;; force english language in magit
+  (defadvice magit-call-process (around lang-en_US activate)
+    "Set environment variable LANGUAGE to C."
+    (let ((process-environment process-environment))
+      (setenv "LANGUAGE" "C")
+      ad-do-it))
+  (defadvice magit-start-process (around lang-en_US activate)
+    "Set environment variable LANGUAGE to C."
+    (let ((process-environment process-environment))
+      (setenv "LANGUAGE" "C")
+      ad-do-it)))
 
 ;; ** pass
 (after! auth-source-pass
