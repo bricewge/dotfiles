@@ -127,10 +127,3 @@ case "$option" in
 		exit 1
 		;;
 esac
-
-# Remove empty desktops.  This works for multiple monitors, as well.
-# This will NOT REMOVE empty desktops that contain only receptacles
-# (applies to the --activate-desktop option above).
-for i in $(_query_desktops '.!focused.!occupied' --names); do
-	bspc desktop "$i" -r
-done

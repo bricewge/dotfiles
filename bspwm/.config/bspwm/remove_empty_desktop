@@ -1,0 +1,22 @@
+#!/bin/sh
+
+set -e
+
+ bspc subscribe report | while read -r report; do
+    monitors=$(echo "$report" | cut -c2- | sed 's/:\([M|m]\)/\n\1/g')
+
+    for monitor in $monitors; do
+        desktops=$(echo "$monitor" | tr : '\n' | grep '[O|o|F|f|U|u]')
+
+        for desktop in $desktops; do
+            # desktop_state=$(echo "$desktop" | cut -c1)
+            desktop_name=$(echo "$desktop" | cut -c2-)
+
+            if bspc query --desktops \
+                --monitor focused \
+                --desktop "${desktop_name}.!focused.!occupied"; then
+                bspc desktop "$desktop_name" --remove || true
+            fi
+        done
+    done
+done

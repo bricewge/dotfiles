@@ -57,6 +57,16 @@ bspc config external_rules_command "$XDG_CONFIG_HOME/bspwm/external-rules"
 bspc rule -a 'Nightly:*' state=floating # Firefox
 bspc rule -a Nightly:Navigator state=tiled
 
+# ** listeners
+# scripts that subscribe to bspwm events
+
+# blur wallpaper of occupied displays
+wallpaper-blur &
+
+# To manage the desktops dynamically when remove the empty and unocupied
+# ones.
+"$XDG_CONFIG_HOME"/remove_empty_desktop &
+
 # * other stuff to start
 scu restart redshift &
 # run polybars on all monitors
@@ -71,9 +81,6 @@ xbanish -i Mod4 &
 udiskie --notify &
 # disable DPMS
 xset s off -dpms
-
-# blur wallpaper of occupied displays
-wallpaper-blur &
 
 # Local Variables:
 # eval: (rainbow-mode 1)
