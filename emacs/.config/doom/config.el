@@ -162,7 +162,9 @@
 
 ;; ** flyspell
 (after! flyspell
-  (setq ispell-dictionary "english"))
+  (setq ispell-dictionary "english")
+  (setq flyspell-issue-message-flag nil) ;; make it quite. Huge speed up!!
+  (add-hook 'git-commit-setup-hook 'git-commit-turn-on-flyspell))
 
 ;; ** gitpatch
 (after! gitpatch
