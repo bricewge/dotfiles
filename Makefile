@@ -2,6 +2,7 @@
 # ./dots.sh bspwm 2>&1 | \
 # awk -F': ' "/not owned by stow/ {print \"$HOME/\"\$2\" ./bspwm/\"\$2}" | \
 # xargs -n2 diff -u --color
+# TODO display output only if error, like mongooseOS tool mos
 
 .DEFAULT_GOAL := help
 
