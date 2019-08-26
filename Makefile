@@ -3,11 +3,13 @@
 # awk -F': ' "/not owned by stow/ {print \"$HOME/\"\$2\" ./bspwm/\"\$2}" | \
 # xargs -n2 diff -u --color
 # TODO display output only if error, like mongooseOS tool mos
+# TODO Make package dependent on some other, example:
+# _themes is needed by bspwm, alacritty, rofi, firefox, tmux
 
 .DEFAULT_GOAL := help
 
 DESTDIR  ?= $$HOME
-PKGS ?= $(sort $(dir $(wildcard */)))
+PKGS ?= $(sort $(dir $(wildcard [^_@]*/)))
 
 REAL_DIRS := $(addprefix $(DESTDIR)/,\
 	.config\
