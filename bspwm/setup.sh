@@ -9,3 +9,8 @@ if [ -e "$chromium_config" ]; then
     jq < "$chromium_config" .browser.custom_chrome_frame=false \
         > /tmp/tmpfile && mv --force /tmp/tmpfile "$chromium_config"
 fi
+
+# Set default theme
+if [ ! -e "$XDG_CONFIG_HOME/theme/current-theme" ]; then
+    symlink ./solarized/dark.m4 "$XDG_CONFIG_HOME/theme/current-theme"
+fi

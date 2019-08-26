@@ -11,11 +11,11 @@ PKGS ?= $(sort $(dir $(wildcard */)))
 
 REAL_DIRS := $(addprefix $(DESTDIR)/,\
 	.config\
-	.config/bat .config/polybar .config/alacritty\
+	.config/bat .config/polybar .config/theme/solarized\
+	.config/alacritty\
 	.config/dunst .config/tmux .config/rofi\
 	.local/src\
 	.tmux\
-	.config/rofi\
 	.git-templates\
 	.gnupg .ssh\
 	.terminfo)

@@ -2,52 +2,56 @@
 #
 # Toogle betwen dark and light theme variant.
 
-# NOTE Because we are modifying configurations, the changes need to be actually
-#  recored and not just written as a volatile state in memory.
-
 # TODO Set themes, do not toggle only
 
 set -e
 
-state_file=${XDG_RUNTIME_DIR}/theme
-theme=${1:-light} # default
+state_file=$XDG_CONFIG_HOME/theme/current-theme
 
-if [ -z "$1" ]; then
-    # read state
-    if [ -e "$state_file" ]; then
-        theme=$(cat "$state_file")
-    fi
-    # toggle
-    theme=$(test "$theme" = "light" && echo dark || echo light)
+if [ $# -gt 0 ]; then
+    echo "TODO Support changing theme"
+    exit 1
 fi
 
+# read state
+theme_file=$(readlink "$state_file")
+theme_dir=$(dirname "$theme_file")
+theme=${theme_dir##*/}
+variant=$(basename --suffix .m4 "$theme_file")
+
+# toggle
+variant=$(test "$variant" = "light" && echo dark || echo light)
+theme_file=$theme_dir/${variant}.m4
+
 # save state
-echo "$theme" > "$state_file"
+ln -sf "$theme_file" "$state_file"
 
-# debugging
-# echo $theme
-# exit
-
+# we want the variant file (light|dark).m4 and base.m4
+m4_files=$XDG_CONFIG_HOME/theme/$theme/[b$(echo "$variant" | cut -c1)]*.m4
 # polybar
-ln -sf "${XDG_CONFIG_HOME}/polybar/solarized-${theme}" \
-    "${XDG_CONFIG_HOME}/polybar/colors"
+m4 $m4_files "$XDG_CONFIG_HOME/polybar/config.m4" \
+    >  "$XDG_CONFIG_HOME/polybar/config"
 pkill -USR1 polybar || true
 
 # alacritty
+# TODO Add support to theme changing not only variant
 sed --follow-symlinks \
-    -i "s/\(^colors: \*\).*/\1${theme}/g" \
-    "${XDG_CONFIG_HOME}/alacritty/alacritty.yml" || true
+    -i "s/\(^colors: \*\).*/\1${variant}/g" \
+    "$XDG_CONFIG_HOME/alacritty/alacritty.yml" || true
 
 # tmux
-ln -sf "$HOME/.tmux/themes/solarized-${theme}.conf" "$HOME/.tmux/current-theme.conf"
+ln -sf "$HOME/.tmux/themes/${theme}-${variant}.conf" \
+    "$HOME/.tmux/current-theme.conf"
 tmux source-file "$HOME/.tmux.conf" || true
 
 # firefox
+# TODO Add support to theme changing not only variant
+# TODO Add support to set varant not only toggling
 pkill -USR1 -f "python.+zen_fox_toggle_light_dark.py" || true
 
 # rofi
-ln -sf "$XDG_CONFIG_HOME/rofi/solarized-$theme" "$XDG_CONFIG_HOME/rofi/config"
+ln -sf "$XDG_CONFIG_HOME/rofi/${theme}-$variant" "$XDG_CONFIG_HOME/rofi/config"
 
 # emacs
 # TODO use symlinks to record emacs' theme sate
-emacsclient --eval "(load-theme 'doom-solarized-${theme})" || true
+emacsclient --eval "(load-theme 'doom-${theme}-${variant})" || true

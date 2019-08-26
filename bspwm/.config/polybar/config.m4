@@ -1,3 +1,4 @@
+changecom (`;')dnl
 ; TODO Remove hardcoded colors:
 ; https://github.com/polybar/polybar/wiki/Formatting#format-tags-inside-polybar-config
 
@@ -14,7 +15,7 @@ foreground = ${colors.foreground}
 line-size = 2
 line-color = ${colors.secondary}
 
-separator = %{F#586e75}|%{F-}
+separator = %{`F'COLOR_FOREGROUND_ALT}|%{F-}
 module-margin = 1
 padding-right= 1
 
@@ -37,7 +38,13 @@ override-redirect = true
 
 ; * colors
 [colors]
-include-file = $HOME/.config/polybar/colors
+background = COLOR_BACKGROUND
+background-alt = COLOR_BACKGROUND_ALT
+foreground = COLOR_FOREGROUND
+foreground-alt = COLOR_FOREGROUND_ALT
+primary = COLOR_PRIMARY
+secondary = COLOR_SECONDARY
+alert = COLOR_ALERT
 
 ; * modules
 ; ** xwindow
@@ -168,8 +175,8 @@ ramp-capacity-4 = 
 [module/launcher]
 ; Indicate if sxhkd has began a chain and serve as a launcher
 type = custom/ipc
-hook-0 = echo  "%{B#93a1a1 F#586e75}  %{B- F-}"
-hook-1 = echo "%{B#b58900 F#586e75}  %{B- F-}"
+hook-0 = echo  "%{`B'COLOR_FOREGROUND `F'COLOR_BACKGROUND}  %{B- F-}"
+hook-1 = echo "%{`B'COLOR_PRIMARY `F'COLOR_BACKGROUND}  %{B- F-}"
 initial = 1
 click-left = rofi -show drun
 click-right = rofi-power "bspc quit 1"
