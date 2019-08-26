@@ -56,6 +56,16 @@ tree -a
 #+end_example
 
 * Dependencies
+- bspwm:: window manager
+- sxhkd:: hotkey daemon
+- wpgtk:: theme manager
+- polybar:: status bar
+- rofi:: menus
+- dunst: notifications
+- setroot:: wallpaper
+- autorander:: screen layout manager
+
+  Tools used in the scripts:
 - =wattr=
 - =xdo=
 - =xdotool=
