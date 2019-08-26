@@ -12,7 +12,7 @@ symlink() {
     fi
 
     mkdir -p "$(dirname "$destination")"
-    ln -sbf "$target" "$destination"
+    ln --suffix=.bak -sbf "$target" "$destination"
 }
 
 repository() {
