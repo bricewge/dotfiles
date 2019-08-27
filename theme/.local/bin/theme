@@ -42,8 +42,8 @@ m4 $m4_files "$XDG_CONFIG_HOME/alacritty/alacritty.yml.m4" \
     > "$XDG_CONFIG_HOME/alacritty/alacritty.yml"
 
 # tmux
-ln -sf "$HOME/.tmux/themes/${theme}-${variant}.conf" \
-    "$HOME/.tmux/current-theme.conf"
+m4 $m4_files "$HOME/.tmux.conf.m4" \
+    > "$HOME/.tmux.conf"
 tmux source-file "$HOME/.tmux.conf" || true
 
 # firefox

@@ -1,4 +1,3 @@
-# cat << EOF > /dev/null
 # Plugins
 # List of plugins
 set -g @plugin 'tmux-plugins/tpm'
@@ -92,37 +91,20 @@ set -g window-status-separator "|"
 set -g window-status-format " #I: #W #{?window_flags,#F ,  }"
 set -g window-status-current-format " #[bold]#I: #W #F "
 
-# * template
-if '[ -f ~/.tmux/current-theme.conf ]' 'source ~/.tmux/current-theme.conf'
-run 'cut -c3- ~/.tmux.conf | sh -s apply_styles'
+# ** styles
+# *** general
+# copy mode styles
+set -g mode-style "bg=COLOR_BACKGROUND,fg=COLOR_FOREGROUND_ALT,bold"
+# status line styles
+set -g message-style "bg=default,fg=default,bold"
 
-# Local Variables:
-# eval: (add-hook 'poporg-edit-hook 'sh-mode t)
-# eval: (remove-hook 'poporg-edit-hook 'org-mode t)
-# End:
+# *** pane
+set -g pane-border-style "fg=COLOR_BACKGROUND,bg=COLOR_BACKGROUND"
+set -g pane-active-border-style "fg=COLOR_FOREGROUND_ALT,bg=COLOR_BACKGROUND"
 
-# EOF
-#
-# set -e
-#
-# apply_styles() {
-#     # ** styles
-#     # *** general
-#     # copy mode styles
-#     tmux set -g mode-style "bg=$color_bg_alt,fg=$color_fg,bold"
-#     # status line styles
-#     tmux set -g message-style "bg=default,fg=default,bold"
-#
-#     # *** pane
-#     tmux set -g pane-border-style "fg=$color_bg_alt,bg=$color_bg_alt"
-#     tmux set -g pane-active-border-style "fg=$color_fg,bg=$color_bg_alt"
-#
-#     # *** status bar
-#     tmux set -g status-style "bg=$color_bg_alt,fg=$color_fg_alt"
-#     tmux set -g window-status-style "fg=$color_fg_alt"
-#     tmux set -g window-status-current-style "fg=$color_fg,bg=$color_bg"
-#     tmux set -g status-left "#[bold]#{?pane_synchronized,#[fg=colour5] sync on ,}#{?pane_in_mode,#[fg=colour4] #{pane_mode}#{?selection_present, selecting,}#{?rectangle_toggle, rectangle,} ,}"
-#     tmux set -g status-right "#[bg=default,fg=yellow]#{?client_prefix,#[fg=colour2]#[bg=default]#[reverse],} #S #{session_id} #{?client_prefix,,}"
-# }
-#
-# "$@"
+# *** status bar
+set -g status-style "bg=COLOR_BACKGROUND,fg=COLOR_FOREGROUND_DIM"
+set -g window-status-style "fg=COLOR_FOREGROUND_DIM"
+set -g window-status-current-style "fg=COLOR_FOREGROUND_ALT,bg=COLOR_BACKGROUND_ALT"
+set -g status-left "#[bold]#{?pane_synchronized,#[fg=colour5] sync on ,}#{?pane_in_mode,#[fg=colour4] #{pane_mode}#{?selection_present, selecting,}#{?rectangle_toggle, rectangle,} ,}"
+set -g status-right "#[bg=default,fg=yellow]#{?client_prefix,#[fg=colour2]#[bg=default]#[reverse],} #S #{session_id} #{?client_prefix,,}"

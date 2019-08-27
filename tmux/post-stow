@@ -11,5 +11,4 @@ repository https://github.com/rafalrothenberger/tpm.git \
     add-branch-to-plugin
 "$plugins_dir/tpm/bin/install_plugins"
 
-# set default theme
-symlink "$HOME/.tmux/themes/solarized-dark.conf" "$HOME/.tmux/current-theme.conf"
+theme_template "$HOME/.tmux.conf.m4"

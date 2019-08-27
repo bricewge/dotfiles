@@ -1,4 +1,3 @@
-changecom (`;')dnl
 ; TODO Remove hardcoded colors:
 ; https://github.com/polybar/polybar/wiki/Formatting#format-tags-inside-polybar-config
 
