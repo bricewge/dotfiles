@@ -191,7 +191,7 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("34c99997eaa73d64b1aaa95caca9f0d64229871c200c5254526d0062f8074693" "cb477d192ee6456dc2eb5ca5a0b7bd16bdb26514be8f8512b937291317c7b166" "10461a3c8ca61c52dfbbdedd974319b7f7fd720b091996481c8fb1dded6c6116" "0598c6a29e13e7112cfbc2f523e31927ab7dce56ebb2016b567e1eff6dc1fd4f" "9efd000a42191dcbdb4bab132eec45f098d779b5eb743a4a256a553aaacab1e8" default)))
+    ("96990b05dd2b002a7e1a44b2a6ed0c84358386055e4a0e916651c0cdd1a950fd" "28a251f97fcad38d9262087ca7a1ec135e332b557b4609a134ca4d0b4bdfbf4c" "34c99997eaa73d64b1aaa95caca9f0d64229871c200c5254526d0062f8074693" "cb477d192ee6456dc2eb5ca5a0b7bd16bdb26514be8f8512b937291317c7b166" "10461a3c8ca61c52dfbbdedd974319b7f7fd720b091996481c8fb1dded6c6116" "0598c6a29e13e7112cfbc2f523e31927ab7dce56ebb2016b567e1eff6dc1fd4f" "9efd000a42191dcbdb4bab132eec45f098d779b5eb743a4a256a553aaacab1e8" default)))
  '(safe-local-variable-values
    (quote
     ((eval remove-hook
@@ -213,4 +213,3 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
