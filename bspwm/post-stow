@@ -10,5 +10,5 @@ if [ -e "$chromium_config" ]; then
         > /tmp/tmpfile && mv --force /tmp/tmpfile "$chromium_config"
 fi
 
-theme_template "$XDG_CONFIG_HOME/bspwm/bspwmrc.m4"
+theme_template "$XDG_CONFIG_HOME/bspwm/theme.sh.m4"
 theme_template "$XDG_CONFIG_HOME/polybar/config.m4"
