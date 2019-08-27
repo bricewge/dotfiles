@@ -242,7 +242,7 @@ color_schemes:
       cyan:    '0x93a1a1' # base1
       white:   '0xfdf6e3' # base3
 
-colors: *dark
+colors: `*'THEME_VARIANT
 
 # Visual Bell
 #

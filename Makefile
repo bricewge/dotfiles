@@ -35,8 +35,8 @@ $(PKGS): dirs
 	stow -t $(DESTDIR) $@
 	-./$@/post-stow
 
-bspwm: theme
-# alacritty rofi: theme
+ alacritty bspwm: theme
+#  rofi: theme
 # firefox tmux:   theme
 
 $(REAL_DIRS):

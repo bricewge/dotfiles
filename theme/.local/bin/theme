@@ -34,10 +34,8 @@ m4 $m4_files "$XDG_CONFIG_HOME/polybar/config.m4" \
 pkill -USR1 polybar || true
 
 # alacritty
-# TODO Add support to theme changing not only variant
-sed --follow-symlinks \
-    -i "s/\(^colors: \*\).*/\1${variant}/g" \
-    "$XDG_CONFIG_HOME/alacritty/alacritty.yml" || true
+m4 $m4_files "$XDG_CONFIG_HOME/alacritty/${theme}.yml.m4" \
+    >  "$XDG_CONFIG_HOME/alacritty/alacritty.yml"
 
 # tmux
 ln -sf "$HOME/.tmux/themes/${theme}-${variant}.conf" \
