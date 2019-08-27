@@ -3,6 +3,7 @@
 # awk -F': ' "/not owned by stow/ {print \"$HOME/\"\$2\" ./bspwm/\"\$2}" | \
 # xargs -n2 diff -u --color
 # TODO display output only if error, like mongooseOS tool mos
+# TODO Set default for all environment variable in {post,pre}-stow
 
 .DEFAULT_GOAL := help
 

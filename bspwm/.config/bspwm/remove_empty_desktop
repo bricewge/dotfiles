@@ -12,9 +12,8 @@ set -e
             # desktop_state=$(echo "$desktop" | cut -c1)
             desktop_name=$(echo "$desktop" | cut -c2-)
 
-            if bspc query --desktops \
-                --monitor focused \
-                --desktop "${desktop_name}.!focused.!occupied"; then
+            if bspc query --desktops --monitor focused \
+                --desktop "${desktop_name}.!focused.!occupied" > /dev/null; then
                 bspc desktop "$desktop_name" --remove || true
             fi
         done

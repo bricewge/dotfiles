@@ -23,5 +23,4 @@ define(`COLOR_ALERT',               `COLOR1')
 # Local Variables:
 # eval: (rainbow-mode)
 # End:
-
 divert(0)dnl
