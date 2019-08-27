@@ -11,7 +11,7 @@ PKGS ?= $(sort $(patsubst %/, %, $(dir $(wildcard [^_@]*/.))))
 
 REAL_DIRS := $(addprefix $(DESTDIR)/,\
 	.config\
-	.config/bat .config/polybar .config/theme/solarized\
+	.config/bat .config/polybar\
 	.config/alacritty\
 	.config/dunst .config/tmux .config/rofi\
 	.local/src\
@@ -35,8 +35,9 @@ $(PKGS): dirs
 	stow -t $(DESTDIR) $@
 	-./$@/post-stow
 
-# bspwm alacritty rofi: themes
-# firefox tmux:         themes
+bspwm: theme
+# alacritty rofi: theme
+# firefox tmux:   theme
 
 $(REAL_DIRS):
 	@mkdir -p $@
