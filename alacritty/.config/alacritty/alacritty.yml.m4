@@ -138,39 +138,39 @@ font:
   # false.
   use_thin_strokes: true
 
-# # Colors (Tomorrow Night Bright)
-# colors:
-#   # Default colors
-#   primary:
-#     background: '0x000000'
-#     foreground: '0xeaeaea'
+# Colors
+colors:
+  # Default colors
+  primary:
+    background: 'COLOR_BACKGROUND_ALT'
+    foreground: 'COLOR_FOREGROUND'
 
-#   # Colors the cursor will use if `custom_cursor_colors` is true
-#   cursor:
-#     text: '0x000000'
-#     cursor: '0xffffff'
+  # Colors the cursor will use if `custom_cursor_colors` is true
+  cursor:
+    text: 'COLOR_BACKGROUND_ALT'
+    cursor: 'COLOR_FOREGROUND'
 
-#   # Normal colors
-#   normal:
-#     black:   '0x000000'
-#     red:     '0xd54e53'
-#     green:   '0xb9ca4a'
-#     yellow:  '0xe6c547'
-#     blue:    '0x7aa6da'
-#     magenta: '0xc397d8'
-#     cyan:    '0x70c0ba'
-#     white:   '0xffffff'
+  # Normal colors
+  normal:
+    black:   'COLOR0'
+    red:     'COLOR1'
+    green:   'COLOR2'
+    yellow:  'COLOR3'
+    blue:    'COLOR4'
+    magenta: 'COLOR5'
+    cyan:    'COLOR6'
+    white:   'COLOR7'
 
-#   # Bright colors
-#   bright:
-#     black:   '0x666666'
-#     red:     '0xff3334'
-#     green:   '0x9ec400'
-#     yellow:  '0xe7c547'
-#     blue:    '0x7aa6da'
-#     magenta: '0xb77ee0'
-#     cyan:    '0x54ced6'
-#     white:   '0xffffff'
+  # Bright colors
+  bright:
+    black:   'COLOR8'
+    red:     'COLOR9'
+    green:   'COLOR10'
+    yellow:  'COLOR11'
+    blue:    'COLOR12'
+    magenta: 'COLOR13'
+    cyan:    'COLOR14'
+    white:   'COLOR15'
 
 #   # Dim colors (Optional)
 #   dim:
@@ -182,67 +182,6 @@ font:
 #     magenta: '0xcc99cc'
 #     cyan:    '0x66cccc'
 #     white:   '0xdddddd'
-
-color_schemes:
-  solarized_dark: &dark
-    primary:
-      background: '0x002b36' # base03
-      foreground: '0x839496' # base0
-
-    cursor:
-      text:   '0x002b36' # base03
-      cursor: '0x839496' # base0
-
-    normal:
-      black:   '0x073642' # base02
-      red:     '0xdc322f' # red
-      green:   '0x859900' # green
-      yellow:  '0xb58900' # yellow
-      blue:    '0x268bd2' # blue
-      magenta: '0xd33682' # magenta
-      cyan:    '0x2aa198' # cyan
-      white:   '0xeee8d5' # base2
-
-    bright:
-      black:   '0x002b36' # base03
-      red:     '0xcb4b16' # orange
-      green:   '0x586e75' # base01
-      yellow:  '0x657b83' # base00
-      blue:    '0x839496' # base0
-      magenta: '0x6c71c4' # violet
-      cyan:    '0x93a1a1' # base1
-      white:   '0xfdf6e3' # base3
-
-  solarized_light: &light
-    primary:
-      background: '0xfdf6e3' # base3
-      foreground: '0x657b83' # base00
-
-    cursor:
-      text:   '0xfdf6e3' # base3
-      cursor: '0x657b83' # base00
-
-    normal:
-      black:   '0x073642' # base02
-      red:     '0xdc322f' # red
-      green:   '0x859900' # green
-      yellow:  '0xb58900' # yellow
-      blue:    '0x268bd2' # blue
-      magenta: '0xd33682' # magenta
-      cyan:    '0x2aa198' # cyan
-      white:   '0xeee8d5' # base2
-
-    bright:
-      black:   '0x002b36' # base03
-      red:     '0xcb4b16' # orange
-      green:   '0x586e75' # base01
-      yellow:  '0x657b83' # base00
-      blue:    '0x839496' # base0
-      magenta: '0x6c71c4' # violet
-      cyan:    '0x93a1a1' # base1
-      white:   '0xfdf6e3' # base3
-
-colors: `*'THEME_VARIANT
 
 # Visual Bell
 #

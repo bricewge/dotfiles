@@ -38,7 +38,7 @@ m4 $m4_files "$XDG_CONFIG_HOME/bspwm/bspwmrc.m4" \
     > "$XDG_CONFIG_HOME/bspwm/bspwmrc"
 
 # alacritty
-m4 $m4_files "$XDG_CONFIG_HOME/alacritty/${theme}.yml.m4" \
+m4 $m4_files "$XDG_CONFIG_HOME/alacritty/alacritty.yml.m4" \
     > "$XDG_CONFIG_HOME/alacritty/alacritty.yml"
 
 # tmux

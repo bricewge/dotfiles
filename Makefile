@@ -12,7 +12,6 @@ PKGS ?= $(sort $(patsubst %/, %, $(dir $(wildcard [^_@]*/.))))
 
 REAL_DIRS := $(addprefix $(DESTDIR)/,\
 	.config\
-	.config/alacritty\
 	.config/bat\
 	.config/dunst .config/tmux .config/rofi\
 	.local/src\

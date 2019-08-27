@@ -47,7 +47,7 @@ bspc config gapless_monocle true
 
 # ** borders
 bspc config border_width 2
-bspc config normal_border_color "COLOR_FOREGROUND_ALT"
+bspc config normal_border_color "COLOR_FOREGROUND_DIM"
 bspc config active_border_color "COLOR_SECONDARY"
 bspc config focused_border_color "COLOR_PRIMARY"
 bspc config presel_feedback_color "COLO_BACKGROUND_ALT"

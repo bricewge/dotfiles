@@ -15,7 +15,7 @@ foreground = ${colors.foreground}
 line-size = 2
 line-color = ${colors.secondary}
 
-separator = %{`F'COLOR_FOREGROUND_ALT}|%{F-}
+separator = %{`F'COLOR_FOREGROUND_DIM}|%{F-}
 module-margin = 1
 padding-right= 1
 
@@ -40,8 +40,8 @@ override-redirect = true
 [colors]
 background = COLOR_BACKGROUND
 background-alt = COLOR_BACKGROUND_ALT
-foreground = COLOR_FOREGROUND
-foreground-alt = COLOR_FOREGROUND_ALT
+foreground = COLOR_FOREGROUND_ALT
+foreground-alt = COLOR_FOREGROUND_DIM
 primary = COLOR_PRIMARY
 secondary = COLOR_SECONDARY
 alert = COLOR_ALERT
@@ -175,7 +175,7 @@ ramp-capacity-4 = 
 [module/launcher]
 ; Indicate if sxhkd has began a chain and serve as a launcher
 type = custom/ipc
-hook-0 = echo  "%{`B'COLOR_FOREGROUND `F'COLOR_BACKGROUND}  %{B- F-}"
+hook-0 = echo  "%{`B'COLOR_FOREGROUND_ALT `F'COLOR_BACKGROUND}  %{B- F-}"
 hook-1 = echo "%{`B'COLOR_PRIMARY `F'COLOR_BACKGROUND}  %{B- F-}"
 initial = 1
 click-left = rofi -show drun
