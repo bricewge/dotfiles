@@ -9,7 +9,7 @@ start () {
         alacritty --title scratchpad --class scratchpad \
             --command tmux new-session -A -s scratchpad &
 
-        bspc subscribe node_geometry -c 10 | while read -r _ _ _ wid _; do
+        bspc subscribe node_geometry -c 1 | while read -r _ _ _ wid _; do
             xwininfo -id "$wid"
             # TODO replace following line with `xwinfo`
             class=$(xprop -id "$wid" WM_CLASS | awk '{gsub(/[",]/,"",$3); print $3; }')
