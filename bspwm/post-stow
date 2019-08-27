@@ -1,4 +1,4 @@
-#!/bin/ sh
+#!/bin/sh
 
 # shellcheck disable=SC1090
 . "${DOTFILES:-.}/shell/.shell/lib/utils.sh"
@@ -9,3 +9,6 @@ if [ -e "$chromium_config" ]; then
     jq < "$chromium_config" .browser.custom_chrome_frame=false \
         > /tmp/tmpfile && mv --force /tmp/tmpfile "$chromium_config"
 fi
+
+theme_template "$XDG_CONFIG_HOME/bspwm/bspwmrc.m4"
+theme_template "$XDG_CONFIG_HOME/polybar/config.m4"

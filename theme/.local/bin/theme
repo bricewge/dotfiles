@@ -33,6 +33,10 @@ m4 $m4_files "$XDG_CONFIG_HOME/polybar/config.m4" \
     >  "$XDG_CONFIG_HOME/polybar/config"
 pkill -USR1 polybar || true
 
+# bspwm
+m4 $m4_files "$XDG_CONFIG_HOME/bspwm/bspwmrc.m4" \
+    > "$XDG_CONFIG_HOME/bspwm/bspwmrc"
+
 # alacritty
 m4 $m4_files "$XDG_CONFIG_HOME/alacritty/${theme}.yml.m4" \
     >  "$XDG_CONFIG_HOME/alacritty/alacritty.yml"

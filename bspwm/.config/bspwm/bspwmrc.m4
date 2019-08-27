@@ -13,11 +13,11 @@ autorandr --change --force
 if [ -x "${XDG_CONFIG_HOME:=$HOME/.config}/setroot/.setroot-restore" ]; then
     setroot --restore &
 else
-    setroot --store --blank-color '#002b36' \
+    setroot --store --blank-color 'COLOR_BACKGROUND_ALT' \
         --on 0 -z \
-        "${DOTFILES:=$HOME/.dotfiles}/bspwm/_wallpaper/schicka-307-unsplash.jpg" \
+        "${DOTFILES:=$HOME/.dotfiles}/bspwm/_wallpaper/nenuphar.jpg" \
         --on 1 -z \
-        "$DOTFILES/bspwm/_wallpaper/schicka-307-unsplash.jpg" &
+        "$DOTFILES/bspwm/_wallpaper/nenuphar.jpg" &
 
 fi
 # Set a nice cursor
@@ -47,10 +47,10 @@ bspc config gapless_monocle true
 
 # ** borders
 bspc config border_width 2
-bspc config normal_border_color "#586e75"
-bspc config active_border_color "#268bd2"
-bspc config focused_border_color "#93a1a1"
-bspc config presel_feedback_color "#002b36"
+bspc config normal_border_color "COLOR_FOREGROUND_ALT"
+bspc config active_border_color "COLOR_SECONDARY"
+bspc config focused_border_color "COLOR_PRIMARY"
+bspc config presel_feedback_color "COLO_BACKGROUND_ALT"
 
 # ** windows rules
 bspc config external_rules_command "$XDG_CONFIG_HOME/bspwm/external-rules"
@@ -83,7 +83,3 @@ xbanish -i Mod4 &
 udiskie --notify &
 # disable DPMS
 xset s off -dpms
-
-# Local Variables:
-# eval: (rainbow-mode 1)
-# End:

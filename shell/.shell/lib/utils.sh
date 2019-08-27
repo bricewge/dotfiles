@@ -33,6 +33,17 @@ repository() {
     )
 }
 
+theme_template() {
+    template=$1 # assumed to be /path/file.m4
+    output=${template%*.m4}
+
+    if [ -e "$output" ]; then return; fi
+    theme_variant=$(readlink -f "$XDG_CONFIG_HOME/theme/current-theme")
+    theme_base=$(dirname "$theme_variant")/base.m4
+    m4 "$theme_base" "$theme_variant" "$template" \
+        > "$output"
+}
+
 user_is_me() {
     case "$(whoami)" in
         bricewge|bwaegene)

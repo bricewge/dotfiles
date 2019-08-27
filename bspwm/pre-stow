@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# configuration directories containing templates
+mkdir -p "$XDG_CONFIG_HOME/polybar"
+mkdir -p "$XDG_CONFIG_HOME/bspwm"
