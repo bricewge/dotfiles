@@ -1,4 +1,5 @@
---ignore=^setup.sh
+--ignore=^pre-stow
+--ignore=^post-stow
 --ignore=^README.*
 --ignore=^@.*
 --ignore=^_.*

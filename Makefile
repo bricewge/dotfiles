@@ -3,13 +3,11 @@
 # awk -F': ' "/not owned by stow/ {print \"$HOME/\"\$2\" ./bspwm/\"\$2}" | \
 # xargs -n2 diff -u --color
 # TODO display output only if error, like mongooseOS tool mos
-# TODO Make package dependent on some other, example:
-# _themes is needed by bspwm, alacritty, rofi, firefox, tmux
 
 .DEFAULT_GOAL := help
 
 DESTDIR  ?= $$HOME
-PKGS ?= $(sort $(dir $(wildcard [^_@]*/)))
+PKGS ?= $(sort $(patsubst %/, %, $(dir $(wildcard [^_@]*/.))))
 
 REAL_DIRS := $(addprefix $(DESTDIR)/,\
 	.config\
@@ -29,22 +27,26 @@ space:= $(empty) $(empty)
 heading:= printf "==> \033[1m%s\033[0m\n"
 subheading:= printf "\033[1m%s\033[0m\n"
 
+.PHONY: $(PKGS)
+PACKAGE: ## Install PACKAGE
+$(PKGS): dirs
+	@$(heading) "Install $@"
+	-./$@/pre-stow
+	stow -t $(DESTDIR) $@
+	-./$@/post-stow
+
+# bspwm alacritty rofi: themes
+# firefox tmux:         themes
 
 $(REAL_DIRS):
 	@mkdir -p $@
 
 .PHONY: install
-install: ## Install PKGS (all or use PKGS=package)
-install: dirs
-	@$(heading) "Install files"
-	stow -t $(DESTDIR) $(subst $(comma),$(space),$(PKGS))
-	find $(subst $(comma),$(space),$(PKGS)) -maxdepth 2   \
-	-not -path '*@*/setup.sh'                             \
-	-path '[!@]*/setup.sh' -executable -type f            \
-	-exec $(subheading) {} \; -exec {} \;
+install: ## Install all packages
+install: dirs $(PKGS)
 
 .PHONY: uninstall
-uninstall: ## Uninstall PKGS (all or use PKGS=package)
+uninstall: ## Uninstall PACKAGES (all or use PACKAGES=package)
 	@$(heading) "Uninstall files"
 	stow -Dt $(DESTDIR) $(subst $(comma),$(space),$(PKGS))
 
@@ -85,4 +87,5 @@ dirs: $(REAL_DIRS)
 .PHONY: help
 help: ## Describe tasks
 	$(info Tasks:)
-	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[1m%-15s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
+	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / \
+	{printf "\033[1m%-15s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
