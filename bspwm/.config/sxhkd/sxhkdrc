@@ -132,7 +132,7 @@ super + minus
 
 # ** theme
 # Toggle between light and dark theme variants
-super + equal
+super + BackSpace
   theme
 
 # * app launchers
