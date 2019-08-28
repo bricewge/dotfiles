@@ -16,8 +16,6 @@ define(`COLOR13',                   ``#6c71c4'')
 define(`COLOR14',                   ``#93a1a1'')
 define(`COLOR15',                   ``#fdf6e3'')
 
-define(`COLOR_PRIMARY',             `COLOR3')
-define(`COLOR_SECONDARY',           `COLOR4')
 define(`COLOR_ALERT',               `COLOR1')
 
 # Local Variables:

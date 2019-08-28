@@ -12,7 +12,7 @@ fi
 
 # bspwm
 bspc config border_width 2
-bspc config normal_border_color "COLOR_FOREGROUND_DIM"
-bspc config active_border_color "COLOR2"
-bspc config focused_border_color "COLOR_PRIMARY"
+bspc config normal_border_color "COLOR_FOREGROUND"
+bspc config active_border_color "COLOR_SECONDARY"
+bspc config focused_border_color "COLOR_TERTIARY"
 bspc config presel_feedback_color "COLOR_BACKGROUND_ALT"
