@@ -6,7 +6,7 @@
 . "$HOME/.xprofile"
 . "$HOME/.profile"
 
-. "$XDG_CONFIG_HOME/.bspwm/theme.sh"
+. "$XDG_CONFIG_HOME/bspwm/theme.sh"
 
 # * Early setup
 # Setup monitors
@@ -52,7 +52,7 @@ wallpaper-blur &
 
 # To manage the desktops dynamically when remove the empty and unocupied
 # ones.
-"$XDG_CONFIG_HOME"/remove_empty_desktop &
+"$XDG_CONFIG_HOME"/bspwm/remove_empty_desktop &
 
 # * other stuff to start
 scu restart redshift &
