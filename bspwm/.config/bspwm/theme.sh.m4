@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # set a wallpaper
 if [ -x "${XDG_CONFIG_HOME:=$HOME/.config}/setroot/.setroot-restore" ]; then
     setroot --restore &
