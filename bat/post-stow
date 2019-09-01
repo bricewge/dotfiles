@@ -11,9 +11,4 @@ config_dir=$(bat --config-dir)
 repository https://github.com/bricewge/solarized-sublime.git \
   "$config_dir/themes/solarized"
 
-# * syntaxes
-# WAITING For release of bat > 0.11.0
-repository https://gist.github.com/25edc5f66404dee2fe19bf90c205a29c.git \
-  "$config_dir/syntaxes/org-mode"
-
 bat cache --build
