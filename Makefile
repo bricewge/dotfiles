@@ -41,9 +41,9 @@ alacritty bspwm tmux: theme
 $(REAL_DIRS):
 	@mkdir -p $@
 
-.PHONY: install
-install: ## Install all packages
-install: dirs $(PKGS)
+.PHONY: all
+all: ## Install all packages
+all: dirs $(PKGS)
 
 .PHONY: uninstall
 uninstall: ## Uninstall PACKAGES (all or use PACKAGES=package)
