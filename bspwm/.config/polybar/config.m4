@@ -59,7 +59,7 @@ type = internal/bspwm
 ;     ● ○
 ; ■ 🞐 ? □ ? ?
 
-ws-icon-0 = 0;o
+ws-icon-0 = 10;o
 ws-icon-1 = 1;ᚠ
 ws-icon-2 = 2;ᚢ
 ws-icon-3 = 3;ᚦ
@@ -69,6 +69,7 @@ ws-icon-6 = 6;ᚲ
 ws-icon-7 = 7;ᚹ
 ws-icon-8 = 8;ᚺ
 ws-icon-9 = 9;ᚾ
+ws-icon-default = ■
 
 ; *** focused
 label-focused-occupied = %icon%

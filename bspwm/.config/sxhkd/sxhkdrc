@@ -59,7 +59,7 @@ super + ctrl + {h,l}
 
 # Switch or send to desktops, or send to monitor or
 super + {_,shift + ,ctrl + shift +,ctrl +}{0-9}
-  ;"$XDG_CONFIG_HOME/bspwm/dynamic_desktops" {--df,--ns,--nm,--da} {0-9}
+  ;"$XDG_CONFIG_HOME/bspwm/dynamic_desktops" {--df,--ns,--nm,--da} {10,1-9}
 
 # Go to the next or previous desktop
 super + {Left, comma, Right, period}
