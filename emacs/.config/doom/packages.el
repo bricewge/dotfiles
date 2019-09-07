@@ -25,7 +25,7 @@
   (:host github
          :repo "hlissner/emacs-doom-themes"
          :fork (:host nil
-                      :repo "git@github.com:bricewge/emacs-doom-themes.git"
+                      :repo "https://github.com/bricewge/emacs-doom-themes.git"
                       :branch "bricewge"
                       :remote "bricewge")
          :files ("*.el" "themes/*.el")))
