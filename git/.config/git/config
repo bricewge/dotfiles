@@ -12,6 +12,7 @@
 	rebase = true
 [sendemail]
 	smtpserver = /run/current-system/sw/bin/msmtp
+	suppresscc = author
 [github]
 	user = bricewge
 [alias]
