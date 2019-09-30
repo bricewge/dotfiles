@@ -13,7 +13,7 @@
 [sendemail]
 	smtpserver = /run/current-system/sw/bin/msmtp
 	suppresscc = author
-	assume8bit = UTF-8
+	assume8bitEncoding = UTF-8
 [github]
 	user = bricewge
 [alias]
