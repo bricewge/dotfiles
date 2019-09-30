@@ -8,6 +8,11 @@ if [[ -o INTERACTIVE ]]; then
     emulate sh -c 'source ~/.shell/interactive.sh'
 fi
 
+# zplugin
+declare -A ZPLGM
+ZPLGM[HOME_DIR]=$HOME/.zsh/zplugin
+ZPLGM[BIN_DIR]=$ZPLGM[HOME_DIR]/bin
+
 # Local Variables:
 # mode: sh
 # End:

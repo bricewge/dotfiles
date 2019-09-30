@@ -1,4 +1,13 @@
-#!//bin/sh
+#!/usr/bin/env zsh
 
-# TODO Move instalation of zplugin here
-# TODO If zplugin is installed update the plugins
+# TODO instalation zplugins
+
+set -e
+
+# shellcheck disable=SC1090
+source "${DOTFILES:-.}/shell/.shell/lib/utils.sh"
+
+source "$DOTFILES/zsh/.zshenv"
+repository https://github.com/zdharma/zplugin.git "$ZPLGM[BIN_DIR]" v2.3
+source "$ZPLGM[BIN_DIR]/zplugin.zsh"
+zplugin compile

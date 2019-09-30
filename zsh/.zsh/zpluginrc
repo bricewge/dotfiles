@@ -1,22 +1,10 @@
 # zplugin configuration
 
 # * zplugin
-declare -A ZPLGM
-ZPLGM[HOME_DIR]=$HOME/.zsh/zplugin
-ZPLGM[BIN_DIR]=$ZPLGM[HOME_DIR]/bin
-
-if [[ ! -d "$ZPLGM[BIN_DIR]" ]]; then
-    echo "Installing zplugin" >&2
-    mkdir -p "$ZPLGM[BIN_DIR]"
-    git clone https://github.com/zdharma/zplugin.git "$ZPLGM[BIN_DIR]"
-    source "$ZPLGM[BIN_DIR]/zplugin.zsh"
-    zplugin self-update
-else
-    source "$ZPLGM[BIN_DIR]/zplugin.zsh"
-fi
+source "$ZPLGM[BIN_DIR]/zplugin.zsh"
 
 local ice_defaults
-ice_default="wait'0' silent"
+ice_default="wait'1' silent"
 
 # * theme
 # ** colors
@@ -29,11 +17,14 @@ zstyle ':prompt:pure:user' color "$SOLARIZED_BASE01"
 zstyle ':prompt:pure:virtualenv' color "$SOLARIZED_BASE01"
 zstyle ':prompt:pure:prompt2:faded' color "$SOLARIZED_BASE01"
 
-# WAITING https://github.com/sindresorhus/pure/issues/332
-# WAITING https://github.com/sindresorhus/pure/pull/481
-zplugin ice wait'!0' silent pick'async.zsh' src'pure.zsh' \
-    atclone"ln -s ./pure.zsh prompt_pure_setup" atload"fpath+=(\$PWD)" \
-    cloneopts'--branch fix-ps2-colors'
+autoload -U promptinit
+
+zplugin ice wait'0a' silent
+zplugin load mafredri/zsh-async
+
+PS1="❯ " # display before promtp is load ~100ms
+zplugin ice wait'0b' silent \
+    atload"fpath+=(\$PWD) && promptinit && prompt pure && zle .reset-prompt"
 zplugin load 'sindresorhus/pure'
 
 # ** man
