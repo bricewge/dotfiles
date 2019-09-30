@@ -17,13 +17,14 @@ TRAPUSR1() {
 # * prompt
 autoload -U promptinit
 
-zplugin ice wait'0a' silent
-zplugin load mafredri/zsh-async
-
 PS1="❯ " # display before promtp is load ~100ms
 zplugin ice wait'0b' silent \
     atload"fpath+=(\$PWD) && promptinit && prompt pure && zle .reset-prompt"
 zplugin load 'sindresorhus/pure'
+
+# dependency of pure
+zplugin ice wait'0a' silent
+zplugin load mafredri/zsh-async
 
 # * man
 zplugin ice $ice_defaults
