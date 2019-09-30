@@ -47,6 +47,11 @@ m4 $m4_files "$HOME/.tmux.conf.m4" \
     > "$HOME/.tmux.conf"
 tmux source-file "$HOME/.tmux.conf" || true
 
+# zsh
+m4 $m4_files "$HOME/.zsh/theme.zsh.m4" \
+    > "$HOME/.zsh/theme.zsh"
+killall -USR1 zsh
+
 # firefox
 # TODO Add support to theme changing not only variant
 # TODO Add support to set varant not only toggling

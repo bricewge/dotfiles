@@ -7,16 +7,14 @@ local ice_defaults
 ice_default="wait'1' silent"
 
 # * theme
-# ** colors
-. ~/.shell/lib/solarized.sh
+. ~/.zsh/theme.zsh
 
-# ** prompt
-zstyle ':prompt:pure:git:branch' color "$SOLARIZED_BASE01"
-zstyle ':prompt:pure:host' color "$SOLARIZED_BASE01"
-zstyle ':prompt:pure:user' color "$SOLARIZED_BASE01"
-zstyle ':prompt:pure:virtualenv' color "$SOLARIZED_BASE01"
-zstyle ':prompt:pure:prompt2:faded' color "$SOLARIZED_BASE01"
+# reload the theme with signal USR1
+TRAPUSR1() {
+    . ~/.zsh/theme.zsh
+}
 
+# * prompt
 autoload -U promptinit
 
 zplugin ice wait'0a' silent
@@ -27,7 +25,7 @@ zplugin ice wait'0b' silent \
     atload"fpath+=(\$PWD) && promptinit && prompt pure && zle .reset-prompt"
 zplugin load 'sindresorhus/pure'
 
-# ** man
+# * man
 zplugin ice $ice_defaults
 zplugin load 'zlsun/solarized-man'
 
@@ -67,7 +65,6 @@ zplugin load 'marzocchi/zsh-notify'
 zplugin ice $ice_defaults atload'_zsh_autosuggest_start'
 zplugin load zsh-users/zsh-autosuggestions
 
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=$SOLARIZED_BASE01"
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(history-substring-search-up history-substring-search-down)
 
 # ** history
@@ -78,8 +75,6 @@ function _history_substring_search_config() {
     bindkey '^[[B' history-substring-search-down
     bindkey -M emacs '^P' history-substring-search-up
     bindkey -M emacs '^N' history-substring-search-down
-    HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="bg=$SOLARIZED_MAGENTA,fg=$SOLARIZED_BASE03,bold"
-    HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND="bg=$SOLARIZED_RED,fg=$SOLARIZED_BASE03,bold"
 }
 
 # NOTE It should be loaded after zsh-syntax-highlighting

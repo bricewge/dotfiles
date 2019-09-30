@@ -7,6 +7,8 @@ set -e
 # shellcheck disable=SC1090
 source "${DOTFILES:-.}/shell/.shell/lib/utils.sh"
 
+theme_template "$HOME/.zsh/theme.zsh.m4"
+
 source "$DOTFILES/zsh/.zshenv"
 repository https://github.com/zdharma/zplugin.git "$ZPLGM[BIN_DIR]" v2.3
 source "$ZPLGM[BIN_DIR]/zplugin.zsh"
