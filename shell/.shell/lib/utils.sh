@@ -1,3 +1,4 @@
+# Create a symbolic link and it's parent directories.
 symlink() {
     target=$1
     destination=$2
@@ -15,6 +16,7 @@ symlink() {
     ln --suffix=.bak -sbf "$target" "$destination"
 }
 
+# Keep a git repository up-to-date by cloning or pulling it.
 repository() {
     repo=$1
     destination=$2
@@ -33,8 +35,11 @@ repository() {
     )
 }
 
+# Generate a theme file from a template - in place. The generated file will be
+# in the same directory without the .m4 extension.
 theme_template() {
     template=$1 # assumed to be /path/file.m4
+
     output=${template%*.m4}
 
     if [ -e "$output" ]; then return; fi
@@ -44,6 +49,7 @@ theme_template() {
         > "$output"
 }
 
+# Return true if the user is Brice Waegeneire.
 user_is_me() {
     case "$(whoami)" in
         bricewge|bwaegene)
