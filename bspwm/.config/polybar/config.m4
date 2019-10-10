@@ -158,14 +158,14 @@ battery = BAT0
 adapter = AC
 full-at = 98
 
-label-charging = %percentage%%
-format-charging =  <label-charging>
-label-discharging = %percentage%%
-format-discharging = <ramp-capacity> <label-discharging>
 label-full = %percentage%%
+label-charging = %percentage%%
+label-discharging = %percentage%%
 format-full =  <label-full>
+format-charging =  <label-charging>
+format-discharging = <ramp-capacity> <label-discharging>%{F-}
 
-ramp-capacity-0 = 
+ramp-capacity-0 = %{`F'COLOR_ALERT}
 ramp-capacity-1 = 
 ramp-capacity-2 = 
 ramp-capacity-3 = 
