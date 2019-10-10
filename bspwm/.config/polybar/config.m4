@@ -1,6 +1,3 @@
-; TODO Remove hardcoded colors:
-; https://github.com/polybar/polybar/wiki/Formatting#format-tags-inside-polybar-config
-
 ; * bar
 [bar/bspwm]
 monitor = ${env:MONITOR:}
@@ -8,11 +5,11 @@ width = 100%
 height = 30
 fixed-center = true
 
-background = ${colors.background}
-foreground = ${colors.foreground}
+background = COLOR_BACKGROUND
+foreground = COLOR_FOREGROUND
 
 line-size = 2
-line-color = ${colors.secondary}
+line-color = COLOR_SECONDARY
 
 separator = %{`F'COLOR_FOREGROUND_DIM}|%{F-}
 module-margin = 1
@@ -30,20 +27,10 @@ modules-center = bspwm
 modules-right = volume battery date
 
 tray-position = ${env:TRAY_POSITION:right}
-tray-background = ${colors.background-alt}
+tray-background = COLOR_BACKGROUND_ALT
 
 wm-restack = bspwm
 override-redirect = true
-
-; * colors
-[colors]
-background = COLOR_BACKGROUND
-background-alt = COLOR_BACKGROUND_ALT
-foreground = COLOR_FOREGROUND_ALT
-foreground-alt = COLOR_FOREGROUND_DIM
-primary = COLOR_PRIMARY
-secondary = COLOR_SECONDARY
-alert = COLOR_ALERT
 
 ; * modules
 ; ** xwindow
@@ -75,22 +62,22 @@ ws-icon-default = ■
 label-focused-occupied = %icon%
 label-focused-occupied-font = 2
 label-focused-occupied-padding = 1
-label-focused-occupied-background= ${colors.background-alt}
+label-focused-occupied-background= COLOR_BACKGROUND_ALT
 label-focused-empty = %icon%
 label-focused-empty-font = 2
 label-focused-empty-padding = 1
-label-focused-empty-background = ${colors.background-alt}
+label-focused-empty-background = COLOR_BACKGROUND_ALT
 
 ; *** occupied
 label-occupied = %icon%
 label-occupied-font = 2
 label-occupied-padding = 1
-label-occupied-foreground = ${colors.foreground-alt}
+label-occupied-foreground = COLOR_FOREGROUND_ALT
 
 ; *** empty
 label-empty = %icon%
 label-empty-font = 2
-label-empty-foreground = ${colors.foreground-alt}
+label-empty-foreground = COLOR_FOREGROUND_ALT
 label-empty-padding = 1
 
 ; *** urgent
@@ -98,14 +85,14 @@ label-empty-padding = 1
 ; urgent window to be so.
 label-urgent = %icon%
 label-urgent-font = 2
-label-urgent-foreground = ${colors.foreground-alt}
-label-urgent-overline = ${colors.alert}
+label-urgent-foreground = COLOR_FOREGROUND_ALT
+label-urgent-overline = COLOR_ALERT
 label-urgent-padding = 1
 label-focused-urgent = %icon%
 label-focused-urgent-font = 2
-label-focused-urgent-background = ${colors.background-alt}
+label-focused-urgent-background = COLOR_BACKGROUND_ALT
 label-focused-urgent-padding = 1
-label-focused-urgent-overline= ${colors.alert}
+label-focused-urgent-overline= COLOR_ALERT
 
 ; ** mpd
 [module/mpd]
@@ -122,7 +109,7 @@ port = 6600
 interval = 2
 format-online = %{A1:mpc toggle:} %{A3:mpc next:}<label-song> %{A} %{A}
 
-label-song-foreground = ${colors.foreground-alt}
+label-song-foreground = COLOR_FOREGROUND_ALT
 
 ; ** date
 [module/date]
@@ -144,7 +131,7 @@ format-volume = <ramp-volume> <label-volume>
 format-muted = <label-muted>
 label-volume = %percentage%%
 label-muted =  muted
-label-muted-foreground = ${colors.foreground-alt}
+label-muted-foreground = COLOR_FOREGROUND_ALT
 
 ramp-volume-0 = 
 ramp-volume-1 = 
@@ -185,7 +172,7 @@ click-right = rofi-power "bspc quit 1"
 [module/mpv]
 type = custom/script
 exec =  ~/.local/bin/mpvctl.sh
-format-foreground = ${colors.foreground-alt}
+format-foreground = COLOR_FOREGROUND_ALT
 tail = true
 click-left = mpvctl toggle
 click-right = mpvctl next
