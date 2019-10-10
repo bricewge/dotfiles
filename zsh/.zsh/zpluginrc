@@ -17,7 +17,7 @@ TRAPUSR1() {
 # * prompt
 autoload -U promptinit
 
-PS1="❯ " # display before promtp is load ~100ms
+PS1="❯ " # displayed before prompt is loaded ~100ms
 zplugin ice wait'0b' silent \
     atload"fpath+=(\$PWD) && promptinit && prompt pure && zle .reset-prompt"
 zplugin load 'sindresorhus/pure'
