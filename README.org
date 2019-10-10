@@ -43,6 +43,18 @@ in that case, please, do not put them on the Internet nor in ~git~ /at all/.
 arguments. In our case the paramter ~-D~ followed by the modules you you want to
 uninstall will suffice. For example to get rid of alacratty configuration it's:
 ~./dots -D alacritty~.
+*** TODO How-to use m4 as a theming engine
+When a configuration format doesn't allow you to put a space before the variable
+you want to replace with ~m4~ you need to quote the string before it.
+
+Here is an example for ~polybar~ when using [[https://github.com/polybar/polybar/wiki/Formatting#format-tags][format tags]]:
+#+begin_src txt
+  separator = %{`F'COLOR_FOREGROUND_DIM}|%{F-}
+#+end_src
+Which, when passed throught ~m4~ will result in:
+#+begin_src txt
+  separator = %{F#123456}|%{F-}
+#+end_src
 ** Discussion
 *** Priorities
 **** Portable
