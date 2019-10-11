@@ -86,7 +86,17 @@
                  #'doom*projectile-locate-dominating-file))
 
 ;; ** ui
-(setq doom-theme 'doom-solarized-dark)
+(setq doom-theme
+      (intern
+       (let* ((theme-file (file-chase-links
+                           (concat (getenv "XDG_CONFIG_HOME")
+                                   "/theme/current-theme")))
+              (theme-variant (file-name-base theme-file))
+              (theme (file-name-nondirectory
+                      (directory-file-name
+                       (file-name-directory theme-file)))))
+         (concat "doom-" theme "-" theme-variant))))
+
 (setq doom-font "Meslo LG S-11")
 
 (when (getenv "MANWIDTH")
