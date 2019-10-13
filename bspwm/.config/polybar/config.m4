@@ -22,7 +22,9 @@ font-1 = Caudex:size=12:weight:bold;0
 
 enable-ipc = true
 
-modules-left = launcher mpv
+# WAITING https://github.com/polybar/polybar/issues/1896
+# modules-left = launcher mpv
+modules-left = launcher
 modules-center = bspwm
 modules-right = volume battery date
 
@@ -168,7 +170,7 @@ initial = 1
 click-left = rofi -show drun
 click-right = rofi-power "bspc quit 1"
 
-; ** mpd
+; ** mpv
 [module/mpv]
 type = custom/script
 exec =  ~/.local/bin/mpvctl.sh
