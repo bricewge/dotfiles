@@ -61,5 +61,5 @@ pkill -USR1 -f "python.+zen_fox_toggle_light_dark.py" || true
 ln -sf "$XDG_CONFIG_HOME/rofi/${theme}-$variant" "$XDG_CONFIG_HOME/rofi/config"
 
 # emacs
-# TODO use symlinks to record emacs' theme sate
-emacsclient --eval "(load-theme 'doom-${theme}-${variant})" || true
+elisp="(progn (setq doom-theme 'doom-${theme}-${variant}) (doom/reload-theme))"
+emacsclient --eval "$elisp" || true
