@@ -63,8 +63,8 @@ xrdb ~/.Xresources
 
 # Hide the cursor when not used
 xbanish -i Mod4 &
-# Fancy things *BUT* with too much bugs
-# compton &
+# Getting rid of tearing
+compton &
 udiskie --notify &
 # disable DPMS
 xset s off -dpms

@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+killall compton
+compton &
