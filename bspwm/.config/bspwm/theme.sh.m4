@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # set a wallpaper
-if [ -x "${XDG_CONFIG_HOME:=$HOME/.config}/setroot/.setroot-restore" ]; then
+if [ -s "${XDG_CONFIG_HOME:=$HOME/.config}/setroot/.setroot-restore" ]; then
     setroot --restore &
 else
     setroot --store --blank-color 'COLOR_BACKGROUND_ALT' \
