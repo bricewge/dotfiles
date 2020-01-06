@@ -123,22 +123,24 @@ time = %H:%M
 date-alt = "%Y-%m-%d "
 time-alt = %H:%M:%S
 label = %date%%time%
-format =  <label>
+format =  <label>
 
 ; ** volume
+; TODO switch to https://github.com/marioortizmanero/polybar-pulseaudio-control
+; TODO change bluetooth headset color when battery is low
 [module/volume]
 type = internal/pulseaudio
 
 format-volume = <ramp-volume> <label-volume>
 format-muted = <label-muted>
 label-volume = %percentage%%
-label-muted =  muted
+label-muted = 婢 muted
 label-muted-foreground = COLOR_FOREGROUND_ALT
 
-ramp-volume-0 = 
-ramp-volume-1 = 
-ramp-volume-2 = 
-ramp-headphones-0 = 
+ramp-volume-0 = 奄
+ramp-volume-1 = 奔
+ramp-volume-2 = 墳
+ramp-headphones-0 = 
 
 ; ** battery
 [module/battery]
