@@ -19,9 +19,6 @@ unclutter -grab -noevents -root &
 # Use a basic cursor
 xsetroot -cursor_name left_ptr &
 
-# Fancy things
-compton &
-
 # Launch bspwm
 exec bspwm 2> ~/.bspwm.log
 

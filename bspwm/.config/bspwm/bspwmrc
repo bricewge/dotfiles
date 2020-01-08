@@ -64,7 +64,7 @@ xrdb ~/.Xresources
 # Hide the cursor when not used
 xbanish -i Mod4 &
 # Getting rid of tearing
-compton &
+picom --experimental-backends --config=/dev/null --backend=xrender --vsync &
 udiskie --notify &
 # disable DPMS
 xset s off -dpms

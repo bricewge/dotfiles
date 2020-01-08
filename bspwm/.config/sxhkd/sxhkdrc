@@ -116,12 +116,12 @@ super + {p,P}
 # *** opacity
 # Increase/decrase window's transparency
 super + o: {o, O}
-  compton-trans -c -o {+,-}5
+  picom-trans -c -o {+,-}5
 
 # *** picture in picture
 # Picture-in-picutre mode
 super + V
-  compton-trans -c -o 75 && \
+  picom-trans -c -o 75 && \
   bspc node --state floating --flag sticky && \
   xdotool getactivewindow windowsize  700 400 windowmove 1100 600
 
@@ -279,7 +279,7 @@ XF86AudioMicMute
 # * window manager
 # Reload UI configurations
 super + Escape
-  pkill -USR1 -x "(sxhkd|compton)" && \
+  pkill -USR1 -x "(sxhkd|picom)" && \
   notify-send -u low "sxhkd reloaded"
 
 # Quit bspwm and kill the panel
