@@ -1,17 +1,10 @@
 #!/usr/bin/env sh
 #
-# Toogle betwen dark and light theme variant.
-
-# TODO Set themes, do not toggle only
+# Set dark or light theme variant or toogle between them.
 
 set -e
 
 state_file=$XDG_CONFIG_HOME/theme/current-theme
-
-if [ $# -gt 0 ]; then
-    echo "TODO Support changing theme"
-    exit 1
-fi
 
 # read state
 theme_file=$(readlink "$state_file")
@@ -19,8 +12,24 @@ theme_dir=$(dirname "$theme_file")
 theme=${theme_dir##*/}
 variant=$(basename --suffix .m4 "$theme_file")
 
-# toggle
-variant=$(test "$variant" = "light" && echo dark || echo light)
+case $1 in
+    --reload|-r)
+        # Reload the current theme
+        ;;
+    dark|light)
+        # Set a theme variant
+        variant=$1
+        ;;
+    --toggle|-t|'')
+        # Toggle between theme variants
+        variant=$(test "$variant" = "light" && echo dark || echo light)
+        ;;
+    *)
+        echo "Invalid theme: $1" >&2
+        exit 1
+        ;;
+esac
+
 theme_file=$theme_dir/${variant}.m4
 
 # save state
@@ -28,6 +37,7 @@ ln -sf "$theme_file" "$state_file"
 
 # we want the variant file (light|dark).m4 and base.m4
 m4_files=$XDG_CONFIG_HOME/theme/$theme/[b$(echo "$variant" | cut -c1)]*.m4
+
 # polybar
 m4 $m4_files "$XDG_CONFIG_HOME/polybar/config.m4" \
     > "$XDG_CONFIG_HOME/polybar/config"

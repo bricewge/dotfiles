@@ -133,7 +133,7 @@ super + minus
 # ** theme
 # Toggle between light and dark theme variants
 super + BackSpace
-  theme
+  theme --toggle
 
 # * app launchers
 # Stop the key chain if the mouse buttons are pressed
