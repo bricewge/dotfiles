@@ -49,6 +49,11 @@ m4 $m4_files "$XDG_CONFIG_HOME/bspwm/theme.sh.m4" \
 # shellcheck disable=SC1090
 .  "$XDG_CONFIG_HOME/bspwm/theme.sh"
 
+# xsecurelock
+m4 $m4_files "$XDG_CONFIG_HOME/xsecurelock/theme.env.m4" \
+    > "$XDG_CONFIG_HOME/xsecurelock/theme.env"
+systemctl --user restart xss-lock || true
+
 # alacritty
 m4 $m4_files "$XDG_CONFIG_HOME/alacritty/alacritty.yml.m4" \
     > "$XDG_CONFIG_HOME/alacritty/alacritty.yml"

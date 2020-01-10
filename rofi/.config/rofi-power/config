@@ -1,4 +1,5 @@
 # configuration for rofi-power tool
 LAUNCHER="rofi -width 30 -dmenu -i -p rofi-power:"
-USE_LOCKER="true"
+# Using xscreenlock as a locker through xss-lock service.
+USE_LOCKER="false"
 LOCKER="i3lock -c 002b36"

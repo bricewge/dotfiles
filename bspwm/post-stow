@@ -11,4 +11,5 @@ if [ -e "$chromium_config" ]; then
 fi
 
 theme_template "$XDG_CONFIG_HOME/bspwm/theme.sh.m4"
+theme_template "$XDG_CONFIG_HOME/xsecurelock/theme.env.m4"
 theme_template "$XDG_CONFIG_HOME/polybar/config.m4"
