@@ -7,7 +7,7 @@
 chflags nohidden ~/Library/
 
 # * 42born2code
-if [ "$(hostname | cut -d . -f 2-3)" != "42.fr" ]; then exit; fi
+if [ "$(uname -n | cut -d . -f 2-3)" != "42.fr" ]; then exit; fi
 
 mkdir -p "/sgoinfre/goinfre/Perso/${USER}"
 chmod 700 "/sgoinfre/goinfre/Perso/${USER}"
