@@ -41,7 +41,14 @@ export LANGUAGE="fr_FR:en_US:en"
 # Variables that I use in other scripts
 case $(uname) in
     Linux)
-        OS=$(sed -n 's|^ID=\(.*\)|\1|p' /etc/os-release);;
+        if [ -e /etc/os-release ]; then
+          OS=$(sed -n 's|^ID=\(.*\)|\1|p' /etc/os-release)
+        elif [ -e /gnu/store ] && [ -e /run/current-system/profile ]; then
+          OS=guix
+        else
+	  OS=linux
+	fi
+	;;
     Darwin)
         OS="macos";;
     *)
