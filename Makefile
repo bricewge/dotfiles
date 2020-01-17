@@ -31,9 +31,9 @@ subheading:= printf "\033[1m%s\033[0m\n"
 PACKAGE: ## Install PACKAGE
 $(PKGS): dirs
 	@$(heading) "Install $@"
-	-./$@/pre-stow
+	./$@/pre-stow || test $$? == 127 && true
 	stow -t $(DESTDIR) $@
-	-./$@/post-stow
+	./$@/post-stow || test $$? == 127 && true
 
 alacritty bspwm tmux: theme
 # firefox rofi: theme
@@ -45,10 +45,13 @@ $(REAL_DIRS):
 all: ## Install all packages
 all: dirs $(PKGS)
 
+# XXX: Hiding meaningless warning message from stow.
+# https://github.com/aspiers/stow/issues/65
 .PHONY: uninstall
-uninstall: ## Uninstall PACKAGES (all or use PACKAGES=package)
+uninstall: ## Uninstall PACKAGES (all or use PACKAGES=foo,bar)
 	@$(heading) "Uninstall files"
-	stow -Dt $(DESTDIR) $(subst $(comma),$(space),$(PKGS))
+	stow --target $(DESTDIR) --delete $(subst $(comma),$(space),$(PACKAGES)) \
+	2>&1 | sed '/Stow.pm line 966/d;'
 
 .PHONY: update
 update: ## Update and install
