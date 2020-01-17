@@ -55,6 +55,10 @@ To uninstall several modules at once, spearate them with commas like this
 ~PACKAGES=foo,bar,baz~. If you want to remove all the modules then just do 
 a ~make uninstall~.
 
+*Note*: not all the installed modifications will be removed since it's only
+a unstow of the symlinks. So what is done in stow's hooks ~pre-stow~ and
+~post-stow~ /won't/ be removed.
+
 *** TODO How-to use m4 as a theming engine
 When a configuration format doesn't allow you to put a space before the variable
 you want to be replaced with ~m4~ you need to quote the string before it.
