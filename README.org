@@ -1,19 +1,23 @@
 #+TITLE: dotfiles
-Brice Waegeneire's dotfiles for *NIX, inspired by [[https://github.com/Kraymer/F-dotfiles][Kraymer/dotfiles]].
+Brice Waegeneire's dotfiles for *NIX, inspired by [[https://github.com/Kraymer/F-dotfiles][Kraymer/dotfiles]] and
+[[https://github.com/terlar/dotfiles][terlar/dotfiles]].
 
 ** Tutorial
 *** Dependencies
-This dotfiles need a minimum of dependencies, that are probablly already
-availaible on your system. If it's not the case install the following packages
-with your favorite package manager:
-- =git=
-- =stow=
+Thoses dotfiles depends on a minimal set of programs, most of which are 
+probablly already installed on your system. If it's not the case install the
+following packages with your package manager of choice:
+- =git=, the version control system
+- =stow=, a symlink manager
+- =make=, as dependency manager
+- =m4=, as theming engine
 
 *** Using this dotfiles repository as a whole
-To install all the configurations at one, just enter the following in your terminal:
+To install all the configurations of this repository, enter the following in
+ your terminal:
 #+BEGIN_SRC sh
   git clone https://github.com/bricewge/dotfiles.git
-  ./dotfiles/dots
+  make all
 #+END_SRC
 
 *** Using part of the configurations
@@ -22,7 +26,7 @@ configuration just for =tmux= and =git=, then write the following in your
 terminal:
 #+BEGIN_SRC sh
   git clone https://github.com/bricewge/dotfiles.git
-  ./dotfiles/dots tmux git
+  make tmux git
 #+END_SRC
 
 ** How-to guides
@@ -30,22 +34,30 @@ terminal:
 *** TODO How-to add OS specific configuration
 *** TODO How-to work on breaking changes
 ~git worktree~ but it doesn't work with ~git-crypt~
-(https://github.com/AGWA/git-crypt/issues/105) so maybe iit can be replaced by
+(https://github.com/AGWA/git-crypt/issues/105) so maybe it can be replaced by
 [[https://github.com/sobolevn/git-secret][git-secret]].
+
 *** TODO How-to manage secrets
 Some file contains sensitive informations and are best being kept private to do
-so we can encrypted them with ~git-crypt~.
+so we can encrypt them with ~git-crypt~.
 
-However note that his method may not be sufficent based on your threat model,
-in that case, please, do not put them on the Internet nor in ~git~ /at all/.
-*** How to uninstall modules
-~./dots~ is just a thin wrapper around ~stow~ allowing you to use it's usual
-arguments. In our case the paramter ~-D~ followed by the modules you you want to
-uninstall will suffice. For example to get rid of alacratty configuration it's:
-~./dots -D alacritty~.
+However note that this method may not be sufficent in regard to your threat
+model, in that case, please, do not put them on the Internet nor in a public
+ ~git~ repository.
+
+*** How to uninstall some modules
+When you want to remove a specific module from your ~$HOME~ just do:
+#+begin_src sh
+  make uninstall PACKAGES=foo
+#+end_src
+
+To uninstall several modules at once, spearate them with commas like this
+~PACKAGES=foo,bar,baz~. If you want to remove all the modules then just do 
+a ~make uninstall~.
+
 *** TODO How-to use m4 as a theming engine
 When a configuration format doesn't allow you to put a space before the variable
-you want to replace with ~m4~ you need to quote the string before it.
+you want to be replaced with ~m4~ you need to quote the string before it.
 
 Here is an example for ~polybar~ when using [[https://github.com/polybar/polybar/wiki/Formatting#format-tags][format tags]]:
 #+begin_src txt
@@ -55,24 +67,29 @@ Which, when passed throught ~m4~ will result in:
 #+begin_src txt
   separator = %{F#123456}|%{F-}
 #+end_src
+
 ** Discussion
 *** Priorities
 **** Portable
 Sticking strictly to POSIX's shell and requering minimal dependencies make those
 ~dotfiles~ portable to most systems I use, in particular the ones running
 ~busybox~ that doesn't have ~bash~ installed and not much space to install
-additional software.
+additional  software.
+
 **** Modular
 You will rarely need to install the configuration for all of the software you
 have configure, except your workstation. You won't uses ~mpv~ configurations on
 a server for example.
+
 **** KISS
-Declaring ~dotfiles~ bankrupcy never fell good, but don't having a way to manage
+Declaring ~dotfiles~ bankrupcy never feel good, but not having a way to manage
 all those configuration is worse. So let's keep it as simple as possible.
+
 **** Hackable
 They're will always be a time when you are forced to use a dirty workaround or
 have some exotic edge-case to take into account, none of which a handy shell
 script can't overcome.
+
 *** TODO Why this organization?
 *** TODO Past alternatives
 Previous ways that I used to managed this repository.
