@@ -15,7 +15,6 @@
 (package! webpaste)
 
 (package! guix)
-(package! geiser)
 
 (package! ascii-art-to-unicode)
 
