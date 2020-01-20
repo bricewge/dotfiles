@@ -6,7 +6,7 @@
        ;;japanese
 
        :completion
-       (company +auto +childframe)      ; the ultimate code completion backend
+       (company +childframe)      ; the ultimate code completion backend
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
        (ivy                             ; a search engine for love and life
@@ -61,6 +61,11 @@
        ;;term              ; terminals in Emacs
        vterm                            ; another terminals in Emacs
 
+       :checkers
+       syntax              ; tasing you for every semicolon you forget
+       spell             ; tasing you for misspelling mispelling
+       ;;grammar           ; tasing grammar mistake every you make
+
        :tools
        ;;ansible
        direnv
@@ -69,8 +74,6 @@
        editorconfig      ; let someone else argue about tabs vs spaces
        ;;ein               ; tame Jupyter notebooks with emacs
        eval                  ; run code, run (also, repls)
-       flycheck              ; tasing you for every semicolon you forget
-       flyspell             ; tasing you for misspelling mispelling
        ;;gist              ; interacting with github gists
        (lookup                  ; helps you navigate your code and documentation
         +docsets)               ; ...or in Dash docsets locally
@@ -152,9 +155,6 @@
        regex    ; (WIP)
        ;;(rss +org)        ; emacs as an RSS reader
        ;;twitter           ; twitter client https://twitter.com/vnought
-       ;;(write            ; emacs as a word processor (latex + org + markdown)
-       ;; +wordnut         ; wordnet (wn) search
-       ;; +langtool)       ; a proofreader (grammar/style check) for Emacs
 
        :collab
        ;;floobits          ; peer programming for a price
