@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# Print the store path of a binary.
+# Usefull in Guix and NixOS.
+
+fullpath=$(command -v "$1")
+
+test -x "$fullpath" || exit 1
+readlink "$fullpath" | cut -d/ -f-4
