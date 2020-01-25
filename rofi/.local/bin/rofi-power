@@ -1,0 +1,33 @@
+#!/bin/sh
+
+ROFI_POWER_EXIT=${ROFI_POWER_EXIT:-bspc quit}
+ROFI_POWER_ARGS=${ROFI_POWER_ARGS:-"-dmenu -i -p rofi-power"}
+
+menu="Exit window manager
+Reboot system
+Power-off system
+Suspend system
+Hibernate system"
+
+[ -f "$HOME/.config/rofi/power" ] && . "$HOME/.config/rofi/power"
+
+choice=$(printf %s "$menu" | rofi $ROFI_POWER_ARGS | awk '{print $1}' | tr -d '\r\n')
+case $choice in
+  Exit)
+    $ROFI_POWER_EXIT
+    ;;
+  Reboot)
+    loginctl reboot
+    ;;
+  Power-off)
+    loginctl poweroff
+    ;;
+  Suspend)
+    loginctl suspend
+    ;;
+  Hibernate)
+    loginctl hibernate
+    ;;
+  *)
+    ;;
+esac

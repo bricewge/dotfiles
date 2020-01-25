@@ -23,12 +23,6 @@ symlink "$HOME/.local/src/menu-calc/=" "$HOME/.local/bin/="
 symlink "$HOME/.local/src/rofi-wifi-menu/rofi-wifi-menu.sh" \
     "$HOME/.local/bin/rofi-wifi"
 
-# * rofi power
-rofi_power_dir="$HOME/.local/src/rofi-tools"
-repository https://github.com/okraits/rofi-tools.git \
-        "$rofi_power_dir"
-symlink "$rofi_power_dir/rofi-power" "$HOME/.local/bin/rofi-power"
-
 # * udiskie dmenu
 repository https://github.com/fogine/udiskie-dmenu.git \
     "$HOME/.local/src/udiskie-dmenu"
