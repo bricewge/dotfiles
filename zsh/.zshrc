@@ -9,7 +9,9 @@ fi
 # * zsh config
 # ** environment
 # *** Smart URLs
-autoload -Uz url-quote-magic
+# When an URL is pasted escape it's special characters
+autoload -Uz url-quote-magic bracketed-paste-magic
+zle -N bracketed-paste bracketed-paste-magic
 zle -N self-insert url-quote-magic
 
 # *** General
