@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# Restore the wallpaper.
+
+setroot --restore

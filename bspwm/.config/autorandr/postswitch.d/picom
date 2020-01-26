@@ -1,4 +1,0 @@
-#!/usr/bin/env sh
-
-pkill -USR1 picom || true
-setroot --restore || true

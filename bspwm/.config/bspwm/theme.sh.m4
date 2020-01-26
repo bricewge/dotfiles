@@ -1,4 +1,6 @@
 #!/bin/sh
+#
+# Theme for bspwm.
 
 # set a wallpaper
 if [ -s "${XDG_CONFIG_HOME:=$HOME/.config}/setroot/.setroot-restore" ]; then
@@ -9,7 +11,6 @@ else
         "${DOTFILES:=$HOME/.dotfiles}/bspwm/_wallpaper/nenuphar.jpg" \
         --on 1 -z \
         "$DOTFILES/bspwm/_wallpaper/nenuphar.jpg" &
-
 fi
 
 # bspwm
