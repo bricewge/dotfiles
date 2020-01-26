@@ -10,7 +10,7 @@ tree -a
 ├── .config
 │   ├── autorandr
 │   │   └── postswitch.d
-│   │       └── polybars.sh -> ../../../.local/bin/polybars.sh
+│   │       └── polybars -> ../../../.local/bin/polybars
 │   ├── bspwm
 │   │   ├── bspwmrc
 │   │   ├── dynamic_desktops
@@ -33,7 +33,7 @@ tree -a
 ├── .local
 │   └── bin
 │       ├── mpvctl.sh
-│       ├── polybars.sh
+│       ├── polybars
 │       ├── rofi-sxhkd
 │       ├── scratchpad
 │       ├── sxhkd-listener.sh

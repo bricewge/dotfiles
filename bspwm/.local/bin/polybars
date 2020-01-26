@@ -1,0 +1,28 @@
+#!/bin/sh
+#
+# Setup bspwm desktops and theirs status bar. It can be used either by
+# itself or as a postswitch hook for autorandr.
+
+set -e
+
+if [ -n "$AUTORANDR_MONITORS" ]; then
+    monitors=$(printf %s "$AUTORANDR_MONITORS" | tr ':' "\n")
+else
+    monitors=$(xrandr --query | awk '$2 ~ /^connected/ {print $1}')
+fi
+
+for monitor in ${monitors}; do
+    if [ "$monitor" = "LVDS-1" ]; then
+        bspc monitor "$monitor" -d 1
+        if [ "$(printf "%s\n" "$monitors" | wc -l)" -gt 1 ]; then
+            TRAY_POSITION=none
+        fi
+    else
+        bspc monitor "$monitor" -d  8
+        unset TRAY_POSITION
+        # systemctl --user unset-environment TRAY_POSITION
+    fi
+    herd create polybar "$monitor" || true
+    # herd create polybar "{monitor}" TRAY_POSITION="$TRAY_POSITION"
+    # systemctl --user start "polybar@${monitor}.service"
+done

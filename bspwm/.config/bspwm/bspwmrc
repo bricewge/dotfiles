@@ -57,7 +57,7 @@ wallpaper-blur &
 # * other stuff to start
 scu restart redshift &
 # run polybars on all monitors
-polybars.sh
+polybars
 
 xrdb ~/.Xresources
 
