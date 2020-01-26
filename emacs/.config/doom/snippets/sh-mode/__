@@ -1,0 +1,3 @@
+#!/`(if (equal (file-name-extension buffer-file-name) "zsh") "usr/bin/env zsh" "bin/sh")`
+
+$0
