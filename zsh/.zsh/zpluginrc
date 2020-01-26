@@ -26,10 +26,6 @@ zplugin load 'sindresorhus/pure'
 zplugin ice wait'0a' silent
 zplugin load mafredri/zsh-async
 
-# * man
-zplugin ice $ice_defaults
-zplugin load 'zlsun/solarized-man'
-
 # * prezto
 # Set the key mapping style to 'emacs' or 'vi'.
 zstyle ':prezto:module:editor' key-bindings 'emacs'
