@@ -15,8 +15,12 @@
 (package! webpaste)
 
 (package! guix)
+(package! debbugs)
+(package! daemons)
 
 (package! ascii-art-to-unicode)
+
+(package! bluetooth)
 
 ;; WAITING https://github.com/hlissner/emacs-doom-themes/pull/286
 (package! doom-themes
