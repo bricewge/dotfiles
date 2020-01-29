@@ -282,6 +282,6 @@ super + Escape
   pkill -USR1 -x sxhkd && \
   notify-send -u low "sxhkd reloaded"
 
-# Quit bspwm and kill the panel
+# Display the power menu
 {super + alt + Escape, XF86PowerOff}
-  rofi-power "bspc quit 1"
+  rofi-power
