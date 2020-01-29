@@ -3,7 +3,8 @@
 ROFI_POWER_EXIT=${ROFI_POWER_EXIT:-bspc quit}
 ROFI_POWER_ARGS=${ROFI_POWER_ARGS:-"-dmenu -i -p rofi-power"}
 
-menu="Exit window manager
+menu="Lock session
+Exit window manager
 Reboot system
 Power-off system
 Suspend system
@@ -13,6 +14,9 @@ Hibernate system"
 
 choice=$(printf %s "$menu" | rofi $ROFI_POWER_ARGS | awk '{print $1}' | tr -d '\r\n')
 case $choice in
+  Lock)
+    loginctl lock-session
+    ;;
   Exit)
     $ROFI_POWER_EXIT
     ;;
