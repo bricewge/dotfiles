@@ -55,8 +55,7 @@
    #:docstring "Compositor for X11."
    #:provides '(picom compositor)
    #:start (make-forkexec-constructor
-            '("picom" "--config=/dev/null" "--experimental-backends"
-              "--backend=xrender" "--vsync"))
+            '("picom" "--experimental-backends"))
    #:stop (make-kill-destructor)
    #:actions (make-actions
               (reload "Reload configuration."
