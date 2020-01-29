@@ -67,6 +67,12 @@
    #:start (make-forkexec-constructor '("udiskie"))
    #:stop (make-kill-destructor))
 
+ (make <service>
+   #:docstring "Bluetooth MPRIS proxy."
+   #:provides '(mpris-proxy)
+   #:start (make-forkexec-constructor '("mpris-proxy"))
+   #:stop (make-kill-destructor))
+
  ;; TODO stop should delete all bars
  ;; TODO start should be able to start multiple bars at once
  ;; TODO Handle multiple DISPLAY
@@ -100,4 +106,5 @@
                   picom
                   gpg-agent
                   emacs
-                  udiskie))
+                  udiskie
+                  mpris-proxy))
