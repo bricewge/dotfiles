@@ -1,11 +1,11 @@
 # Load =~/.profile= in compatibility mode. By default it's not loaded
 # by zsh due to incompatibilites with standard shells.
 if [[ $SHLVL == 1 && ! -o LOGIN ]]; then
-    [[ -e ~/.profile ]] && emulate sh -c 'source ~/.profile'
+    [[ -e ~/.profile ]] && emulate sh -c '. ~/.profile'
 fi
 
 if [[ -o INTERACTIVE ]]; then
-    emulate sh -c 'source ~/.shell/interactive.sh'
+    emulate sh -c '. ~/.shell/interactive.sh'
 fi
 
 # zplugin
