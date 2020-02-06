@@ -3,11 +3,12 @@
 # awk -F': ' "/not owned by stow/ {print \"$HOME/\"\$2\" ./bspwm/\"\$2}" | \
 # xargs -n2 diff -u --color
 # TODO display output only if error, like mongooseOS tool mos
-# TODO Set default for all environment variable in {post,pre}-stow
+# TODO {pre,post}-stow should be runned based on Makefile rules
 
 .DEFAULT_GOAL := help
 
 DESTDIR  ?= $$HOME
+ENVIRONMENT := . ./shell/.shell/environment &&
 PKGS ?= $(sort $(patsubst %/, %, $(dir $(wildcard [^_@]*/.))))
 
 REAL_DIRS := $(addprefix $(DESTDIR)/,\
@@ -31,9 +32,9 @@ subheading:= printf "\033[1m%s\033[0m\n"
 PACKAGE: ## Install PACKAGE
 $(PKGS): dirs
 	@$(heading) "Install $@"
-	./$@/pre-stow || test $$? == 127 && true
+	$(ENVIRONMENT) ./$@/pre-stow || test $$? == 127 && true
 	stow -t $(DESTDIR) $@
-	./$@/post-stow || test $$? == 127 && true
+	$(ENVIRONMENT) ./$@/post-stow || test $$? == 127 && true
 
 alacritty bspwm tmux: theme
 # firefox rofi: theme
