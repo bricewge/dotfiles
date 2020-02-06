@@ -92,19 +92,19 @@ draw_bold_text_with_bright_colors: true
 font:
   # The normal (roman) font face to use.
   normal:
-    family: Meslo LG S
+    family: MesloLGS Nerd Font
     # Style can be specified to pick a specific face.
     # style: Regular
 
   # The bold font face
   bold:
-    family: Meslo LG S
+    family: MesloLGS Nerd Font
     # Style can be specified to pick a specific face.
     # style: Bold
 
   # The italic font face
   italic:
-    family: Meslo LG S
+    family: MesloLGS Nerd Font
     # Style can be specified to pick a specific face.
     # style: Italic
 
