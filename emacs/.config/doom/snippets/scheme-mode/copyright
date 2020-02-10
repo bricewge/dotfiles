@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: copyright
+# key: cr
+# condition: t
+# --
+ Copyright © `(format-time-string "%Y")` `user-full-name` <`user-mail-address`>

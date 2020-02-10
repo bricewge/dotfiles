@@ -26,8 +26,10 @@
 ;;     (find-file url)))
 
 ;; ** personal information
-(setq user-mail-address "brice.wge@gmail.com"
+(setq user-mail-address "brice@waegenei.re"
       user-full-name "Brice Waegeneire")
+
+(setq copyright-names-regexp user-mail-address)
 
 ;; * keybindings
 (map!
