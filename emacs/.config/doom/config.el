@@ -212,6 +212,10 @@
   (setq auth-sources '(password-store))
   (auth-source-forget-all-cached))
 
+;; ** debbugs
+(after! debbugs
+  (setq debbugs-gnu-default-packages '("guix" "guix-patches")))
+
 ;; ** rgb
 ;; TODO add support for rainbow-mode in alacritty config
 ;; variable: rainbow-hexadecimal-colors-font-lock-keywords
