@@ -214,7 +214,8 @@
 
 ;; ** debbugs
 (after! debbugs
-  (setq debbugs-gnu-default-packages '("guix" "guix-patches")))
+  (setq debbugs-gnu-persistency-file (concat doom-cache-dir "debbugs")
+        debbugs-gnu-default-packages '("guix" "guix-patches")))
 
 ;; ** rgb
 ;; TODO add support for rainbow-mode in alacritty config
