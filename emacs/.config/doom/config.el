@@ -253,6 +253,11 @@
         :desc "Systemd directives" :nve "d" #'systemd-doc-directives
         :desc "Systemd doc open"   :nve "o" #'systemd-doc-open))
 
+;; ** texinfo
+(after! texinfo
+  :config
+  (add-hook 'texinfo-mode-hook (lambda () (flyspell-mode 1))))
+
 ;; ** vuejs
 (use-package! vue-mode
   :commands (vue-mode)
