@@ -141,6 +141,7 @@
        ;;solidity          ; do you need a blockchain? No.
        ;;swift             ; who asked for emoji variables?
        (web +lsp)                       ; the tubes
+       yaml              ; JSON, but readable
        ;;vala              ; GObjective-C
 
        :email
