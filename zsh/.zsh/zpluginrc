@@ -6,14 +6,6 @@ source "$ZPLGM[BIN_DIR]/zplugin.zsh"
 local ice_defaults
 ice_default="wait'1' silent"
 
-# * theme
-. ~/.zsh/theme.zsh
-
-# reload the theme with signal USR1
-TRAPUSR1() {
-    . ~/.zsh/theme.zsh
-}
-
 # * prompt
 autoload -U promptinit
 

@@ -1,5 +1,11 @@
-# Loaded by every zsh shell Do not put environement variables in it, use
-# ~/.profile for it.
+# Loaded by interactive zsh shells.
+
+# * theme
+. "$HOME/.zsh/theme.zsh"
+# reload the theme with signal USR1
+TRAPUSR1() {
+    . "$HOME/.zsh/theme.zsh"
+}
 
 # * zplugin
 if [ "$TERM" != 'dumb' ]; then
