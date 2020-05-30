@@ -76,12 +76,12 @@ function _history_substring_search_config() {
 
 # NOTE It should be loaded after zsh-syntax-highlighting
 # https://github.com/zsh-users/zsh-history-substring-search#usage
-zplugin ice wait'1' silent atload'_history_substring_search_config'
+zplugin ice wait'1b' silent atload'_history_substring_search_config'
 zplugin load 'zsh-users/zsh-history-substring-search'
 
 
 # ** syntax highlighting
-zplugin ice $ice_defaults
+zplugin ice wait'1a' silent
 zplugin load zsh-users/zsh-syntax-highlighting
 
 # Local Variables:
