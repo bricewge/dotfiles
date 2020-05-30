@@ -54,8 +54,11 @@ zplugin load 'zsh-users/zsh-completions'
 
 # * UI
 # ** notify
-zstyle ':notify:*' command-complete-timeout 15
-zplugin ice $ice_defaults
+# configuration need to be set after the plugin has loaded
+function _notify_config() {
+  zstyle ':notify:*' command-complete-timeout 15
+}
+zplugin ice $ice_defaults atload'_notify_config'
 zplugin load 'marzocchi/zsh-notify'
 
 # ** autosuggestion
