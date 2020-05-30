@@ -1,15 +1,23 @@
-#!/usr/bin/env zsh
+#!/bin/sh
 
-# TODO instalation zplugins
+# TODO installation of zplugins
 
 set -e
 
+export DOTFILES=${DOTFILES:-$PWD}
+
+# To keep stow's hooks POSIX we use a zsh subshell to setup ZSH config
+cat << EOF | zsh
 # shellcheck disable=SC1090
-source "${DOTFILES:-.}/shell/.shell/lib/utils.sh"
+source "$DOTFILES/shell/.shell/lib/utils.sh"
 
 theme_template "$HOME/.zsh/theme.zsh.m4"
 
 source "$DOTFILES/zsh/.zshenv"
-repository https://github.com/zdharma/zplugin.git "$ZPLGM[BIN_DIR]" v2.3
-source "$ZPLGM[BIN_DIR]/zplugin.zsh"
+repository https://github.com/zdharma/zplugin.git "\$ZPLGM[BIN_DIR]" v2.3
+source "$HOME/.zshenv"
+source "$HOME/.zprofile"
+source "$HOME/.zshrc"
 zplugin compile
+exit
+EOF
