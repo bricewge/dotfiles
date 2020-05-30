@@ -17,8 +17,8 @@ fi
 # *** Smart URLs
 # When an URL is pasted escape it's special characters
 autoload -Uz url-quote-magic bracketed-paste-magic
-zle -N bracketed-paste bracketed-paste-magic
 zle -N self-insert url-quote-magic
+zle -N bracketed-paste bracketed-paste-magic
 
 # *** General
 setopt BRACE_CCL          # Allow brace character class list expansion.
@@ -104,6 +104,7 @@ alias ff="firefox"
 alias feh="feh --scale-down --auto-zoom -B black -g ''"
 alias to="webtorrent"
 alias diff="diff --color -u"
+alias pstree='pstree -U'
 
 # ** linux
 # *** ip
