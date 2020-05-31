@@ -9,9 +9,9 @@ TRAPUSR1() {
     . "$HOME/.zsh/theme.zsh"
 }
 
-# * zplugin
+# * zinit
 if [ "$TERM" != 'dumb' ]; then
-    source "$HOME/.zsh/zpluginrc"
+    source "$HOME/.zsh/zinitrc"
 fi
 
 # * zsh config

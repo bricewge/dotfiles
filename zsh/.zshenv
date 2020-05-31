@@ -13,10 +13,11 @@ if [[ -o INTERACTIVE ]]; then
     emulate sh -c '. ~/.shell/interactive.sh'
 fi
 
-# zplugin
-declare -A ZPLGM
-ZPLGM[HOME_DIR]=$HOME/.zsh/zplugin
-ZPLGM[BIN_DIR]=$ZPLGM[HOME_DIR]/bin
+# NOTE This isn't in ~/.zshrc because it is needed to install 'zinit' from
+# 'post-stow'.
+declare -A ZINIT
+ZINIT[HOME_DIR]="$HOME/.zsh"
+ZINIT[BIN_DIR]="$ZINIT[HOME_DIR]/zinit" # zinit's git repository
 
 # Local Variables:
 # mode: sh

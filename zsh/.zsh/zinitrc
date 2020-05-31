@@ -1,7 +1,9 @@
-# zplugin configuration
+# ~/.zsh/zinitrc
+#
+# Where I put my zinit configuration.
 
-# * zplugin
-source "$ZPLGM[BIN_DIR]/zplugin.zsh"
+# * zinit
+source "$ZINIT[BIN_DIR]/zinit.zsh"
 
 local ice_defaults
 ice_default="wait'1' silent"
@@ -10,13 +12,13 @@ ice_default="wait'1' silent"
 autoload -U promptinit
 
 PS1="❯ " # displayed before prompt is loaded ~100ms
-zplugin ice wait'0b' silent \
+zinit ice wait'0b' silent \
     atload"fpath+=(\$PWD) && promptinit && prompt pure && zle .reset-prompt"
-zplugin load 'sindresorhus/pure'
+zinit load 'sindresorhus/pure'
 
 # dependency of pure
-zplugin ice wait'0a' silent
-zplugin load mafredri/zsh-async
+zinit ice wait'0a' silent
+zinit load mafredri/zsh-async
 
 # * prezto
 # Set the key mapping style to 'emacs' or 'vi'.
@@ -37,12 +39,12 @@ zstyle ':prezto:load' pmodule \
     'spectrum' \
     'utility'
 
-zplugin ice $ice_defaults src'init.zsh'
-zplugin load 'sorin-ionescu/prezto'
+zinit ice $ice_defaults src'init.zsh'
+zinit load 'sorin-ionescu/prezto'
 
 # * completions
-zplugin ice $ice_defaults blockf
-zplugin load 'zsh-users/zsh-completions'
+zinit ice $ice_defaults blockf
+zinit load 'zsh-users/zsh-completions'
 
 # * UI
 # ** notify
@@ -50,12 +52,12 @@ zplugin load 'zsh-users/zsh-completions'
 function _notify_config() {
   zstyle ':notify:*' command-complete-timeout 15
 }
-zplugin ice $ice_defaults atload'_notify_config'
-zplugin load 'marzocchi/zsh-notify'
+zinit ice $ice_defaults atload'_notify_config'
+zinit load 'marzocchi/zsh-notify'
 
 # ** autosuggestion
-zplugin ice $ice_defaults atload'_zsh_autosuggest_start'
-zplugin load zsh-users/zsh-autosuggestions
+zinit ice $ice_defaults atload'_zsh_autosuggest_start'
+zinit load zsh-users/zsh-autosuggestions
 
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(history-substring-search-up history-substring-search-down)
 
@@ -71,13 +73,13 @@ function _history_substring_search_config() {
 
 # NOTE It should be loaded after zsh-syntax-highlighting
 # https://github.com/zsh-users/zsh-history-substring-search#usage
-zplugin ice wait'1b' silent atload'_history_substring_search_config'
-zplugin load 'zsh-users/zsh-history-substring-search'
+zinit ice wait'1b' silent atload'_history_substring_search_config'
+zinit load 'zsh-users/zsh-history-substring-search'
 
 
 # ** syntax highlighting
-zplugin ice wait'1a' silent
-zplugin load zsh-users/zsh-syntax-highlighting
+zinit ice wait'1a' silent
+zinit load zsh-users/zsh-syntax-highlighting
 
 # Local Variables:
 # mode: sh

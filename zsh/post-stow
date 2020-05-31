@@ -1,23 +1,24 @@
 #!/bin/sh
 
-# TODO installation of zplugins
-
 set -e
 
 export DOTFILES=${DOTFILES:-$PWD}
 
+# NOTE It doesn't download zinit's pulgins yet.
+
 # To keep stow's hooks POSIX we use a zsh subshell to setup ZSH config
 cat << EOF | zsh
+set -e
+
 # shellcheck disable=SC1090
 source "$DOTFILES/shell/.shell/lib/utils.sh"
 
 theme_template "$HOME/.zsh/theme.zsh.m4"
 
 source "$DOTFILES/zsh/.zshenv"
-repository https://github.com/zdharma/zplugin.git "\$ZPLGM[BIN_DIR]" v2.3
-source "$HOME/.zshenv"
-source "$HOME/.zprofile"
-source "$HOME/.zshrc"
-zplugin compile
-exit
+
+repository https://github.com/zdharma/zinit.git "\$ZINIT[BIN_DIR]" v3.1
+source "\$ZINIT[BIN_DIR]/zinit.zsh"
+zinit compile
+exit $?
 EOF
