@@ -30,7 +30,8 @@ repository() {
             git pull
             git checkout "$branch"
         else
-            git clone "$repo" "$destination" --branch "$branch"
+            git clone "$repo" "$destination"
+            git switch --track --create "$branch"
         fi
     )
 }
