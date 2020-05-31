@@ -1,4 +1,6 @@
-# Loaded by interactive zsh shells.
+# ~/.zshrc
+#
+# Loaded by all interactive ZSH shells.
 
 # * theme
 . "$HOME/.zsh/theme.zsh"

@@ -1,4 +1,7 @@
-# -*- mode: sh -*-
+# ~/.zprofile
+#
+# Last file loaded by login ZSH shells.
 
-# http://www.zsh.org/mla/users/2003/msg00600.html
-[[ -e ~/.profile ]] && emulate sh -c '. ~/.profile'
+# Local Variables:
+# mode: sh
+# End:
