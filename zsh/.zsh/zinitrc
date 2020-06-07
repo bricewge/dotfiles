@@ -50,7 +50,10 @@ zinit load 'zsh-users/zsh-completions'
 # ** notify
 # configuration need to be set after the plugin has loaded
 function _notify_config() {
+  # in seconds
   zstyle ':notify:*' command-complete-timeout 15
+  # im milisecons
+  zstyle ':notify:*' expire-time 5000
 }
 zinit ice $ice_defaults atload'_notify_config'
 zinit load 'marzocchi/zsh-notify'
