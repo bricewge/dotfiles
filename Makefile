@@ -36,7 +36,7 @@ $(PKGS): dirs
 	stow -t $(DESTDIR) $@
 	$(ENVIRONMENT) ./$@/post-stow || test $$? == 127 && true
 
-alacritty bspwm tmux: theme
+alacritty bspwm tmux zsh: theme
 # firefox rofi: theme
 
 $(REAL_DIRS):
