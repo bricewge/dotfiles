@@ -56,7 +56,7 @@ To uninstall several modules at once, spearate them with commas like this
 a ~make uninstall~.
 
 *Note*: not all the installed modifications will be removed since it's only
-a unstow of the symlinks. So what is done in stow's hooks ~pre-stow~ and
+an unstow of the symlinks. So what is done in stow's hooks ~pre-stow~ and
 ~post-stow~ /won't/ be removed.
 
 *** TODO How-to use m4 as a theming engine
