@@ -1,6 +1,7 @@
 # * general
 export PATH="$HOME/.local/bin:$PATH"
 export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-${HOME}/.config}
+export XDG_CACHE_HOME=${XDG_CACHE_HOME:-${HOME}/.local/cache}
 # this file is executed when starting a POSIX *interactive* shell
 export ENV=$HOME/.shell/interactive.sh
 
