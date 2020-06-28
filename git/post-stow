@@ -10,4 +10,4 @@ repository https://github.com/qw3rtman/git-fire.git "$git_fire_dir"
 symlink "$git_fire_dir/git-fire" "$HOME/.local/bin/git-fire"
 
 # WAITING https://github.com/aspiers/stow/issues/3
-symlink "$PWD/_template" "$HOME/.config/git/template"
+symlink "$DOTFILES/git/_template" "$HOME/.config/git/template"
