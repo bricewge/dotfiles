@@ -1,0 +1,84 @@
+#!/usr/bin/env -S guile \\
+--no-auto-compile -e main -s
+!#
+
+;; Usage: envfile [OPTION]FILE... [-- COMMAND [ARG]...]
+;; Load environment from FILE and run COMMAND.
+;;
+;;   --optional=FILE
+;;           if the file can't be read it's skipped
+
+(use-modules (srfi srfi-1)
+             (srfi srfi-2)
+             (srfi srfi-11)
+             (srfi srfi-26)
+             (srfi srfi-98)
+             (ice-9 rdelim)
+             (ice-9 format)
+             (ice-9 match))
+
+(define (getenv-file file name)
+  "Looks up the string name in the environment FILE. The return value is
+#f unless a string of the form NAME=VALUE is found, in which case the
+string VALUE is returned. ")
+
+(define (setenv-file file)
+  "Modifies the environment of the current process, with the environement variables from FILE.")
+
+;; (define (environ-file file)
+;;   "Return the environment from FILE (in the Unix sense) as a list of
+;; strings"
+;;   (with-input-from-file file
+;;     (lambda _
+;;       (let ((vars '()))
+;;        (do ((line (read-line) (read-line))) ((eof-object? line))
+;;         (and-let* ((trimmed (string-trim-both line #\space))
+;;                    (environment-file? trimmed))
+;;           ;; FIXME: Dumb way to unquote environment value
+;;           (set! vars )))))))
+
+(define (environment-line? line)
+  "Return true if LINE isn't empty, contains a = separator,
+and doesn't start with ; or #."
+  (and (not (string-null? line))
+       (string-index line #\=)
+       (let ((index (string-index line (char-set #\; #\#))))
+         (or (not index)
+             (not (= index 0))))))
+
+;; TODO add #:optional?
+(define-public (environment-file file );; #:key (optional? #f))
+  "Set environment variables from FILE.
+Aims to be similar to https://www.freedesktop.org/software/systemd/man/systemd.exec.html#EnvironmentFile=."
+  (with-input-from-file file
+    (lambda _
+      (do ((line (read-line) (read-line))) ((eof-object? line))
+        (and-let* ((trimmed (string-trim-both line #\space))
+                   (environment-file? trimmed))
+          ;; FIXME: Dumb way to unquote environment value
+          (putenv (string-delete #\" trimmed )))))))
+
+;; TODO don't modify the envrionment of envfile, do it with execle
+;; TODO return 1 when some file doesn't exists
+;; NOTE Maybe exit when some file doesn't exists
+(define (main args)
+  (let-values (((files command) (break (cut string=? "--" <>) (cdr args))))
+    (match files
+      (() (exit (display "TODO Usage")))
+      (..1 (map-in-order
+            (lambda (file)
+              (catch 'system-error
+                (lambda () (environment-file file))
+                (lambda (key proc format-string format-args errno . rest)
+                  (apply format #f format-string format-args)
+                  (format (current-error-port)
+                          "envfile: ~a\n"
+                          (apply format #f format-string format-args)))))
+            files)))
+    (match command
+      ((or () ("--")) (format #t "~{~a\n~}" (environ)))
+      (("--" command ...) (apply execlp (car command) command)))))
+
+;; Local Variables:
+;; mode: scheme
+;; End:
