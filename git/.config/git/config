@@ -1,7 +1,7 @@
 [user]
 	email = brice@waegenei.re
 	name = Brice Waegeneire
-	signingkey = A50C94EA19596020
+	signingkey = 8929BBC573CD92063DDD979D3D36CAA0116F0F99
 [core]
 	quotepath = false
 [init]
