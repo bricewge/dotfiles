@@ -10,9 +10,9 @@
 
 (define (make-polybar monitor)
   "Return a service that start a polybar on a specific MONITOR."
-  (let ((sym (strings->symbol "polybar-" monitor)))
+  (let ((name (strings->symbol "polybar-" monitor)))
     (make <service>
-      #:provides (list sym)
+      #:provides (list name)
       #:start (make-forkexec-constructor
                '("polybar" "--reload" "bspwm")
                #:environment-variables
@@ -20,6 +20,12 @@
                   (setenv "MONITOR" monitor)
                   (environ))))
       #:stop (make-kill-destructor))))
+
+(define (polybar-register monitor)
+  "Register a polybar service for MONITOR."
+  (and-let* ((service (make-polybar monitor))
+             (registered? (null? (lookup-services service))))
+    (register-services service)))
 
 (register-services
  (make <service>
@@ -77,20 +83,19 @@
  ;; TODO Handle multiple DISPLAY
  (make <service>
    #:docstring "Manage status bar."
-   #:provides '(polybar bar)
+   #:provides '(polybar status-bar)
    #:actions
+   ;; TODO Refactor actions to pass around the service name istead of
+   ;; derivating it from the monitor name in sperate functions
    (make-actions
-    (create "Create the status bar for MONITOR."
+    (create "Register and start a status bar for MONITOR."
             (lambda* (running #:optional monitor)
-              (and-let* (monitor
-                         (service (make-polybar monitor)))
-                (register-services service)
-                (start service))))
+              (polybar-register monitor)
+              (start (strings->symbol "polybar-" monitor))))
     (delete "Delete the status bar for MONITOR."
             (lambda* (running #:optional monitor)
               (and-let* (monitor
-                         (service (string-append "polybar-" monitor))
-                         (running? (string->symbol service)))
+                         (service (string-append "polybar-" monitor)))
                 (action 'root 'unload service)))))))
 
 ;; Send shepherd into the background
