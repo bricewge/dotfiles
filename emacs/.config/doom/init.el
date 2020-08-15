@@ -176,7 +176,7 @@
        :private
        dired
        org
-       epub
+       ebook
        eshell
        mu4e
        gnus)
