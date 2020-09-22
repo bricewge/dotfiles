@@ -1,4 +1,12 @@
 #!/bin/sh
 
+# shellcheck disable=SC1090
+. "${DOTFILES:-.}/shell/.shell/lib/utils.sh"
+
 mkdir -p "$HOME/.ssh/socket"
 chmod 700 "$HOME/.ssh"
+
+# Work specific - Evolix
+if hostname --fqdn | grep -q 'evolix.net$'; then
+    symlink /home/evolix/.ssh_knownhosts ~/.ssh/known_hosts2
+fi
