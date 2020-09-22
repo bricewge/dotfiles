@@ -32,9 +32,9 @@ subheading:= printf "\033[1m%s\033[0m\n"
 PACKAGE: ## Install PACKAGE
 $(PKGS): dirs
 	@$(heading) "Install $@"
-	$(ENVIRONMENT) ./$@/pre-stow || test $$? == 127 && true
+	$(ENVIRONMENT) ./$@/pre-stow || test $$? -eq 127 && true
 	stow -t $(DESTDIR) $@
-	$(ENVIRONMENT) ./$@/post-stow || test $$? == 127 && true
+	$(ENVIRONMENT) ./$@/post-stow || test $$? -eq 127 && true
 
 alacritty bspwm tmux zsh: theme
 # firefox rofi: theme
