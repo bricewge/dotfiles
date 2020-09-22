@@ -9,7 +9,8 @@ keyid="8929BBC573CD92063DDD979D3D36CAA0116F0F99"
 if ! gpg --list-keys "$keyid" >/dev/null 2>&1; then
     gpg --recv-keys "$keyid"
     printf 'trust\n5\ny\n\n' | gpg --command-fd 0 --edit-key "$keyid"
-    if systemctl --user --quiet is-active gpg-agents.service; then
-        systemctl --user restart gpg-agent.service
+    # shellcheck disable=SC2009 # pgrep isn't in POSIX
+    if ps -o comm= -U "$USER" | grep -q gpg-agent; then
+        gpgconf --reload gpg-agent
     fi
 fi
