@@ -39,5 +39,5 @@
 (use-package! dired-git-info
   :general
   (:states 'normal
-           :keymaps 'dired-mode-map
-           ")" #'dired-git-info-mode))
+   :keymaps 'dired-mode-map
+   ")" #'dired-git-info-mode))
