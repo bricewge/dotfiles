@@ -2,6 +2,9 @@
 #
 # Where I put my zinit configuration.
 
+# TODO Use the more streamlined "for-syntax"
+# https://zdharma.org/zinit/wiki/For-Syntax/
+
 # * zinit
 source "$ZINIT[BIN_DIR]/zinit.zsh"
 
@@ -74,10 +77,13 @@ function _history_substring_search_config() {
     bindkey -M emacs '^N' history-substring-search-down
 }
 
+# NOTE Loading completions is done here since it should be the last plugin
+# to be loaded.
 # NOTE It should be loaded after zsh-syntax-highlighting
 # https://github.com/zsh-users/zsh-history-substring-search#usage
 # WAITING https://github.com/zsh-users/zsh-history-substring-search/pull/108
-zinit ice wait'1b' silent atload'_history_substring_search_config' \
+zinit ice wait'1b' silent \
+  atload'zicompinit; zicdreplay; _history_substring_search_config' \
   ver'dont-overwrite-config'
 # zinit load 'zsh-users/zsh-history-substring-search'
 zinit load 'ericbn/zsh-history-substring-search'
