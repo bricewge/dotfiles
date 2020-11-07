@@ -258,7 +258,7 @@ XF86KbdBrightnessUp
   mpvc next || playerctl next
 
 # ** audio volume
-# # Mute
+# # Mute output
 {super + F10, XF86AudioMute}
   pactl set-sink-mute @DEFAULT_SINK@ toggle
 
@@ -272,8 +272,20 @@ XF86KbdBrightnessUp
   pactl set-sink-volume @DEFAULT_SINK@ +5% && \
   pactl set-sink-mute @DEFAULT_SINK@ 0
 
+# Mute microphone
 XF86AudioMicMute
   pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+# FIXME Can't bind several shortcuts at once, it seems to be bug in
+# sxhkd...
+# Push-to-talk
+Hyper_L
+  pactl set-source-mute @DEFAULT_SOURCE@ 0 && \
+  dunstify "🎙 Microphone enabled" --urgency=low \
+  --printid > "${XDG_RUNTIME_DIR}/sxhkd-ptt.id"
+@Hyper_L
+  pactl set-source-mute @DEFAULT_SOURCE@ 1 && \
+  dunstctl close $(cat "${XDG_RUNTIME_DIR}/sxhkd-ptt.id")
 
 # ** system
 # * window manager
