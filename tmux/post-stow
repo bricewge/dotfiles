@@ -13,7 +13,7 @@ repository https://github.com/rafalrothenberger/tpm.git \
     add-branch-to-plugin
 
 # Test dependencies
-test $(command -v xdg-open)
+command -v xdg-open >/dev/null
 
 "$plugins_dir/tpm/bin/install_plugins"
 
