@@ -2,6 +2,11 @@
 #
 # Loaded by all interactive ZSH shells.
 
+# TODO Move most config files in ~/.config/zsh
+
+# * sh compatibility
+emulate sh -c '. ~/.shell/interactive.sh'
+
 # * theme
 . "$HOME/.zsh/theme.zsh"
 # reload the theme with signal USR1

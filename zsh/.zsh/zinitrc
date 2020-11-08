@@ -2,9 +2,6 @@
 #
 # Where I put my zinit configuration.
 
-# TODO Use the more streamlined "for-syntax"
-# https://zdharma.org/zinit/wiki/For-Syntax/
-
 # * zinit
 source "$ZINIT[BIN_DIR]/zinit.zsh"
 
