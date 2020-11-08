@@ -27,7 +27,7 @@ repository() {
         cd "$destination" || exit 1
         printf "%s: %s at %s\n" "$destination" "$repo" "$branch"
         if git rev-parse --is-inside-work-tree > /dev/null 2>&1 ; then
-            git pull
+            git fetch --all --tags
             git checkout "$branch"
         else
             git clone "$repo" "$destination"
