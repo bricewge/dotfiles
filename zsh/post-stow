@@ -17,8 +17,9 @@ theme_template "$HOME/.zsh/theme.zsh.m4"
 
 source "$DOTFILES/zsh/.zshenv"
 
-repository https://github.com/zdharma/zinit.git "\$ZINIT[BIN_DIR]" v3.1
-source "\$ZINIT[BIN_DIR]/zinit.zsh"
-zinit compile
+repository https://github.com/zdharma/zinit.git "\$ZINIT[BIN_DIR]" v3.5
+# FIXME The following return non zero
+# source "\$ZINIT[BIN_DIR]/zinit.zsh"
+# zinit compile
 exit $?
 EOF
