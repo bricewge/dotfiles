@@ -1,0 +1,20 @@
+#!/bin/sh
+#
+# Send the current $TERM's terminfo to a remote host. To be used in
+# LocalCommand for SSH using a ControllMaster
+#
+# Inspired by https://unix.stackexchange.com/a/67541
+
+# TODO Fix the following case:
+# - no tic on remote host (Guix)
+# - old tic on remote host, don't support "-" (ex Debian 7)
+# # infocmp -x | ssh -t "$host" '
+# # cat > "$TERM.info" && tic -x "$TERM.info"'
+
+host=$1
+
+[ -x infocmp ] && echo "Command not found: ifocmp" >&2 && exit 1
+
+# TODO if remote terminfo file exists then exit
+
+infocmp | ssh "$host" "tic -" 2>/dev/null
