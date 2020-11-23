@@ -53,8 +53,7 @@ m4 $m4_files "$XDG_CONFIG_HOME/bspwm/theme.sh.m4" \
 m4 $m4_files "$XDG_CONFIG_HOME/xsecurelock/theme.env.m4" \
     > "$XDG_CONFIG_HOME/xsecurelock/theme.env"
 # FIXME I'm ugly
-herd restart xss-lock || true
-systemctl --user restart xss-lock || true
+herd restart xss-lock || systemctl --user restart xss-lock || true
 
 # alacritty
 m4 $m4_files "$XDG_CONFIG_HOME/alacritty/alacritty.yml.m4" \
