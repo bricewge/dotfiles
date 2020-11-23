@@ -1,0 +1,16 @@
+#!/bin/sh
+# Swith between dark and light variant of a theme based on the time period
+# (ie day or night).
+
+event=$1
+old_period=$2
+new_period=$3
+
+[ "$event" != "period-changed" ] && exit 0
+
+case $new_period in
+    day)
+        exec theme light;;
+    night)
+        exec theme dark;;
+esac
