@@ -17,4 +17,5 @@ hex_num=$(printf '%x' $XSCREENSAVER_WINDOW)
 window_id=$hex_prefix$hex_num
 
 xloadimage -windowid "$window_id" \
+    -border "$XSECURELOCK_SAVER_BACKGROUND" \
     -fullscreen "$XSECURELOCK_SAVER_WALLPAPER"
