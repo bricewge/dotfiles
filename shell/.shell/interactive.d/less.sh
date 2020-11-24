@@ -4,7 +4,9 @@
 
 # shellcheck disable=SC2155
 
-# NOTE `bold` make use of the bright colors
+# NOTE Based on your terminal settings `bold` may make use of the bright
+# colors instead of the normal ones. For example it's the default for
+# Alacritty's option "draw_bold_text_with_bright_colors".
 
 # blink
 export LESS_TERMCAP_mb=$(tput bold; tput setaf 1)
@@ -13,7 +15,7 @@ export LESS_TERMCAP_md=$(tput bold; tput setaf 1)
 # exit
 export LESS_TERMCAP_me=$(tput sgr0)
 # standout
-export LESS_TERMCAP_so=$(tput smso; tput bold; tput setaf 2; tput setab 7)
+export LESS_TERMCAP_so=$(tput sgr0; tput smso; tput bold)
 export LESS_TERMCAP_se=$(tput rmso; tput sgr0)
 # underline
 export LESS_TERMCAP_us=$(tput smul;  tput setaf 2)
