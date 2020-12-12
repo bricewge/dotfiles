@@ -7,7 +7,8 @@
     #:stop (make-kill-destructor)
     #:actions (make-actions
                (reload "Reload configuration."
-                       (make-kill-destructor SIGUSR1)))))
+                       (lambda (pid . args)
+                         (kill (- pid) SIGUSR1))))))
 
 (register-services picom)
 
