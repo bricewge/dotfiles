@@ -38,6 +38,13 @@ ln -sf "$theme_file" "$state_file"
 # we want the variant file (light|dark).m4 and base.m4
 m4_files=$XDG_CONFIG_HOME/theme/$theme/[b$(echo "$variant" | cut -c1)]*.m4
 
+# TODO Use the template function instead of specific calls to m4
+
+# * xsettingsd
+m4 $m4_files "$XDG_CONFIG_HOME/xsettingsd/xsettingsd.conf.m4" \
+    > "$XDG_CONFIG_HOME/xsettingsd/xsettingsd.conf"
+herd reload xsettingsd
+
 # * polybar
 m4 $m4_files "$XDG_CONFIG_HOME/polybar/config.m4" \
     > "$XDG_CONFIG_HOME/polybar/config"
@@ -69,11 +76,6 @@ tmux source-file "$HOME/.tmux.conf" || true
 m4 $m4_files "$HOME/.zsh/theme.zsh.m4" \
     > "$HOME/.zsh/theme.zsh"
 killall -USR1 zsh
-
-# firefox
-# TODO Add support to theme changing not only variant
-# TODO Add support to set varant not only toggling
-pkill -USR1 -f "python.+zen_fox_toggle_light_dark.py" || true
 
 # * rofi
 ln -sf "$XDG_CONFIG_HOME/rofi/${theme}-$variant" "$XDG_CONFIG_HOME/rofi/config"
