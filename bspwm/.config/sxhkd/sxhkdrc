@@ -280,12 +280,9 @@ XF86AudioMicMute
 # sxhkd...
 # Push-to-talk
 Hyper_L
-  pactl set-source-mute @DEFAULT_SOURCE@ 0 && \
-  dunstify "🎙 Microphone enabled" --urgency=low \
-  --printid > "${XDG_RUNTIME_DIR}/sxhkd-ptt.id"
+  push-to-talk on
 @Hyper_L
-  pactl set-source-mute @DEFAULT_SOURCE@ 1 && \
-  dunstctl close $(cat "${XDG_RUNTIME_DIR}/sxhkd-ptt.id")
+  push-to-talk off
 
 # ** system
 # * window manager

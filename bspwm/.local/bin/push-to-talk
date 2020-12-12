@@ -1,0 +1,32 @@
+#!/bin/sh
+#
+# Toggle the microphone input. Aught to be used with a keybinding daemon
+# which activate the mic on a key press and disable it at release.
+
+set -e
+
+pid_file=${XDG_RUNTIME_DIR}/sxhkd-ptt.id
+
+usage() {
+    echo "Usage: push-to-talk ( on | off )"
+}
+
+on() {
+    pactl set-source-mute @DEFAULT_SOURCE@ 0
+    dunstify "Microphone enabled" \
+        --urgency=low --timeout=0 \
+        --printid > "$pid_file"
+}
+
+off() {
+    pactl set-source-mute @DEFAULT_SOURCE@ 1
+    dunstify --close="$(cat "$pid_file")"
+    rm "$pid_file"
+}
+
+[ "$#" -ne 1 ] && usage
+
+case "$1" in
+    on) on;;
+    off) off;;
+esac
