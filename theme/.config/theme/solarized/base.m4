@@ -1,7 +1,7 @@
+divert(-1)
 # Solarized theme colors.
 # https://ethanschoonover.com/solarized/
 
-divert(-1)
                                                  # | solarized | termcol   |
                                                  # |-----------+-----------|
 define(`COLOR0',                    ``#073642'') # | base02    | black     |

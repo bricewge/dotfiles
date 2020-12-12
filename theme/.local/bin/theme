@@ -38,7 +38,7 @@ ln -sf "$theme_file" "$state_file"
 # we want the variant file (light|dark).m4 and base.m4
 m4_files=$XDG_CONFIG_HOME/theme/$theme/[b$(echo "$variant" | cut -c1)]*.m4
 
-# polybar
+# * polybar
 m4 $m4_files "$XDG_CONFIG_HOME/polybar/config.m4" \
     > "$XDG_CONFIG_HOME/polybar/config"
 pkill -USR1 polybar || true
@@ -49,22 +49,23 @@ m4 $m4_files "$XDG_CONFIG_HOME/bspwm/theme.sh.m4" \
 # shellcheck disable=SC1090
 .  "$XDG_CONFIG_HOME/bspwm/theme.sh"
 
-# xsecurelock
+# * xsecurelock
 m4 $m4_files "$XDG_CONFIG_HOME/xsecurelock/theme.env.m4" \
     > "$XDG_CONFIG_HOME/xsecurelock/theme.env"
-# FIXME I'm ugly
+# FIXME I'm ugly. And DANGEROUS! It may unlock the screen without entering
+# a valid password...
 herd restart xss-lock || systemctl --user restart xss-lock || true
 
-# alacritty
+# * alacritty
 m4 $m4_files "$XDG_CONFIG_HOME/alacritty/alacritty.yml.m4" \
     > "$XDG_CONFIG_HOME/alacritty/alacritty.yml"
 
-# tmux
+# * tmux
 m4 $m4_files "$HOME/.tmux.conf.m4" \
     > "$HOME/.tmux.conf"
 tmux source-file "$HOME/.tmux.conf" || true
 
-# zsh
+# * zsh
 m4 $m4_files "$HOME/.zsh/theme.zsh.m4" \
     > "$HOME/.zsh/theme.zsh"
 killall -USR1 zsh
@@ -74,7 +75,7 @@ killall -USR1 zsh
 # TODO Add support to set varant not only toggling
 pkill -USR1 -f "python.+zen_fox_toggle_light_dark.py" || true
 
-# rofi
+# * rofi
 ln -sf "$XDG_CONFIG_HOME/rofi/${theme}-$variant" "$XDG_CONFIG_HOME/rofi/config"
 
 # emacs
