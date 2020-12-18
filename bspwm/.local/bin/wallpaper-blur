@@ -21,6 +21,8 @@ set_monitor_blur() {
     restore_path=${XDG_CONFIG_HOME:-$HOME/.config}/setroot/.setroot-restore
     tmp_file=$(mktemp)
     index=$(monitor_index "$monitor")
+    # FIXME The following substitution assume a specific order of
+    # arguments. It's very fragile!
     awk "{sub(/'--on' '$index' '--blur' '[0-9]+/,\"'--on' '$index' '--blur' '$blur\"); print \$0}" \
         "$restore_path" >! "$tmp_file"
     mv -f "$tmp_file" "$restore_path"

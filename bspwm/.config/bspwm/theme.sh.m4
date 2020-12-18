@@ -6,10 +6,12 @@
 if [ -s "${XDG_CONFIG_HOME:=$HOME/.config}/setroot/.setroot-restore" ]; then
     setroot --restore &
 else
+    # NOTE The order of argument is assumed by wallpaper-blur. When
+    # changing the arguments check that it doesn't broke.
     setroot --store --blank-color 'COLOR_BACKGROUND_ALT' \
-        --on 0 -z \
+        --on 0 --blur 0 -z \
         "${DOTFILES:=$HOME/.dotfiles}/bspwm/_wallpaper/nenuphar.jpg" \
-        --on 1 -z \
+        --on 1 --blur 0 -z \
         "$DOTFILES/bspwm/_wallpaper/nenuphar.jpg" &
 fi
 
