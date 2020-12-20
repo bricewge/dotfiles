@@ -1,5 +1,7 @@
 #!/bin/sh
-#
+
+set -e
+
 # TODO Re-add mpvctl
 
 # shellcheck disable=SC1090
@@ -8,16 +10,27 @@
 config_dir=$XDG_CONFIG_HOME/mpv
 mkdir -p "$config_dir/scripts"
 
+# * thumbnail
 mpv_thumbnail_dir=$HOME/.local/src/mpv_thumbnail_script
 repository https://github.com/TheAMM/mpv_thumbnail_script.git \
     "$mpv_thumbnail_dir"
 # Upstream generate those files with python and make. Let's do the same the UNIX
 # way, with our trusty cat.
 (
-    cd "$mpv_thumbnail_dir" || exit 1
+    cd "$mpv_thumbnail_dir" || exit
     cat "lib/helpers.lua" "lib/sha1.lua" "src/options.lua" \
         "src/thumbnailer_shared.lua" "src/patched_osc.lua" \
         > "$config_dir/scripts/mpv_thumbnail_script_client_osc.lua"
     cat "lib/helpers.lua" "src/options.lua" "src/thumbnailer_server.lua" \
         > "$config_dir/scripts/mpv_thumbnail_script_server.lua"
 )
+
+# * sponsorblock
+command -v python3 1>/dev/null || echo "python3 need to be installed!"
+mpv_sponsorblock_dir=$HOME/.local/src/mpv_sponsorblock
+repository https://github.com/po5/mpv_sponsorblock.git \
+    "$mpv_sponsorblock_dir"
+ln -s "$mpv_sponsorblock_dir"/sponsorblock.lua \
+    "$config_dir/scripts/sponsorblock.lua"
+ln -s "$mpv_sponsorblock_dir"/sponsorblock_shared \
+    "$config_dir/scripts/sponsorblock_shared"
