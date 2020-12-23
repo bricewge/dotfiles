@@ -105,6 +105,8 @@
   (setq-default fill-column (string-to-number (getenv "MANWIDTH"))))
 
 ;; * completion
+;; ** selectrum
+
 ;; ** ivy
 ;; (map! :after ivy
 ;;       (:map ivy-minibuffer-map

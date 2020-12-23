@@ -9,10 +9,10 @@
        (company +childframe)      ; the ultimate code completion backend
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       (ivy                             ; a search engine for love and life
-        ;; +fuzzy
-        +prescient
-        +childframe)
+       ;; (ivy                             ; a search engine for love and life
+       ;;  ;; +fuzzy
+       ;;  +prescient
+       ;;  +childframe)
 
        :ui
        deft                      ; notational velocity for Emacs
@@ -179,6 +179,8 @@
        ebook
        eshell
        mu4e
+       (selectrum +prescient
+                  +childframe)
        gnus)
 
        ;; ;; provides a Spacemacs-inspired keybinding scheme, a custom yasnippet
