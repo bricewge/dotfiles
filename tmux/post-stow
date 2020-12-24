@@ -5,6 +5,11 @@ set -e
 # shellcheck disable=SC1090
 . "${DOTFILES:-.}/shell/.shell/lib/utils.sh"
 
+# xpanes
+repository https://github.com/greymd/tmux-xpanes.git \
+    "$HOME/.local/src/tmux-xpanes/"
+ln -s "$HOME/.local/src/tmux-xpanes/" "$HOME/.local/bin/xpanes"
+
 plugins_dir="$HOME"/.tmux/plugins
 # WAITING https://github.com/tmux-plugins/tpm/pull/158
 # repository https://github.com/tmux-plugins/tpm.git \
