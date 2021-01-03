@@ -1,21 +1,17 @@
 #!/bin/sh
 #
-# Display a static wallpaper on locked screen. It is meant to be executed
+# Display a blured wallpaper on locked screen. It is meant to be executed
 # by 'xsecurelock' by setting 'XSECURELOCK_SAVER' to this script.
-#
-# From https://github.com/google/xsecurelock/issues/92#issuecomment-646305188
 
-# TODO Make it support multiple monitors.
-#
-# NOTE 'xloadimage' can't do it on it's own but a script generating an
-# image coresponding to the display disposition would work, something
-# similar to http://dmwit.com/bacteria/. An other take would be write a
-# tool in guile which can set wallpaper using xinerama.
-
-hex_prefix=0x
-hex_num=$(printf '%x' $XSCREENSAVER_WINDOW)
-window_id=$hex_prefix$hex_num
-
-xloadimage -windowid "$window_id" \
-    -border "$XSECURELOCK_SAVER_BACKGROUND" \
-    -fullscreen "$XSECURELOCK_SAVER_WALLPAPER"
+ffmpeg -i "$XSECURELOCK_SAVER_WALLPAPER" \
+  -filter_complex "boxblur=10:1" \
+  -f image2pipe \
+  - |
+  mpv --no-config \
+    --no-audio \
+    --no-input-terminal \
+    --no-stop-screensaver \
+    --wid="$XSCREENSAVER_WINDOW" \
+    --panscan=1.0 \
+    --image-display-duration=inf \
+    -
