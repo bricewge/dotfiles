@@ -271,6 +271,12 @@
 
 ;; * app
 
+;; ** erc
+(after! erc
+  (persp-def-auto-persp "erc"
+                        :parameters '((dont-save-to-file . t))
+                        :mode 'erc-mode))
+
 ;; * collab
 
 ;; * config
