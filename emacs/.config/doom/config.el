@@ -273,9 +273,30 @@
 
 ;; ** erc
 (after! erc
+  (add-to-list 'erc-modules 'notifications)
+
+  (after! erc-scrolltoplace
+    (add-to-list 'erc-modules 'scrolltoplace))
+  (erc-update-modules)
+
+  ;; *** behaviour
   (persp-def-auto-persp "erc"
                         :parameters '((dont-save-to-file . t))
-                        :mode 'erc-mode))
+                        :mode 'erc-mode)
+  (setq erc-query-display 'buffer)
+
+
+  ;; *** style
+  (setq erc-prompt
+        (lambda ()
+          (let ((prompt (if (and (boundp 'erc-default-recipients)
+                                 (erc-default-target))
+                            (concat (if (erc-query-buffer-p) "@" "")
+                                    (erc-default-target)
+                                    ">")
+                          "ERC>")))
+            (erc-propertize prompt 'read-only t 'rear-nonsticky t
+                            'front-nonsticky t)))))
 
 ;; * collab
 

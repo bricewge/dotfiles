@@ -36,3 +36,4 @@
 (package! vimgolf :recipe (:host github :repo "timvisher/vimgolf.el"))
 
 (package! counsel-tramp)
+(package! erc-scrolltoplace)
