@@ -295,7 +295,7 @@
                                     (erc-default-target)
                                     ">")
                           "ERC>")))
-            (erc-propertize prompt 'read-only t 'rear-nonsticky t
+            (propertize prompt 'read-only t 'rear-nonsticky t
                             'front-nonsticky t)))))
 
 ;; * collab
