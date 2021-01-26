@@ -4,7 +4,6 @@
 (package! selectrum)
 (package! marginalia)
 (package! consult)
-(package! consult-selectrum)
 (package! embark)
 
 
