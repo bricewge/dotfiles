@@ -2,7 +2,8 @@
 
 ;; Features:
 ;; - +childframe
-;; - +prescient)
+;; - +prescient
+;; - +orderless
 
 (use-package! selectrum
   :config
@@ -10,6 +11,10 @@
   (marginalia-mode)
   (when (featurep! +childframe)
     (mini-frame-mode +1))
+  (when (featurep! +orderless)
+    (setq selectrum-refine-candidates-function #'orderless-filter)
+    (setq selectrum-highlight-candidates-function
+          #'orderless-highlight-matches))
   (when (featurep! +prescient)
     (selectrum-prescient-mode +1)
     (prescient-persist-mode +1)))

@@ -6,6 +6,8 @@
 (package! consult)
 (package! embark)
 
+(when (featurep! +orderless)
+  (package! orderless))
 
 (when (featurep! +prescient)
   (package! prescient)
