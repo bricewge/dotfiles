@@ -14,6 +14,8 @@
 	smtpserver = /run/current-system/sw/bin/msmtp
 	suppresscc = author
 	assume8bitEncoding = UTF-8
+[format]
+	coverLetter = auto
 [github]
 	user = bricewge
 [alias]
