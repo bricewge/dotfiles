@@ -130,6 +130,7 @@ format =  <label>
 ; TODO change bluetooth headset color when battery is low
 [module/volume]
 type = internal/pulseaudio
+click-right = pkill -U $(id -u) pavucontrol || pavucontrol
 
 format-volume = <ramp-volume> <label-volume>
 format-muted = <label-muted>
