@@ -11,7 +11,7 @@
 [pull]
 	rebase = true
 [sendemail]
-	smtpCmd = msmtp
+	sendmailCmd = msmtp
 	suppresscc = author
 	assume8bitEncoding = UTF-8
 [format]
