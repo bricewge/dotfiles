@@ -11,7 +11,7 @@
 [pull]
 	rebase = true
 [sendemail]
-	smtpserver = /run/current-system/sw/bin/msmtp
+	smtpCmd = msmtp
 	suppresscc = author
 	assume8bitEncoding = UTF-8
 [format]
