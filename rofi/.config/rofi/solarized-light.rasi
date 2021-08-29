@@ -1,0 +1,6 @@
+/*-*- mode: css; -*-*/
+
+/* This file is empty, because we want to use the default theme but we
+ * can't define this declarativly. If one day it is possible it should work
+ * with the following line. */
+/* @theme "default" */

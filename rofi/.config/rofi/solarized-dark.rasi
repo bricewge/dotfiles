@@ -1,0 +1,7 @@
+/*-*- mode: css; -*-*/
+
+configuration {
+   bw: 4;
+}
+
+@theme "solarized"

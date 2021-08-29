@@ -78,7 +78,8 @@ m4 $m4_files "$HOME/.zsh/theme.zsh.m4" \
 killall -USR1 zsh
 
 # * rofi
-ln -sf "$XDG_CONFIG_HOME/rofi/${theme}-$variant" "$XDG_CONFIG_HOME/rofi/config"
+ln -sf "$XDG_CONFIG_HOME/rofi/${theme}-${variant}.rasi" \
+    "$XDG_CONFIG_HOME/rofi/current-theme.rasi"
 
 # emacs
 elisp="(progn (setq doom-theme 'doom-${theme}-${variant}) (doom/reload-theme))"

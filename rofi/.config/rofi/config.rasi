@@ -1,0 +1,12 @@
+/*-*- mode: css; -*-*/
+
+configuration {
+	modi: "run,drun,combi,ssh,window";
+	font: "MesloLGS Nerd Font 12";
+	terminal: "alacritty";
+	ssh-command: "{terminal} -e "{ssh-client} {host}"";
+	sidebar-mode: true;
+	combi-modi: "run,drun,ssh,window";
+}
+
+@import "current-theme"
