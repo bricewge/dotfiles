@@ -121,9 +121,7 @@ super + o: {o, O}
 # *** picture in picture
 # Picture-in-picutre mode
 super + V
-  picom-trans -c -o 75 && \
-  bspc node --state floating --flag sticky && \
-  xdotool getactivewindow windowsize  700 400 windowmove 1100 600
+  picture-in-picture
 
 # ** scratchpad
 # Scratchpad termninal

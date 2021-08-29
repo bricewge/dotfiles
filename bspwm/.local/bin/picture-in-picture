@@ -1,0 +1,16 @@
+#!/bin/sh
+#
+# Toggle a window to be in picture-in-pincture mode.
+
+# FIXME Use awk to calculate the windowmove argument with decimals
+
+if bspc query --nodes --node .sticky.floating; then
+    bspc node --state tiled --flag sticky=off && \
+        picom-trans -c -o 100
+else
+    bspc node --state floating --flag sticky=on && \
+        xdotool getactivewindow \
+                windowsize 25% 25% \
+                windowmove $((70 + 5 * 9/16))% 70% && \
+        picom-trans -c -o 75
+fi
