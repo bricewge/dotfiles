@@ -22,16 +22,6 @@
 
 (package! bluetooth)
 
-;; WAITING https://github.com/hlissner/emacs-doom-themes/pull/286
-(package! doom-themes
-  :recipe
-  (:host github
-         :repo "hlissner/emacs-doom-themes"
-         :fork (:host nil
-                      :repo "https://github.com/bricewge/emacs-doom-themes.git"
-                      :branch "bricewge"
-                      :remote "bricewge")
-         :files ("*.el" "themes/*.el")))
 
 (package! vimgolf :recipe (:host github :repo "timvisher/vimgolf.el"))
 
