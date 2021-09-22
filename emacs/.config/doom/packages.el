@@ -20,8 +20,9 @@
 
 (package! ascii-art-to-unicode)
 
-(package! bluetooth)
+(package! sed-mode)
 
+(package! bluetooth)
 
 (package! vimgolf :recipe (:host github :repo "timvisher/vimgolf.el"))
 
