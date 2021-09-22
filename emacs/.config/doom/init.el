@@ -13,6 +13,7 @@
        ;;  ;; +fuzzy
        ;;  +prescient
        ;;  +childframe)
+       vertico
 
        :ui
        deft                      ; notational velocity for Emacs
@@ -181,8 +182,8 @@
        ebook
        eshell
        mu4e
-       (selectrum +prescient
-                  +childframe)
+       ;; (selectrum +orderless
+       ;;            +childframe)
        gnus)
 
        ;; ;; provides a Spacemacs-inspired keybinding scheme, a custom yasnippet
