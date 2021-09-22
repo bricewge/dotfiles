@@ -125,6 +125,7 @@
         +babel       ; running code in org
         +capture     ; org-capture in and outside of Emacs
         +export      ; Exporting org to whatever you want
+        +roam2
         +present)    ; Emacs for presentations
        ;;perl              ; write code no one else can comprehend
        php               ; perl's insecure younger brother
