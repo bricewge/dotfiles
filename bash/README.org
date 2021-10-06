@@ -1,0 +1,6 @@
+#+TITLE: Bash
+
+* Note
+Even tho I try to avoid using Bash, it's the default shell on most system
+these days, so this configuration is the strict minimum for it to use a
+generic shell configuration.
