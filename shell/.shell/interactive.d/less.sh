@@ -8,18 +8,21 @@
 # colors instead of the normal ones. For example it's the default for
 # Alacritty's option "draw_bold_text_with_bright_colors".
 
-# blink
-export LESS_TERMCAP_mb=$(tput bold; tput setaf 1)
-# bold
-export LESS_TERMCAP_md=$(tput bold; tput setaf 1)
-# exit
-export LESS_TERMCAP_me=$(tput sgr0)
-# standout
-export LESS_TERMCAP_so=$(tput sgr0; tput smso; tput bold)
-export LESS_TERMCAP_se=$(tput rmso; tput sgr0)
-# underline
-export LESS_TERMCAP_us=$(tput smul;  tput setaf 2)
-export LESS_TERMCAP_ue=$(tput rmul; tput sgr0)
+# When there is no terminal, don't try to get it's capabilites.
+if (tty && command -v tput) 1>/dev/null; then
+  # blink
+  export LESS_TERMCAP_mb=$(tput bold; tput setaf 1)
+  # bold
+  export LESS_TERMCAP_md=$(tput bold; tput setaf 1)
+  # exit
+  export LESS_TERMCAP_me=$(tput sgr0)
+  # standout
+  export LESS_TERMCAP_so=$(tput sgr0; tput smso; tput bold)
+  export LESS_TERMCAP_se=$(tput rmso; tput sgr0)
+  # underline
+  export LESS_TERMCAP_us=$(tput smul;  tput setaf 2)
+  export LESS_TERMCAP_ue=$(tput rmul; tput sgr0)
+fi
 
 export LESS="--RAW-CONTROL-CHARS --mouse"
 export GROFF_NO_SGR=1
