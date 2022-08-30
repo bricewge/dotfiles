@@ -23,3 +23,7 @@
 	crypt = crypt
 [help]
 	autocorrect = 1
+
+# Overwrite previous settings
+[include]
+	path = ~/.config/git/config.d/*
