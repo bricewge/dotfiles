@@ -224,6 +224,38 @@
 ;; variable: rainbow-hexadecimal-colors-font-lock-keywords
 ;; example value: '0x073642'
 
+;; ** denote
+
+
+(after! denote
+  (setq denote-directory "~/org/denote/")
+
+  (setq denote-date-prompt-use-org-read-date t)
+  (after! dired
+    (add-hook 'dired-mode-hook #'denote-dired-mode-in-directories))
+  (after! xref
+    (setq xref-search-program 'ripgrep))
+
+  (defun bricewge/denote-weeklies ()
+    "Create an entry tagged 'weeklies' with the date as its title.
+If a journal for the current day exists, visit it.  If multiple
+entries exist, prompt with completion for a choice between them.
+Else create a new file."
+    (interactive)
+    (let* ((today (format-time-string "%Y-W%W"))
+           (string (denote-sluggify today))
+           (files (denote-directory-files-matching-regexp string)))
+      (cond
+       ((> (length files) 1)
+        (find-file (completing-read "Select file: " files nil :require-match)))
+       (files
+        (find-file (car files)))
+       (t
+        (denote
+         today
+         '("weeklies"))))))
+  )
+
 ;; * lang
 ;; ** guile
 (after! guix
