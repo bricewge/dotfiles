@@ -82,5 +82,4 @@ ln -sf "$XDG_CONFIG_HOME/rofi/${theme}-${variant}.rasi" \
     "$XDG_CONFIG_HOME/rofi/current-theme.rasi"
 
 # emacs
-elisp="(progn (setq doom-theme 'doom-${theme}-${variant}) (doom/reload-theme))"
-emacsclient --eval "$elisp" || true
+emacsclient --eval "(load-theme 'doom-${theme}-${variant})" || true
