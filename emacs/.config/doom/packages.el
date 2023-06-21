@@ -29,3 +29,9 @@
 (package! denote-menu)
 
 (package! erc-scrolltoplace)
+
+;; TODO Fixes https://github.com/doomemacs/themes/issues/668
+(unpin! doom-themes)
+(package! doom-themes
+  :recipe (:host github :repo "bricewge/emacs-doom-themes")
+  :pin nil)
