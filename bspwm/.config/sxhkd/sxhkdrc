@@ -154,7 +154,7 @@ super + space ; f
 
 # Web browser
 super + space ; {w, W}
-  {firefox,chromium}
+  firefox {_,-P} || icecat {_,-P}
 
 # Video player
 super + space ; v
