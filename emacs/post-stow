@@ -11,5 +11,5 @@ tic -x -o "$HOME/.terminfo" "${DOTFILES:-.}/emacs/_xterm-24bits.terminfo"
 # doom emacs
 repository https://github.com/hlissner/doom-emacs \
     "$HOME/.emacs.d" \
-    develop
+    master
 "$HOME/.emacs.d/bin/doom" sync
